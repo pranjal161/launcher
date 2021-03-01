@@ -28,6 +28,9 @@ const ContractTable = (props: { contractUrl: string; }) => {
     function getData() {
         get(props.contractUrl).then(response => {
             if (response && response['_links']['item']) {
+                if (!Array.isArray(response['_links']['item'])) {
+                    response['_links']['item'] = [response['_links']['item']];
+                }
                 setContractData(response['_links']['item'])
             }
         });

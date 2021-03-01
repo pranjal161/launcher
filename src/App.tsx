@@ -38,7 +38,7 @@ function App() {
           isLoading && (
             <div className="spinner">
               <DxcSpinner
-               margin="xxsmall"
+                margin="xxsmall"
                 mode="overlay" />
             </div>
 
