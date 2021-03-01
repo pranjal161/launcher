@@ -4,17 +4,28 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { AppConfig } from './../../config/appConfig';
 import { DxcTabs } from '@dxc-technology/halstack-react'
+import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
     const contractUrl = location.state.contractUrl;
     const [contractData, setContractData] = useState<undefined | any>();
+    const [partyRole, setPartyRoleData] = useState<undefined | any>();
     const config = AppConfig;
 
     const getData = async (contractUrl: string) => {
-        const result = await axios.get(contractUrl, { headers: config.headers });
-        await setContractData(result.data);
+        axios.get(contractUrl, { headers: config.headers }).then(result => {
+            setContractData(result.data);
+            if (result.data._links && result.data._links['contract:role_list']) {
+                const partyUrl: string = result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
+                axios.get(partyUrl, { headers: config.headers }).then(partyRoleRes => {
+                    if (partyRoleRes && partyRoleRes.data._links && partyRoleRes.data._links.item) {
+                        setPartyRoleData(partyRoleRes.data._links.item);
+                    }
+                });
+            }
+        });
     }
 
     useEffect(() => {
@@ -59,7 +70,9 @@ const ContractSummary = () => {
                     <div> {t('_INVESTMENT')}</div>
                 )}
                 {activeTab === 1 && (
-                    <div>{t("_INTERESTED_PARTIES")}</div>
+                    <div>
+                        <PartyRoleTable roles={partyRole} />
+                    </div>
                 )}
                 {activeTab === 2 && (
                     <div>{t("_RISKS")}</div>
