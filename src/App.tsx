@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import ContractSummary from './pages/contractSummary/contractSummary';
 import HomePage from './pages/homePage/homePage';
+import ClientView from './pages/clientView/clientView';
 import Header from './components/header/header';
 import axios from 'axios';
 import { useState } from 'react';
@@ -32,7 +33,6 @@ function App() {
 
   return (
     <>
-      <Header />
       <>
         {
           isLoading && (
@@ -49,6 +49,7 @@ function App() {
         {
           ready && (
             <Router>
+                <Header />
               <Switch>
                 <Route exact path="/">
                   <Redirect to="/home" />
@@ -58,6 +59,9 @@ function App() {
                 </Route>
                 <Route path="/contracts/:contractId" exact>
                   <ContractSummary />
+                </Route>
+                <Route path="/client/person/:personId" exact>
+                  <ClientView />
                 </Route>
               </Switch>
             </Router>
