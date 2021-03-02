@@ -1,0 +1,67 @@
+# Name of current repository for validation. It has to match the name of the repository where this file is.
+repositoryName: "graphtalk-launcher-react"
+
+# Pipeline to be executed. It has to match the constants defined in the Assure Library (pipelineRunner.groovy).
+# It does not need to be modify for standard -lambda projects (value='LAMBDA_JS_PIPELINE')
+pipelineType: "UI_PIPELINE"
+
+#### Jenkins Assure library Repo values #####
+libraryOrg: "diaas"
+libraryRepo: "assure-platform-jenkins-projects-library"
+libraryBranch: "master"
+libraryRunnerPath: "/src/org/assure/jenkins/pipelineRunner.groovy"
+
+##### GitHub data
+#gitHubUrl: "" // Not required as using PDXC default URL
+gitHubCredential: "pdxc-jenkins"
+gitEmail: "jenkins@dxc.com"
+gitUsername: "Jenkins User"
+
+##### Notification (post)
+sendMail: "true"
+emailFrom: "no-reply@platformdxc-mg.com"
+emailTo: ""
+attachmentFileEmail: ""
+
+###### Set up npm (setup)
+npmrcCredential: "npmrc"
+
+##### Set version parameters (setup)
+dependenciesPackageFile: "package.json"
+dependenciesPackagePath: ""
+dependenciesPackageAttribute: "version"
+
+##### Execute npm install (install)
+#dependenciesPackagePath: "" //Already defined
+scriptName: "install"
+scriptParams: "--only=prod"
+build_scriptName: "build"
+build_scriptParams: ""
+
+##### Zip (zip)
+zipSourceFolder: "./build" #To change
+targetZipName: "graphtalk-launcher-react"
+
+##### Upload artifact (upload) and Update artifact properties (update)
+#artifactoryURL: "" // Not required as taking PDXC default URL
+artifactoryCredentials: "diaas-rw"
+artifactRepository: "diaas-generic"
+artifactPath: "diaas-generic/graphtalk-launcher-react/bundle"
+artifactLocalPath: ""
+artifactProperties:
+  - prop: "status"
+    value: "ready"
+  - prop: "type"
+    value: "generic"
+###### Notification (post)
+#sendMail: "true"
+#emailFrom: "no-reply@platformdxc-mg.com"
+#emailTo: ""
+#attachmentFileEmail: ""
+##teamsSecretHookId: "TEAMS_PUSH_WEBHOOK"
+#testCommands:
+#  - "npm install"    
+#  - "npm run test"
+testCommands:
+  - "npm install"
+  - "npm run test:ci"
