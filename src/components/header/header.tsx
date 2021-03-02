@@ -7,13 +7,12 @@ import {
     DxcHeader,
     DxcSelect
 } from '@dxc-technology/halstack-react';
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { AppConfig } from '../../config/appConfig';
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
-
-    const { t } = useTranslation();
+    const history = useHistory();
     const [value, setLang] = useState<string | undefined | null>(localStorage.getItem('i18nextLng'))
 
     const langs = [
@@ -41,10 +40,15 @@ const Header = () => {
         AppConfig.headers['accept-language'] = localStorage.getItem('i18nextLng');
     }
 
+    const goToHome = () => {
+        history.push("/home");
+    };
+
     return (
         <>
             <DxcHeader
                 logoSrc={DXCLogo}
+                onClick={goToHome}
                 padding={{ right: 'xsmall' }}
                 content={
                     <>
