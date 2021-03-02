@@ -45,12 +45,12 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
         partyRoleResponse._links["party_role:organization"].href
       ) {
         get(partyRoleResponse._links["party_role:organization"].href).then(
-          (personResponse) => {
-            if (personResponse && personResponse["organization:client_number"])
+          (orgResponse) => {
+            if (orgResponse && orgResponse["organization:client_number"])
               history.push(
                 "/clientView/organization/" +
-                  personResponse["organization:client_number"],
-                { clientData: personResponse }
+                  orgResponse["organization:client_number"],
+                { clientData: orgResponse }
               );
           }
         );

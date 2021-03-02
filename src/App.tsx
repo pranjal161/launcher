@@ -65,9 +65,6 @@ function App() {
               <Route path="/contracts/:contractId" exact>
                 <ContractSummary />
               </Route>
-              <Route path="/client/person/:personId" exact>
-                <ClientView />
-              </Route>
               <Route path="/clientView/person/:personId" exact>
                 <ClientView />
               </Route>
