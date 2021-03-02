@@ -20,11 +20,8 @@ const RiskTable = (props: { risks: Array<any> }) => {
                         </tr>
                     ))}
                 </DxcTable>
-            )
-            }
+            )}
         </div>
-
     );
 }
-
 export default RiskTable
