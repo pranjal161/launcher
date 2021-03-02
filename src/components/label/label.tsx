@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core';
 
 const Label = (props: { label: string, propertyName: string, data: any}) => {
@@ -46,17 +45,15 @@ const Label = (props: { label: string, propertyName: string, data: any}) => {
     }
 
     return (
-        <div>
-            <Grid container>
-                <Grid item xs={12}>
-                    { 
-                        label && <label className={classes.headingLabel}>
-                            {t(label)}:
-                        </label>
-                    }
-                    <label dangerouslySetInnerHTML={{ __html: processDataOutput() }}></label>
-                </Grid>
-            </Grid>
+        <div className="row">
+            <div className="col-12">
+                { 
+                    label && <label className={classes.headingLabel}>
+                        {t(label)}:
+                    </label>
+                }
+                <label dangerouslySetInnerHTML={{ __html: processDataOutput() }}></label>
+            </div>
         </div>
     )
 }

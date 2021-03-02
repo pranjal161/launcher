@@ -8,7 +8,6 @@ import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
 import Person from '@material-ui/icons/Person';
 import Label from '../../components/label/label';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core';
 
 const ContractSummary = () => {
@@ -24,9 +23,6 @@ const ContractSummary = () => {
         banner: {
             backgroundColor: "#F7F7F7",
             padding: 20
-        },
-        block: {
-            display: 'block'
         },
         xlIcon: {
             fontSize: 60
@@ -84,7 +80,7 @@ const ContractSummary = () => {
         return (
             <>
                 {ownerName && ownerName['title'] && (
-                    <label className={classes.block}>{ownerName['title']}</label>
+                    <label className="d-block">{ownerName['title']}</label>
                 )}
             </>
         );
@@ -93,12 +89,12 @@ const ContractSummary = () => {
     function ContractBanner() {
         return (
             <div className={classes.banner}>
-                <Grid container spacing={3}>
-                    <Grid item xs={2}>
+                <div className="row">
+                    <div className="col-2">
                         <Person className={classes.xlIcon} />
                         <OwnerName />
-                    </Grid>
-                    <Grid item xs={4}>
+                    </div>
+                    <div className="col-4">
                         <Label propertyName={'contract:number'} label={'_CONTRACT_NUMBER'} data={contractData} />
 
                         <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData}/>
@@ -108,8 +104,8 @@ const ContractSummary = () => {
                         <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} />
 
                         <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} />
-                    </Grid>
-                    <Grid item xs={4}>
+                    </div>
+                    <div className="col-4">
                         <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
 
                         <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
@@ -119,13 +115,13 @@ const ContractSummary = () => {
                         <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
 
                         <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} />
-                    </Grid>
-                    <Grid item xs={2}>
+                    </div>
+                    <div className="col-2">
                         <div>
                             
                         </div>
-                    </Grid>
-                </Grid>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import ContractSummary from './pages/contractSummary/contractSummary';
 import HomePage from './pages/homePage/homePage';
@@ -7,6 +8,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DxcSpinner } from '@dxc-technology/halstack-react';
+
 function App() {
   const { ready } = useTranslation();
   const [isLoading, setLoader] = useState(false)
