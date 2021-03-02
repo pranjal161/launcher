@@ -6,6 +6,10 @@ import { AppConfig } from './../../config/appConfig';
 import { DxcTabs } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
+import Person from '@material-ui/icons/Person';
+import Label from '../../components/label/label';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core';
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -15,6 +19,20 @@ const ContractSummary = () => {
     const [partyRole, setPartyRoleData] = useState<undefined | any>();
     const config = AppConfig;
     const [mainRisk, setMainRisk] = useState<undefined | string>();
+
+    const useStyles = makeStyles(() => ({
+        banner: {
+            backgroundColor: "#F7F7F7",
+            padding: 20
+        },
+        block: {
+            display: 'block'
+        },
+        xlIcon: {
+            fontSize: 60
+        }
+    }));
+    const classes = useStyles();
 
     const getData = async (contractUrl: string) => {
         axios.get(contractUrl, { headers: config.headers }).then(result => {
@@ -61,10 +79,53 @@ const ContractSummary = () => {
         setActiveTab(i);
     };
 
+    const OwnerName = () => {
+        const ownerName = partyRole && partyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
+        return (
+            <>
+                {ownerName && ownerName['title'] && (
+                    <label className={classes.block}>{ownerName['title']}</label>
+                )}
+            </>
+        );
+    };
+
     function ContractBanner() {
         return (
-            <div>
-                {contractData['contract:number']}
+            <div className={classes.banner}>
+                <Grid container spacing={3}>
+                    <Grid item xs={2}>
+                        <Person className={classes.xlIcon} />
+                        <OwnerName />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Label propertyName={'contract:number'} label={'_CONTRACT_NUMBER'} data={contractData} />
+
+                        <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData}/>
+
+                        <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
+
+                        <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} />
+
+                        <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
+
+                        <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
+                            
+                        <Label propertyName="contract:currency_mode" label="_CURRENCY" data={contractData} />
+                
+                        <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
+
+                        <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <div>
+                            
+                        </div>
+                    </Grid>
+                </Grid>
             </div>
         )
     }
