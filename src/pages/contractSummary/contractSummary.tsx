@@ -107,7 +107,7 @@ const ContractSummary = () => {
                     <div>
                         <h1>Risks</h1>
                         <RiskTable risks={risk} />
-                        </div>
+                    </div>
                 )}
                 {activeTab === 3 && (
                     <div>{t("_COVERAGES")}</div>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 
 const RiskTable = (props: { risks: Array<any> }) => {
-    
+
     const { t } = useTranslation();
     return (
         <div>
