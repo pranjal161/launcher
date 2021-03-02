@@ -1,59 +1,69 @@
-import DXCLogo from "../../assets/dxc_logo_wht.png";
-// import lang from '../../assets/language-24px.svg';
-import i18n from "../../i18n";
-import { DxcHeader, DxcDropdown } from "@dxc-technology/halstack-react";
-import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import DXCLogo from '../../assets/dxc_logo_wht.png';
+import fr from '../../assets/fr.jpg';
+import nl from '../../assets/nl.jpg';
+import en from '../../assets/gb.jpg';
+import i18n from '../../i18n';
+import {
+    DxcHeader,
+    DxcSelect
+} from '@dxc-technology/halstack-react';
+import { useState } from 'react';
+import { AppConfig } from '../../config/appConfig';
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
-  const history = useHistory();
+    const history = useHistory();
+    const [value, setLang] = useState<string | undefined | null>(localStorage.getItem('i18nextLng'))
 
-  const { t } = useTranslation();
-
-  const langs = [
-    {
-      value: "fr",
-      label: "FR",
-    },
-    {
-      value: "en",
-      label: "EN",
-    },
-    {
-      value: "nl",
-      label: "NL",
-    },
-  ];
-
-  const changeLang = (value: string | undefined) => {
-    console.log(value);
-    i18n.changeLanguage(value);
-  };
-
-  const goToHome = () => {
-    history.push("/home");
-  };
-
-  return (
-    <>
-      <DxcHeader
-        logoSrc={DXCLogo}
-        onClick={goToHome}
-        padding={{ right: "xsmall" }}
-        content={
-          <>
-            <DxcDropdown
-              options={langs}
-              onSelectOption={changeLang}
-              label={t("_LANGUAGE")}
-              margin="xxsmall"
-              padding="xxsmall"
-            ></DxcDropdown>
-          </>
+    const langs = [
+        {
+            value: 'fr',
+            label: 'FR',
+            iconSrc: fr
+        },
+        {
+            value: 'en',
+            label: 'EN',
+            iconSrc: en
+        },
+        {
+            value: 'nl',
+            label: 'NL',
+            iconSrc: nl
         }
-      />
-    </>
-  );
-};
+    ];
+
+    const changeLang = (value: string | undefined) => {
+        // to check refresh
+        i18n.changeLanguage(value);
+        setLang(value);
+        AppConfig.headers['accept-language'] = localStorage.getItem('i18nextLng');
+    }
+
+    const goToHome = () => {
+        history.push("/home");
+    };
+
+    return (
+        <>
+            <DxcHeader
+                logoSrc={DXCLogo}
+                onClick={goToHome}
+                padding={{ right: 'xsmall' }}
+                content={
+                    <>
+                        <DxcSelect
+                            options={langs}
+                            onChange={changeLang}
+                            value={value}
+                            margin="xxsmall"
+                            padding="xxsmall"
+                        ></DxcSelect>
+                    </>
+                }
+            />
+        </>
+    )
+}
 
 export default Header;
