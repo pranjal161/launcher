@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { AppConfig } from './../../config/appConfig';
-import { DxcTabs } from '@dxc-technology/halstack-react'
+import { DxcTabs } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
+import InvestmentTab from '../../components/InvestmentTab/investmentTab';
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -13,10 +14,12 @@ const ContractSummary = () => {
     const [contractData, setContractData] = useState<undefined | any>();
     const [partyRole, setPartyRoleData] = useState<undefined | any>();
     const config = AppConfig;
+    const [mainRisk, setMainRisk] = useState<undefined | string>();
 
     const getData = async (contractUrl: string) => {
         axios.get(contractUrl, { headers: config.headers }).then(result => {
             setContractData(result.data);
+            getRiskData(result.data._links);
             if (result.data._links && result.data._links['contract:role_list']) {
                 const partyUrl: string = result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
                 axios.get(partyUrl, { headers: config.headers }).then(partyRoleRes => {
@@ -26,6 +29,27 @@ const ContractSummary = () => {
                 });
             }
         });
+    }
+
+    const getRiskData = (data: { [x: string]: any; }) => {
+        if (data && data['contract:membership_list']) {
+            const risks: string = data['contract:membership_list'].href;
+            axios.get(risks, { headers: config.headers }).then(riskResponse => {
+                if (riskResponse && riskResponse.data && riskResponse.data._links && riskResponse.data._links.item) {
+                    if (!Array.isArray(riskResponse.data._links.item)) {
+                        riskResponse.data._links.item = [riskResponse.data._links.item];
+                    }
+                    const mainRiskItem = riskResponse.data._links.item.find((item: { summary: { [x: string]: any; }; }) => {
+                        if (item.summary['membership:main']) {
+                            return item;
+                        }
+                    })
+                    if (mainRiskItem && mainRiskItem.href) {
+                        setMainRisk(mainRiskItem.href)
+                    }
+                }
+            });
+        }
     }
 
     useEffect(() => {
@@ -66,8 +90,10 @@ const ContractSummary = () => {
                         { label: t("_ACTIVITIES") },
                     ]}
                 ></DxcTabs>
-                {activeTab === 0 && (
-                    <div> {t('_INVESTMENT')}</div>
+                {(activeTab === 0 && mainRisk) && (
+                    <div>
+                        <InvestmentTab mainRiskUrl={mainRisk} />
+                    </div>
                 )}
                 {activeTab === 1 && (
                     <div>
