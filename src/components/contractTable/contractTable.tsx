@@ -32,17 +32,20 @@ const ContractTable = (props: { contractUrl: string; }) => {
                     response['_links']['item'] = [response['_links']['item']];
                 }
                 setContractData(response['_links']['item'])
+            } else {
+                setContractData([]);
             }
         });
     }
 
     useEffect(() => {
         getData();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.contractUrl]);
 
     return (
         <>
-            { contractData.length > 0 && (
+            { contractData.length > 0 ? (
                 <DxcTable>
                     <tr>
                         <th>{t('_CONTRACT_NUMBER')}</th>
@@ -58,7 +61,18 @@ const ContractTable = (props: { contractUrl: string; }) => {
                         </tr>
                     ))}
                 </DxcTable>
-            )
+            ) : (
+                    <DxcTable>
+                        <tr>
+                            <th>{t('_CONTRACT_NUMBER')}</th>
+                            <th>{t('_OWNER_NAME')}</th>
+                            <th>{t('_RISK_DATA')}</th>
+                        </tr>
+                        <tr>
+                            <td colSpan={3}>{t('_NO_RECORDS_FOUND')}</td>
+                        </tr>
+                    </DxcTable>
+                )
             }
         </>
     );
