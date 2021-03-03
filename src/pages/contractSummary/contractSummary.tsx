@@ -10,6 +10,7 @@ import { PersonIcon } from '../../assets/svg';
 import Label from '../../components/label/label';
 import { DxcSelect } from '@dxc-technology/halstack-react';
 import styled from 'styled-components';
+import FinancialOperationTable from '../../components/financialOperationTable/financialOperationTable';
 
 import { ApplicationContext } from '../../context/applicationContext';
 
@@ -208,7 +209,9 @@ const ContractSummary = () => {
                     <div>{t("_DOCUMENTS")}</div>
                 )}
                 {activeTab === 6 && (
-                    <div>{t("_FINANCIAL_OPERATIONS")}</div>
+                    <div>
+                        <FinancialOperationTable contractResponse={contractData} />
+                    </div>
                 )}
                 {activeTab === 7 && (
                     <div>{t("_FINANCIAL_INFORMATION")}</div>
