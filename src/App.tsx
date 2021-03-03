@@ -1,4 +1,5 @@
 import "./App.css";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -13,6 +14,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
+import { AppContextProvider } from "./context/applicationContext";
+
 function App() {
   const { ready } = useTranslation();
   const [isLoading, setLoader] = useState(false);
@@ -44,6 +47,7 @@ function App() {
 
   return (
     <>
+    <AppContextProvider>
       <>
         {isLoading && (
           <div className="spinner">
@@ -77,6 +81,7 @@ function App() {
           </Router>
         )}
       </>
+      </AppContextProvider>
     </>
   );
 }
