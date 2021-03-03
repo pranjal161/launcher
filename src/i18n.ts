@@ -18,9 +18,9 @@ i18n
   .use(detector)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
-    lng: "fr",
+    lng: "en",
     resources,
-    fallbackLng: "fr", // use en if detected lng is not available
+    fallbackLng: "en", // use en if detected lng is not available
     whitelist: languages,
     saveMissing: false, // send not translated keys to endpoint
 

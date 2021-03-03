@@ -1,8 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { AppConfig } from './../../config/appConfig';
 import { DxcTabs } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
@@ -12,6 +11,7 @@ import Label from '../../components/label/label';
 import { makeStyles } from '@material-ui/core';
 import { DxcSelect } from '@dxc-technology/halstack-react';
 
+import { ApplicationContext } from '../../context/applicationContext';
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -20,8 +20,8 @@ const ContractSummary = () => {
     const [contractData, setContractData] = useState<undefined | any>();
     const [partyRole, setPartyRoleData] = useState<undefined | any>();
     const [risk, setRiskData] = useState<undefined | any>();
-    const config = AppConfig;
     const [mainRisk, setMainRisk] = useState<undefined | string>();
+    const applicationContext = useContext(ApplicationContext);
     const [action, changeAction] = useState('');
     const onActionChange = (newValue: string) => {
         changeAction(newValue);
@@ -42,6 +42,10 @@ const ContractSummary = () => {
         }
     ];
 
+    useEffect(() => {
+        getData(contractUrl);
+    }, [applicationContext]);
+
     const useStyles = makeStyles(() => ({
         banner: {
             backgroundColor: "#F7F7F7",
@@ -60,12 +64,12 @@ const ContractSummary = () => {
     const classes = useStyles();
 
     const getData = async (contractUrl: string) => {
-        axios.get(contractUrl, { headers: config.headers }).then(result => {
+        axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
             setContractData(result.data);
             getRiskData(result.data._links);
             if (result.data._links && result.data._links['contract:role_list']) {
                 const partyUrl: string = result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
-                axios.get(partyUrl, { headers: config.headers }).then(partyRoleRes => {
+                axios.get(partyUrl, { headers: applicationContext.headers }).then(partyRoleRes => {
                     if (partyRoleRes && partyRoleRes.data._links && partyRoleRes.data._links.item) {
                         setPartyRoleData(partyRoleRes.data._links.item);
                     }
@@ -77,7 +81,7 @@ const ContractSummary = () => {
     const getRiskData = (data: { [x: string]: any; }) => {
         if (data && data['contract:membership_list']) {
             const risks: string = data['contract:membership_list'].href;
-            axios.get(risks, { headers: config.headers }).then(riskResponse => {
+            axios.get(risks, { headers: applicationContext.headers }).then(riskResponse => {
                 if (riskResponse && riskResponse.data && riskResponse.data._links && riskResponse.data._links.item) {
                     if (!Array.isArray(riskResponse.data._links.item)) {
                         riskResponse.data._links.item = [riskResponse.data._links.item];
@@ -95,10 +99,6 @@ const ContractSummary = () => {
             });
         }
     }
-
-    useEffect(() => {
-        getData(contractUrl);
-    }, []);
 
     const [activeTab, setActiveTab] = useState(0);
     const onTabClick = (i: number) => {

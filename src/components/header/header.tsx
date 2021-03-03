@@ -2,18 +2,20 @@ import DXCLogo from '../../assets/dxc_logo_wht.png';
 import fr from '../../assets/fr.jpg';
 import nl from '../../assets/nl.jpg';
 import en from '../../assets/gb.jpg';
-import i18n from '../../i18n';
 import {
     DxcHeader,
     DxcSelect
 } from '@dxc-technology/halstack-react';
-import { useState } from 'react';
-import { AppConfig } from '../../config/appConfig';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { ApplicationContext } from '../../context/applicationContext';
 
 const Header = () => {
     const history = useHistory();
-    const [value, setLang] = useState<string | undefined | null>(localStorage.getItem('i18nextLng'))
+    const applicationContext = useContext(ApplicationContext);
+    const [lang, setLang] = useState<string>(applicationContext.language);
+
 
     const langs = [
         {
@@ -33,11 +35,12 @@ const Header = () => {
         }
     ];
 
-    const changeLang = (value: string | undefined) => {
+    const changeLang = (value: string) => {
         // to check refresh
-        i18n.changeLanguage(value);
         setLang(value);
-        AppConfig.headers['accept-language'] = localStorage.getItem('i18nextLng');
+        if (value !== applicationContext.language) {
+                applicationContext.changeLang(value);
+        }
     }
 
     const goToHome = () => {
@@ -55,7 +58,7 @@ const Header = () => {
                         <DxcSelect
                             options={langs}
                             onChange={changeLang}
-                            value={value}
+                            value={lang}
                             margin="xxsmall"
                             padding="xxsmall"
                         ></DxcSelect>
