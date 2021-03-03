@@ -10,7 +10,7 @@ const HomePage = () => {
     const [url, setURL] = useState(initialURL);
     const [contractNumber, setContractNumber] = useState('');
     const onContractNumberChange = (updatedValue: string) => {
-        setContractNumber(updatedValue);
+        setContractNumber(updatedValue.toUpperCase());
     }
 
     const searchContract = () => {
