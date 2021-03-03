@@ -1,14 +1,16 @@
-import { get } from '../../util/api-caller';
-import React, { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
+import { ApplicationContext } from '../../context/applicationContext';
+import axios from 'axios';
 const ContractTable = (props: { contractUrl: string; }) => {
 
     const { t } = useTranslation();
     const history = useHistory();
-    const [contractData, setContractData] = React.useState([]);
+    const [contractData, setContractData] = useState([]);
+    const applicationContext = useContext(ApplicationContext);
 
     const useStyles = makeStyles(() => ({
         hover: {
@@ -26,12 +28,12 @@ const ContractTable = (props: { contractUrl: string; }) => {
         history.push('/contracts/' + contractNumber, { contractUrl: item.href });
     }
     function getData() {
-        get(props.contractUrl).then(response => {
-            if (response && response['_links']['item']) {
-                if (!Array.isArray(response['_links']['item'])) {
-                    response['_links']['item'] = [response['_links']['item']];
+        axios.get(props.contractUrl, { headers: applicationContext.headers}).then(response => {
+            if (response && response.data['_links']['item']) {
+                if (!Array.isArray(response.data['_links']['item'])) {
+                    response.data['_links']['item'] = [response.data['_links']['item']];
                 }
-                setContractData(response['_links']['item'])
+                setContractData(response.data['_links']['item'])
             } else {
                 setContractData([]);
             }
@@ -41,7 +43,7 @@ const ContractTable = (props: { contractUrl: string; }) => {
     useEffect(() => {
         getData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.contractUrl]);
+    }, [props.contractUrl, applicationContext]);
 
     return (
         <>
@@ -56,7 +58,7 @@ const ContractTable = (props: { contractUrl: string; }) => {
                         <tr key={row['href']} onClick={() => goToContract(row)}
                             className={classes.hover}>
                             <td>{row['summary']['contract:number']}</td>
-                            <td>{(row['summary']['person:display_id'])}</td>
+                            <td>{row['summary']['person:display_id']}</td>
                             <td>{row['summary']['membership:display_id']}</td>
                         </tr>
                     ))}
