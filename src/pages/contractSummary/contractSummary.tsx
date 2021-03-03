@@ -9,6 +9,8 @@ import RiskTable from '../../components/riskTable/riskTable';
 import Person from '@material-ui/icons/Person';
 import Label from '../../components/label/label';
 import { makeStyles } from '@material-ui/core';
+import { DxcSelect } from '@dxc-technology/halstack-react';
+
 import { ApplicationContext } from '../../context/applicationContext';
 
 const ContractSummary = () => {
@@ -20,6 +22,25 @@ const ContractSummary = () => {
     const [risk, setRiskData] = useState<undefined | any>();
     const [mainRisk, setMainRisk] = useState<undefined | string>();
     const applicationContext = useContext(ApplicationContext);
+    const [action, changeAction] = useState('');
+    const onActionChange = (newValue: string) => {
+        changeAction(newValue);
+    };
+
+    const actionOptions = [
+        {
+            value: "claim",
+            label: t('_DECLARE_CLAIM')
+        },
+        {
+            value: "contract",
+            label: t('_AMENDMENT')
+        },
+        {
+            value: "unsollicitedPayment",
+            label: t('_UNSOLICITED_PAYMENT')
+        }
+    ];
 
     useEffect(() => {
         getData(contractUrl);
@@ -32,6 +53,12 @@ const ContractSummary = () => {
         },
         xlIcon: {
             fontSize: 60
+        },
+        selectBox: {
+            "& > div": {
+                maxWidth: 240,
+                width: '100% !important'
+            }
         }
     }));
     const classes = useStyles();
@@ -120,8 +147,13 @@ const ContractSummary = () => {
                         <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} />
                     </div>
                     <div className="col-2">
-                        <div>
-                            
+                        <div className={classes.selectBox}>
+                            <DxcSelect
+                                options={actionOptions}
+                                onChange={onActionChange}
+                                label={t("_ACTIONS")}
+                                value={action}
+                            ></DxcSelect>
                         </div>
                     </div>
                 </div>
