@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@dxc-technology/halstack-react": "^2.0.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
@@ -47,7 +48,6 @@
     ]
   },
   "devDependencies": {
-    "@dxc-technology/halstack-react": "^2.0.0",
     "@types/react-router-dom": "^5.1.7",
     "styled-components": "^5.2.1"
   }
