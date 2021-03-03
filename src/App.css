@@ -51,3 +51,7 @@
   /* width: 300px;
   height: 300px; */
 }
+/*----Normalizing CSS-----**/
+label {
+  margin-bottom: 0 !important;
+}

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { get } from "../../util/api-caller";
 import IconButton from "@material-ui/core/IconButton";
 import EyeIcon from "@material-ui/icons/Visibility";
-import Tooltip from "@material-ui/core/Tooltip";
+// import Tooltip from "@material-ui/core/Tooltip";
 
 const PartyRoleTable = (props: { roles: Array<any> }) => {
   const { t } = useTranslation();
@@ -70,14 +70,14 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
             <tr key={row["href"]} className={classes.hover}>
               <td>{row.title}</td>
               <td>
-                <Tooltip title="view">
+                {/* <Tooltip title="view"> */}
                   <IconButton
                     aria-label="add an alarm"
                     onClick={() => goToClientView(row)}
                   >
                     <EyeIcon />
                   </IconButton>
-                </Tooltip>
+                {/* </Tooltip> */}
               </td>
             </tr>
           ))}
