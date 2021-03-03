@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { DxcTabs } from "@dxc-technology/halstack-react";
 import { useTranslation } from "react-i18next";
+import { ApplicationContext } from "../../context/applicationContext";
 
 const ClientView = () => {
   const location: any = useLocation();
   const { t } = useTranslation();
   const [clientData, setClientData] = useState<undefined | any>();
   const [activeTab, setActiveTab] = useState(0);
+  const applicationContext = useContext(ApplicationContext);
   const onTabClick = (i: number) => {
     setActiveTab(i);
   };
 
   useEffect(() => {
     setClientData(location.state.clientData);
-  }, []);
+  }, [applicationContext]);
 
   function ClientBanner() {
     return (
