@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import { ApplicationContext } from '../../context/applicationContext';
 import axios from 'axios';
+import styled from 'styled-components';
+
 const ContractTable = (props: { contractUrl: string; }) => {
 
     const { t } = useTranslation();
@@ -12,15 +13,13 @@ const ContractTable = (props: { contractUrl: string; }) => {
     const [contractData, setContractData] = useState([]);
     const applicationContext = useContext(ApplicationContext);
 
-    const useStyles = makeStyles(() => ({
-        hover: {
-            "&:hover": {
-                backgroundColor: "#F7F7F7",
-                cursor: "pointer"
-            },
-        },
-    }));
-    const classes = useStyles();
+    //Stylesheet
+    const StyledHoverRow = styled.tr`
+        &:hover {
+            background-color: #F7F7F7;
+            cursor: pointer;
+        }
+    `;
 
 
     function goToContract(item: any) {
@@ -55,12 +54,11 @@ const ContractTable = (props: { contractUrl: string; }) => {
                         <th>{t('_RISK_DATA')}</th>
                     </tr>
                     {contractData.map((row) => (
-                        <tr key={row['href']} onClick={() => goToContract(row)}
-                            className={classes.hover}>
+                        <StyledHoverRow key={row['href']} onClick={() => goToContract(row)}>
                             <td>{row['summary']['contract:number']}</td>
                             <td>{row['summary']['person:display_id']}</td>
                             <td>{row['summary']['membership:display_id']}</td>
-                        </tr>
+                        </StyledHoverRow>
                     ))}
                 </DxcTable>
             ) : (
