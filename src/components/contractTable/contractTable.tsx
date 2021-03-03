@@ -69,7 +69,7 @@ const ContractTable = (props: { contractUrl: string; }) => {
                             <th>{t('_RISK_DATA')}</th>
                         </tr>
                         <tr>
-                            {t('_NO_RECORDS_FOUND')}
+                            <td colSpan={3}>{t('_NO_RECORDS_FOUND')}</td>
                         </tr>
                     </DxcTable>
                 )
