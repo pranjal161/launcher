@@ -6,9 +6,11 @@ import { AppConfig } from './../../config/appConfig';
 import { DxcTabs } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
+import RiskTable from '../../components/riskTable/riskTable';
 import Person from '@material-ui/icons/Person';
 import Label from '../../components/label/label';
 import { makeStyles } from '@material-ui/core';
+
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -16,6 +18,7 @@ const ContractSummary = () => {
     const contractUrl = location.state.contractUrl;
     const [contractData, setContractData] = useState<undefined | any>();
     const [partyRole, setPartyRoleData] = useState<undefined | any>();
+    const [risk, setRiskData] = useState<undefined | any>();
     const config = AppConfig;
     const [mainRisk, setMainRisk] = useState<undefined | string>();
 
@@ -53,6 +56,7 @@ const ContractSummary = () => {
                     if (!Array.isArray(riskResponse.data._links.item)) {
                         riskResponse.data._links.item = [riskResponse.data._links.item];
                     }
+                    setRiskData(riskResponse.data._links.item);
                     const mainRiskItem = riskResponse.data._links.item.find((item: { summary: { [x: string]: any; }; }) => {
                         if (item.summary['membership:main']) {
                             return item;
@@ -158,7 +162,10 @@ const ContractSummary = () => {
                     </div>
                 )}
                 {activeTab === 2 && (
-                    <div>{t("_RISKS")}</div>
+                    <div>
+                        <h1>Risks</h1>
+                        <RiskTable risks={risk} />
+                    </div>
                 )}
                 {activeTab === 3 && (
                     <div>{t("_COVERAGES")}</div>
