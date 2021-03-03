@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core';
+import styled from 'styled-components';
 
 const Label = (props: { label: string, propertyName: string, data: any}) => {
 
@@ -8,13 +8,10 @@ const Label = (props: { label: string, propertyName: string, data: any}) => {
     let value, viewValue;
 
     //Stylesheet
-    const useStyles = makeStyles(() => ({
-        headingLabel: {
-            marginRight: 7,
-            fontWeight: 600
-        }
-    }));
-    const classes = useStyles();
+    const StyledLabel = styled.label`
+      margin-right: 7px;
+      font-weight: 600;
+    `;
 
     //Functions to process Output
     function getDescriptionFromOneOf(value: string, id: string, response: any): string {
@@ -48,9 +45,9 @@ const Label = (props: { label: string, propertyName: string, data: any}) => {
         <div className="row">
             <div className="col-12">
                 { 
-                    label && <label className={classes.headingLabel}>
+                    label && <StyledLabel>
                         {t(label)}:
-                    </label>
+                    </StyledLabel>
                 }
                 <label dangerouslySetInnerHTML={{ __html: processDataOutput() }}></label>
             </div>

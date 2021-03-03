@@ -6,10 +6,10 @@ import { DxcTabs } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
 import RiskTable from '../../components/riskTable/riskTable';
-import Person from '@material-ui/icons/Person';
+import { PersonIcon } from '../../assets/svg';
 import Label from '../../components/label/label';
-import { makeStyles } from '@material-ui/core';
 import { DxcSelect } from '@dxc-technology/halstack-react';
+import styled from 'styled-components';
 
 import { ApplicationContext } from '../../context/applicationContext';
 
@@ -46,22 +46,23 @@ const ContractSummary = () => {
         getData(contractUrl);
     }, [applicationContext]);
 
-    const useStyles = makeStyles(() => ({
-        banner: {
-            backgroundColor: "#F7F7F7",
-            padding: 20
-        },
-        xlIcon: {
-            fontSize: 60
-        },
-        selectBox: {
-            "& > div": {
-                maxWidth: 240,
-                width: '100% !important'
+    //Stylesheet
+    const StyledBanner = styled.div`
+        background-color: #F7F7F7;
+        padding: 20px;
+
+        .xl-icon {
+            width: 60px;
+            height: 60px;
+        }
+
+        .select-box {
+            & > div {
+                max-width: 240px;
+                width: 100% !important;
             }
         }
-    }));
-    const classes = useStyles();
+    `;
 
     const getData = async (contractUrl: string) => {
         axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
@@ -118,10 +119,10 @@ const ContractSummary = () => {
 
     function ContractBanner() {
         return (
-            <div className={classes.banner}>
+            <StyledBanner>
                 <div className="row">
                     <div className="col-2">
-                        <Person className={classes.xlIcon} />
+                        <PersonIcon />
                         <OwnerName />
                     </div>
                     <div className="col-4">
@@ -147,7 +148,7 @@ const ContractSummary = () => {
                         <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} />
                     </div>
                     <div className="col-2">
-                        <div className={classes.selectBox}>
+                        <div className="select-box">
                             <DxcSelect
                                 options={actionOptions}
                                 onChange={onActionChange}
@@ -157,7 +158,7 @@ const ContractSummary = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </StyledBanner>
         )
     }
 

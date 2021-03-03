@@ -1,25 +1,33 @@
-import { makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { DxcTable } from "@dxc-technology/halstack-react";
 import { useHistory } from "react-router-dom";
 import { get } from "../../util/api-caller";
-import IconButton from "@material-ui/core/IconButton";
-import EyeIcon from "@material-ui/icons/Visibility";
-// import Tooltip from "@material-ui/core/Tooltip";
+import { EyeIcon } from '../../assets/svg';
+import styled from 'styled-components';
+import { DxcButton } from "@dxc-technology/halstack-react";
 
 const PartyRoleTable = (props: { roles: Array<any> }) => {
   const { t } = useTranslation();
   const history = useHistory();
 
-  const useStyles = makeStyles(() => ({
-    hover: {
-      "&:hover": {
-        backgroundColor: "#F7F7F7",
-        cursor: "pointer",
-      },
-    },
-  }));
-  const classes = useStyles();
+  //Stylesheet
+  const StyledHoverRow = styled.tr`
+    &:hover {
+      background-color: #F7F7F7;
+      cursor: pointer;
+    }
+  `;
+
+  const StyledButton = styled.button`
+    border: 1px solid #6f2c91;
+    border-radius: 4px;
+
+    svg {
+      fill: #6f2c91;
+      max-width: 25px;
+      max-height: 25px;
+    }
+  `;
 
   const goToClientView = (item: any) => {
     get(item.href).then((partyRoleResponse) => {
@@ -67,19 +75,19 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
             <th>{t("_ACTIONS")}</th>
           </tr>
           {props.roles.map((row) => (
-            <tr key={row["href"]} className={classes.hover}>
+            <StyledHoverRow key={row["href"]}>
               <td>{row.title}</td>
               <td>
                 {/* <Tooltip title="view"> */}
-                  <IconButton
+                  <StyledButton
                     aria-label="add an alarm"
                     onClick={() => goToClientView(row)}
                   >
                     <EyeIcon />
-                  </IconButton>
+                  </StyledButton>
                 {/* </Tooltip> */}
               </td>
-            </tr>
+            </StyledHoverRow>
           ))}
         </DxcTable>
       )}
