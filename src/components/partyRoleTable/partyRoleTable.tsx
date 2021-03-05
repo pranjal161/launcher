@@ -3,31 +3,11 @@ import { DxcTable } from "@dxc-technology/halstack-react";
 import { useHistory } from "react-router-dom";
 import { get } from "../../util/api-caller";
 import { EyeIcon } from '../../assets/svg';
-import styled from 'styled-components';
-import { DxcButton } from "@dxc-technology/halstack-react";
+import { StyledHoverRow, StyledButton } from '../../styles/global-style';
 
 const PartyRoleTable = (props: { roles: Array<any> }) => {
   const { t } = useTranslation();
   const history = useHistory();
-
-  //Stylesheet
-  const StyledHoverRow = styled.tr`
-    &:hover {
-      background-color: #F7F7F7;
-      cursor: pointer;
-    }
-  `;
-
-  const StyledButton = styled.button`
-    border: 1px solid #6f2c91;
-    border-radius: 4px;
-
-    svg {
-      fill: #6f2c91;
-      max-width: 25px;
-      max-height: 25px;
-    }
-  `;
 
   const goToClientView = (item: any) => {
     get(item.href).then((partyRoleResponse) => {

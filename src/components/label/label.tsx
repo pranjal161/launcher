@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import { StyledLabel } from '../../styles/global-style';
 
 const Label = (props: { label: string, propertyName: string, data: any}) => {
 
@@ -7,11 +7,6 @@ const Label = (props: { label: string, propertyName: string, data: any}) => {
     const { label, propertyName, data } = props;
     let value, viewValue;
 
-    //Stylesheet
-    const StyledLabel = styled.label`
-      margin-right: 7px;
-      font-weight: 600;
-    `;
 
     //Functions to process Output
     function getDescriptionFromOneOf(value: string, id: string, response: any): string {

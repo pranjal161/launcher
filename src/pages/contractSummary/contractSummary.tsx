@@ -9,9 +9,10 @@ import RiskTable from '../../components/riskTable/riskTable';
 import { PersonIcon } from '../../assets/svg';
 import Label from '../../components/label/label';
 import { DxcSelect } from '@dxc-technology/halstack-react';
-import styled from 'styled-components';
 import FinancialOperationTable from '../../components/financialOperationTable/financialOperationTable';
 import { ApplicationContext } from '../../context/applicationContext';
+import { StyledBanner } from '../../styles/global-style';
+
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -53,24 +54,6 @@ const ContractSummary = () => {
     useEffect(() => {
         getData(contractUrl);
     }, [applicationContext, contractUrl]);
-
-    //Stylesheet
-    const StyledBanner = styled.div`
-        background-color: #F7F7F7;
-        padding: 20px;
-
-        .xl-icon {
-            width: 60px;
-            height: 60px;
-        }
-
-        .select-box {
-            & > div {
-                max-width: 240px;
-                width: 100% !important;
-            }
-        }
-    `;
 
     const getData = async (contractUrl: string) => {
         axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
