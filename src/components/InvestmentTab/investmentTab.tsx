@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { ApplicationContext } from '../../context/applicationContext';
 const InvestmentTab = (props: { mainRiskUrl: string }) => {
@@ -62,8 +62,8 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
 
     return (
         <>
-            <h2>{t('_INVESTMENT_SUMMARY')}</h2>
-            <h4>{t('_INTEREST_BASED')}</h4>
+            <h5>{t('_INVESTMENT_SUMMARY')}</h5>
+            <h6>{t('_INTEREST_BASED')}</h6>
             {interestBasedFund.length > 0 && (
                 <>
                     <DxcTable>
@@ -86,7 +86,7 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                     </DxcTable>
                 </>
             )}
-            <h4>{t('_UNIT_LINKED')}</h4>
+            <h6>{t('_UNIT_LINKED')}</h6>
             {unitBasedFund.length > 0 && (
                 <>
                     <DxcTable>

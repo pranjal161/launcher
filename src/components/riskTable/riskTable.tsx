@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
+import React from 'react';
 
 const RiskTable = (props: { risks: Array<any> }) => {
 

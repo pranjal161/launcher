@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { DxcTabs } from "@dxc-technology/halstack-react";
 import { useTranslation } from "react-i18next";

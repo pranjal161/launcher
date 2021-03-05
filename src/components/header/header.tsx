@@ -6,7 +6,7 @@ import {
     DxcHeader,
     DxcSelect
 } from '@dxc-technology/halstack-react';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ApplicationContext } from '../../context/applicationContext';

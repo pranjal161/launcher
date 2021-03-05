@@ -226,7 +226,6 @@ const ContractSummary = () => {
                 )}
                 {activeTab === 2 && (
                     <div>
-                        <h1>Risks</h1>
                         <RiskTable risks={risk} />
                     </div>
                 )}
