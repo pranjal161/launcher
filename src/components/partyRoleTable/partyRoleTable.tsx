@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { get } from "../../util/api-caller";
 import { EyeIcon } from '../../assets/svg';
 import styled from 'styled-components';
+import React from 'react';
 
 const PartyRoleTable = (props: { roles: Array<any> }) => {
   const { t } = useTranslation();

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import React from 'react';
 
 const Label = (props: { label: string, propertyName: string, data: any}) => {
 
