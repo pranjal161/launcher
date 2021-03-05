@@ -11,22 +11,21 @@ import Label from '../../components/label/label';
 import { DxcSelect } from '@dxc-technology/halstack-react';
 import styled from 'styled-components';
 import FinancialOperationTable from '../../components/financialOperationTable/financialOperationTable';
-
 import { ApplicationContext } from '../../context/applicationContext';
 
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
-    const contractUrl = location.state.contractUrl;
+    const [contractUrl, setContractUrl] = useState(location.state.contractUrl);
     const [contractData, setContractData] = useState<undefined | any>();
     const [partyRole, setPartyRoleData] = useState<undefined | any>();
     const [risk, setRiskData] = useState<undefined | any>();
     const [mainRisk, setMainRisk] = useState<undefined | string>();
     const applicationContext = useContext(ApplicationContext);
     const [action, changeAction] = useState('');
-    const onActionChange = (newValue: string) => {
-        changeAction(newValue);
-    };
+    const [historySelect, changeHistory] = useState('');
+    const [historySelectOptions, setHistoryOptions] = useState([]);
+
 
     const actionOptions = [
         {
@@ -43,9 +42,17 @@ const ContractSummary = () => {
         }
     ];
 
+    const onActionChange = (newValue: string) => {
+        changeAction(newValue);
+    };
+    const onHistoryChange = (newValue: string) => {
+        changeHistory(newValue);
+        setContractUrl(newValue);
+    };
+
     useEffect(() => {
         getData(contractUrl);
-    }, [applicationContext]);
+    }, [applicationContext, contractUrl]);
 
     //Stylesheet
     const StyledBanner = styled.div`
@@ -69,6 +76,7 @@ const ContractSummary = () => {
         axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
             setContractData(result.data);
             getRiskData(result.data._links);
+            populateHistorySelect(result.data);
             if (result.data._links && result.data._links['contract:role_list']) {
                 const partyUrl: string = result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
                 axios.get(partyUrl, { headers: applicationContext.headers }).then(partyRoleRes => {
@@ -79,6 +87,37 @@ const ContractSummary = () => {
             }
         });
     }
+
+    const populateHistorySelect = (contractResponse: any) => {
+        let stateUrl;
+        if (contractResponse && contractResponse['_links'] && contractResponse['_links']['cscaia:states']) {
+          stateUrl = contractResponse._links['cscaia:states'].href;
+        } else if (contractUrl.indexOf('/states') >= 0) {
+          stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf("/"));
+        }
+        if (stateUrl) {
+            axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
+            const response: any = res && res['data'];
+            if (response && response['_links'] && response['_links']['item']) {
+                const items = Array.isArray(response['_links']['item']) ? response['_links']['item'] : [response['_links']['item']];
+                const historyOptions: any = [];
+                const version = t('_STATE_VERSION');
+                const fromLabel = t('_FROM_VERSION');
+                const toLabel = t('_TO_VERSION');
+                items.forEach(element => {
+                    const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
+                    const value = element.href;
+                    const data = {
+                    value: value,
+                    label: label
+                    };
+                    historyOptions.push(data);
+                });
+                setHistoryOptions(historyOptions);
+            }
+          });
+        }
+      }
 
     const getRiskData = (data: { [x: string]: any; }) => {
         if (data && data['contract:membership_list']) {
@@ -155,6 +194,14 @@ const ContractSummary = () => {
                                 onChange={onActionChange}
                                 label={t("_ACTIONS")}
                                 value={action}
+                            ></DxcSelect>
+                        </div>
+                        <div className="select-box">
+                            <DxcSelect
+                                options={historySelectOptions}
+                                onChange={onHistoryChange}
+                                label={t("_HISTORY")}
+                                value={historySelect}
                             ></DxcSelect>
                         </div>
                     </div>
