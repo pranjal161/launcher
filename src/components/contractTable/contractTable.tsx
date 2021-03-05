@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import { ApplicationContext } from '../../context/applicationContext';
 import axios from 'axios';
-import styled from 'styled-components';
+import { StyledHoverRow } from '../../styles/global-style';
 
 const ContractTable = (props: { contractUrl: string; }) => {
 
@@ -12,15 +12,6 @@ const ContractTable = (props: { contractUrl: string; }) => {
     const history = useHistory();
     const [contractData, setContractData] = useState([]);
     const applicationContext = useContext(ApplicationContext);
-
-    //Stylesheet
-    const StyledHoverRow = styled.tr`
-        &:hover {
-            background-color: #F7F7F7;
-            cursor: pointer;
-        }
-    `;
-
 
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
