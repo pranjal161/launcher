@@ -11,7 +11,7 @@ import HomePage from "./pages/homePage/homePage";
 import ClientView from "./pages/clientView/clientView";
 import Header from "./components/header/header";
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
