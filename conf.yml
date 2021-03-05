@@ -46,7 +46,7 @@ targetZipName: "graphtalk-launcher-react-ui"
 #artifactoryURL: "" // Not required as taking PDXC default URL
 artifactoryCredentials: "diaas-rw"
 artifactRepository: "diaas-generic"
-artifactPath: "diaas-generic/graphtalk-launcher-react/bundle"
+artifactPath: "graphtalk-launcher-react/bundle"
 artifactLocalPath: ""
 artifactProperties:
   - prop: "status"
