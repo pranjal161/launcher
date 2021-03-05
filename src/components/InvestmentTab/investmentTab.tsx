@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { ApplicationContext } from '../../context/applicationContext';
 const InvestmentTab = (props: { mainRiskUrl: string }) => {

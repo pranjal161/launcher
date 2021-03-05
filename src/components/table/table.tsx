@@ -1,6 +1,6 @@
 import { DxcTable } from "@dxc-technology/halstack-react";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { ApplicationContext } from "../../context/applicationContext";
