@@ -2,19 +2,14 @@ import { DxcTable } from "@dxc-technology/halstack-react";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
 import { ApplicationContext } from "../../context/applicationContext";
+import { StyledHoverRow } from '../../styles/global-style';
+
 const Table = (props: { url: string; columnId: any[] }) => {
     const applicationContext = useContext(ApplicationContext);
     const [tableData, setTableData] = useState([])
     const { t } = useTranslation();
 
-    const StyledHoverRow = styled.tr`
-    &:hover {
-        background-color: #F7F7F7;
-        cursor: pointer;
-    }
-`;
     useEffect(() => {
         getData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
