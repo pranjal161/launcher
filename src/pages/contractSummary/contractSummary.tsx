@@ -15,7 +15,6 @@ import { StyledBanner } from '../../styles/global-style';
 import CoverageTable from '../../components/coveragesTable/coveragesTable';
 
 
-
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
