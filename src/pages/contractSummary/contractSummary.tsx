@@ -13,6 +13,7 @@ import FinancialOperationTable from '../../components/financialOperationTable/fi
 import { ApplicationContext } from '../../context/applicationContext';
 import { StyledBanner } from '../../styles/global-style';
 import CoverageTable from '../../components/coveragesTable/coveragesTable';
+import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
 
 
 const ContractSummary = () => {
@@ -250,7 +251,9 @@ const ContractSummary = () => {
                     <div>{t("_FINANCIAL_INFORMATION")}</div>
                 )}
                 {activeTab === 8 && (
-                    <div>{t("_ACTIVITIES")}</div>
+                    <div>
+                        <ActivitiesTable contractResponse={contractData}/>
+                        </div>
                 )}
             </div>
         </>
