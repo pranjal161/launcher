@@ -17,6 +17,14 @@ padding: 20px;
         width: 100% !important;
     }
 }
+
+.icon {
+    svg {
+        max-width: 24px;
+        max-height: 24px;
+        margin-bottom: 3px;
+    }
+}
 `;
 
 export const StyledHoverRow = styled.tr`
