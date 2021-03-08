@@ -19,7 +19,6 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
     const getData = () => {
         if (props.contractResponse) {
             const activityUrl = getLink(props.contractResponse, 'cscaia:activities');
-            console.log("activityUrl", activityUrl);
             axios.get(activityUrl, { headers: config.headers }).then(res => {
                 if (res && res.data && res.data._links && res.data._links.item) {
                     res.data._links.item = Array.isArray(res.data._links.item) ? res.data._links.item : [res.data._links.item]
