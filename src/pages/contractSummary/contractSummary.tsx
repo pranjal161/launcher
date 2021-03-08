@@ -14,6 +14,7 @@ import { ApplicationContext } from '../../context/applicationContext';
 import { StyledBanner } from '../../styles/global-style';
 import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
+import ClausesTable from '../../components/clausesTable/clausesTable';
 
 
 const ContractSummary = () => {
@@ -237,7 +238,9 @@ const ContractSummary = () => {
                     </div>
                 )}
                 {activeTab === 4 && (
-                    <div>{t("_CLAUSES")}</div>
+                    <div>
+                   <ClausesTable contractResponse={contractData}/>
+                   </div>
                 )}
                 {activeTab === 5 && (
                     <div>{t("_DOCUMENTS")}</div>
