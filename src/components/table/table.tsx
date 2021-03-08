@@ -7,7 +7,7 @@ import { StyledHoverRow } from '../../styles/global-style';
 
 const Table = (props: { url: string; columnId: any[] }) => {
     const applicationContext = useContext(ApplicationContext);
-    const [tableData, setTableData] = useState([])
+    const [tableData, setTableData] = useState<undefined|any>();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -21,30 +21,62 @@ const Table = (props: { url: string; columnId: any[] }) => {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];
                 }
-                setTableData(response.data['_links']['item'])
-            } else {
-                setTableData([]);
+                setTableData(response.data)
             }
         });
     }
 
+    const mergeOptions = (options: any) => {
+        let mergedOptions = {};
+        if (options.oneOf.length > 1) {
+            for (const item of options.oneOf) {
+                mergedOptions = { ...mergedOptions, ...item };
+            }
+        }
+        return mergedOptions;
+    }
+
+    const getPropertyOptions = (id: string) => {
+        let options;
+        if (tableData._options && tableData._options.properties &&
+            tableData._options.properties._links &&
+            tableData._options.properties._links.properties &&
+            tableData._options.properties._links.properties.item &&
+            tableData._options.properties._links.properties.item.properties &&
+            tableData._options.properties._links.properties.item.properties.summary &&
+            tableData._options.properties._links.properties.item.properties.summary.properties) {
+            options =
+                tableData._options.properties._links.properties.item.properties.summary.properties;
+            options = options && options.oneOf ? mergeOptions(options) : options;
+            return options;
+        }
+
+    }
+
+    const getDescriptionValue = (value: any, id: string) => {
+        const options = getPropertyOptions(id);
+        if (options && options[id] && options[id].oneOf) {
+            for (const item of options[id].oneOf) {
+                if (item.enum[0] === value) {
+                    value = item.title;
+                }
+            }
+        }
+        return value ? value : '';
+    }
+
     return (
         <>
-            {tableData.length > 0 ? (<DxcTable>
-
-                {/* <th>{t('_CONTRACT_NUMBER')}</th>
-                        <th>{t('_OWNER_NAME')}</th>
-            <th>{t('_RISK_DATA')}</th> */}
+            {tableData && tableData._links && tableData._links.item && tableData._links.item.length > 0 ? (<DxcTable>
                 <tr>
                     {props.columnId.map(columnItem => (
-
-                        <th>
+                        <th key={columnItem['label']}>
                             {t(columnItem['label'])}
                         </th>
                     ))}
                 </tr>
 
-                {tableData.map((row) => (
+                {tableData._links.item.map((row: any) => (
                     <StyledHoverRow key={row['href']}>
                         {  props.columnId.map(columnItem => (
                             <td>
@@ -53,7 +85,7 @@ const Table = (props: { url: string; columnId: any[] }) => {
                                         row['summary'][id]
                                     ))
                                     // property is an array then concatenate
-                                ) : (row['summary'][columnItem.property])
+                                ) : (getDescriptionValue(row['summary'][columnItem.property], columnItem.property))
                                 }
                             </td>
                         ))}
