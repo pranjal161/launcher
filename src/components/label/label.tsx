@@ -2,12 +2,11 @@ import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { StyledLabel } from '../../styles/global-style';
 
-const Label = (props: { label: string, propertyName: string, data: any}) => {
+const Label = (props: { label?: string, propertyName: string, data: any}) => {
 
     const { t } = useTranslation();
     const { label, propertyName, data } = props;
     let value, viewValue;
-
 
     //Functions to process Output
     function getDescriptionFromOneOf(value: string, id: string, response: any): string {

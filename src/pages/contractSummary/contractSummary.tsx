@@ -12,6 +12,9 @@ import { DxcSelect } from '@dxc-technology/halstack-react';
 import FinancialOperationTable from '../../components/financialOperationTable/financialOperationTable';
 import { ApplicationContext } from '../../context/applicationContext';
 import { StyledBanner } from '../../styles/global-style';
+import CoverageTable from '../../components/coveragesTable/coveragesTable';
+import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
+import ClausesTable from '../../components/clausesTable/clausesTable';
 
 
 const ContractSummary = () => {
@@ -229,11 +232,15 @@ const ContractSummary = () => {
                         <RiskTable risks={risk} />
                     </div>
                 )}
-                {activeTab === 3 && (
-                    <div>{t("_COVERAGES")}</div>
+                {(activeTab === 3 && mainRisk) && (
+                    <div>
+                        <CoverageTable mainRiskUrl={mainRisk} />
+                    </div>
                 )}
                 {activeTab === 4 && (
-                    <div>{t("_CLAUSES")}</div>
+                    <div>
+                   <ClausesTable contractResponse={contractData}/>
+                   </div>
                 )}
                 {activeTab === 5 && (
                     <div>{t("_DOCUMENTS")}</div>
@@ -247,7 +254,9 @@ const ContractSummary = () => {
                     <div>{t("_FINANCIAL_INFORMATION")}</div>
                 )}
                 {activeTab === 8 && (
-                    <div>{t("_ACTIVITIES")}</div>
+                    <div>
+                        <ActivitiesTable contractResponse={contractData}/>
+                        </div>
                 )}
             </div>
         </>
