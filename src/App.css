@@ -71,3 +71,7 @@ table tbody tr td {
 table tbody tr th {
   padding: 10px 10px 10px 10px !important;
 }
+
+.dlwTvZ .MuiTabs-root .MuiButtonBase-root{
+  min-width: 150px !important;
+}

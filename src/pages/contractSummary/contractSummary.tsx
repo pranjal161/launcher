@@ -15,7 +15,7 @@ import { StyledBanner } from '../../styles/global-style';
 import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
 import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
-
+import ClausesTable from '../../components/clausesTable/clausesTable';
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -269,7 +269,9 @@ const ContractSummary = () => {
                     </div>
                 )}
                 {activeTab === 4 && (
-                    <div>{t("_CLAUSES")}</div>
+                    <div>
+                   <ClausesTable contractResponse={contractData}/>
+                   </div>
                 )}
                 {activeTab === 5 && (
                     <div>{t("_DOCUMENTS")}</div>
