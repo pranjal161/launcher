@@ -40,7 +40,6 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
             return null;
         }
     }
-
     return (
         <>
             {activityData.length > 0 && (
