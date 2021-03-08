@@ -10,7 +10,7 @@ import { StyledHoverRow, StyledButton } from '../../styles/global-style';
 const PartyRoleTable = (props: { roles: Array<any> }) => {
   const { t } = useTranslation();
   const history = useHistory();
-
+  
   const goToClientView = (item: any) => {
     get(item.href).then((partyRoleResponse) => {
       if (
@@ -50,7 +50,7 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
 
   return (
     <>
-      {props.roles.length > 0 && (
+      {props.roles && props.roles.length > 0 && (
         <DxcTable>
           <tr>
             <th>{t("_NAME")}</th>
