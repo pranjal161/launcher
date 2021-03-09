@@ -1,15 +1,50 @@
-import React from 'react';
-
 export const Themes = {
-    dxc_theme: {
-      foreground: '#ffffff',
-      background: '#222222',
-      headers: {
-        backgroundColor: "black",
-      }
-    },
-  };
-  
-  export const ThemeContext = React.createContext(
-    Themes.dxc_theme // default value
-  );
+  dxc_theme: {
+    foreground: '#ffffff',
+    background: '#222222',
+    headers: {
+      backgroundColor: "black",
+    }
+  },
+};
+
+export const Colors = {
+  header: {
+    background: "black",
+    color: "white"
+  },
+  button: {
+    color: "#6F2C91",
+    hoverColor: "#000000",
+
+    primaryFontColor: "#FFFFFF",
+    primaryHoverFontColor: "#FFFFFF",
+
+    secondaryFontColor: "#FFFFFF",
+    secondaryHoverFontColor: "#FFFFFF",
+
+    textFontColor: "#FFFFFF",
+    textHoverFontColor: "#000000"
+  },
+  checkbox: {
+    color: "#6F2C91",
+    checkColor: "#000000",
+    fontColor: "#000000"
+  },
+  slider: {
+    color: "#000000"
+  },
+  table: {
+    headerBackgroundColor: "#000000",
+    headerFontColor: "#FFFFFF"
+  },
+  spinner: {
+    trackCircleColor: "#6F2C91",
+    totalCircleColor: "#FFFFFF"
+  },
+  tabs: {
+    selectedBackgroundColor: "#FFFFFF",
+    selectedUnderlinedColor: "#6F2C91",
+    selectedColor: "#FFFFFF"
+  }
+};

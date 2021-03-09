@@ -15,6 +15,8 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
+import { ThemeContext } from "@dxc-technology/halstack-react";
+import { Colors } from "../src/styles/dxc-theme";
 
 function App() {
   const { ready } = useTranslation();
@@ -48,6 +50,7 @@ function App() {
   return (
     <>
     <AppContextProvider>
+        <ThemeContext.Provider value={Colors}>
       <>
         {isLoading && (
           <div className="spinner">
@@ -81,6 +84,7 @@ function App() {
           </Router>
         )}
       </>
+        </ThemeContext.Provider>
       </AppContextProvider>
     </>
   );

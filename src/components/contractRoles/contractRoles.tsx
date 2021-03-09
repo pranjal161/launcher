@@ -66,27 +66,27 @@ const ContractRoles = (props: { clientUrl: string }) => {
     return (
         <> {contractUrl && (
             <>
-                <h4> {t("_CONTRACT_LIST")}</h4>
+                <h5> {t("_CONTRACT_LIST")}</h5>
                 < ContractTable contractUrl={contractUrl} />
             </>)
         }
             { offerUrl && (
                 <>
-                    <h4> {t('_OFFERS')}</h4>
+                    <h5> {t('_OFFERS')}</h5>
                     < Table url={offerUrl} columnId={offerListColumns} />
                 </>
             )
             }
             { propositionUrl && (
                 <>
-                    <h4>{t('_PROPOSITION')}</h4>
+                    <h5>{t('_PROPOSITION')}</h5>
                     < Table url={propositionUrl} columnId={propositionListColumns} />
                 </>
             )
             }
             { quoteUrl && (
                 <>
-                    <h4>{t('_QUOTES')}</h4>
+                    <h5>{t('_QUOTES')}</h5>
                     < Table url={quoteUrl} columnId={quoteListColumns} />
                 </>
             )
