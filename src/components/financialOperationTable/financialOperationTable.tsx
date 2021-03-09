@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import { useEffect } from 'react';
 import { get } from "../../util/api-caller";
+import { getLink } from '../../util/functions';
 const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     const { t } = useTranslation();
@@ -22,17 +23,6 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             getOperationItems(premiumUrl, 'premiumList')
             getOperationItems(surrenderUrl, 'surrenderList');
             getOperationItems(switchUrl, 'switchList');
-        }
-    }
-
-    function getLink(response: any, linkName: string) {
-        if (response &&
-            response._links &&
-            response._links[linkName] &&
-            response._links[linkName].href) {
-            return response._links[linkName].href;
-        } else {
-            return null;
         }
     }
 
@@ -61,7 +51,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
         <>
             {premiumList.length > 0 && (
                 <>
-                    <h4>{t('_PREMIUM_LIST')}</h4>
+                    <h5>{t('_PREMIUM_LIST')}</h5>
                     <DxcTable>
                         <tr>
                             <th>{t('_OPERATION')}</th>
@@ -88,7 +78,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             )}
             {surrenderList.length > 0 && (
                 <>
-                    <h4>{t('_SURRENDER_LIST')}</h4>
+                    <h5>{t('_SURRENDER_LIST')}</h5>
                     <DxcTable>
                         <tr>
                             <th>{t('_OPERATION')}</th>
@@ -111,7 +101,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             )}
             {switchList.length > 0 && (
                 <>
-                    <h4>{t('_SWITCH_LIST')}</h4>
+                    <h5>{t('_SWITCH_LIST')}</h5>
                     <DxcTable>
                         <tr>
                             <th>{t('_OPERATION')}</th>

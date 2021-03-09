@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import axios from 'axios';
 import { AppConfig } from '../../config/appConfig';
 import { useEffect } from 'react';
 import React from 'react';
+import { getLink } from '../../util/functions';
 
 const ActivitiesTable = (props: { contractResponse: any }) => {
     const { t } = useTranslation();
@@ -29,16 +29,6 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         }
     }
 
-    function getLink(response: any, linkName: string) {
-        if (response &&
-            response._links &&
-            response._links[linkName] &&
-            response._links[linkName].href) {
-            return response._links[linkName].href;
-        } else {
-            return null;
-        }
-    }
     return (
         <>
             {activityData.length > 0 && (
