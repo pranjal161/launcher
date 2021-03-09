@@ -16,7 +16,6 @@ import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
 import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
 import ClausesTable from '../../components/clausesTable/clausesTable';
-import { isArray } from 'util';
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -138,7 +137,7 @@ const ContractSummary = () => {
     };
 
     const OwnerName = () => {
-        const ownerName = partyRole && isArray(partyRole) && partyRole.length > 1 ? partyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner') : partyRole;
+        const ownerName = partyRole && Array.isArray(partyRole) && partyRole.length > 1 ? partyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner') : partyRole;
         return (
             <>
                 {ownerName && ownerName['title'] && (
