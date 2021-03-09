@@ -51,7 +51,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
         <>
             {premiumList.length > 0 && (
                 <>
-                    <h4>{t('_PREMIUM_LIST')}</h4>
+                    <h5>{t('_PREMIUM_LIST')}</h5>
                     <DxcTable>
                         <tr>
                             <th>{t('_OPERATION')}</th>
@@ -78,7 +78,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             )}
             {surrenderList.length > 0 && (
                 <>
-                    <h4>{t('_SURRENDER_LIST')}</h4>
+                    <h5>{t('_SURRENDER_LIST')}</h5>
                     <DxcTable>
                         <tr>
                             <th>{t('_OPERATION')}</th>
@@ -101,7 +101,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             )}
             {switchList.length > 0 && (
                 <>
-                    <h4>{t('_SWITCH_LIST')}</h4>
+                    <h5>{t('_SWITCH_LIST')}</h5>
                     <DxcTable>
                         <tr>
                             <th>{t('_OPERATION')}</th>

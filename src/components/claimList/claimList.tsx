@@ -35,7 +35,7 @@ const ClaimList = (props: { clientUrl: string; }) => {
         <>
             { claimUrl && (
                 <>
-                    <h4> {t('_CLAIMS')}</h4>
+                    <h5> {t('_CLAIMS')}</h5>
                     < Table url={claimUrl} columnId={claimListColumns} />
                 </>
             )

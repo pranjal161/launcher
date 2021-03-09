@@ -5,12 +5,13 @@ import { DxcTable } from '@dxc-technology/halstack-react';
 import { ApplicationContext } from '../../context/applicationContext';
 import axios from 'axios';
 import { StyledHoverRow } from '../../styles/global-style';
+import { getDescriptionValue } from '../../util/functions';
 
 const ContractTable = (props: { contractUrl: string; }) => {
 
     const { t } = useTranslation();
     const history = useHistory();
-    const [contractData, setContractData] = useState([]);
+    const [contractData, setContractData] = useState<any>({});
     const applicationContext = useContext(ApplicationContext);
 
     function goToContract(item: any) {
@@ -23,9 +24,7 @@ const ContractTable = (props: { contractUrl: string; }) => {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];
                 }
-                setContractData(response.data['_links']['item'])
-            } else {
-                setContractData([]);
+                setContractData(response.data)
             }
         });
     }
@@ -37,17 +36,19 @@ const ContractTable = (props: { contractUrl: string; }) => {
 
     return (
         <>
-            { contractData.length > 0 ? (
+            {contractData && contractData._links && contractData._links.item ? (
                 <DxcTable>
                     <tr>
                         <th>{t('_CONTRACT_NUMBER')}</th>
+                        <th>{t('_CONTRACT_STATUS')}</th>
                         <th>{t('_OWNER_NAME')}</th>
                         <th>{t('_RISK_DATA')}</th>
                     </tr>
-                    {contractData.map((row) => (
-                        <StyledHoverRow key={row['href']} onClick={() => goToContract(row)}>
+                    {contractData._links.item.map((row: { [x: string]: { [x: string]: any; }; }, i: number) => (
+                        <StyledHoverRow key={i} onClick={() => goToContract(row)}>
                             <td>{row['summary']['contract:number']}</td>
-                            <td>{row['summary']['person:display_id']}</td>
+                            <td>{getDescriptionValue(row['summary']['contract:status'], 'contract:status', contractData)}</td>
+                            <td>{row['summary']['person:display_id'] ? row['summary']['person:display_id'] : row['summary']['organization:display_id']}</td>
                             <td>{row['summary']['membership:display_id']}</td>
                         </StyledHoverRow>
                     ))}
