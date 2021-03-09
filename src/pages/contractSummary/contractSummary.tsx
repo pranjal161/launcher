@@ -137,7 +137,8 @@ const ContractSummary = () => {
     };
 
     const OwnerName = () => {
-        const ownerName = partyRole && Array.isArray(partyRole) && partyRole.length > 1 ? partyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner') : partyRole;
+        const ownerPartyRole = partyRole && Array.isArray(partyRole) ? partyRole : typeof partyRole !== "undefined" ? [partyRole] : '';
+        const ownerName = ownerPartyRole && ownerPartyRole.length > 0 && ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
         return (
             <>
                 {ownerName && ownerName['title'] && (
