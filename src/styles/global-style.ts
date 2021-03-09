@@ -38,7 +38,7 @@ export const StyledButton = styled.button`
     border-radius: 4px;
     background: transparent;
     svg {
-        fill: #6f2c91;
+        fill: #000000;
         max-width: 25px;
         max-height: 25px;
     }
