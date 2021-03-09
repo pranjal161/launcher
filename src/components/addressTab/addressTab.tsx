@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ApplicationContext } from "../../context/applicationContext";
 import Table from "../table/table";
+import { getLink } from '../../util/functions';
 
 const AddressTab = (props: { clientData: Array<Object>; }) => {
     const { clientData } = props;
@@ -31,10 +32,10 @@ const AddressTab = (props: { clientData: Array<Object>; }) => {
 
     const populateAddressData = (data: any) => {
         const addressList: any = [];
-        addressList.push({url: data && data['_links'] && (data['_links']['person:postal_address_list'] && data['_links']['person:postal_address_list'].href || data['_links']['organization:postal_address_list'] && data['_links']['organization:postal_address_list'].href), id: 'postal-address'});
-        addressList.push({url: data && data['_links'] && (data['_links']['person:bank_account_list'] && data['_links']['person:bank_account_list'].href || data['_links']['organization:bank_account_list'] && data['_links']['organization:bank_account_list'].href), id: 'bank-account'});
-        addressList.push({url: data && data['_links'] && (data['_links']['person:phone_address_list'] && data['_links']['person:phone_address_list'].href || data['_links']['organization:phone_address_list'] && data['_links']['organization:phone_address_list'].href), id: 'telecom-address'});
-        addressList.push({url: data && data['_links'] && (data['_links']['person:e_mail_address_list'] && data['_links']['person:e_mail_address_list'].href || data['_links']['organization:e_mail_address_list'] && data['_links']['organization:e_mail_address_list'].href), id: 'electronic-address'});
+        addressList.push({url: getLink(data, 'person:postal_address_list') ? getLink(data, 'person:postal_address_list') : getLink(data, 'organization:postal_address_list'), id: 'postal-address'});
+        addressList.push({url: getLink(data, 'person:bank_account_list') ? getLink(data, 'person:bank_account_list') : getLink(data, 'organization:bank_account_list'), id: 'bank-account'});
+        addressList.push({url: getLink(data, 'person:phone_address_list') ? getLink(data, 'person:phone_address_list') : getLink(data, 'organization:phone_address_list'), id: 'telecom-address'});
+        addressList.push({url: getLink(data, 'person:e_mail_address_list') ? getLink(data, 'person:e_mail_address_list') : getLink(data, 'organization:e_mail_address_list'), id: 'electronic-address'});
         setClientAddressData(addressList);
     }
 
