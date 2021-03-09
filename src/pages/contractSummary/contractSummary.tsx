@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { DxcTabs } from '@dxc-technology/halstack-react';
+import { DxcTabs, DxcDialog } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
 import RiskTable from '../../components/riskTable/riskTable';
@@ -14,8 +14,8 @@ import { ApplicationContext } from '../../context/applicationContext';
 import { StyledBanner } from '../../styles/global-style';
 import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
+import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
 import ClausesTable from '../../components/clausesTable/clausesTable';
-
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -29,8 +29,8 @@ const ContractSummary = () => {
     const [action, changeAction] = useState('');
     const [historySelect, changeHistory] = useState('');
     const [historySelectOptions, setHistoryOptions] = useState([]);
-
-
+    const [isDialogVisible, setDialogVisible] = useState(false);
+    const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>()
     const actionOptions = [
         {
             value: "claim",
@@ -41,13 +41,17 @@ const ContractSummary = () => {
             label: t('_AMENDMENT')
         },
         {
-            value: "unsollicitedPayment",
+            value: "unsolicitedPayment",
             label: t('_UNSOLICITED_PAYMENT')
         }
     ];
 
     const onActionChange = (newValue: string) => {
         changeAction(newValue);
+        if (newValue === 'unsolicitedPayment') {
+            createunsollicitedPayment();
+        }
+
     };
     const onHistoryChange = (newValue: string) => {
         changeHistory(newValue);
@@ -77,33 +81,33 @@ const ContractSummary = () => {
     const populateHistorySelect = (contractResponse: any) => {
         let stateUrl;
         if (contractResponse && contractResponse['_links'] && contractResponse['_links']['cscaia:states']) {
-          stateUrl = contractResponse._links['cscaia:states'].href;
+            stateUrl = contractResponse._links['cscaia:states'].href;
         } else if (contractUrl.indexOf('/states') >= 0) {
-          stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf("/"));
+            stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf("/"));
         }
         if (stateUrl) {
             axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
-            const response: any = res && res['data'];
-            if (response && response['_links'] && response['_links']['item']) {
-                const items = Array.isArray(response['_links']['item']) ? response['_links']['item'] : [response['_links']['item']];
-                const historyOptions: any = [];
-                const version = t('_STATE_VERSION');
-                const fromLabel = t('_FROM_VERSION');
-                const toLabel = t('_TO_VERSION');
-                items.forEach(element => {
-                    const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
-                    const value = element.href;
-                    const data = {
-                    value: value,
-                    label: label
-                    };
-                    historyOptions.push(data);
-                });
-                setHistoryOptions(historyOptions);
-            }
-          });
+                const response: any = res && res['data'];
+                if (response && response['_links'] && response['_links']['item']) {
+                    const items = Array.isArray(response['_links']['item']) ? response['_links']['item'] : [response['_links']['item']];
+                    const historyOptions: any = [];
+                    const version = t('_STATE_VERSION');
+                    const fromLabel = t('_FROM_VERSION');
+                    const toLabel = t('_TO_VERSION');
+                    items.forEach(element => {
+                        const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
+                        const value = element.href;
+                        const data = {
+                            value: value,
+                            label: label
+                        };
+                        historyOptions.push(data);
+                    });
+                    setHistoryOptions(historyOptions);
+                }
+            });
         }
-      }
+    }
 
     const getRiskData = (data: { [x: string]: any; }) => {
         if (data && data['contract:membership_list']) {
@@ -143,6 +147,28 @@ const ContractSummary = () => {
         );
     };
 
+    const onClickDialog = () => {
+        setDialogVisible(false);
+    }
+
+    const createunsollicitedPayment = () => {
+        const operationUrl = contractUrl + '/operations';
+        axios.get(operationUrl, { headers: applicationContext.headers }).then((operationRes) => {
+            if (operationRes && operationRes.data._links && operationRes.data._links['item']) {
+                const operationItem = operationRes.data._links['item'];
+                const payment = operationItem.find((item: { name: string; }) => item.name === 'unsolicited_payment');
+                if (payment && payment.href) {
+                    axios.post(payment.href, {}, { headers: applicationContext.headers }).then((res) => {
+                        if (res && res.data) {
+                            setunsolicitedPaymentRes(res.data)
+                            setDialogVisible(true);
+                        }
+                    })
+                }
+            }
+        })
+    }
+
     function ContractBanner() {
         return (
             <StyledBanner>
@@ -152,9 +178,9 @@ const ContractSummary = () => {
                         <OwnerName />
                     </div>
                     <div className="col-4">
-                        <Label propertyName={'contract:number'} label={'_CONTRACT_NUMBER'} data={contractData} />
+                        <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
 
-                        <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData}/>
+                        <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
 
                         <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
 
@@ -166,9 +192,9 @@ const ContractSummary = () => {
                         <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
 
                         <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
-                            
+
                         <Label propertyName="contract:currency_mode" label="_CURRENCY" data={contractData} />
-                
+
                         <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
 
                         <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} />
@@ -200,6 +226,11 @@ const ContractSummary = () => {
         <>
             {contractData && (
                 <ContractBanner />
+            )}
+            {isDialogVisible && unsolicitedPaymentRes && (
+                <DxcDialog padding="medium">
+                    <UnsolicitedPayment onClickDialog={onClickDialog} response={unsolicitedPaymentRes}/>
+                </DxcDialog>
             )}
             <div>
                 <DxcTabs
