@@ -10,7 +10,6 @@ import axios from 'axios';
 import { StyledBanner } from '../../styles/global-style';
 import { PersonIcon, CallIcon, HomeIcon, EmailIcon, CreditCardIcon, LanguageIcon } from '../../assets/svg';
 import Label from '../../components/label/label';
-import { stringify } from "querystring";
 
 const ClientView = () => {
   const location: any = useLocation();
