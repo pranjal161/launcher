@@ -17,7 +17,7 @@ const ContractRoles = (props: { clientUrl: string }) => {
         { label: '_PRODUCT_IDENTIFIER', property: 'contract:product_identifier' },
         { label: '_OWNER_NAME', property: ['organization:display_id', 'person:first_name', 'person:last_name'] },
         { label: '_RISK_DATA', property: 'membership:display_id' },
-        { label: '_START_DATE', property: 'contract:start_date' },
+        { label: '_START_DATE', property: 'contract:start_date', type: "date" },
         { label: '_OFFER_STATUS', property: 'contract:proposition_status' }
     ];
     const quoteListColumns = [
@@ -25,7 +25,7 @@ const ContractRoles = (props: { clientUrl: string }) => {
         { label: '_PRODUCT_IDENTIFIER', property: 'quote:product_id' },
         { label: '_OWNER_NAME', property: 'quote_owner:name' },
         { label: '_RISK_DATA', property: 'quote_risk:display_id' },
-        { label: '_START_DATE', property: 'quote:contract_start_date' },
+        { label: '_START_DATE', property: 'quote:contract_start_date', type: "date" },
         { label: '_STATUS', property: 'quote:status' }
     ];
 
@@ -34,7 +34,7 @@ const ContractRoles = (props: { clientUrl: string }) => {
         { label: '_PRODUCT_IDENTIFIER', property: 'contract:product_identifier' },
         { label: '_OWNER_NAME', property: ['organization:display_id', 'person:first_name', 'person:last_name'] },
         { label: '_RISK_DATA', property: 'membership:display_id' },
-        { label: '_START_DATE', property: 'contract:start_date' },
+        { label: '_START_DATE', property: 'contract:start_date', type: "date" },
         { label: '_OFFER_STATUS', property: 'contract:proposition_status' }
 
     ];

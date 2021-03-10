@@ -10,6 +10,8 @@ import axios from 'axios';
 import { StyledBanner } from '../../styles/global-style';
 import { PersonIcon, CallIcon, HomeIcon, EmailIcon, CreditCardIcon, LanguageIcon } from '../../assets/svg';
 import Label from '../../components/label/label';
+import  AddressTab from '../../components/addressTab/addressTab';
+import FinancialTable from "../../components/financialTable/financialTable";
 
 const ClientView = () => {
   const location: any = useLocation();
@@ -60,7 +62,7 @@ const ClientView = () => {
   const ClientBanner = () => {
 
     const getClientData = (id: string) => {
-      let index = clientDetailData.findIndex((x: any) => x['id'] === id);
+      const index = clientDetailData.findIndex((x: any) => x['id'] === id);
       return clientDetailData && clientDetailData[index] && clientDetailData[index]['data'];
     };
 
@@ -154,8 +156,8 @@ const ClientView = () => {
           <div>
             <ContractRoles clientUrl={clientUrl} />
           </div>)}
-        {activeTab === 1 && <div>{t("_FINANCIAL")}</div>}
-        {activeTab === 2 && <div>{t("_ADDRESS")}</div>}
+        {activeTab === 1 && <FinancialTable clientUrl={clientUrl}/>}
+        {activeTab === 2 && <AddressTab clientData={clientData} />}
         {activeTab === 3 && clientUrl && <ClaimList clientUrl={clientUrl} />}
         {activeTab === 4 && <div>{t("_DOCUMENTS")}</div>}
       </div>
