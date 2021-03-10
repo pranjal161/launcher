@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyledPaginator } from '../../styles/global-style';
 import { DxcPaginator } from '@dxc-technology/halstack-react';
-import { paginationLink } from '../../util/functions';
+import { paginationLink, getLink } from '../../util/functions';
 
 const Paginator = (props: { totalItems: string | number, itemsPerPage: number, data: any, handler: any}) => {
 
@@ -10,27 +10,27 @@ const Paginator = (props: { totalItems: string | number, itemsPerPage: number, d
 
     const prevClick = () => {
         changePage(page - 1);
-        const prevLink = data && data['_links'] && data['_links'] && data['_links']['prev'];
-        handler(prevLink['href']);
+        const prevLink = getLink(data, 'prev');
+        handler(prevLink);
     };
 
     const firstClick = () => {
         changePage(1);
-        const firstLink = data && data['_links'] && data['_links'] && data['_links']['first'];
-        handler(firstLink['href']);
+        const firstLink = getLink(data, 'first');
+        handler(firstLink);
     };
 
     const nextClick = () => {
         changePage(page + 1);
-        const nextLink = data && data['_links'] && data['_links'] && data['_links']['next'];
-        handler(nextLink['href']);
+        const nextLink = getLink(data, 'next');
+        handler(nextLink);
     };
 
     const lastClick = (currPage: number) => {
         changePage(currPage);
         // To be discussed
-        const link = data && data['_links'] && data['_links'] && data['_links']['first'];
-        const lastLink = paginationLink(link['href'], currPage, itemsPerPage);
+        const link = getLink(data, 'first');
+        const lastLink = paginationLink(link, currPage, itemsPerPage);
         handler(lastLink);
     };
 
