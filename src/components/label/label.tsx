@@ -1,37 +1,23 @@
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { StyledLabel } from '../../styles/global-style';
+import { formatValue, getDescriptionFromOneOf } from '../../util/functions';
 
-const Label = (props: { label?: string, propertyName: string, data: any}) => {
+const Label = (props: { label?: string, propertyName: string, data: any, type?: string}) => {
 
     const { t } = useTranslation();
-    const { label, propertyName, data } = props;
+    const { label, propertyName, data, type } = props;
     let value, viewValue;
 
     //Functions to process Output
-    function getDescriptionFromOneOf(value: string, id: string, response: any): string {
-        if (
-          response._options &&
-          response._options.properties &&
-          response._options.properties[id] &&
-          response._options.properties[id]['oneOf']
-        ) {
-          for (let i = 0; i < response._options.properties[id]['oneOf'].length; i++) {
-            if (
-              response._options.properties[id]['oneOf'][i]['enum'][0] ===
-              value
-            ) {
-              value = response._options.properties[id]['oneOf'][i]['title'];
-            }
-          }
-        }
-        return value;
-      }
 
     function processDataOutput() {
         if(data && data.hasOwnProperty(propertyName)) {
             value = data[propertyName];
             viewValue = getDescriptionFromOneOf(value, propertyName, data);
+            if (type) {
+              viewValue = formatValue(value, type);
+            }
             return viewValue ? viewValue : value;
         }
     }

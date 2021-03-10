@@ -47,7 +47,7 @@ const Table = (props: { url: string; columnId: any[] }) => {
                                         row['summary'][id]
                                     ))
                                     // property is an array then concatenate
-                                ) : (getDescriptionValue(row['summary'][columnItem.property], columnItem.property, tableData))
+                                ) : (getDescriptionValue(row['summary'][columnItem.property], columnItem.property, tableData, columnItem.type))
                                 }
                             </td>
                         ))}
