@@ -49,7 +49,7 @@ const ClientView = () => {
           <div>
             <ContractRoles clientUrl={clientUrl} />
           </div>)}
-        {activeTab === 1 && <div><FinancialTable clientUrl={clientUrl}/></div>}
+        {activeTab === 1 && <FinancialTable clientUrl={clientUrl}/>}
         {activeTab === 2 && <div>{t("_ADDRESS")}</div>}
         {activeTab === 3 && clientUrl && <ClaimList clientUrl={clientUrl} />}
         {activeTab === 4 && <div>{t("_DOCUMENTS")}</div>}
