@@ -185,9 +185,9 @@ const ContractSummary = () => {
 
                         <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
 
-                        <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} />
+                        <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
 
-                        <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} />
+                        <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type ="date" />
                     </div>
                     <div className="col-4">
                         <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
@@ -198,7 +198,7 @@ const ContractSummary = () => {
 
                         <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
 
-                        <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} />
+                        <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type ="date" />
                     </div>
                     <div className="col-2">
                         <div className="select-box">
