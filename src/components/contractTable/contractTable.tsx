@@ -59,7 +59,7 @@ const ContractTable = (props: { contractUrl: string; }) => {
                             </StyledHoverRow>
                         ))}
                     </DxcTable>
-                    <Paginator totalItems={totalItems} itemsPerPage={5} url={props.contractUrl} handler={getData} />
+                    <Paginator totalItems={totalItems} itemsPerPage={5} data={contractData} handler={getData} />
                 </>
             ) : (
                     <DxcTable>
