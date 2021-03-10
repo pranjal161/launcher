@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { DxcTable, DxcPaginator } from '@dxc-technology/halstack-react';
+import { DxcTable } from '@dxc-technology/halstack-react';
 import { ApplicationContext } from '../../context/applicationContext';
 import axios from 'axios';
-import { StyledHoverRow, StyledPaginator } from '../../styles/global-style';
-import { getDescriptionValue, paginationLink } from '../../util/functions';
+import { StyledHoverRow } from '../../styles/global-style';
+import { getDescriptionValue } from '../../util/functions';
+import Paginator from '../paginator/paginator';
 
 const ContractTable = (props: { contractUrl: string; }) => {
 
@@ -13,32 +14,7 @@ const ContractTable = (props: { contractUrl: string; }) => {
     const history = useHistory();
     const [contractData, setContractData] = useState<any>({});
     const applicationContext = useContext(ApplicationContext);
-    const [page, changePage] = useState(1);
-    const itemsPerPage = 5;
     const [totalItems, changeTotalItems] = useState(0);
-
-    const prevClick = () => {
-        changePage(page - 1);
-        navigatePage(page - 1);
-    };
-    const firstClick = () => {
-        changePage(1);
-        navigatePage(1);
-    };
-    const nextClick = () => {
-        changePage(page + 1);
-        navigatePage(page + 1);
-    };
-    const lastClick = (currPage: number) => {
-        changePage(currPage);
-        navigatePage(currPage);
-    };
-
-    const navigatePage = (pagenumber: number) => {
-        const paginateUrl = props.contractUrl;
-        const navigateTo = paginationLink(paginateUrl, pagenumber, itemsPerPage);
-        getData(navigateTo ? navigateTo : '');
-    };
 
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
@@ -83,16 +59,7 @@ const ContractTable = (props: { contractUrl: string; }) => {
                             </StyledHoverRow>
                         ))}
                     </DxcTable>
-                    <StyledPaginator>
-                        <DxcPaginator currentPage={page}
-                            itemsPerPage={itemsPerPage}
-                            totalItems={totalItems}
-                            prevFunction={prevClick}
-                            firstFunction={firstClick}
-                            nextFunction={nextClick}
-                            lastFunction={lastClick}
-                        />
-                    </StyledPaginator>
+                    <Paginator totalItems={totalItems} itemsPerPage={5} url={props.contractUrl} handler={getData} />
                 </>
             ) : (
                     <DxcTable>
