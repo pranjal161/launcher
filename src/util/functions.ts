@@ -107,3 +107,15 @@ export const formatValue = (value: any, style?: string | undefined) => {
         return formattedValue ? formattedValue : value;
     }
 }
+
+export const paginationLink = (paginateUrl: string, page: number, perPageItems: number) => {
+    if (paginateUrl) {
+        const url = new URL(paginateUrl);
+        const params = new URLSearchParams(url.search);
+        const baseUrl = paginateUrl.includes('?') ? paginateUrl.split('?')[0] : paginateUrl;
+        const start = (page - 1) * perPageItems + 1;
+        params.set('_num', perPageItems.toString());
+        params.set('_start', start.toString());
+        return `${baseUrl}?${params.toString()}`;
+    }
+}
