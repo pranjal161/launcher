@@ -4,10 +4,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ApplicationContext } from "../../context/applicationContext";
 import { StyledHoverRow } from '../../styles/global-style';
+import { getDescriptionValue } from "../../util/functions";
 
 const Table = (props: { url: string; columnId: any[] }) => {
     const applicationContext = useContext(ApplicationContext);
-    const [tableData, setTableData] = useState([])
+    const [tableData, setTableData] = useState<undefined|any>();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -21,30 +22,23 @@ const Table = (props: { url: string; columnId: any[] }) => {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];
                 }
-                setTableData(response.data['_links']['item'])
-            } else {
-                setTableData([]);
+                setTableData(response.data)
             }
         });
     }
 
     return (
         <>
-            {tableData.length > 0 ? (<DxcTable>
-
-                {/* <th>{t('_CONTRACT_NUMBER')}</th>
-                        <th>{t('_OWNER_NAME')}</th>
-            <th>{t('_RISK_DATA')}</th> */}
+            {tableData && tableData._links && tableData._links.item && tableData._links.item.length > 0 ? (<DxcTable>
                 <tr>
                     {props.columnId.map(columnItem => (
-
-                        <th>
+                        <th key={columnItem['label']}>
                             {t(columnItem['label'])}
                         </th>
                     ))}
                 </tr>
 
-                {tableData.map((row) => (
+                {tableData._links.item.map((row: any) => (
                     <StyledHoverRow key={row['href']}>
                         {  props.columnId.map(columnItem => (
                             <td>
@@ -53,7 +47,7 @@ const Table = (props: { url: string; columnId: any[] }) => {
                                         row['summary'][id]
                                     ))
                                     // property is an array then concatenate
-                                ) : (row['summary'][columnItem.property])
+                                ) : (getDescriptionValue(row['summary'][columnItem.property], columnItem.property, tableData))
                                 }
                             </td>
                         ))}
@@ -68,7 +62,7 @@ const Table = (props: { url: string; columnId: any[] }) => {
                     ))}
                 </tr>
                 <tr>
-                    <td colSpan={3}>{t('_NO_RECORDS_FOUND')}</td>
+                    <td colSpan={12}>{t('_NO_RECORDS_FOUND')}</td>
                 </tr>
             </DxcTable>)
             }

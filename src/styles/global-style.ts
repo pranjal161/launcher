@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 //Stylesheet
@@ -17,6 +16,14 @@ padding: 20px;
         width: 100% !important;
     }
 }
+
+.icon {
+    svg {
+        max-width: 24px;
+        max-height: 24px;
+        margin-bottom: 3px;
+    }
+}
 `;
 
 export const StyledHoverRow = styled.tr`
@@ -27,11 +34,11 @@ export const StyledHoverRow = styled.tr`
 `;
 
 export const StyledButton = styled.button`
-    border: 1px solid #6f2c91;
+    border: unset;
     border-radius: 4px;
-
+    background: transparent;
     svg {
-        fill: #6f2c91;
+        fill: #000000;
         max-width: 25px;
         max-height: 25px;
     }
