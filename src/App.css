@@ -39,14 +39,14 @@
 
 .MuiAppBar-colorPrimary {
   color: #fff;
-    background-color: black !important
+  background-color: black !important;
 }
 
 .loader {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%
+  width: 100%;
 
   /* width: 300px;
   height: 300px; */
@@ -65,7 +65,7 @@ label {
 
 /* temp fix as it is too big*/
 table tbody tr td {
-    padding: 5px 10px 5px 10px !important;
+  padding: 5px 10px 5px 10px !important;
 }
 
 table tbody tr th {
@@ -78,4 +78,13 @@ table tbody tr th {
 
 .MuiTabs-scrollable {
   overflow-x: hidden !important;
+}
+.document-tile .bhXxCw {
+  display: contents;
+}
+
+.document-tile .eXsKwo,
+.document-tile .gVleGS {
+  height: auto;
+  width: auto;
 }
