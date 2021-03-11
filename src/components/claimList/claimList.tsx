@@ -16,7 +16,7 @@ const ClaimList = (props: { clientUrl: string; }) => {
         { label: '_RISK_DATA', property: 'membership:display_id' },
         { label: '_EVENT_TYPE', property: 'claim_event:type' },
         { label: '_STATUS', property: 'claim_event:status' },
-        { label: '_EFFECTIVE_DATE', property: 'claim_event:date' }
+        { label: '_EFFECTIVE_DATE', property: 'claim_event:date', type:"date" }
     ];
 
     useEffect(() => {

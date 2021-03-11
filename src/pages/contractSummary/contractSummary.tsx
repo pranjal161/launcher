@@ -16,7 +16,6 @@ import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
 import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
 import ClausesTable from '../../components/clausesTable/clausesTable';
-
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
@@ -45,23 +44,19 @@ const ContractSummary = () => {
             label: t('_UNSOLICITED_PAYMENT')
         }
     ];
-
     const onActionChange = (newValue: string) => {
         changeAction(newValue);
         if (newValue === 'unsolicitedPayment') {
             createunsollicitedPayment();
         }
-
     };
     const onHistoryChange = (newValue: string) => {
         changeHistory(newValue);
         setContractUrl(newValue);
     };
-
     useEffect(() => {
         getData(contractUrl);
     }, [applicationContext, contractUrl]);
-
     const getData = async (contractUrl: string) => {
         axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
             setContractData(result.data);
@@ -77,7 +72,6 @@ const ContractSummary = () => {
             }
         });
     }
-
     const populateHistorySelect = (contractResponse: any) => {
         let stateUrl;
         if (contractResponse && contractResponse['_links'] && contractResponse['_links']['cscaia:states']) {
@@ -108,7 +102,6 @@ const ContractSummary = () => {
             });
         }
     }
-
     const getRiskData = (data: { [x: string]: any; }) => {
         if (data && data['contract:membership_list']) {
             const risks: string = data['contract:membership_list'].href;
@@ -130,12 +123,10 @@ const ContractSummary = () => {
             });
         }
     }
-
     const [activeTab, setActiveTab] = useState(0);
     const onTabClick = (i: number) => {
         setActiveTab(i);
     };
-
     const OwnerName = () => {
         const ownerPartyRole = partyRole && Array.isArray(partyRole) ? partyRole : typeof partyRole !== "undefined" ? [partyRole] : '';
         const ownerName = ownerPartyRole && ownerPartyRole.length > 0 && ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
@@ -147,11 +138,9 @@ const ContractSummary = () => {
             </>
         );
     };
-
     const onClickDialog = () => {
         setDialogVisible(false);
     }
-
     const createunsollicitedPayment = () => {
         const operationUrl = contractUrl + '/operations';
         axios.get(operationUrl, { headers: applicationContext.headers }).then((operationRes) => {
@@ -169,7 +158,6 @@ const ContractSummary = () => {
             }
         })
     }
-
     function ContractBanner() {
         return (
             <StyledBanner>
@@ -180,24 +168,16 @@ const ContractSummary = () => {
                     </div>
                     <div className="col-4">
                         <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
-
                         <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
-
                         <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
-
                         <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
-
                         <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type ="date" />
                     </div>
                     <div className="col-4">
                         <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
-
                         <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
-
                         <Label propertyName="contract:currency_mode" label="_CURRENCY" data={contractData} />
-
                         <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
-
                         <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type ="date" />
                     </div>
                     <div className="col-2">
@@ -222,7 +202,6 @@ const ContractSummary = () => {
             </StyledBanner>
         )
     }
-
     return (
         <>
             {contractData && (
@@ -292,8 +271,6 @@ const ContractSummary = () => {
                 )}
             </div>
         </>
-
     )
 }
-
 export default ContractSummary;
