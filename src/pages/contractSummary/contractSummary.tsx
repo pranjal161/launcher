@@ -16,6 +16,8 @@ import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
 import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
 import ClausesTable from '../../components/clausesTable/clausesTable';
+import FinancialInformation from '../../components/financialInformation/financialInformation';
+
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
@@ -262,7 +264,9 @@ const ContractSummary = () => {
                     </div>
                 )}
                 {activeTab === 7 && (
-                    <div>{t("_FINANCIAL_INFORMATION")}</div>
+                    <div>
+                        <FinancialInformation contractResponse={contractData} />
+                    </div>
                 )}
                 {activeTab === 8 && (
                     <div>
