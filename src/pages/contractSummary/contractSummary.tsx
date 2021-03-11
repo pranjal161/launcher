@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { DxcTabs } from '@dxc-technology/halstack-react';
+import { DxcTabs, DxcDialog } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
 import RiskTable from '../../components/riskTable/riskTable';
@@ -14,9 +14,8 @@ import { ApplicationContext } from '../../context/applicationContext';
 import { StyledBanner } from '../../styles/global-style';
 import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
+import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
 import ClausesTable from '../../components/clausesTable/clausesTable';
-
-
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
@@ -29,8 +28,8 @@ const ContractSummary = () => {
     const [action, changeAction] = useState('');
     const [historySelect, changeHistory] = useState('');
     const [historySelectOptions, setHistoryOptions] = useState([]);
-
-
+    const [isDialogVisible, setDialogVisible] = useState(false);
+    const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>()
     const actionOptions = [
         {
             value: "claim",
@@ -41,23 +40,23 @@ const ContractSummary = () => {
             label: t('_AMENDMENT')
         },
         {
-            value: "unsollicitedPayment",
+            value: "unsolicitedPayment",
             label: t('_UNSOLICITED_PAYMENT')
         }
     ];
-
     const onActionChange = (newValue: string) => {
         changeAction(newValue);
+        if (newValue === 'unsolicitedPayment') {
+            createunsollicitedPayment();
+        }
     };
     const onHistoryChange = (newValue: string) => {
         changeHistory(newValue);
         setContractUrl(newValue);
     };
-
     useEffect(() => {
         getData(contractUrl);
     }, [applicationContext, contractUrl]);
-
     const getData = async (contractUrl: string) => {
         axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
             setContractData(result.data);
@@ -73,38 +72,36 @@ const ContractSummary = () => {
             }
         });
     }
-
     const populateHistorySelect = (contractResponse: any) => {
         let stateUrl;
         if (contractResponse && contractResponse['_links'] && contractResponse['_links']['cscaia:states']) {
-          stateUrl = contractResponse._links['cscaia:states'].href;
+            stateUrl = contractResponse._links['cscaia:states'].href;
         } else if (contractUrl.indexOf('/states') >= 0) {
-          stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf("/"));
+            stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf("/"));
         }
         if (stateUrl) {
             axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
-            const response: any = res && res['data'];
-            if (response && response['_links'] && response['_links']['item']) {
-                const items = Array.isArray(response['_links']['item']) ? response['_links']['item'] : [response['_links']['item']];
-                const historyOptions: any = [];
-                const version = t('_STATE_VERSION');
-                const fromLabel = t('_FROM_VERSION');
-                const toLabel = t('_TO_VERSION');
-                items.forEach(element => {
-                    const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
-                    const value = element.href;
-                    const data = {
-                    value: value,
-                    label: label
-                    };
-                    historyOptions.push(data);
-                });
-                setHistoryOptions(historyOptions);
-            }
-          });
+                const response: any = res && res['data'];
+                if (response && response['_links'] && response['_links']['item']) {
+                    const items = Array.isArray(response['_links']['item']) ? response['_links']['item'] : [response['_links']['item']];
+                    const historyOptions: any = [];
+                    const version = t('_STATE_VERSION');
+                    const fromLabel = t('_FROM_VERSION');
+                    const toLabel = t('_TO_VERSION');
+                    items.forEach(element => {
+                        const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
+                        const value = element.href;
+                        const data = {
+                            value: value,
+                            label: label
+                        };
+                        historyOptions.push(data);
+                    });
+                    setHistoryOptions(historyOptions);
+                }
+            });
         }
-      }
-
+    }
     const getRiskData = (data: { [x: string]: any; }) => {
         if (data && data['contract:membership_list']) {
             const risks: string = data['contract:membership_list'].href;
@@ -126,14 +123,13 @@ const ContractSummary = () => {
             });
         }
     }
-
     const [activeTab, setActiveTab] = useState(0);
     const onTabClick = (i: number) => {
         setActiveTab(i);
     };
-
     const OwnerName = () => {
-        const ownerName = partyRole && partyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
+        const ownerPartyRole = partyRole && Array.isArray(partyRole) ? partyRole : typeof partyRole !== "undefined" ? [partyRole] : '';
+        const ownerName = ownerPartyRole && ownerPartyRole.length > 0 && ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
         return (
             <>
                 {ownerName && ownerName['title'] && (
@@ -142,7 +138,26 @@ const ContractSummary = () => {
             </>
         );
     };
-
+    const onClickDialog = () => {
+        setDialogVisible(false);
+    }
+    const createunsollicitedPayment = () => {
+        const operationUrl = contractUrl + '/operations';
+        axios.get(operationUrl, { headers: applicationContext.headers }).then((operationRes) => {
+            if (operationRes && operationRes.data._links && operationRes.data._links['item']) {
+                const operationItem = operationRes.data._links['item'];
+                const payment = operationItem.find((item: { name: string; }) => item.name === 'unsolicited_payment');
+                if (payment && payment.href) {
+                    axios.post(payment.href, {}, { headers: applicationContext.headers }).then((res) => {
+                        if (res && res.data) {
+                            setunsolicitedPaymentRes(res.data)
+                            setDialogVisible(true);
+                        }
+                    })
+                }
+            }
+        })
+    }
     function ContractBanner() {
         return (
             <StyledBanner>
@@ -152,26 +167,18 @@ const ContractSummary = () => {
                         <OwnerName />
                     </div>
                     <div className="col-4">
-                        <Label propertyName={'contract:number'} label={'_CONTRACT_NUMBER'} data={contractData} />
-
-                        <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData}/>
-
+                        <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
+                        <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
                         <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
-
-                        <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} />
-
-                        <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} />
+                        <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
+                        <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type ="date" />
                     </div>
                     <div className="col-4">
                         <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
-
                         <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
-                            
                         <Label propertyName="contract:currency_mode" label="_CURRENCY" data={contractData} />
-                
                         <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
-
-                        <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} />
+                        <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type ="date" />
                     </div>
                     <div className="col-2">
                         <div className="select-box">
@@ -195,11 +202,15 @@ const ContractSummary = () => {
             </StyledBanner>
         )
     }
-
     return (
         <>
             {contractData && (
                 <ContractBanner />
+            )}
+            {isDialogVisible && unsolicitedPaymentRes && (
+                <DxcDialog padding="medium">
+                    <UnsolicitedPayment onClickDialog={onClickDialog} response={unsolicitedPaymentRes}/>
+                </DxcDialog>
             )}
             <div>
                 <DxcTabs
@@ -260,8 +271,6 @@ const ContractSummary = () => {
                 )}
             </div>
         </>
-
     )
 }
-
 export default ContractSummary;
