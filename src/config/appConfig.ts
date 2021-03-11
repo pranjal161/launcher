@@ -13,5 +13,6 @@ export const AppConfig = {
         locale: 'nl-NL',
         currency: 'EUR',
         DateFormat: 'en-GB'
-    }
+    },
+    printModeSubmissionDoc: 'xml'
 }
