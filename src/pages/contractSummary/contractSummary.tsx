@@ -16,6 +16,9 @@ import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
 import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
 import ClausesTable from '../../components/clausesTable/clausesTable';
+import Documents from '../../components/documents/documents';
+import { getLink } from '../../util/functions';
+
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
@@ -30,6 +33,7 @@ const ContractSummary = () => {
     const [historySelectOptions, setHistoryOptions] = useState([]);
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>()
+    const [outputDoc, setOutputDoc] = useState('');
     const actionOptions = [
         {
             value: "claim",
@@ -69,6 +73,9 @@ const ContractSummary = () => {
                         setPartyRoleData(partyRoleRes.data._links.item);
                     }
                 });
+            }
+            if (getLink(result.data, 'cscaia:output_documents')) {
+                setOutputDoc(getLink(result.data, 'cscaia:output_documents'));
             }
         });
     }
@@ -176,7 +183,7 @@ const ContractSummary = () => {
                     <div className="col-4">
                         <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
                         <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
-                        <Label propertyName="contract:currency_mode" label="_CURRENCY" data={contractData} />
+                        <Label propertyName="contract:currency_code" label="_CURRENCY" data={contractData} />
                         <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
                         <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type ="date" />
                     </div>
@@ -254,7 +261,7 @@ const ContractSummary = () => {
                    </div>
                 )}
                 {activeTab === 5 && (
-                    <div>{t("_DOCUMENTS")}</div>
+                    <Documents outputDoc={outputDoc} />
                 )}
                 {activeTab === 6 && (
                     <div>
@@ -266,8 +273,8 @@ const ContractSummary = () => {
                 )}
                 {activeTab === 8 && (
                     <div>
-                        <ActivitiesTable contractResponse={contractData}/>
-                        </div>
+                        <ActivitiesTable contractResponse={contractData} />
+                    </div>
                 )}
             </div>
         </>
