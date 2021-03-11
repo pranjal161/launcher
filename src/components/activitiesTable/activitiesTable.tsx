@@ -19,7 +19,7 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [props.contractResponse]);
 
     const getData = () => {
         if (props.contractResponse) {

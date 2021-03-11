@@ -15,7 +15,7 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
 
     useEffect(() => {
         getData();
-    }, [applicationContext]);
+    }, [applicationContext, props.mainRiskUrl]);
 
     const getData = () => {
         axios.get(props.mainRiskUrl, { headers: applicationContext.headers }).then(riskRes => {

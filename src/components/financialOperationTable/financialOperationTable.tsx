@@ -27,7 +27,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     useEffect(() => {
         getData();
-    }, [applicationContext]);
+    }, [applicationContext, props.contractResponse]);
 
     const getData = () => {
         if (props.contractResponse) {
