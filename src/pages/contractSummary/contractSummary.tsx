@@ -18,6 +18,8 @@ import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedP
 import ClausesTable from '../../components/clausesTable/clausesTable';
 import Documents from '../../components/documents/documents';
 import { getLink } from '../../util/functions';
+import FinancialInformation from '../../components/financialInformation/financialInformation';
+
 
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -269,7 +271,9 @@ const ContractSummary = () => {
                     </div>
                 )}
                 {activeTab === 7 && (
-                    <div>{t("_FINANCIAL_INFORMATION")}</div>
+                    <div>
+                        <FinancialInformation contractResponse={contractData} />
+                    </div>
                 )}
                 {activeTab === 8 && (
                     <div>
