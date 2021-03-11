@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { get } from "../../util/api-caller";
 import { getLink } from '../../util/functions';
 import { EyeIcon } from '../../assets/svg';
@@ -10,9 +10,11 @@ import { DxcDialog } from '@dxc-technology/halstack-react';
 import { PremiumSummary } from '../../components/premiumSummary/premiumSummary';
 import { SurrenderSummary } from '../../components/surrenderSummary/surrenderSummary';
 import { SwitchSummary } from '../../components/switchSummary/switchSummary';
+import { ApplicationContext } from '../../context/applicationContext';
 const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     const { t } = useTranslation();
+    const applicationContext = useContext(ApplicationContext);
     const [premiumList, setPremiumList] = React.useState([]);
     const [surrenderList, setSurrenderList] = React.useState([]);
     const [switchList, setSwitchList] = React.useState([]);
@@ -25,7 +27,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [applicationContext]);
 
     const getData = () => {
         if (props.contractResponse) {

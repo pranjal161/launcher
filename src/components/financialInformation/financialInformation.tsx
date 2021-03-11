@@ -1,12 +1,14 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getLink } from '../../util/functions';
 import { get } from "../../util/api-caller";
 import Label from '../../components/label/label';
+import { ApplicationContext } from '../../context/applicationContext';
 const FinancialInformation = (props: { contractResponse: any }) => {
 
     const { t } = useTranslation();
+    const applicationContext = useContext(ApplicationContext);
     const [scheduledPayment, setScheduledPayment] = React.useState< undefined| any>();
     const [billingItem, setBillingItem] = React.useState<undefined| any>();
     const [scheduledSurrender, setScheduledSurrender] = React.useState<undefined| any>();
@@ -15,7 +17,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [applicationContext]);
 
     const getData = () => {
         if (props.contractResponse) {
