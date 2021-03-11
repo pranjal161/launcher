@@ -3,13 +3,15 @@ import { DxcTable } from "@dxc-technology/halstack-react";
 import { useHistory } from "react-router-dom";
 import { get } from "../../util/api-caller";
 import { EyeIcon } from '../../assets/svg';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyledHoverRow, StyledButton } from '../../styles/global-style';
 
 
 const PartyRoleTable = (props: { roles: Array<any> }) => {
   const { t } = useTranslation();
   const history = useHistory();
+
+  useEffect(() => {}, [props.roles]);
   
   const goToClientView = (item: any) => {
     get(item.href).then((partyRoleResponse) => {
