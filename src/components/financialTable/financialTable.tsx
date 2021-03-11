@@ -1,16 +1,15 @@
-import { makeStyles } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { DxcTable } from '@dxc-technology/halstack-react';
 import axios from 'axios';
 import { AppConfig } from '../../config/appConfig';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Table from "../../components/table/table";
 import React from 'react';
+import { ApplicationContext } from '../../context/applicationContext';
 
 const FinancialTable = (props: { clientUrl: any }) => {
-    const { t } = useTranslation();
-    const config = AppConfig;
+    const applicationContext = useContext(ApplicationContext);
     const [premiumUrl, setPremiumUrl] = useState('');
+    let client_number;
+    let premium;
     const financialDataColumns = [
         { label: '_OPERATION', property: 'premium:type' },
         { label: '_CONTRACT_IDENTIFIER', property: 'contract:number' },
@@ -23,18 +22,26 @@ const FinancialTable = (props: { clientUrl: any }) => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [applicationContext]);
 
     const getData = () => {
         if (props.clientUrl) {
-            axios.get(props.clientUrl, { headers: config.headers }).then(res => {
-                const clientNumber = res.data['person:client_number'];
-                const premiumUrl = AppConfig.hostUrl.defaultHostUrl + 'financials/premiums?person:client_number=' + clientNumber + '&organization:client_number=';
-                setPremiumUrl(premiumUrl);
+            axios.get(props.clientUrl, { headers: applicationContext.headers }).then(res => {
+                if (props.clientUrl.includes('persons')) {
+                    client_number = res.data['person:client_number'];
+                    premium = AppConfig.hostUrl.defaultHostUrl + 'financials/premiums?person:client_number=' + client_number;
+                    setPremiumUrl(premium);
+                } else if (props.clientUrl.includes('organizations')) {
+                    client_number = res.data['organization:client_number'];
+                    premium = AppConfig.hostUrl.defaultHostUrl + 'financials/premiums?organization:client_number=' + client_number;
+                    setPremiumUrl(premium);
+                }
+
             });
         }
-
     }
+
+
     return (
         <>
             {premiumUrl && (
