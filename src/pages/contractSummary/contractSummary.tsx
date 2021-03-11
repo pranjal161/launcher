@@ -193,10 +193,6 @@ const ContractSummary = () => {
         setCurrentSection(newSections[0].id)
     }
 
-    const selectSection = (event: React.MouseEvent<HTMLParagraphElement, MouseEvent>, item: React.SetStateAction<string | undefined>) => {
-        setCurrentSection(item);
-    }
-
     function ContractBanner() {
         return (
             <StyledBanner>
@@ -249,7 +245,7 @@ const ContractSummary = () => {
                     <div className="contract-sidenav">
                         <DxcSidenav>
                             {visibleSections.map((item) => (
-                                <p className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={(event) => selectSection(event, item['id'])}>{item['label']}</p>
+                                <p className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={() => setCurrentSection(item['id'])}>{item['label']}</p>
                             ))}
                         </DxcSidenav>
                     </div>
