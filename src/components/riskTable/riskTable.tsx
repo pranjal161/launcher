@@ -1,12 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const RiskTable = (props: { risks: Array<any> }) => {
 
     const { t } = useTranslation();
+
+    useEffect(() => {}, [props.risks]);
+
     return (
-        <div>
+        <>
             {props.risks.length > 0 && (
                 <DxcTable>
                     <tr>
@@ -21,7 +24,7 @@ const RiskTable = (props: { risks: Array<any> }) => {
                     ))}
                 </DxcTable>
             )}
-        </div>
+        </>
     );
 }
 export default RiskTable

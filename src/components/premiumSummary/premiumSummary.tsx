@@ -58,18 +58,25 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
             {premiumResponse && (
                 <>
                     <h6>{t('_INITIAL_PREMIUM')}</h6>
-                    <div className="col-4">
-                        <Label propertyName="operation:identifier" label="_IDENTIFIER" data={premiumResponse} />
-
-                        <Label propertyName="premium:status" label="_STATUS" data={premiumResponse} />
-
-                        <Label propertyName="premium:type" label="_TYPE" data={premiumResponse} />
-
-                        <Label propertyName="premium:due_date" label="_EFFECTIVE_DATE" data={premiumResponse} />
-
-                        <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={premiumResponse} />
-
-                        <Label propertyName="operation:net_amount" label="_NET_AMOUNT" data={premiumResponse} />
+                    <div className="row col-12">
+                        <div className="col-6">
+                            <Label propertyName="operation:identifier" label="_IDENTIFIER" data={premiumResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="premium:status" label="_STATUS" data={premiumResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="premium:type" label="_TYPE" data={premiumResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="premium:due_date" label="_EFFECTIVE_DATE" data={premiumResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={premiumResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="operation:net_amount" label="_NET_AMOUNT" data={premiumResponse} />
+                        </div>
                     </div>
                 </>
             )}

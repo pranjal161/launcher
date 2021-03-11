@@ -13,13 +13,12 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         { label: '_USER', property: 'w_m_activity:user' },
         { label: '_TYPE', property: 'w_m_activity:label' },
         { label: '_DATE', property: 'w_m_activity:effective_date', type: "date" },
-        { label: '_STATUS', property: 'w_m_activity:status' },
-        { label: '_REJECTION_REASON', property: 'w_m_activity:rejection_reason' }
+        { label: '_STATUS', property: 'w_m_activity:status' }
     ];
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [props.contractResponse]);
 
     const getData = () => {
         if (props.contractResponse) {
@@ -32,7 +31,6 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         <>
             { activityUrl && (
                 <>
-                    <h5> {t('_OFFERS')}</h5>
                     < Table url={activityUrl} columnId={activityListColumns} />
                 </>
             )
