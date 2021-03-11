@@ -1,0 +1,36 @@
+.contract-sidenav {
+    display: inline-flex;
+    position: absolute;
+    width: 15%;
+}
+
+.contract-details {
+    width: 100%;
+    display: inline-grid;
+    padding-left: 16%;
+    padding-top: 1%;
+    padding-right: 1%;
+}
+
+.document-tile .bhXxCw {
+    display: contents;
+  }
+  
+  .document-tile .eXsKwo,
+  .document-tile .gVleGS {
+    height: auto;
+    width: auto;
+  }
+
+.selectedSection {
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: underline;
+    align-self: center;
+}
+
+.section {
+    cursor: pointer;
+    text-decoration: underline;
+    align-self: center;
+}

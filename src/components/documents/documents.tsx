@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ApplicationContext } from "../../context/applicationContext";
-import { get } from "../../util/api-caller";
 import { DxcCard } from '@dxc-technology/halstack-react';
 import Document from '../../assets/description.png';
 import { getDescriptionValue } from "../../util/functions";
 import Tooltip from '@material-ui/core/Tooltip';
+import axios from "axios";
 
 const Documents = (props: { outputDoc: string }) => {
     const applicationContext = useContext(ApplicationContext);
@@ -18,12 +18,12 @@ const Documents = (props: { outputDoc: string }) => {
     }, [applicationContext, props.outputDoc])
 
     const getDocuments = () => {
-        get(props.outputDoc).then(response => {
-            if (response && response._links && response._links.item) {
-                if (!Array.isArray(response['_links']['item'])) {
-                    response['_links']['item'] = [response['_links']['item']];
+        axios.get(props.outputDoc, { headers: applicationContext.headers}).then(response => {
+            if (response && response.data._links && response.data._links.item) {
+                if (!Array.isArray(response.data['_links']['item'])) {
+                    response.data['_links']['item'] = [response.data['_links']['item']];
                 }
-                setOutputDocData(response);
+                setOutputDocData(response.data);
             }
         })
     }
