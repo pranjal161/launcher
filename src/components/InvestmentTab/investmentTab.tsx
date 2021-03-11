@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { formatValue } from '../../util/functions';
 import { ApplicationContext } from '../../context/applicationContext';
 const InvestmentTab = (props: { mainRiskUrl: string }) => {
 
@@ -64,6 +65,7 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
         <>
             <h5>{t('_INVESTMENT_SUMMARY')}</h5>
             <h6>{t('_INTEREST_BASED')}</h6>
+            {/*to do refactoring*/}
             {interestBasedFund.length > 0 && (
                 <>
                     <DxcTable>
@@ -76,11 +78,11 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                         </tr>
                         {interestBasedFund.map((row) => (
                             <tr key={row['href']}>
-                                <td>{t(row['summary']['coverage_fund:label'])}</td>
-                                <td>{row['summary']['interest_fund:invested_amount']}</td>
-                                <td>{row['summary']['interest_fund:guaranteed_rate']}</td>
-                                <td>{row['summary']['interest_fund:net_cash_value']}</td>
-                                <td>{row['summary']['contract_allocation_rate']}</td>
+                                <td>{row['summary']['coverage_fund:label']}</td>
+                                <td>{formatValue(row['summary']['interest_fund:invested_amount'], "currency")}</td>
+                                <td>{formatValue(row['summary']['interest_fund:guaranteed_rate'], "percent")}</td>
+                                <td>{formatValue(row['summary']['interest_fund:net_cash_value'], "currency")}</td>
+                                <td>{formatValue(row['summary']['contract_allocation_rate'], "percent")}</td>
                             </tr>
                         ))}
                     </DxcTable>
@@ -105,15 +107,15 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                         {unitBasedFund.map((row) => (
                             <tr key={row['href']}>
                                 <td>{row['summary']['coverage_fund:label']}</td>
-                                <td>{row['summary']['ul_fund_twrr']}</td>
-                                <td>{row['summary']['unit_linked_fund:invested_amount']}</td>
+                                <td>{formatValue(row['summary']['ul_fund_twrr'], "percent")}</td>
+                                <td>{formatValue(row['summary']['unit_linked_fund:invested_amount'], "currency")}</td>
                                 <td>{row['summary']['unit_linked_fund:category']}</td>
-                                <td>{row['summary']['unit_linked_fund:unit_value']}</td>
-                                <td>{row['summary']['unit_linked_fund:units']}</td>
+                                <td>{formatValue(row['summary']['unit_linked_fund:unit_value'], "currency")}</td>
+                                <td>{formatValue(row['summary']['unit_linked_fund:units'], "decimal")}</td>
                                 <td>{row['summary']['unit_linked_fund:s_r_r_i']}</td>
-                                <td>{row['summary']['unit_linked_fund:unit_value_date']}</td>
-                                <td>{row['summary']['unit_linked_fund:net_cash_value']}</td>
-                                <td>{row['summary']['contract_allocation_rate']}</td>
+                                <td>{formatValue(row['summary']['unit_linked_fund:unit_value_date'])}</td>
+                                <td>{formatValue(row['summary']['unit_linked_fund:net_cash_value'], "currency")}</td>
+                                <td>{formatValue(row['summary']['contract_allocation_rate'], "percent")}</td>
                             </tr>
                         ))}
                     </DxcTable>

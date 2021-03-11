@@ -48,3 +48,17 @@ export const StyledLabel = styled.label`
   margin-right: 7px;
   font-weight: 600;
 `;
+
+export const StyledPaginator = styled.div`
+    span {
+        font-size: 12px !important;
+    }
+
+    div[mode="secondary"] {
+        width: 35px !important;
+
+        button {
+            min-height: 35px !important;
+        }
+    }
+`;
