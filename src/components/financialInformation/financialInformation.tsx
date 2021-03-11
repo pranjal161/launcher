@@ -109,11 +109,11 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                         <Label propertyName="billing:type" label="" data={scheduledSurrender} />
                     </h6>
                     <div className="row col-12">
-                    {beneficiaryPerson && (
-                        <div className="col-4">
-                            <Label propertyName="person:display_id1" label="_BENEFICIARY" data={beneficiaryPerson} />
-                        </div>
-                    )}
+                        {beneficiaryPerson && (
+                            <div className="col-4">
+                                <Label propertyName="person:display_id1" label="_BENEFICIARY" data={beneficiaryPerson} />
+                            </div>
+                        )}
                         <div className="col-4">
                             <Label propertyName="billing:status" label="_STATUS" data={scheduledSurrender} />
                         </div>
@@ -131,7 +131,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                                 <Label propertyName="bank_account:i_b_a_n" label="_IBAN" data={bankAccountDetails} />
                             </div>
                         )}
-                         <div className="col-4">
+                        <div className="col-4">
                             <Label propertyName="billing:next_due_date" label="_NEXT_DUE_DATE" data={scheduledSurrender} type="date" />
                         </div>
                     </div>
