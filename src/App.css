@@ -72,9 +72,10 @@ table tbody tr th {
   padding: 10px 10px 10px 10px !important;
 }
 
-.dlwTvZ .MuiTabs-root .MuiButtonBase-root {
+ .MuiTabs-root .MuiButtonBase-root{
   min-width: 100px !important;
 }
+
 .MuiTabs-scrollable {
   overflow-x: hidden !important;
 }
