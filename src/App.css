@@ -79,3 +79,7 @@ table tbody tr th {
 .MuiDialog-root {
   z-index: 999 !important;
 }
+
+.align-center {
+  text-align: center;
+}

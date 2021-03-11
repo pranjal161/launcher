@@ -147,10 +147,7 @@ const ContractSummary = () => {
             });
         }
     }
-    const [activeTab, setActiveTab] = useState(0);
-    const onTabClick = (i: number) => {
-        setActiveTab(i);
-    };
+
     const OwnerName = () => {
         const ownerPartyRole = partyRole && Array.isArray(partyRole) ? partyRole : typeof partyRole !== "undefined" ? [partyRole] : '';
         const ownerName = ownerPartyRole && ownerPartyRole.length > 0 && ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
@@ -204,7 +201,7 @@ const ContractSummary = () => {
         return (
             <StyledBanner>
                 <div className="row">
-                    <div className="col-2">
+                    <div className="col-2 align-center">
                         <PersonIcon />
                         <OwnerName />
                     </div>
