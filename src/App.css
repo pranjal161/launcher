@@ -72,19 +72,10 @@ table tbody tr th {
   padding: 10px 10px 10px 10px !important;
 }
 
- .MuiTabs-root .MuiButtonBase-root{
-  min-width: 100px !important;
-}
-
 .MuiTabs-scrollable {
   overflow-x: hidden !important;
 }
-.document-tile .bhXxCw {
-  display: contents;
-}
 
-.document-tile .eXsKwo,
-.document-tile .gVleGS {
-  height: auto;
-  width: auto;
+.MuiDialog-root {
+  z-index: 999 !important;
 }

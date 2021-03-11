@@ -5,15 +5,16 @@ import { getLink } from '../../util/functions';
 import { get } from "../../util/api-caller";
 import Label from '../../components/label/label';
 import { ApplicationContext } from '../../context/applicationContext';
+import axios from 'axios';
 const FinancialInformation = (props: { contractResponse: any }) => {
 
     const { t } = useTranslation();
     const applicationContext = useContext(ApplicationContext);
-    const [scheduledPayment, setScheduledPayment] = React.useState< undefined| any>();
-    const [billingItem, setBillingItem] = React.useState<undefined| any>();
-    const [scheduledSurrender, setScheduledSurrender] = React.useState<undefined| any>();
-    const [bankAccountDetails, setScheduledSurrenderBankAccountDetails] = React.useState<undefined| any>();
-    const [beneficiaryPerson, setBeneficiaryPerson] = React.useState<undefined| any>();
+    const [scheduledPayment, setScheduledPayment] = React.useState<undefined | any>();
+    const [billingItem, setBillingItem] = React.useState<undefined | any>();
+    const [scheduledSurrender, setScheduledSurrender] = React.useState<undefined | any>();
+    const [bankAccountDetails, setScheduledSurrenderBankAccountDetails] = React.useState<undefined | any>();
+    const [beneficiaryPerson, setBeneficiaryPerson] = React.useState<undefined | any>();
 
     useEffect(() => {
         getData();
@@ -25,33 +26,33 @@ const FinancialInformation = (props: { contractResponse: any }) => {
             const contractExtensionList = getLink(props.contractResponse, 'contract:extension_list');
             const scheduledSurrenderList = getLink(props.contractResponse, 'contract:billing_list-scheduled_surrender');
 
-            get(scheduledPaymentListUrl).then(itemsList => {
-                if (itemsList && itemsList['_links'] && itemsList['_links'].item) {
-                    setScheduledPayment(itemsList['_links'].item[0]);
+            axios.get(scheduledPaymentListUrl, { headers: applicationContext.headers }).then(itemsList => {
+                if (itemsList && itemsList.data['_links'] && itemsList.data['_links'].item) {
+                    setScheduledPayment(itemsList.data['_links'].item[0]);
                 }
             })
 
-            get(contractExtensionList).then(response => {
-                if (response && response['_links'] && response['_links'].item && response['_links'].item[0] &&
-                    response['_links'].item[0].href) {
-                    get(response['_links'].item[0].href).then(res => {
-                        setBillingItem(res);
+            axios.get(contractExtensionList, { headers: applicationContext.headers }).then(response => {
+                if (response && response.data['_links'] && response.data['_links'].item && response.data['_links'].item[0] &&
+                    response.data['_links'].item[0].href) {
+                    axios.get(response.data['_links'].item[0].href, { headers: applicationContext.headers }).then(res => {
+                        setBillingItem(res.data);
                     });
                 }
             })
 
-            get(scheduledSurrenderList).then(res => {
-                if (res && res['_links'] && res['_links'].item) {
-                    const scheduledSurrender = !Array.isArray(res['_links'].item) ? [res['_links'].item][0] : res['_links'].item[0];
-                    get(scheduledSurrender.href).then(response => {
-                        setScheduledSurrender(response);
-                        const bankAccountLink = getLink(response, 'billing:bank_account');
-                        const beneficiaryPersonLink = getLink(response, 'billing:beneficiary_person');
-                        get(bankAccountLink).then((response) => {
-                            setScheduledSurrenderBankAccountDetails(response);
+            axios.get(scheduledSurrenderList, { headers: applicationContext.headers }).then(res => {
+                if (res && res.data['_links'] && res.data['_links'].item) {
+                    const scheduledSurrender = !Array.isArray(res.data['_links'].item) ? [res.data['_links'].item][0] : res.data['_links'].item[0];
+                    axios.get(scheduledSurrender.href, { headers: applicationContext.headers }).then(response => {
+                        setScheduledSurrender(response.data);
+                        const bankAccountLink = getLink(response.data, 'billing:bank_account');
+                        const beneficiaryPersonLink = getLink(response.data, 'billing:beneficiary_person');
+                        axios.get(bankAccountLink, { headers: applicationContext.headers }).then((response) => {
+                            setScheduledSurrenderBankAccountDetails(response.data);
                         });
-                        get(beneficiaryPersonLink).then((res) => {
-                            setBeneficiaryPerson(res);
+                        axios.get(beneficiaryPersonLink, { headers: applicationContext.headers }).then((res) => {
+                            setBeneficiaryPerson(res.data);
                         });
                     });
                 }
@@ -68,7 +69,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                     <h6>
                         <Label propertyName="billing:type" label="" data={scheduledPayment} />
                     </h6>
-                    <div className="col-4">
+                    <div>
                         <Label propertyName="billing:status" label="_STATUS" data={scheduledPayment} />
 
                         <Label propertyName="billing:payment_type" label="_PAYMENT_MODE" data={scheduledPayment} />
@@ -88,7 +89,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                     <h6>
                         <Label propertyName="billing:type" label="" data={billingItem} />
                     </h6>
-                    <div className="col-4">
+                    <div>
                         <Label propertyName="billing:status" label="_STATUS" data={billingItem} />
 
                         <Label propertyName="billing:payment_type" label="_PAYMENT_MODE" data={billingItem} />
@@ -109,7 +110,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                     {beneficiaryPerson && (
                         <Label propertyName="person:display_id1" label="_BENEFICIARY" data={beneficiaryPerson} />
                     )}
-                    <div className="col-4">
+                    <div>
                         <Label propertyName="billing:status" label="_STATUS" data={scheduledSurrender} />
 
                         <Label propertyName="billing:payment_type" label="_PAYMENT_MODE" data={scheduledSurrender} />
