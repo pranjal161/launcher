@@ -16,14 +16,16 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
     const [premiumList, setPremiumList] = React.useState([]);
     const [surrenderList, setSurrenderList] = React.useState([]);
     const [switchList, setSwitchList] = React.useState([]);
-    const [isDialogVisible, setDialogVisible] = useState(false);
-    let [summaryHref, setSummaryHref] = useState<undefined | any>();
+    const [premiumHref, setPremiumHref] = useState<undefined | string>();
+    const [surrenderHref, setSurrenderHref] = useState<undefined | any>();
+    const [switchHref, setSwitchHref] = useState<undefined | any>();
+    const [isPremiumDialogVisible, setPremiumDialogVisible] = useState(false);
+    const [isSurrenderDialogVisible, setSurrenderDialogVisible] = useState(false);
+    const [isSwitchDialogVisible, setSwitchDialogVisible] = useState(false);
 
     useEffect(() => {
         getData();
     }, []);
-
-    const openDialog = (item: any) => { }
 
     const getData = () => {
         if (props.contractResponse) {
@@ -57,13 +59,24 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
     }
 
     function onClick() {
-        setDialogVisible(!isDialogVisible);
+        setPremiumDialogVisible(false);
+        setSurrenderDialogVisible(false);
+        setSwitchDialogVisible(false);
     };
 
     function openPremiumDialog(url: any) {
-        summaryHref = url ? url : null;
-        setSummaryHref(summaryHref);
-        setDialogVisible(!isDialogVisible);
+        setPremiumHref(url);
+        setPremiumDialogVisible(true);
+    }
+
+    function openSurrenderDialog(url: any) {
+        setSurrenderHref(url);
+        setSurrenderDialogVisible(true);
+    }
+
+    function openSwitchDialog(url: any) {
+        setSwitchHref(url);
+        setSwitchDialogVisible(true);
     }
 
     return (
@@ -98,14 +111,14 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                                         <EyeIcon />
                                     </StyledButton>
                                 </td>
-                                {isDialogVisible && summaryHref && (
-                                    <DxcDialog padding="medium" isCloseVisible={true} onCloseClick={onClick}>
-                                        <PremiumSummary premiumSummaryHref={summaryHref} />
-                                    </DxcDialog>
-                                )}
                             </tr>
                         ))}
                     </DxcTable>
+                    {premiumHref && isPremiumDialogVisible && (
+                        <DxcDialog padding="medium" isCloseVisible={true} onCloseClick={onClick}>
+                            <PremiumSummary premiumSummaryHref={premiumHref} />
+                        </DxcDialog>
+                    )}
                 </>
             )}
             {surrenderList.length > 0 && (
@@ -129,13 +142,19 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                                 <td>{row['summary']['operation:net_amount']}</td>
                                 <td>
                                     <StyledButton
-                                        onClick={() => openDialog(row)} >
+                                        aria-label="add an alarm"
+                                        onClick={() => openSurrenderDialog(row['href'])} >
                                         <EyeIcon />
                                     </StyledButton>
                                 </td>
                             </tr>
                         ))}
                     </DxcTable>
+                    {surrenderHref && isSurrenderDialogVisible && (
+                        <DxcDialog padding="medium" isCloseVisible={true} onCloseClick={onClick}>
+                            <SurrenderSummary surrenderSummaryHref={surrenderHref} />
+                        </DxcDialog>
+                    )}
                 </>
             )}
             {switchList.length > 0 && (
@@ -159,13 +178,19 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                                 <td>{row['summary']['operation:net_amount']}</td>
                                 <td>
                                     <StyledButton
-                                        onClick={() => openDialog(row)} >
+                                        aria-label="add an alarm"
+                                        onClick={() => openSwitchDialog(row['href'])} >
                                         <EyeIcon />
                                     </StyledButton>
                                 </td>
                             </tr>
                         ))}
                     </DxcTable>
+                    {switchHref && isSwitchDialogVisible && (
+                        <DxcDialog padding="medium" isCloseVisible={true} onCloseClick={onClick}>
+                            <SwitchSummary switchSummaryHref={switchHref} />
+                        </DxcDialog>
+                    )}
                 </>
             )}
         </>
