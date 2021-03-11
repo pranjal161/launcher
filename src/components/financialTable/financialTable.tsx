@@ -14,13 +14,12 @@ const FinancialTable = (props: { clientUrl: any }) => {
     const financialDataColumns = [
         { label: '_OPERATION', property: 'premium:type' },
         { label: '_CONTRACT_IDENTIFIER', property: 'contract:number' },
-        { label: '_EFFECTIVE_DATE', property: 'operation:start_date',type: "date" },
+        { label: '_EFFECTIVE_DATE', property: 'operation:start_date', type: "date" },
         { label: '_STATUS_DATE', property: 'operation:status_date', type: "date" },
         { label: '_STATUS', property: 'operation:status_label' },
         { label: '_GROSS_AMOUNT', property: 'operation:amount' },
         { label: '_NET_AMOUNT', property: 'operation:net_amount' },
     ]
-
 
     useEffect(() => {
         getData();

@@ -18,7 +18,7 @@ const CoverageTable = (props: { mainRiskUrl: string }) => {
     useEffect(() => {
         getData();
     },
-    []);
+        []);
 
     const getData = () => {
         axios.get(props.mainRiskUrl, { headers: config.headers }).then(riskRes => {

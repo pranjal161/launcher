@@ -18,7 +18,6 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         { label: '_END_DATE', property: 'clause:end_date', type: "date" }
     ];
 
-
     useEffect(() => {
         getData();
     }, []);
