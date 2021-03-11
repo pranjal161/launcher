@@ -1,48 +1,50 @@
 import { useTranslation } from "react-i18next";
 import { DxcTable } from "@dxc-technology/halstack-react";
 import { useHistory } from "react-router-dom";
-import { get } from "../../util/api-caller";
 import { EyeIcon } from '../../assets/svg';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyledHoverRow, StyledButton } from '../../styles/global-style';
+import { ApplicationContext } from "../../context/applicationContext";
+import axios from "axios";
 
 
 const PartyRoleTable = (props: { roles: Array<any> }) => {
   const { t } = useTranslation();
   const history = useHistory();
+  const applicationContext = useContext(ApplicationContext);
 
   useEffect(() => {}, [props.roles]);
   
   const goToClientView = (item: any) => {
-    get(item.href).then((partyRoleResponse) => {
+    axios.get(item.href, { headers: applicationContext.headers}).then((partyRoleResponse) => {
       if (
         partyRoleResponse &&
-        partyRoleResponse._links &&
-        partyRoleResponse._links["party_role:person"] &&
-        partyRoleResponse._links["party_role:person"].href
+        partyRoleResponse.data._links &&
+        partyRoleResponse.data._links["party_role:person"] &&
+        partyRoleResponse.data._links["party_role:person"].href
       ) {
-        get(partyRoleResponse._links["party_role:person"].href).then(
+        axios.get(partyRoleResponse.data._links["party_role:person"].href, {headers: applicationContext.headers}).then(
           (personResponse) => {
-            if (personResponse && personResponse["person:client_number"])
+            if (personResponse && personResponse.data["person:client_number"])
               history.push(
-                "/clientView/person/" + personResponse["person:client_number"],
-                { clientData: personResponse }
+                "/clientView/person/" + personResponse.data["person:client_number"],
+                { clientData: personResponse.data }
               );
           }
         );
       } else if (
         partyRoleResponse &&
-        partyRoleResponse._links &&
-        partyRoleResponse._links["party_role:organization"] &&
-        partyRoleResponse._links["party_role:organization"].href
+        partyRoleResponse.data._links &&
+        partyRoleResponse.data._links["party_role:organization"] &&
+        partyRoleResponse.data._links["party_role:organization"].href
       ) {
-        get(partyRoleResponse._links["party_role:organization"].href).then(
+        axios.get(partyRoleResponse.data._links["party_role:organization"].href, { headers: applicationContext.headers}).then(
           (orgResponse) => {
-            if (orgResponse && orgResponse["organization:client_number"])
+            if (orgResponse && orgResponse.data["organization:client_number"])
               history.push(
                 "/clientView/organization/" +
-                  orgResponse["organization:client_number"],
-                { clientData: orgResponse }
+                  orgResponse.data["organization:client_number"],
+                { clientData: orgResponse.data }
               );
           }
         );

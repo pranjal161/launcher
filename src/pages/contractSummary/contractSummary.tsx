@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { DxcTabs, DxcDialog, DxcSidenav } from '@dxc-technology/halstack-react';
+import { DxcDialog, DxcSidenav } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
 import RiskTable from '../../components/riskTable/riskTable';

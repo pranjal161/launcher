@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getLink } from '../../util/functions';
-import { get } from "../../util/api-caller";
 import Label from '../../components/label/label';
 import { ApplicationContext } from '../../context/applicationContext';
 import axios from 'axios';
