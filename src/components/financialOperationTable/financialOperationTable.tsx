@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import { useEffect, useState, useContext } from 'react';
-import { get } from "../../util/api-caller";
 import { getLink } from '../../util/functions';
 import { EyeIcon } from '../../assets/svg';
 import { StyledButton } from '../../styles/global-style';
@@ -11,6 +10,7 @@ import { PremiumSummary } from '../../components/premiumSummary/premiumSummary';
 import { SurrenderSummary } from '../../components/surrenderSummary/surrenderSummary';
 import { SwitchSummary } from '../../components/switchSummary/switchSummary';
 import { ApplicationContext } from '../../context/applicationContext';
+import axios from 'axios';
 const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     const { t } = useTranslation();
@@ -42,12 +42,12 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     function getOperationItems(url: string, id: string) {
         if (url) {
-            get(url).then(getResponse => {
-                if (getResponse && getResponse['_links']['item']) {
-                    if (!Array.isArray(getResponse['_links']['item'])) {
-                        getResponse['_links']['item'] = [getResponse['_links']['item']];
+            axios.get(url,{ headers: applicationContext.headers} ).then(getResponse => {
+                if (getResponse && getResponse.data['_links']['item']) {
+                    if (!Array.isArray(getResponse.data['_links']['item'])) {
+                        getResponse.data['_links']['item'] = [getResponse.data['_links']['item']];
                     }
-                    const response = getResponse['_links']['item'];
+                    const response = getResponse.data['_links']['item'];
                     if (id === 'premiumList') {
                         setPremiumList(response);
                     } else if (id === 'surrenderList') {
