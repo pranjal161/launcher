@@ -24,7 +24,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
             const scheduledPaymentListUrl = getLink(props.contractResponse, 'contract:billing_list-scheduled_payment');
             const contractExtensionList = getLink(props.contractResponse, 'contract:extension_list');
             const scheduledSurrenderList = getLink(props.contractResponse, 'contract:billing_list-scheduled_surrender');
-
+            // to add 'contract:billing_list'
             axios.get(scheduledPaymentListUrl, { headers: applicationContext.headers }).then(itemsList => {
                 if (itemsList && itemsList.data['_links'] && itemsList.data['_links'].item) {
                     setScheduledPayment(itemsList.data['_links'].item[0]);
@@ -66,7 +66,9 @@ const FinancialInformation = (props: { contractResponse: any }) => {
             {scheduledPayment && (
                 <>
                     <h6>
-                        <Label propertyName="billing:type" label="" data={scheduledPayment} />
+                        <div>
+                            <Label propertyName="billing:type" label="" data={scheduledPayment} />
+                        </div>
                     </h6>
                     <div>
                         <Label propertyName="billing:status" label="_STATUS" data={scheduledPayment} />
@@ -75,7 +77,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
 
                         <Label propertyName="billing:frequency" label="_PERIODICITY" data={scheduledPayment} />
 
-                        <Label propertyName="billing:amount" label="_PRIMARY_DUE_DATE" data={scheduledPayment} />
+                        <Label propertyName="billing:amount" label="_AMOUNT" data={scheduledPayment} />
 
                         <Label propertyName="billing:next_due_date" label="_NEXT_DUE_DATE" data={scheduledPayment} />
 
@@ -95,7 +97,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
 
                         <Label propertyName="billing:frequency" label="_PERIODICITY" data={billingItem} />
 
-                        <Label propertyName="billing:amount" label="_PRIMARY_DUE_DATE" data={billingItem} />
+                        <Label propertyName="billing:amount" label="_AMOUNT" data={billingItem} />
 
                         <Label propertyName="billing:next_due_date" label="_NEXT_DUE_DATE" data={billingItem} />
                     </div>
@@ -106,24 +108,32 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                     <h6>
                         <Label propertyName="billing:type" label="" data={scheduledSurrender} />
                     </h6>
-                    {beneficiaryPerson && (
-                        <Label propertyName="person:display_id1" label="_BENEFICIARY" data={beneficiaryPerson} />
-                    )}
-                    <div>
-                        <Label propertyName="billing:status" label="_STATUS" data={scheduledSurrender} />
-
-                        <Label propertyName="billing:payment_type" label="_PAYMENT_MODE" data={scheduledSurrender} />
-
-                        <Label propertyName="billing:frequency" label="_PERIODICITY" data={scheduledSurrender} />
-
-                        <Label propertyName="billing:amount" label="_PRIMARY_DUE_DATE" data={scheduledSurrender} />
-
-                        <Label propertyName="billing:next_due_date" label="_NEXT_DUE_DATE" data={scheduledSurrender} />
-
-
-                        {bankAccountDetails && (
-                            <Label propertyName="bank_account:i_b_a_n" label="_IBAN" data={bankAccountDetails} />
+                    <div className="row col-12">
+                        {beneficiaryPerson && (
+                            <div className="col-4">
+                                <Label propertyName="person:display_id1" label="_BENEFICIARY" data={beneficiaryPerson} />
+                            </div>
                         )}
+                        <div className="col-4">
+                            <Label propertyName="billing:status" label="_STATUS" data={scheduledSurrender} />
+                        </div>
+                        <div className="col-4">
+                            <Label propertyName="billing:payment_type" label="_PAYMENT_MODE" data={scheduledSurrender} />
+                        </div>
+                        <div className="col-4">
+                            <Label propertyName="billing:frequency" label="_PERIODICITY" data={scheduledSurrender} />
+                        </div>
+                        <div className="col-4">
+                            <Label propertyName="billing:amount" label="_AMOUNT" data={scheduledSurrender} type="currency" />
+                        </div>
+                        {bankAccountDetails && (
+                            <div className="col-4">
+                                <Label propertyName="bank_account:i_b_a_n" label="_IBAN" data={bankAccountDetails} />
+                            </div>
+                        )}
+                        <div className="col-4">
+                            <Label propertyName="billing:next_due_date" label="_NEXT_DUE_DATE" data={scheduledSurrender} type="date" />
+                        </div>
                     </div>
                 </>
             )}

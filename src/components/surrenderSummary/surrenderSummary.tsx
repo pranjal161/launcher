@@ -27,7 +27,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             setDisinvestmentSplitList(disinvestmentSplitListItems);
 
             const savingsFlowListHref = res.data['_links'] && res.data['_links']['operation:savings_flow_list'] ? res.data['_links']['operation:savings_flow_list'].href : '';
-            axios.get(savingsFlowListHref, {headers: applicationContext.headers}).then(response => {
+            axios.get(savingsFlowListHref, { headers: applicationContext.headers }).then(response => {
                 if (response && response.data['_links'] && response.data['_links']['item']) {
                     const savingsFlowListItems: any = Array.isArray(response.data['_links']['item']) ? response.data['_links']['item'] :
                         [response.data['_links']['item']];
@@ -43,16 +43,22 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             {surrenderResponse && (
                 <>
                     <h6>{t('_INITIAL_PREMIUM')}</h6>
-                    <div className="col-4">
-                        <Label propertyName="operation:identifier" label="_IDENTIFIER" data={surrenderResponse} />
-
-                        <Label propertyName="surrender:status" label="_STATUS" data={surrenderResponse} />
-
-                        <Label propertyName="surrender:type" label="_TYPE" data={surrenderResponse} />
-
-                        <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={surrenderResponse} />
-
-                        <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={surrenderResponse} />
+                    <div className="row col-12">
+                        <div className="col-6">
+                            <Label propertyName="operation:identifier" label="_IDENTIFIER" data={surrenderResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="surrender:status" label="_STATUS" data={surrenderResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="surrender:type" label="_TYPE" data={surrenderResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={surrenderResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={surrenderResponse} />
+                        </div>
                     </div>
                 </>
             )}

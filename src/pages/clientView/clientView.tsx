@@ -74,17 +74,29 @@ const ClientView = () => {
         <div className="row">
           <div className="col-2 align-center">
             <PersonIcon />
-            {clientData && clientData['person:client_number'] && <Label propertyName='person:display_id1' data={clientData}></Label>}
-            {clientData && clientData['organization:client_number'] && <Label propertyName="organization:display_id1" data={clientData}></Label>}
+            <div className="col-12 pt-2">
+              {clientData && clientData['person:client_number'] && <Label propertyName='person:display_id1' data={clientData}></Label>}
+              {clientData && clientData['organization:client_number'] && <Label propertyName="organization:display_id1" data={clientData}></Label>}
+            </div>
           </div>
           <div className="col-4">
             {clientData && clientData['person:client_number'] &&
               <>
-                <Label propertyName='person:client_number' label="_CLIENT_NUMBER" data={clientData}></Label>
-                <Label propertyName="person:professional_status" label="_PROF_STATUS" data={clientData}></Label>
-                <Label propertyName="person:birth_date" label="_DATE_OF_BIRTH" data={clientData}></Label>
-                <Label propertyName="person:age" label="_AGE" data={clientData}></Label>
-                <Label propertyName="person:marital_status" label="_MARITAL_STATUS" data={clientData}></Label>
+                <div className="col-12 pt-1">
+                  <Label propertyName='person:client_number' label="_CLIENT_NUMBER" data={clientData}></Label>
+                </div>
+                <div className="col-12 pt-1">
+                  <Label propertyName="person:professional_status" label="_PROF_STATUS" data={clientData}></Label>
+                </div>
+                <div className="col-12 pt-1">
+                  <Label propertyName="person:birth_date" label="_DATE_OF_BIRTH" data={clientData}></Label>
+                </div>
+                <div className="col-12 pt-1">
+                  <Label propertyName="person:age" label="_AGE" data={clientData}></Label>
+                </div>
+                <div className="col-12 pt-1">
+                  <Label propertyName="person:marital_status" label="_MARITAL_STATUS" data={clientData}></Label>
+                </div>
               </>
             }
             {clientData && clientData['organization:client_number'] && <Label propertyName="organization:client_number" label="_CLIENT_NUMBER" data={clientData}></Label>}
