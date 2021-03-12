@@ -54,10 +54,10 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                             <Label propertyName="switch:type_label" label="_TYPE" data={switchResponse} />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={switchResponse} />
+                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={switchResponse} type="date" />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={switchResponse} />
+                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={switchResponse} type="currency" />
                         </div>
                     </div>
                 </>
