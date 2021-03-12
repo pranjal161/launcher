@@ -21,7 +21,7 @@ const ClientView = () => {
     { label: t("_CONTRACT_ROLES"), id: 'roles' },
     { label: t("_FINANCIAL"), id: 'financial' },
     { label: t("_ADDRESS"), id: 'address' },
-    { label: t("_CLAIM"), id: 'claim' },
+    { label: t("_CLAIM"), id: 'claims' },
     { label: t("_DOCUMENTS"), id: 'documents' },
   ]
   const [currentSection, setCurrentSection] = useState<string>('roles');
