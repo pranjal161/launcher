@@ -202,18 +202,38 @@ const ContractSummary = () => {
                         <OwnerName />
                     </div>
                     <div className="col-4">
-                        <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
-                        <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
-                        <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
-                        <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
-                        <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type="date" />
+                        <div className="col-12">
+                            <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type="date" />
+                        </div>
                     </div>
                     <div className="col-4">
-                        <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
-                        <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
-                        <Label propertyName="contract:currency_code" label="_CURRENCY" data={contractData} />
-                        <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
-                        <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type="date" />
+                        <div className="col-12">
+                            <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:currency_code" label="_CURRENCY" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type="date" />
+                        </div>
                     </div>
                     <div className="col-2">
                         <div className="select-box">
