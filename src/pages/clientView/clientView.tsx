@@ -63,12 +63,12 @@ const ClientView = () => {
   }
 
   const ClientBanner = () => {
-
     const getClientData = (id: string) => {
       const index = clientDetailData.findIndex((x: any) => x['id'] === id);
       return clientDetailData && clientDetailData[index] && clientDetailData[index]['data'];
     };
 
+    const postalAddress = getClientData('postal-address');
     return (
       <StyledBanner>
         <div className="row">
@@ -116,7 +116,7 @@ const ClientView = () => {
                 <HomeIcon />
               </div>
               <div className="col-10">
-                <Label propertyName="postal_address:display_id" data={getClientData('postal-address')}></Label>
+                <label>{postalAddress ? postalAddress['_links']['self']['title']: ''}</label>
               </div>
             </div>
 
