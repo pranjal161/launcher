@@ -12,6 +12,7 @@ import { PersonIcon, CallIcon, HomeIcon, EmailIcon, CreditCardIcon, LanguageIcon
 import Label from '../../components/label/label';
 import AddressTab from '../../components/addressTab/addressTab';
 import FinancialTable from "../../components/financialTable/financialTable";
+import Documents from "../../components/documents/documents";
 
 const ClientView = () => {
   const location: any = useLocation();
@@ -28,7 +29,8 @@ const ClientView = () => {
   const applicationContext = useContext(ApplicationContext);
   const clientUrl = location.state.clientData._links.self.href;
   const [clientDetailData, setClientDetails] = useState([]);
-
+  const [outputDoc, setOutputDoc] = useState('');
+  const [receivedDoc, setReceivedDoc] = useState('');
   useEffect(() => {
     callLoadData();
   }, [applicationContext]);
@@ -36,6 +38,12 @@ const ClientView = () => {
   const callLoadData = () => {
     const clientData = location.state.clientData;
     setClientData(clientData);
+    if (getLink(clientData, 'cscaia:output_documents')) {
+      setOutputDoc(getLink(clientData, 'cscaia:output_documents'));
+    }
+    if (getLink(clientData, 'cscaia:information_receipts')) {
+      setReceivedDoc(getLink(clientData, 'cscaia:information_receipts'));
+    }
     populateClientOtherDetails(clientData);
   }
 
@@ -157,8 +165,8 @@ const ClientView = () => {
       {clientDetailData && <ClientBanner />}
       <div className="contract-sidenav">
         <DxcSidenav>
-          {visibleSections.map((item) => (
-            <p className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={() => setCurrentSection(item['id'])}>{item['label']}</p>
+          {visibleSections.map((item, index) => (
+            <p key={index} className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={() => setCurrentSection(item['id'])}>{item['label']}</p>
           ))}
         </DxcSidenav>
       </div>
@@ -184,7 +192,7 @@ const ClientView = () => {
         )}
         {currentSection === 'documents' && (
           <div>
-            {t("_DOCUMENTS")}
+            <Documents outputDoc={outputDoc} receivedDoc={receivedDoc} />
           </div>
         )}
       </div>

@@ -49,6 +49,7 @@ const ContractSummary = () => {
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>()
     const [outputDoc, setOutputDoc] = useState('');
+    const [receivedDoc, setReceivedDoc] = useState('');
     const actionOptions = [
         {
             value: "claim",
@@ -93,6 +94,9 @@ const ContractSummary = () => {
             }
             if (getLink(result.data, 'cscaia:output_documents')) {
                 setOutputDoc(getLink(result.data, 'cscaia:output_documents'));
+            }
+            if (getLink(result.data, 'cscaia:information_receipts')) {
+                setReceivedDoc(getLink(result.data, 'cscaia:information_receipts'));
             }
         });
     }
@@ -264,8 +268,8 @@ const ContractSummary = () => {
                     <ContractBanner />
                     <div className="contract-sidenav">
                         <DxcSidenav>
-                            {visibleSections.map((item) => (
-                                <p className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={() => setCurrentSection(item['id'])}>{item['label']}</p>
+                            {visibleSections.map((item, index) => (
+                                <p key= {index} className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={() => setCurrentSection(item['id'])}>{item['label']}</p>
                             ))}
                         </DxcSidenav>
                     </div>
@@ -299,7 +303,7 @@ const ContractSummary = () => {
                 )}
                 {currentSection === 'documents' && (
                     <div>
-                        <Documents outputDoc={outputDoc} />
+                        <Documents outputDoc={outputDoc} receivedDoc={receivedDoc}/>
                     </div>
                 )}
                 {currentSection === 'financial_op' && (
