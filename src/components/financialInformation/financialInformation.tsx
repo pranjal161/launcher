@@ -14,6 +14,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
     const [scheduledSurrender, setScheduledSurrender] = React.useState<undefined | any>();
     const [bankAccountDetails, setScheduledSurrenderBankAccountDetails] = React.useState<undefined | any>();
     const [beneficiaryPerson, setBeneficiaryPerson] = React.useState<undefined | any>();
+    const [billingList, setBillingList] = React.useState<undefined | any>();
 
     useEffect(() => {
         getData();
@@ -24,6 +25,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
             const scheduledPaymentListUrl = getLink(props.contractResponse, 'contract:billing_list-scheduled_payment');
             const contractExtensionList = getLink(props.contractResponse, 'contract:extension_list');
             const scheduledSurrenderList = getLink(props.contractResponse, 'contract:billing_list-scheduled_surrender');
+            const billingListItem = getLink(props.contractResponse, 'contract:billing_list');
             // to add 'contract:billing_list'
             axios.get(scheduledPaymentListUrl, { headers: applicationContext.headers }).then(itemsList => {
                 if (itemsList && itemsList.data['_links'] && itemsList.data['_links'].item) {
@@ -57,8 +59,19 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                 }
             });
 
+            axios.get(billingListItem, { headers: applicationContext.headers }).then(response => {
+                if (response && response.data && response.data['_links'] && response.data['_links'].item && response.data['_links'].item[0] &&
+                    response.data['_links'].item[0].href) {
+                    axios.get(response.data['_links'].item[0].href, { headers: applicationContext.headers }).then(res => {
+                        setBillingList(res.data);
+                    });
+                } else if (response && response.data && response.data['_links'] && response.data['_links'].item) {
+                    axios.get(response.data['_links'].item.href, { headers: applicationContext.headers }).then(res => {
+                        setBillingList(res.data);
+                    });
+                }
+            });
         }
-
     }
 
     return (
@@ -133,6 +146,27 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                         )}
                         <div className="col-4">
                             <Label propertyName="billing:next_due_date" label="_NEXT_DUE_DATE" data={scheduledSurrender} type="date" />
+                        </div>
+                    </div>
+                </>
+            )}
+            {billingList && (
+                <>
+                    <h6>
+                        <Label propertyName="billing:type" label="" data={billingList} />
+                    </h6>
+                    <div className="row col-12">
+                        <div className="col-6">
+                            <Label propertyName="billing:payment_type" label="_PAYMENT_MODE" data={billingList} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="billing:frequency" label="_PERIODICITY" data={billingList} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="billing:next_due_date" label="_NEXT_DUE_DATE" data={billingList} type="date" />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="billing:main_due_day" label="_PRIMARY_DUE_DATE" data={billingList} />
                         </div>
                     </div>
                 </>
