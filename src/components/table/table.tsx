@@ -7,11 +7,12 @@ import { StyledHoverRow } from '../../styles/global-style';
 import { getDescriptionValue } from "../../util/functions";
 import Paginator from '../paginator/paginator';
 
-const Table = (props: { url: string; columnId: any[] }) => {
+const Table = (props: { url: string; columnId: any[], showPaginator: boolean }) => {
     const applicationContext = useContext(ApplicationContext);
     const [tableData, setTableData] = useState<undefined | any>();
     const { t } = useTranslation();
     const [totalItems, changeTotalItems] = useState(0);
+    const [showPaginator, setshowPaginator] = useState(true);
 
     useEffect(() => {
         getData();
@@ -27,6 +28,7 @@ const Table = (props: { url: string; columnId: any[] }) => {
                 const count = response && response.data && response.data._count;
                 setTableData(response.data);
                 changeTotalItems(count === '500+' ? 500 : count);
+                setshowPaginator(props.showPaginator);
             }
         });
     }
@@ -58,7 +60,11 @@ const Table = (props: { url: string; columnId: any[] }) => {
                         </StyledHoverRow>
                     ))}
                 </DxcTable>
-                <Paginator totalItems={totalItems} itemsPerPage={5} data={tableData} handler={getData} />
+                {
+                    showPaginator && (
+                        <Paginator totalItems={totalItems} itemsPerPage={5} data={tableData} handler={getData} />
+                    )
+                }
             </>) : (<DxcTable >
                 <tr>
                     {props.columnId.map(columnItem => (
