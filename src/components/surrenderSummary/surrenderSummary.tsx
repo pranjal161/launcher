@@ -6,6 +6,7 @@ import Label from '../../components/label/label';
 import { ApplicationContext } from '../../context/applicationContext';
 import { AppConfig } from '../../config/appConfig';
 import axios from 'axios';
+import { formatValue } from '../../util/functions';
 export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
 
     const { t } = useTranslation();
@@ -42,7 +43,6 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             <h5>{t('_SURRENDER_SUMMARY')}</h5>
             {surrenderResponse && (
                 <>
-                    <h6>{t('_INITIAL_PREMIUM')}</h6>
                     <div className="row col-12">
                         <div className="col-6">
                             <Label propertyName="operation:identifier" label="_IDENTIFIER" data={surrenderResponse} />
@@ -54,10 +54,10 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                             <Label propertyName="surrender:type" label="_TYPE" data={surrenderResponse} />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={surrenderResponse} />
+                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={surrenderResponse} type="date" />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={surrenderResponse} />
+                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={surrenderResponse} type="currency" />
                         </div>
                     </div>
                 </>
@@ -77,7 +77,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                                 <td>{row['allocation_type']}</td>
                                 <td>{row['allocation:rate']}</td>
                                 <td>{row['global_rate']}</td>
-                                <td>{row['allocation:amount']}</td>
+                                <td>{formatValue(row['allocation:amount'], "currency")}</td>
                             </tr>
                         ))}
                     </DxcTable>
@@ -97,8 +97,8 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                             <tr key={i}>
                                 <td>{row['summary']['savings_flow:type_label']}</td>
                                 <td>{row['summary']['savings_flow:status_label']}</td>
-                                <td>{row['summary']['savings_flow:investment_date']}</td>
-                                <td>{row['summary']['savings_flow:amount']}</td>
+                                <td>{formatValue(row['summary']['savings_flow:investment_date'], "date")}</td>
+                                <td>{formatValue(row['summary']['savings_flow:amount'], "currency")}</td>
                             </tr>
                         ))}
                     </DxcTable>

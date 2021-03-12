@@ -5,7 +5,7 @@ import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
 import axios from 'axios';
 import { ApplicationContext } from '../../context/applicationContext';
-import { getDescriptionValue } from '../../util/functions';
+import { formatValue, getDescriptionValue } from '../../util/functions';
 import { AppConfig } from '../../config/appConfig';
 export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
 
@@ -69,13 +69,13 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                             <Label propertyName="premium:type" label="_TYPE" data={premiumResponse} />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="premium:due_date" label="_EFFECTIVE_DATE" data={premiumResponse} />
+                            <Label propertyName="premium:due_date" label="_EFFECTIVE_DATE" data={premiumResponse} type="date" />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={premiumResponse} />
+                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={premiumResponse} type="currency" />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:net_amount" label="_NET_AMOUNT" data={premiumResponse} />
+                            <Label propertyName="operation:net_amount" label="_NET_AMOUNT" data={premiumResponse} type="currency"  />
                         </div>
                     </div>
                 </>
@@ -93,7 +93,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                             <tr key={i}>
                                 <td>{row['product_component_label']}</td>
                                 <td>{getDescriptionValue(row['premium_distribution_item:type'], 'premium_distribution_item:type', premiumResponse)}</td>
-                                <td>{row['premium_distribution_item:amount']}</td>
+                                <td>{formatValue(row['premium_distribution_item:amount'], "currency")}</td>
                             </tr>
                         ))}
                     </DxcTable>
