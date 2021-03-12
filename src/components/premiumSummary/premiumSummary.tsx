@@ -92,7 +92,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                         {distributionList.map((row: any, i: number) => (
                             <tr key={i}>
                                 <td>{row['product_component_label']}</td>
-                                <td>{getDescriptionValue(row['premium_distribution_item:type'], 'premium_distribution_item:type', premiumResponse)}</td>
+                                <td>{row['premium_distribution_item:type_label']}</td>
                                 <td>{formatValue(row['premium_distribution_item:amount'], "currency")}</td>
                             </tr>
                         ))}
