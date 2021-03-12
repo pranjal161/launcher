@@ -29,11 +29,11 @@ const CoverageTable = (props: { mainRiskUrl: string }) => {
     }
 
     return (
-        <div>
+        <>
             {coverageUrl && (
                 < Table url={coverageUrl} columnId={coverageListColumns} />
             )}
-        </div>
+        </>
     );
 }
 export default CoverageTable

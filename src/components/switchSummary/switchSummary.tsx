@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { get } from "../../util/api-caller";
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
 import { ApplicationContext } from '../../context/applicationContext';
@@ -28,10 +27,10 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             setDisinvestmentSplitList(disinvestmentSplitListItems);
 
             const savingsFlowListHref = res.data['_links'] && res.data['_links']['operation:savings_flow_list'] ? res.data['_links']['operation:savings_flow_list'].href : '';
-            get(savingsFlowListHref).then(response => {
-                if (response && response['_links'] && response['_links']['item']) {
-                    const savingsFlowListItems: any = Array.isArray(response['_links']['item']) ? response['_links']['item'] :
-                        [response['_links']['item']];
+            axios.get(savingsFlowListHref, { headers: applicationContext.headers }).then(response => {
+                if (response && response.data['_links'] && response.data['_links']['item']) {
+                    const savingsFlowListItems: any = Array.isArray(response.data['_links']['item']) ? response.data['_links']['item'] :
+                        [response.data['_links']['item']];
                     setSavingsFlowListItems(savingsFlowListItems);
                 }
             });
@@ -44,16 +43,22 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             {switchResponse && (
                 <>
                     <h6>{t('_INITIAL_PREMIUM')}</h6>
-                    <div className="col-4">
-                        <Label propertyName="operation:identifier" label="_IDENTIFIER" data={switchResponse} />
-
-                        <Label propertyName="switch:status" label="_STATUS" data={switchResponse} />
-
-                        <Label propertyName="switch:type_label" label="_TYPE" data={switchResponse} />
-
-                        <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={switchResponse} />
-
-                        <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={switchResponse} />
+                    <div className="row col-12">
+                        <div className="col-6">
+                            <Label propertyName="operation:identifier" label="_IDENTIFIER" data={switchResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="switch:status" label="_STATUS" data={switchResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="switch:type_label" label="_TYPE" data={switchResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={switchResponse} />
+                        </div>
+                        <div className="col-6">
+                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={switchResponse} />
+                        </div>
                     </div>
                 </>
             )}

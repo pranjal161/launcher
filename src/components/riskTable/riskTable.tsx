@@ -9,7 +9,7 @@ const RiskTable = (props: { risks: Array<any> }) => {
     useEffect(() => {}, [props.risks]);
 
     return (
-        <div>
+        <>
             {props.risks.length > 0 && (
                 <DxcTable>
                     <tr>
@@ -24,7 +24,7 @@ const RiskTable = (props: { risks: Array<any> }) => {
                     ))}
                 </DxcTable>
             )}
-        </div>
+        </>
     );
 }
 export default RiskTable

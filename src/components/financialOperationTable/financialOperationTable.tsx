@@ -2,8 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import { useEffect, useState, useContext } from 'react';
-import { get } from "../../util/api-caller";
-import { getLink } from '../../util/functions';
+import { getDescriptionValue, getLink } from '../../util/functions';
 import { EyeIcon } from '../../assets/svg';
 import { StyledButton } from '../../styles/global-style';
 import { DxcDialog } from '@dxc-technology/halstack-react';
@@ -11,6 +10,7 @@ import { PremiumSummary } from '../../components/premiumSummary/premiumSummary';
 import { SurrenderSummary } from '../../components/surrenderSummary/surrenderSummary';
 import { SwitchSummary } from '../../components/switchSummary/switchSummary';
 import { ApplicationContext } from '../../context/applicationContext';
+import axios from 'axios';
 const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     const { t } = useTranslation();
@@ -24,6 +24,25 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
     const [isPremiumDialogVisible, setPremiumDialogVisible] = useState(false);
     const [isSurrenderDialogVisible, setSurrenderDialogVisible] = useState(false);
     const [isSwitchDialogVisible, setSwitchDialogVisible] = useState(false);
+    const [premiumData, setPremiumData] = useState<undefined | any>();
+    const [surrenderData, setSurrenderData] = useState<undefined | any>();
+
+    const premiumListColumns = [
+        { label: '_OPERATION', property: 'premium:type' },
+        { label: '_EFFECTIVE_DATE', property: 'operation:period_start_date', type: "date" },
+        { label: '_STATUS_DATE', property: 'operation:status_date', type: "date" },
+        { label: '_END_DATE', property: 'operation:period_end_date', type: "date" },
+        { label: '_STATUS', property: 'premium:status' },
+        { label: '_GROSS_AMOUNT', property: 'operation:amount', type: "currency" },
+        { label: '_NET_AMOUNT', property: 'operation:net_amount', type: "currency" }
+    ];
+    const surrenderListColumns = [
+        { label: '_OPERATION', property: 'surrender:type' },
+        { label: '_EFFECTIVE_DATE', property: 'operation:value_date', type: "date" },
+        { label: '_STATUS', property: 'surrender:status' },
+        { label: '_GROSS_AMOUNT', property: 'operation:amount', type: "currency" },
+        { label: '_NET_AMOUNT', property: 'operation:net_amount', type: "currency" }
+    ];
 
     useEffect(() => {
         getData();
@@ -42,15 +61,17 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
 
     function getOperationItems(url: string, id: string) {
         if (url) {
-            get(url).then(getResponse => {
-                if (getResponse && getResponse['_links']['item']) {
-                    if (!Array.isArray(getResponse['_links']['item'])) {
-                        getResponse['_links']['item'] = [getResponse['_links']['item']];
+            axios.get(url, { headers: applicationContext.headers }).then(getResponse => {
+                if (getResponse && getResponse.data['_links']['item']) {
+                    if (!Array.isArray(getResponse.data['_links']['item'])) {
+                        getResponse.data['_links']['item'] = [getResponse.data['_links']['item']];
                     }
-                    const response = getResponse['_links']['item'];
+                    const response = getResponse.data['_links']['item'];
                     if (id === 'premiumList') {
+                        setPremiumData(getResponse.data)
                         setPremiumList(response);
                     } else if (id === 'surrenderList') {
+                        setSurrenderData(getResponse.data)
                         setSurrenderList(response);
                     } else if (id === 'switchList') {
                         setSwitchList(response);
@@ -88,24 +109,16 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                     <h5>{t('_PREMIUM_LIST')}</h5>
                     <DxcTable>
                         <tr>
-                            <th>{t('_OPERATION')}</th>
-                            <th>{t('_EFFECTIVE_DATE')}</th>
-                            <th>{t('_STATUS_DATE')}</th>
-                            <th>{t('_END_DATE')}</th>
-                            <th>{t('_STATUS')}</th>
-                            <th>{t('_GROSS_AMOUNT')}</th>
-                            <th>{t('_NET_AMOUNT')}</th>
+                            {premiumListColumns.map((item) => (
+                                <th>{t(item.label)}</th>
+                            ))}
                             <th>{t("_ACTIONS")}</th>
                         </tr>
                         {premiumList.map((row) => (
                             <tr key={row['href']}>
-                                <td>{row['summary']['premium:type']}</td>
-                                <td>{row['summary']['operation:period_start_date']}</td>
-                                <td>{row['summary']['operation:status_date']}</td>
-                                <td>{row['summary']['operation:period_end_date']}</td>
-                                <td>{row['summary']['premium:status']}</td>
-                                <td>{row['summary']['operation:amount']}</td>
-                                <td>{row['summary']['operation:net_amount']}</td>
+                                {premiumListColumns.map((item) => (
+                                    <td>{getDescriptionValue(row['summary'][item.property], item.property, premiumData, item.type)}</td>
+                                ))}
                                 <td>
                                     <StyledButton
                                         aria-label="add an alarm"
@@ -128,20 +141,16 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                     <h5>{t('_SURRENDER_LIST')}</h5>
                     <DxcTable>
                         <tr>
-                            <th>{t('_OPERATION')}</th>
-                            <th>{t('_EFFECTIVE_DATE')}</th>
-                            <th>{t('_STATUS')}</th>
-                            <th>{t('_GROSS_AMOUNT')}</th>
-                            <th>{t('_NET_AMOUNT')}</th>
+                            {surrenderListColumns.map((item) => (
+                                <th>{t(item.label)}</th>
+                            ))}
                             <th>{t("_ACTIONS")}</th>
                         </tr>
                         {surrenderList.map((row) => (
                             <tr key={row['href']}>
-                                <td>{row['summary']['surrender:type']}</td>
-                                <td>{row['summary']['operation:value_date']}</td>
-                                <td>{row['summary']['surrender:status']}</td>
-                                <td>{row['summary']['operation:amount']}</td>
-                                <td>{row['summary']['operation:net_amount']}</td>
+                                {surrenderListColumns.map((item) => (
+                                    <td>{getDescriptionValue(row['summary'][item.property], item.property, surrenderData, item.type)}</td>
+                                ))}
                                 <td>
                                     <StyledButton
                                         aria-label="add an alarm"
