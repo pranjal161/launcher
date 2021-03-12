@@ -44,7 +44,6 @@ const Documents = (props: { outputDoc: string, receivedDoc: string }) => {
     }
     return (
         <>
-            <h4>{t("_DOCUMENTS")}</h4>
             <h4>{t("_SENT_DOCUMENTS")}</h4>
             <div className="row">
                 {outputDocData && outputDocData['_links'] && outputDocData['_links']['item'] && outputDocData['_links']['item'].map((item: any, index: number) => (

@@ -113,7 +113,7 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                                 <td>{formatValue(row['summary']['unit_linked_fund:unit_value'], "currency")}</td>
                                 <td>{formatValue(row['summary']['unit_linked_fund:units'], "decimal")}</td>
                                 <td>{row['summary']['unit_linked_fund:s_r_r_i']}</td>
-                                <td>{formatValue(row['summary']['unit_linked_fund:unit_value_date'])}</td>
+                                <td>{formatValue(row['summary']['unit_linked_fund:unit_value_date'], "date")}</td>
                                 <td>{formatValue(row['summary']['unit_linked_fund:net_cash_value'], "currency")}</td>
                                 <td>{formatValue(row['summary']['contract_allocation_rate'], "percent")}</td>
                             </tr>
