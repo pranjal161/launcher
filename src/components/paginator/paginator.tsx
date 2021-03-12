@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyledPaginator } from '../../styles/global-style';
 import { DxcPaginator } from '@dxc-technology/halstack-react';
 import { paginationLink, getLink } from '../../util/functions';
@@ -7,6 +7,10 @@ const Paginator = (props: { totalItems: string | number, itemsPerPage: number, d
 
     const { totalItems, itemsPerPage, data, handler } = props;
     const [page, changePage] = useState(1);
+
+    useEffect(() => {
+        changePage(1);
+    }, [props.totalItems]);
 
     const prevClick = () => {
         changePage(page - 1);
