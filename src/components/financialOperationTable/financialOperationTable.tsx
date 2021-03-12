@@ -26,6 +26,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
     const [isSwitchDialogVisible, setSwitchDialogVisible] = useState(false);
     const [premiumData, setPremiumData] = useState<undefined | any>();
     const [surrenderData, setSurrenderData] = useState<undefined | any>();
+    const [switchData, setSwitchData] = useState<undefined | any>();
 
     const premiumListColumns = [
         { label: '_OPERATION', property: 'premium:type' },
@@ -42,6 +43,13 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
         { label: '_STATUS', property: 'surrender:status' },
         { label: '_GROSS_AMOUNT', property: 'operation:amount', type: "currency" },
         { label: '_NET_AMOUNT', property: 'operation:net_amount', type: "currency" }
+    ];
+    const switchListColumns = [
+        { label: '_OPERATION', property: 'switch:type_label' },
+        { label: '_EFFECTIVE_DATE', property: 'operation:value_date', type: 'date' },
+        { label: '_STATUS', property: 'switch:status_label' },
+        { label: '_GROSS_AMOUNT', property: 'operation:amount', type: 'currency' },
+        { label: '_NET_AMOUNT', property: 'operation:net_amount', type: 'currency' }
     ];
 
     useEffect(() => {
@@ -74,6 +82,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                         setSurrenderData(getResponse.data)
                         setSurrenderList(response);
                     } else if (id === 'switchList') {
+                        setSwitchData(getResponse.data)
                         setSwitchList(response);
                     }
                 }
@@ -173,20 +182,16 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                     <h5>{t('_SWITCH_LIST')}</h5>
                     <DxcTable>
                         <tr>
-                            <th>{t('_OPERATION')}</th>
-                            <th>{t('_EFFECTIVE_DATE')}</th>
-                            <th>{t('_STATUS')}</th>
-                            <th>{t('_GROSS_AMOUNT')}</th>
-                            <th>{t('_NET_AMOUNT')}</th>
+                            {switchListColumns.map((item) => (
+                                <th>{t(item.label)}</th>
+                            ))}
                             <th>{t("_ACTIONS")}</th>
                         </tr>
                         {switchList.map((row) => (
                             <tr key={row['href']}>
-                                <td>{row['summary']['switch:type_label']}</td>
-                                <td>{row['summary']['operation:value_date']}</td>
-                                <td>{row['summary']['switch:status_label']}</td>
-                                <td>{row['summary']['operation:amount']}</td>
-                                <td>{row['summary']['operation:net_amount']}</td>
+                                {switchListColumns.map((item) => (
+                                    <td>{getDescriptionValue(row['summary'][item.property], item.property, switchData, item.type)}</td>
+                                ))}
                                 <td>
                                     <StyledButton
                                         aria-label="add an alarm"
