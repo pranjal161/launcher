@@ -1,10 +1,9 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
 import { DxcToggleGroup } from '@dxc-technology/halstack-react';
 
 const Chart = (props: { data: any; }) => {
-    const chart = createRef<Doughnut>();
     const { t } = useTranslation();
     const backgroundColor = [
         'rgba(255, 99, 132, 0.2)',
