@@ -6,10 +6,11 @@ import {
     DxcHeader,
     DxcSelect
 } from '@dxc-technology/halstack-react';
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {useContext, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
-import { ApplicationContext } from '../../context/applicationContext';
+import {ApplicationContext} from '../../context/applicationContext';
+import SignedInLinks from "./components/signedInLinks";
 
 const Header = () => {
     const history = useHistory();
@@ -39,7 +40,7 @@ const Header = () => {
         // to check refresh
         setLang(value);
         if (value !== applicationContext.language) {
-                applicationContext.changeLang(value);
+            applicationContext.changeLang(value);
         }
     }
 
@@ -47,21 +48,26 @@ const Header = () => {
         history.push("/home");
     };
 
+    const signedLinks = <SignedInLinks/>
+
     return (
         <>
             <DxcHeader
                 logoSrc={DXCLogo}
                 onClick={goToHome}
-                padding={{ right: 'xsmall' }}
+                padding={{right: 'xsmall'}}
                 content={
                     <>
-                        <DxcSelect
-                            options={langs}
-                            onChange={changeLang}
-                            value={lang}
-                            margin="xxsmall"
-                            padding="xxsmall"
-                        ></DxcSelect>
+                        <div style={{width: '100px'}}>
+                            <DxcSelect
+                                options={langs}
+                                onChange={changeLang}
+                                value={lang}
+                                margin="xxsmall"
+                                padding="xxsmall"
+                            />
+                        </div>
+                        {signedLinks}
                     </>
                 }
             />
