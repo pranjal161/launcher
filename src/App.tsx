@@ -16,7 +16,9 @@ import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
-import { Colors } from "../src/styles/dxc-theme";
+import { Colors} from "./styles/dxc-theme";
+import SignIn from "./views/SignIn/SignIn";
+import SignUp from "./views/SignUp/SignUp";
 
 function App() {
   const { ready } = useTranslation();
@@ -79,6 +81,12 @@ function App() {
               <Route path="/clientView/organization/:organizationId" exact>
                 {/* to test */}
                 <ClientView />
+              </Route>
+              <Route path="/signin" exact>
+                <SignIn />
+              </Route>
+              <Route path="/signup" exact>
+                <SignUp/>
               </Route>
             </Switch>
           </Router>

@@ -10,7 +10,7 @@ import React, {useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 
 import {ApplicationContext} from '../../context/applicationContext';
-import SignedInLinks from "./components/signedInLinks";
+import SignedLinks from "./components/SignedLinks/SignedLinks";
 
 const Header = () => {
     const history = useHistory();
@@ -48,8 +48,6 @@ const Header = () => {
         history.push("/home");
     };
 
-    const signedLinks = <SignedInLinks/>
-
     return (
         <>
             <DxcHeader
@@ -58,6 +56,7 @@ const Header = () => {
                 padding={{right: 'xsmall'}}
                 content={
                     <>
+                        <SignedLinks/>
                         <div style={{width: '100px'}}>
                             <DxcSelect
                                 options={langs}
@@ -67,7 +66,7 @@ const Header = () => {
                                 padding="xxsmall"
                             />
                         </div>
-                        {signedLinks}
+
                     </>
                 }
             />
