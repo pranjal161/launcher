@@ -29,7 +29,7 @@ const HomePage = () => {
                 label={t('_CONTRACT_SEARCH')}
                 margin="medium"
                 padding="medium"> */}
-            <div>
+            <div className="align-center">
                 <DxcInput
                     label={t('_CONTRACT')}
                     value={contractNumber}
@@ -53,7 +53,9 @@ const HomePage = () => {
                 />
             </div>
             {/* </DxcAccordion> */}
-            <ContractTable contractUrl={url} />
+            <div className="p-2">
+                <ContractTable contractUrl={url} />
+            </div>
         </>
     );
 
