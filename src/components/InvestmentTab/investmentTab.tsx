@@ -2,17 +2,37 @@ import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { formatValue } from '../../util/functions';
+import { getDescriptionValue } from '../../util/functions';
 import { ApplicationContext } from '../../context/applicationContext';
+import Chart from '../chart/chart';
 const InvestmentTab = (props: { mainRiskUrl: string }) => {
 
     const { t } = useTranslation();
     const [interestBasedFund, setInterestBasedFund] = useState<Array<any>>([]);
     const [unitBasedFund, setUnitBasedFund] = useState<Array<any>>([]);
+    const [chartData, setChartData] = useState<Array<any>>([]);
     let interestFunds: any[] = [];
     let unitFunds: any[] = [];
     const applicationContext = useContext(ApplicationContext);
-
+    const unitLinkedFundColumns = [
+        { label: '_FUND_LABEL', property: 'coverage_fund:label' },
+        { label: '_TWRR', property: 'ul_fund_twrr', type: 'percent' },
+        { label: '_TOTAL_AMOUNT', property: 'unit_linked_fund:invested_amount', type: 'currency' },
+        { label: '_TYPE', property: 'unit_linked_fund:category' },
+        { label: '_UNIT_PRICE', property: 'unit_linked_fund:unit_value', type: 'currency' },
+        { label: '_NUMBER_UNIT', property: 'unit_linked_fund:units', type: 'decimal' },
+        { label: '_RISK_LEVEL', property: 'unit_linked_fund:s_r_r_i' },
+        { label: '_DATE', property: 'unit_linked_fund:unit_value_date', type: 'date' },
+        { label: '_VALUE', property: 'coverage_fund:net_cash_value', type: 'currency' },
+        { label: '_DISTRIBUTION', property: 'contract_allocation_rate', type: 'percent' }
+    ];
+    const interestFundsColumns = [
+        { label: '_FUND_LABEL', property: 'coverage_fund:label' },
+        { label: '_TOTAL_AMOUNT', property: 'interest_fund:invested_amount', type: 'currency' },
+        { label: '_MIN_GRNTD_RATE', property: 'interest_fund:guaranteed_rate', type: 'percent' },
+        { label: '_VALUE', property: 'interest_fund:net_cash_value', type: 'currency' },
+        { label: '_DISTRIBUTION', property: 'contract_allocation_rate', type: 'percent' }
+    ];
     useEffect(() => {
         getData();
     }, [applicationContext, props.mainRiskUrl]);
@@ -43,15 +63,16 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                                         const items = Array.isArray(item.data._links.item) ? item.data._links.item : [item.data._links.item];
                                         items.forEach((element: { summary: { [x: string]: string; }; href: any; }) => {
                                             if (element.summary['coverage_fund:type_variant'] === 'interest_fund') {
-                                                interestFunds.push(element);
+                                                interestFunds.push({ element: element, data: item.data });
                                             }
                                             if (element.summary['coverage_fund:type_variant'] === 'unit_linked_fund') {
-                                                unitFunds.push(element)
+                                                unitFunds.push({ element: element, data: item.data })
                                             }
                                         });
                                     }
                                 })
                                 setUnitBasedFund(unitFunds)
+                                buildChartData(unitFunds);
                                 setInterestBasedFund(interestFunds);
                             })
                         })
@@ -61,28 +82,44 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
         })
     }
 
+    const buildChartData = (unitFunds: any[]) => {
+        let chartFundList = processChartData(unitFunds);
+        setChartData(chartFundList)
+    }
+
+    const processChartData = (investmentFundsResItems: any[]) => {
+        let _list: any[] = [];
+        investmentFundsResItems.forEach((item) => {
+            let _result = {
+                _FUND_LABEL: item.element.summary['coverage_fund:label'],
+                _ALLOCATION: item.element.summary['contract_allocation_rate'],
+                _FUND_TYPE: item.element.summary['unit_linked_fund:category'],
+                _FUND_SRRI: item.element.summary['unit_linked_fund:s_r_r_i']
+            };
+            _list.push(_result);
+        });
+        return _list;
+    }
+
     return (
         <>
             <h5>{t('_INVESTMENT_SUMMARY')}</h5>
             <h6>{t('_INTEREST_BASED')}</h6>
+
             {/*to do refactoring*/}
             {interestBasedFund.length > 0 && (
                 <>
                     <DxcTable>
                         <tr>
-                            <th>{t('_FUND_LABEL')}</th>
-                            <th>{t('_TOTAL_AMOUNT')}</th>
-                            <th>{t('_MIN_GRNTD_RATE')}</th>
-                            <th>{t('_VALUE')}</th>
-                            <th>{t('_DISTRIBUTION')}</th>
+                            {interestFundsColumns.map((item) => (
+                                <th>{t(item.label)}</th>
+                            ))}
                         </tr>
                         {interestBasedFund.map((row) => (
                             <tr key={row['href']}>
-                                <td>{row['summary']['coverage_fund:label']}</td>
-                                <td>{formatValue(row['summary']['interest_fund:invested_amount'], "currency")}</td>
-                                <td>{formatValue(row['summary']['interest_fund:guaranteed_rate'], "percent")}</td>
-                                <td>{formatValue(row['summary']['interest_fund:net_cash_value'], "currency")}</td>
-                                <td>{formatValue(row['summary']['contract_allocation_rate'], "percent")}</td>
+                                {interestFundsColumns.map((item) => (
+                                    <td>{getDescriptionValue(row.element['summary'][item.property], item.property, row.data, item.type)}</td>
+                                ))}
                             </tr>
                         ))}
                     </DxcTable>
@@ -93,37 +130,25 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                 <>
                     <DxcTable>
                         <tr>
-                            <th>{t('_FUND_LABEL')}</th>
-                            <th>{t('_TWRR')}</th>
-                            <th>{t('_TOTAL_AMOUNT')}</th>
-                            <th>{t('_TYPE')}</th>
-                            <th>{t('_UNIT_PRICE')}</th>
-                            <th>{t('_NUMBER_UNIT')}</th>
-                            <th>{t('_RISK_LEVEL')}</th>
-                            <th>{t('_DATE')}</th>
-                            <th>{t('_VALUE')}</th>
-                            <th>{t('_DISTRIBUTION')}</th>
+                            {unitLinkedFundColumns.map((item) => (
+                                <th>{t(item.label)}</th>
+                            ))}
                         </tr>
                         {unitBasedFund.map((row) => (
                             <tr key={row['href']}>
-                                <td>{row['summary']['coverage_fund:label']}</td>
-                                <td>{formatValue(row['summary']['ul_fund_twrr'], "percent")}</td>
-                                <td>{formatValue(row['summary']['unit_linked_fund:invested_amount'], "currency")}</td>
-                                <td>{row['summary']['unit_linked_fund:category']}</td>
-                                <td>{formatValue(row['summary']['unit_linked_fund:unit_value'], "currency")}</td>
-                                <td>{formatValue(row['summary']['unit_linked_fund:units'], "decimal")}</td>
-                                <td>{row['summary']['unit_linked_fund:s_r_r_i']}</td>
-                                <td>{formatValue(row['summary']['unit_linked_fund:unit_value_date'], "date")}</td>
-                                <td>{formatValue(row['summary']['unit_linked_fund:net_cash_value'], "currency")}</td>
-                                <td>{formatValue(row['summary']['contract_allocation_rate'], "percent")}</td>
+                                {unitLinkedFundColumns.map((item) => (
+                                    <td>{getDescriptionValue(row.element['summary'][item.property], item.property, row.data, item.type)}</td>
+                                ))}
                             </tr>
                         ))}
                     </DxcTable>
+                    <div className="pt-2">
+                        <Chart data={chartData} />
+                    </div>
                 </>
             )}
         </>
     );
-
 }
 
 export default InvestmentTab;
