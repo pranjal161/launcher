@@ -8,6 +8,7 @@ const SignUp = ({signUp, auth}) => {
     const passwordRef = useRef()
     const firstNameRef = useRef()
     const lastNameRef = useRef()
+    const profileRef= useRef()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -15,10 +16,11 @@ const SignUp = ({signUp, auth}) => {
         const password = passwordRef.current.value
         const firstName = firstNameRef.current.value
         const lastName = lastNameRef.current.value
-        signUp({email, password, firstName, lastName})
+        const profile = profileRef.current.value
+        signUp({email, password, firstName, lastName, profile})
     }
 
-    const { logged, errorMessage} = auth
+    const {logged, errorMessage} = auth
     if (logged)
         return <Redirect to={"/"}/>
 
@@ -46,7 +48,15 @@ const SignUp = ({signUp, auth}) => {
                         <input type="text" className="form-control" id="lastname"
                                ref={lastNameRef}/>
                     </div>
-                    <button className="btn btn-primary" >Submit</button>
+                    <div className="form-group">
+                        <label htmlFor="profile">Profile</label>
+                        <select id="inputState" className="form-control" ref={profileRef}>
+                            <option value={"insuranceClerk"} selected>Insurance Clerk</option>
+                            <option value={"manager"}>Manager</option>
+                            <option value={"phoneAdvisor"}>Phone advisor</option>
+                        </select>
+                    </div>
+                    <button className="btn btn-primary">Submit</button>
                     {errorMessage && <div className="alert alert-danger mt-2" role="alert">{errorMessage}</div>}
                 </form>
             </div>
@@ -61,7 +71,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        signUp : (credentials) => dispatch(signUp(credentials))
+        signUp: (credentials) => dispatch(signUp(credentials))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

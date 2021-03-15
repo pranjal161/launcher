@@ -10,9 +10,7 @@ export const signUp = (newUser) => {
                 result = resp
                 // Create a user document in firestore with the same id as the user in firebase.auth()
                 return firestore.collection('users').doc(resp.user.uid).set({
-                    firstName: newUser.firstName,
-                    lastName: newUser.lastName,
-                    email: newUser.email,
+                    ...newUser,
                     initials: (newUser.firstName[0] + newUser.lastName[0]).toUpperCase()
                 })
             }).then(() => {
