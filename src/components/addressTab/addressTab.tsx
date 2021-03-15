@@ -49,7 +49,7 @@ const AddressTab = (props: { clientData: Array<Object>; }) => {
                     <div className="row">
                         <div className="col-12">
                             <h5 className="pl-5">{t(heading)}</h5>
-                            <Table url={url} columnId={columns} />
+                            <Table url={url} columnId={columns} showPaginator = {true}/>
                         </div>
                     </div>
                 }

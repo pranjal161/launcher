@@ -73,21 +73,21 @@ const ContractRoles = (props: { clientUrl: string }) => {
             { offerUrl && (
                 <>
                     <h5> {t('_OFFERS')}</h5>
-                    < Table url={offerUrl} columnId={offerListColumns} />
+                    < Table url={offerUrl} columnId={offerListColumns} showPaginator={true}/>
                 </>
             )
             }
             { propositionUrl && (
                 <>
                     <h5>{t('_PROPOSITION')}</h5>
-                    < Table url={propositionUrl} columnId={propositionListColumns} />
+                    < Table url={propositionUrl} columnId={propositionListColumns} showPaginator={true}/>
                 </>
             )
             }
             { quoteUrl && (
                 <>
                     <h5>{t('_QUOTES')}</h5>
-                    < Table url={quoteUrl} columnId={quoteListColumns} />
+                    < Table url={quoteUrl} columnId={quoteListColumns} showPaginator={true}/>
                 </>
             )
             }
