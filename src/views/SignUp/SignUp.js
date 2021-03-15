@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {signUp} from "../../store/actions/authActions";
+import {useFirestore} from "react-redux-firebase";
 
 const SignUp = ({signUp, auth}) => {
     const emailRef = useRef()
@@ -9,6 +10,7 @@ const SignUp = ({signUp, auth}) => {
     const firstNameRef = useRef()
     const lastNameRef = useRef()
     const profileRef= useRef()
+    const firestore = useFirestore()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -17,7 +19,7 @@ const SignUp = ({signUp, auth}) => {
         const firstName = firstNameRef.current.value
         const lastName = lastNameRef.current.value
         const profile = profileRef.current.value
-        signUp({email, password, firstName, lastName, profile})
+        signUp({email, password, firstName, lastName, profile}, firestore)
     }
 
     const {logged, errorMessage} = auth
@@ -71,7 +73,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        signUp: (credentials) => dispatch(signUp(credentials))
+        signUp: (credentials, firestore) => dispatch(signUp(credentials, firestore))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

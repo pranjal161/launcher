@@ -6,7 +6,21 @@ import './i18n';
 import reportWebVitals from './reportWebVitals';
 import {DxcSpinner} from '@dxc-technology/halstack-react';
 import {Provider} from "react-redux";
-import store from "./store/store";
+
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/firestore' // make sure you add this for firestore
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import { createFirestoreInstance } from 'redux-firestore'
+import { firebase as fbConfig, rrfConfig} from "./config/config";
+import configureStore from "./store/store2";
+
+const initialState = {}
+const store = configureStore(initialState)
+// Initialize Firebase instance
+firebase.initializeApp(fbConfig)
+
 
 const loading = () => {
 
@@ -23,7 +37,13 @@ ReactDOM.render(
     <React.StrictMode>
         <React.Suspense fallback={loading()}>
             <Provider store={store}>
-                <App/>
+                <ReactReduxFirebaseProvider
+                    firebase={firebase}
+                    config={rrfConfig}
+                    dispatch={store.dispatch}
+                    createFirestoreInstance={createFirestoreInstance}>
+                    <App />
+                </ReactReduxFirebaseProvider>
             </Provider>
         </React.Suspense>
     </React.StrictMode>,

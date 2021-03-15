@@ -3,9 +3,14 @@ import React from 'react';
 function TicketList(props) {
     const {tickets} = props
     return (
-        <div>
-            {tickets && tickets.map(ticket => <div className="black-text center" key={ticket.uid}>{ticket.title}</div>)}
-        </div>
+        <ul className="list-group">
+            {tickets && tickets.map(ticket =>
+                <li key= {ticket.uid} className="list-group-item">{ticket.title}
+                    <small>{ticket.uid}</small>
+                </li>
+            )}
+
+        </ul>
     );
 }
 
