@@ -11,6 +11,7 @@ function SignedInLinks(props) {
     return (
         <ul className="right">
             <li><a className={"text-white"} onClick={signOut}>Log Out</a></li>
+            <li><NavLink to="/desktop">Desktop</NavLink></li>
             <li><NavLink to="/" className="btn btn-success">{props.profile.initials}</NavLink></li>
         </ul>
     );

@@ -5,6 +5,7 @@ interface Ticket {
     activityId:string;
     assignedToList:User[];
     createdBy:string;
+    title: string;
     description:string;
     receivedDate:string;
     deadlineDate:string;
