@@ -5,7 +5,6 @@ import { StyledMessageContainer } from '../../styles/global-style';
 const Alert = (props: { toastList: any }) => {
     const { toastList } = props;
     const [list, setList] = useState(toastList);
-    console.log('toastList -->', toastList);
 
     useEffect(() => {
         setList(toastList);
