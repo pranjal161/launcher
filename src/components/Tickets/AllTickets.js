@@ -1,19 +1,13 @@
 import React from 'react';
 import withTickets from "../../data/HOC/withTickets";
+import TicketList from "./TicketList";
 
-function AllTickets({tickets}) {
+function AllTickets(props) {
 
     return (
-        <ul className="list-group">
-            {tickets && tickets.map(ticket =>
-                <li key= {ticket.uid} className="list-group-item">{ticket.title}
-                    <small>{ticket.uid}</small>
-                </li>
-            )}
-
-        </ul>
+       <TicketList {...props}/>
     );
 }
 
-export default withTickets()(AllTickets)
+export default withTickets(AllTickets)
 

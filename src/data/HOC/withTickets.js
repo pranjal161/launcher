@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 //storeAs contains the name of the ident in the tickets Reducer store, it's in parameter to be able to have different
 // kind of tickets according a filter or components
-const withTickets = (props = {storeAs: 'tickets'}) => {
+const withTickets = (WrappedComponent, props = {storeAs: 'tickets'}) => {
     const {storeAs} = props
     const mapStateToProps = (state) => ({tickets: state.firestore.ordered[storeAs]})
 
@@ -13,7 +13,7 @@ const withTickets = (props = {storeAs: 'tickets'}) => {
         firestoreConnect([{collection: 'tickets', ...props}]),
         // connect state.firestore.tickets to props.tickets
         connect(mapStateToProps)
-    )
+    )(WrappedComponent)
 }
 
 export default withTickets

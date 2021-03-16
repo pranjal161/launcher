@@ -3,11 +3,11 @@ import withTickets from "../../data/HOC/withTickets";
 import {useSelector} from "react-redux";
 import TicketList from "./TicketList";
 
-const MyTickets = () =>  {
+const MyTickets = (props) =>  {
     const auth = useSelector(state=> state.firebase.auth)
-    const TicketListBind = withTickets({storeAs:'myTickets', where:['creatorId', '==', auth.uid]})(TicketList)
+    const TicketListBind = withTickets(TicketList, {storeAs:'myTickets', where:['creatorId', '==', auth.uid]})
     return (
-        <TicketListBind/>
+        <TicketListBind {...props}/>
     );
 }
 

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {signUp} from "../../store/actions/authActions";
 import {useFirestore} from "react-redux-firebase";
+import withCreateUser from "../../data/HOC/withCreateUser";
 
 const SignUp = ({signUp, auth}) => {
     const emailRef = useRef()
@@ -66,16 +67,6 @@ const SignUp = ({signUp, auth}) => {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signUp: (credentials, firestore) => dispatch(signUp(credentials, firestore))
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default withCreateUser(SignUp);
 
 
