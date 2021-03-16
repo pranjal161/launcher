@@ -48,7 +48,7 @@ node {
 }
 
 def addStagesCustom() {
-
+    /*
     stage('Downloading bundle') {
         //when { branch 'development-deploy-ntg' }
             withCredentials([[
@@ -65,6 +65,7 @@ def addStagesCustom() {
                 }
             }
     }
+    */
     stage ('Zipping Artifact All') {
         //when { branch 'development-deploy-ntg' }
         steps {
