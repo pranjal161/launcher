@@ -49,7 +49,7 @@ node {
 
 def addStagesCustom() {
     stage('Downloading bundles from AWS development env') {
-        when { expression {branch == 'development' | branch == 'development-deploy-ntg'} }
+        when { branch 'development-deploy-ntg' }
         steps {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
@@ -67,7 +67,7 @@ def addStagesCustom() {
         }
     }
     stage ('Zipping Artifact from DEV') {
-        when { expression {branch == 'development' | branch == 'development-deploy-ntg'} }
+        when { branch 'development-deploy-ntg' }
         steps {
             sh '''
                 rm -rf omnichannel-standard-ui.zip
@@ -83,7 +83,7 @@ def addStagesCustom() {
         }
     }
     stage('Upload Artifact All') {
-        when { expression {branch == 'development' | branch == 'development-deploy-ntg'} }
+        when { branch 'development-deploy-ntg' }
         steps {
             withCredentials([usernamePassword(credentialsId:"diaas-rw", passwordVariable:"ARTIF_PASSWORD", usernameVariable:"ARTIF_USER")]) {
                 sh '''
@@ -113,11 +113,11 @@ def addStagesCustom() {
     }
 }
 
-def functions = [:]
-functions["customDeploy"] = ["skip": false, "func": this.&addStagesCustom]
+def stagesMap = [:]
+stagesMap["customDeploy"] = ["skip": false, "func": this.&addStagesCustom]
 //pipeline_generic(stagesMap)
 
 //functions = [:]
 // functions['test'] = ['skip': true]
 
-pipelineRunner(functions, pipelineUtils, "docker/Dockerfile")
+pipelineRunner(stagesMap, pipelineUtils, "docker/Dockerfile")
