@@ -51,11 +51,11 @@ def addStagesCustom() {
 
     stage('Echo') {
         //when { branch 'development-deploy-ntg' }
-        steps {
+        //steps {
             sh '''
                 echo "I'm in echo stage"
             '''
-        }
+        //}
     }
     /*
     stage('Downloading bundles from AWS development env') {
