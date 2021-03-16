@@ -57,6 +57,7 @@ def addStagesCustom() {
             '''
         }
     }
+    /*
     stage('Downloading bundles from AWS development env') {
         //when { branch 'development-deploy-ntg' }
         steps {
@@ -120,6 +121,7 @@ def addStagesCustom() {
             }
         }
     }
+    */
 }
 
 def stagesMap = [:]
