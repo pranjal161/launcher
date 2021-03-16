@@ -50,7 +50,7 @@ node {
 def addStagesCustom() {
 
     stage('Echo') {
-        when { branch 'development-deploy-ntg' }
+        //when { branch 'development-deploy-ntg' }
         //steps {
             sh '''
                 echo "I'm in echo stage"
@@ -58,7 +58,7 @@ def addStagesCustom() {
         //}
     }
     stage('Downloading bundles from AWS development env') {
-        when { branch 'development-deploy-ntg' }
+        //when { branch 'development-deploy-ntg' }
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
@@ -73,7 +73,6 @@ def addStagesCustom() {
                 }
             }
     }
-    /*
     stage ('Zipping Artifact from DEV') {
         //when { branch 'development-deploy-ntg' }
         steps {
@@ -119,7 +118,6 @@ def addStagesCustom() {
             }
         }
     }
-    */
 }
 
 def stagesMap = [:]
