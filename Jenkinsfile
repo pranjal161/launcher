@@ -98,9 +98,10 @@ def addStagesCustom() {
         ]]) {
             withAWS(role:"arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser"){
                 sh '''
-                    aws s3 rm s3://dev.eu.standard.project/omnichannel/react/
-                    aws s3 cp -r ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --include='*' --exclude='*.json' --content-encoding gzip --region eu-west-1
-                    aws s3 cp -r ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --exclude='*' --include='*.json' --region eu-west-1
+                    aws s3 rm s3://dev.eu.standard.project/omnichannel/react/ --recursive
+                    aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --include='*' --exclude='*.json' --recursive --content-encoding gzip --region eu-west-1
+                    aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --exclude='*' --include='*.json' --recursive --region eu-west-1
+                    aws s3 ls s3://dev.eu.standard.project/omnichannel/react/
                 '''
             }
         }
