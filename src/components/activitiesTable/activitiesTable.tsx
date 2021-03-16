@@ -31,7 +31,7 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         <>
             { activityUrl && (
                 <>
-                    < Table url={activityUrl} columnId={activityListColumns} />
+                    < Table url={activityUrl} columnId={activityListColumns} showPaginator={true}/>
                 </>
             )
             }

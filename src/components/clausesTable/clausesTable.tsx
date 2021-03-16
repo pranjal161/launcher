@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { AppConfig } from '../../config/appConfig';
 import { useEffect, useState } from 'react';
@@ -43,7 +42,7 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         <>
             { clauseUrl && (
                 <>
-                    < Table url={clauseUrl} columnId={clauseListColumns} />
+                    < Table url={clauseUrl} columnId={clauseListColumns} showPaginator={true}/>
                 </>
             )
             }

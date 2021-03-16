@@ -45,7 +45,7 @@ const FinancialTable = (props: { clientUrl: any }) => {
     return (
         <>
             {premiumUrl && (
-                < Table url={premiumUrl} columnId={financialDataColumns} />
+                < Table url={premiumUrl} columnId={financialDataColumns} showPaginator={true} />
             )}
         </>
     )
