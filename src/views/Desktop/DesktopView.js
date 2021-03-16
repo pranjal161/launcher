@@ -5,6 +5,7 @@ import TicketDetail from "../../components/Tickets/TicketDetail/TicketDetail";
 import useDeskTickets from "../../data/hooks/useDeskTickets";
 import {useDeskAuth} from "../../data/hooks/useDeskAuth";
 import {Redirect} from "react-router-dom";
+import CreateButton from "../../components/Tickets/CreateButton/CreateButton";
 
 function DesktopView() {
     const [clickedTickets, setClickedTickets] = useState({})
@@ -55,7 +56,8 @@ function DesktopView() {
                 </div>
                 <div className="col-sm">
                     My tickets
-                    <button className="btn btn-primary" onClick={createTicket}>Create Ticket</button>
+                    <CreateButton></CreateButton>
+
                     <MyTickets handleTicketClick={handleTicketClick}/>
                 </div>
                 <div className="col-sm">
