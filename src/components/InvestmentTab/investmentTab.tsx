@@ -142,9 +142,11 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                             </tr>
                         ))}
                     </DxcTable>
-                    <div className="pt-2">
-                        <Chart data={chartData} />
-                    </div>
+                    {chartData.length > 0 && (
+                        <div className="pt-2">
+                            <Chart data={chartData} />
+                        </div>
+                    )}
                 </>
             )}
         </>
