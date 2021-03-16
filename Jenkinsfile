@@ -57,7 +57,6 @@ def addStagesCustom() {
             '''
         //}
     }
-    
     stage('Downloading bundles from AWS development env') {
         when { branch 'development-deploy-ntg' }
             withCredentials([[
@@ -124,7 +123,7 @@ def addStagesCustom() {
 }
 
 def stagesMap = [:]
-stagesMap["upload"] = ["skip": true, "func": this.&addStagesCustom]
+stagesMap["upload"] = ["skip": false, "func": this.&addStagesCustom]
 //pipeline_generic(stagesMap)
 
 //functions = [:]
