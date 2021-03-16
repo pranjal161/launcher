@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import AllTickets from "../../components/Tickets/AllTickets";
 import MyTickets from "../../components/Tickets/MyTickets";
-import TicketList from "../../components/Tickets/TicketList";
 import TicketDetail from "../../components/Tickets/TicketDetail/TicketDetail";
 
-function DesktopView(props) {
-    const [clickedTickets, setClickedTickets] = useState([])
+function DesktopView() {
+    const [clickedTickets, setClickedTickets] = useState(undefined)
 
     const handleTicketClick = (ticket) => {
         console.log('ticket', ticket)
@@ -24,7 +23,7 @@ function DesktopView(props) {
                 </div>
                 <div className="col-sm">
                     Clicked tickets
-                   <TicketDetail id={setClickedTickets}></TicketDetail>
+                    {clickedTickets && <TicketDetail id={clickedTickets.id}/>}
                 </div>
             </div>
         </div>

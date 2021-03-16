@@ -1,13 +1,14 @@
 import React from 'react';
-import withTickets from "../../data/HOC/withTickets";
 import TicketList from "./TicketList";
+import useTickets from "../../data/hooks/useTickets";
 
-function AllTickets(props) {
-
+const AllTickets= (props) =>  {
+    const {getAll} = useTickets()
+    const tickets = getAll()
     return (
-       <TicketList {...props}/>
+        <TicketList tickets={tickets} {...props}/>
     );
 }
 
-export default withTickets(AllTickets)
+export default AllTickets
 

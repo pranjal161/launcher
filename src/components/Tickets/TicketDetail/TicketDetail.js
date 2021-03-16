@@ -1,11 +1,16 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
-import withOneTicket from "../../../data/HOC/withOneTicket";
+import useTickets from "../../../data/hooks/useTickets";
 
 
-function TicketDetail(props) {
-    const {ticket, auth} = props
-    if (!auth.logged) return <Redirect to={"/signin"}></Redirect>
+function TicketDetail({id}) {
+    console.log('id', id)
+   const {getOne}= useTickets()
+    let ticket
+    if (id)
+         ticket =  getOne(id)
+
+    //if (!auth.logged) return <Redirect to={"/signin"}></Redirect>
     if (ticket) {
         return (
             <div className={"container section project-details"}>
@@ -26,4 +31,5 @@ function TicketDetail(props) {
 }
 
 
-export default withOneTicket(TicketDetail);
+export default TicketDetail;
+

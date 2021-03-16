@@ -1,17 +1,16 @@
 import React, {useRef} from 'react';
-import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
-import {signUp} from "../../store/actions/authActions";
-import {useFirestore} from "react-redux-firebase";
-import withCreateUser from "../../data/HOC/withCreateUser";
+import {useDeskAuth} from "../../data/hooks/useDeskAuth";
+import useUserDispatch from "../../data/hooks/useUserDispatch";
 
-const SignUp = ({signUp, auth}) => {
+const SignUp = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const firstNameRef = useRef()
     const lastNameRef = useRef()
     const profileRef= useRef()
-    const firestore = useFirestore()
+    const {auth} = useDeskAuth()
+    const {signUp} = useUserDispatch()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -20,7 +19,7 @@ const SignUp = ({signUp, auth}) => {
         const firstName = firstNameRef.current.value
         const lastName = lastNameRef.current.value
         const profile = profileRef.current.value
-        signUp({email, password, firstName, lastName, profile}, firestore)
+        signUp({email, password, firstName, lastName, profile})
     }
 
     const {logged, errorMessage} = auth
@@ -67,6 +66,6 @@ const SignUp = ({signUp, auth}) => {
     );
 }
 
-export default withCreateUser(SignUp);
+export default SignUp;
 
 
