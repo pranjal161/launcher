@@ -114,7 +114,7 @@ def addStagesCustom() {
 }
 
 def stagesMap = [:]
-stagesMap["customDeploy"] = ["skip": false, "func": this.&addStagesCustom]
+stagesMap["customDeploy"] = ["skip": true, "func": this.&addStagesCustom]
 pipeline_generic(stagesMap)
 
 //functions = [:]
