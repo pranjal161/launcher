@@ -48,6 +48,15 @@ node {
 }
 
 def addStagesCustom() {
+
+    stage('Echo') {
+        when { branch 'development-deploy-ntg' }
+        steps {
+                sh '''
+                    echo "I'm in echo stage"
+                '''
+        }
+    }
     stage('Downloading bundles from AWS development env') {
         when { branch 'development-deploy-ntg' }
         steps {
