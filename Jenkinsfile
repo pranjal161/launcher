@@ -4,7 +4,7 @@ import org.pdxc.util.ValuesUtils
 import org.pdxc.jenkins.JenkinsContext
 
 pipelineRunner = null
-pipelineUtils = pipelineLoader.getUtils()
+pipelineUtils = null
 
 /**
  * Get the Assure Library source files: configure git and clone the repository. This is always needed to be able to
@@ -120,4 +120,4 @@ pipeline_generic(stagesMap)
 //functions = [:]
 // functions['test'] = ['skip': true]
 
-pipelineRunner(functions, pipelineUtils, "docker/Dockerfile")
+pipelineRunner(stagesMap, pipelineUtils, "docker/Dockerfile")
