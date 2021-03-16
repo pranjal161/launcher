@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import AllTickets from "../../components/Tickets/AllTickets";
 import MyTickets from "../../components/Tickets/MyTickets";
 import TicketDetail from "../../components/Tickets/TicketDetail/TicketDetail";
-import useTickets from "../../data/hooks/useTickets";
+import useDeskTickets from "../../data/hooks/useDeskTickets";
 import {useDeskAuth} from "../../data/hooks/useDeskAuth";
 import {Redirect} from "react-router-dom";
 
 function DesktopView() {
     const [clickedTickets, setClickedTickets] = useState({})
-    const {create, remove} = useTickets()
+    const {create, remove} = useDeskTickets()
     const {auth} = useDeskAuth()
 
     if(!auth.logged)

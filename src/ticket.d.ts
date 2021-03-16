@@ -3,7 +3,8 @@ interface Ticket {
     number?: string;
     requestedBy:string;
     activityId:string;
-    assignedToList:User[];
+    assignedTo:User;
+    basketId:string;
     creatorId:string;
     title: string;
     description:string;

@@ -1,10 +1,10 @@
 import React from 'react';
 import TicketList from "./TicketList";
-import useTickets from "../../data/hooks/useTickets";
+import useDeskTickets from "../../data/hooks/useDeskTickets";
 
 const MyTickets = (props) =>  {
-    const {getAllMyTickets } = useTickets()
-    const tickets = getAllMyTickets()
+    const { getMyAllTickets } = useDeskTickets()
+    const tickets = getMyAllTickets()
     return (
         <TicketList tickets = {tickets} {...props}/>
     );

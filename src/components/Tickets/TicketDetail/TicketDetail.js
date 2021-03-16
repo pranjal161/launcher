@@ -1,12 +1,13 @@
 import React from 'react';
-import useTickets from "../../../data/hooks/useTickets";
+import useDeskTickets from "../../../data/hooks/useDeskTickets";
+import {useDeskAuth} from "../../../data/hooks/useDeskAuth";
 
 
 function TicketDetail({id, remove}) {
-    const {getOne}= useTickets()
+    const {getOne, assignTo}= useDeskTickets()
+    const {currentUserId} = useDeskAuth()
+
     let ticket = id ? getOne(id) : undefined
-
-
 
     if (ticket) {
         return (
@@ -17,7 +18,8 @@ function TicketDetail({id, remove}) {
                             <div>Post by {ticket.creatorFirstName} {ticket.creatorLastName}</div>
                             <small>{ticket.id}</small>
                         </p>
-                        <a href="#" className="btn btn-primary" onClick={() => remove(id) }>Remove</a>
+                        <a href="#" className="btn btn-danger" onClick={() => remove(id) }>Remove</a>
+                        <a href="#" className="btn btn-info ml-2" onClick={() => assignTo(id, currentUserId) }>Assign to me</a>
                     </div>
             </div>
         )

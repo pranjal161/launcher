@@ -29,11 +29,11 @@ export const update = (ticket) => {
     }
 }
 
-export const remove = (ticketId) => {
+export const remove = (id) => {
     return (dispatch, getState, {getFirebase}) => {
         dispatch({type: 'DELETE_TICKET_PENDING'})
         const firestore = getFirebase().firestore()
-        return firestore.collection('tickets').doc(ticketId).delete()
+        return firestore.collection('tickets').doc(id).delete()
             .then((result) => {
                 dispatch({type: 'DELETE_TICKET_SUCCESS', result})
             }).catch(error => {
@@ -42,11 +42,32 @@ export const remove = (ticketId) => {
             })
     }
 }
-export const assign = (ticketId, userId) => {
+
+export const assignTo = (id, userId) => {
     return (dispatch, getState, {getFirebase}) => {
         dispatch({type: 'ASSIGN_TICKET_PENDING'})
         const firestore = getFirebase().firestore()
-        return firestore.collection('tickets').doc(ticketId).update(
+        return firestore.collection('tickets').doc(id).update(
+            {
+                assignedTo: userId
+            }
+        )
+            .then((result) => {
+                dispatch({type: 'ASSIGN_TICKET_SUCCESS', result})
+            }).catch(error => {
+                console.log(error)
+                dispatch({type: 'ASSIGN_TICKET_ERROR', error})
+            })
+    }
+
+}
+
+/*
+export const assign = (id, userId) => {
+    return (dispatch, getState, {getFirebase}) => {
+        dispatch({type: 'ASSIGN_TICKET_PENDING'})
+        const firestore = getFirebase().firestore()
+        return firestore.collection('tickets').doc(id).update(
             {
                 assignedToList: firestore.FieldValue.arrayUnion(userId)
             }
@@ -59,6 +80,6 @@ export const assign = (ticketId, userId) => {
             })
     }
 
-}
+}*/
 
 

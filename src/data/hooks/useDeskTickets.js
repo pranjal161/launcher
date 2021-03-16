@@ -10,9 +10,9 @@ const useAllTickets = ({storeAs = 'tickets', ...rest} = {}) => {
     return useSelector((state) => state.firestore.ordered[storeAs])
 }
 
-const useAllMyTickets = (params = {}) => {
+const useMyAllTickets = (params = {}) => {
     const auth = useSelector(state => state.auth)
-    return useAllTickets({...params, storeAs: 'myTickets', where: ['creatorId', '==', auth.id]})
+    return useAllTickets({...params, storeAs: 'myTickets', where: ['assignedTo', '==', auth.id]})
 }
 
 const useGetOne = (id) => {
@@ -25,16 +25,18 @@ const useGetOne = (id) => {
         return res[0]
 }
 
-const useTickets = () => {
+const useDeskTickets = () => {
     const getAll = useAllTickets
-    const getAllMyTickets = useAllMyTickets
+    const getMyAllTickets = useMyAllTickets
     const getOne = useGetOne
 
     const dispatch = useDispatch();
     const create = useCallback((...param) => dispatch(ticketActions.create(...param)),[])
+    const update = useCallback((...param) => dispatch(ticketActions.update(...param)),[])
     const remove = useCallback((...param) => dispatch(ticketActions.remove(...param)),[])
+    const assignTo = useCallback((...param) => dispatch(ticketActions.assignTo(...param)),[])
 
-    return {getAll, getAllMyTickets, getOne, create, remove}
+    return {getOne, getAll, getMyAllTickets, create, update, remove, assignTo}
 }
 
-export default useTickets
+export default useDeskTickets
