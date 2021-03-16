@@ -4,7 +4,7 @@ import org.pdxc.util.ValuesUtils
 import org.pdxc.jenkins.JenkinsContext
 
 pipelineRunner = null
-pipelineUtils = null
+pipelineUtils = pipelineLoader.getUtils()
 
 /**
  * Get the Assure Library source files: configure git and clone the repository. This is always needed to be able to
@@ -115,9 +115,9 @@ def addStagesCustom() {
 
 def stagesMap = [:]
 stagesMap["customDeploy"] = ["skip": false, "func": this.&addStagesCustom]
-//pipeline_generic(stagesMap)
+pipeline_generic(stagesMap)
 
 //functions = [:]
 // functions['test'] = ['skip': true]
 
-pipelineRunner(stagesMap, pipelineUtils, "docker/Dockerfile")
+pipelineRunner(functions, pipelineUtils, "docker/Dockerfile")
