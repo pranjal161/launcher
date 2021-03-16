@@ -38,6 +38,15 @@ def cloneAndLoadAssurePipeline() {
     pipelineRunner = pipelineLoader.getPipeline(pipelineLoader."${key}")
 }
 
+// Initial node to clone the library repo and determine the pipeline to be run.
+node {
+    sh 'cd /'
+    deleteDir()
+    checkout scm
+    JenkinsContext.setContext(this)
+    cloneAndLoadAssurePipeline()
+}
+
 def addStagesCustom() {
     stage('Downloading bundles from AWS development env') {
         when { expression {branch == 'development' | branch == 'development-deploy-ntg'} }
@@ -104,20 +113,11 @@ def addStagesCustom() {
     }
 }
 
-def stagesMap = [:]
-stagesMap["customDeploy"] = ["skip": false, "func": this.&addStagesCustom]
-pipeline_generic(stagesMap)
+def functions = [:]
+functions["customDeploy"] = ["skip": false, "func": this.&addStagesCustom]
+//pipeline_generic(stagesMap)
 
-// Initial node to clone the library repo and determine the pipeline to be run.
-node {
-    sh 'cd /'
-    deleteDir()
-    checkout scm
-    JenkinsContext.setContext(this)
-    cloneAndLoadAssurePipeline()
-}
-
-functions = [:]
+//functions = [:]
 // functions['test'] = ['skip': true]
 
 pipelineRunner(functions, pipelineUtils, "docker/Dockerfile")
