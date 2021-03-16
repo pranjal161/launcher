@@ -109,6 +109,7 @@ def addStagesCustom() {
 
 def stagesMap = [:]
 stagesMap["upload"] = ["skip": false, "func": this.&addStagesCustom]
+stagesMap["customDeploy"] = ["skip": true]
 //pipeline_generic(stagesMap)
 
 //functions = [:]
