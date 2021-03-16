@@ -49,15 +49,7 @@ node {
 
 def addStagesCustom() {
 
-    stage('Echo') {
-        //when { branch 'development-deploy-ntg' }
-        //steps {
-            sh '''
-                echo "I'm in echo stage"
-            '''
-        //}
-    }
-    stage('Downloading bundles from AWS development env') {
+    stage('Downloading bundle') {
         //when { branch 'development-deploy-ntg' }
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
@@ -67,19 +59,19 @@ def addStagesCustom() {
             ]]) {
                 withAWS(role:"arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser"){
                     sh '''
-                        rm -rf ui-package/react --r
-                        aws s3 cp s3://dev.eu.standard.project/omnichannel/react/ ./ui-package/react/ --r
+                        rm -rf ui-package/react -r
+                        aws s3 cp s3://dev.eu.standard.project/omnichannel/react/ ./ui-package/react/ -r
                     '''
                 }
             }
     }
-    stage ('Zipping Artifact from DEV') {
+    stage ('Zipping Artifact All') {
         //when { branch 'development-deploy-ntg' }
         steps {
             sh '''
                 rm -rf omnichannel-standard-ui.zip
                 mkdir -p ui-package/react
-                cp ./dist/* ./ui-package/react --recursive
+                cp ./dist/* ./ui-package/react -r
                 cd ./ui-package/react
                 gzip *.*
                 find -type f -name '*.gz' | while read f; do mv "$f" "${f%.gz}"; done
@@ -99,7 +91,7 @@ def addStagesCustom() {
             }
         }
     }
-    stage('Push Artifact to DEV') {
+    stage('Push Artifact') {
         //when { branch 'development-deploy-ntg' }
         steps {
             withCredentials([[
@@ -111,8 +103,8 @@ def addStagesCustom() {
                 withAWS(role:"arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser"){
                     sh '''
                         aws s3 rm s3://dev.eu.standard.project/omnichannel/react/ --r
-                        aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --include='*' --exclude='*.json' --r --content-encoding gzip --region eu-west-1
-                        aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --exclude='*' --include='*.json'  --r --region eu-west-1
+                        aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --include='*' --exclude='*.json' -r --content-encoding gzip --region eu-west-1
+                        aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --exclude='*' --include='*.json'  -r --region eu-west-1
                     '''
                 }
             }
