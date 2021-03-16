@@ -48,9 +48,9 @@ node {
 }
 
 def addStagesCustom() {
-    
+
     stage('Downloading bundle') {
-        //when { branch 'development-deploy-ntg' }
+            //when { branch 'development-deploy-ntg' }
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
@@ -107,12 +107,11 @@ def addStagesCustom() {
     }
 }
 
+// To skip upload stage and add custom stages
 def stagesMap = [:]
-stagesMap["upload"] = ["skip": false, "func": this.&addStagesCustom]
-stagesMap["customDeploy"] = ["skip": true]
-//pipeline_generic(stagesMap)
+stagesMap['upload'] = ['skip': false, 'func': this.&addStagesCustom]
 
-//functions = [:]
-// functions['test'] = ['skip': true]
+// To skip customDeploy stage
+stagesMap['customDeploy'] = ['skip': true]
 
-pipelineRunner(stagesMap, pipelineUtils, "docker/Dockerfile")
+pipelineRunner(stagesMap, pipelineUtils, 'docker/Dockerfile')
