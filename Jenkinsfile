@@ -71,7 +71,7 @@ def addStagesCustom() {
         sh '''
             rm -rf omnichannel-standard-ui.zip
             mkdir -p ui-package/react
-            cp ./src/* ./ui-package/react
+            cp -r ./src/* ./ui-package/react
             cd ./ui-package/react
             gzip *.*
             find -type f -name '*.gz' | while read f; do mv "$f" "${f%.gz}"; done
@@ -99,8 +99,8 @@ def addStagesCustom() {
             withAWS(role:"arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser"){
                 sh '''
                     aws s3 rm s3://dev.eu.standard.project/omnichannel/react/
-                    aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --include='*' --exclude='*.json' --content-encoding gzip --region eu-west-1
-                    aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --exclude='*' --include='*.json' --region eu-west-1
+                    aws s3 cp -r ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --include='*' --exclude='*.json' --content-encoding gzip --region eu-west-1
+                    aws s3 cp -r ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --exclude='*' --include='*.json' --region eu-west-1
                 '''
             }
         }
