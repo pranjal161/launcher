@@ -49,54 +49,64 @@ node {
 
 def addStagesCustom() {
 
-    stage('Downloading bundle') {
-            //when { branch 'development-deploy-ntg' }
-            withCredentials([[
-                $class: 'AmazonWebServicesCredentialsBinding',
-                credentialsId: 'DIAAS-AWS-CLI',
-                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-            ]]) {
-                withAWS(role:"arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser"){
+    stages {
+        stage('Downloading bundle') {
+            steps {
+                when { branch 'development' }
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'DIAAS-AWS-CLI',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    withAWS(role:'arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser'){
+                        sh '''
+                            rm -rf ui-package/react
+                            aws s3 cp s3://dev.eu.standard.project/omnichannel/react/ ./ui-package/react/ --recursive
+                        '''
+                    }
+                }
+            }
+        }
+        stage ('Zipping Artifact All') {
+            steps {
+                when { branch 'development' }
+                sh '''
+                    rm -rf omnichannel-standard-ui.zip
+                    mkdir -p ui-package/react
+                    cp -r ./src/* ./ui-package/react
+                    cp -r ./ui-package omnichannel-standard-ui-dev
+                '''
+                zip zipFile: 'omnichannel-standard-ui.zip', archive: false, dir: 'ui-package'
+            }
+        }
+        stage('Upload Artifact All') {
+            steps {
+                when { branch 'development' }
+                withCredentials([usernamePassword(credentialsId:'diaas-rw', passwordVariable:'ARTIF_PASSWORD', usernameVariable:'ARTIF_USER')]) {
                     sh '''
-                        rm -rf ui-package/react
-                        aws s3 cp s3://dev.eu.standard.project/omnichannel/react/ ./ui-package/react/ --recursive
+                        curl -u${ARTIF_USER}:${ARTIF_PASSWORD} -T ./omnichannel-standard-ui.zip "https://artifactory.csc.com/artifactory/diaas-generic/graphtalk-launcher/${BRANCH_NAME}/graphtalk-launcher-bundle.${BRANCH_NAME}.zip"
                     '''
                 }
             }
-    }
-    stage ('Zipping Artifact All') {
-        //when { branch 'development-deploy-ntg' }
-        sh '''
-            rm -rf omnichannel-standard-ui.zip
-            mkdir -p ui-package/react
-            cp -r ./src/* ./ui-package/react
-            cp -r ./ui-package omnichannel-standard-ui-dev
-        '''
-        zip zipFile: 'omnichannel-standard-ui.zip', archive: false, dir: 'ui-package'
-    }
-    stage('Upload Artifact All') {
-        //when { branch 'development-deploy-ntg' }
-        withCredentials([usernamePassword(credentialsId:"diaas-rw", passwordVariable:"ARTIF_PASSWORD", usernameVariable:"ARTIF_USER")]) {
-            sh '''
-                curl -u${ARTIF_USER}:${ARTIF_PASSWORD} -T ./omnichannel-standard-ui.zip "https://artifactory.csc.com/artifactory/diaas-generic/graphtalk-launcher/${BRANCH_NAME}/graphtalk-launcher-bundle.${BRANCH_NAME}.zip"
-            '''
         }
-    }
-    stage('Push Artifact') {
-        //when { branch 'development-deploy-ntg' }
-        withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'DIAAS-AWS-CLI',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
-            withAWS(role:"arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser"){
-                sh '''
-                    aws s3 rm s3://dev.eu.standard.project/omnichannel/react/ --recursive
-                    aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --recursive 
-                    aws s3 ls s3://dev.eu.standard.project/omnichannel/react/
-                '''
+        stage('Push Artifact') {
+            steps {
+                when { branch 'development' }
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'DIAAS-AWS-CLI',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    withAWS(role:'arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser'){
+                        sh '''
+                            aws s3 rm s3://dev.eu.standard.project/omnichannel/react/ --recursive
+                            aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --recursive 
+                            aws s3 ls s3://dev.eu.standard.project/omnichannel/react/
+                        '''
+                    }
+                }
             }
         }
     }
