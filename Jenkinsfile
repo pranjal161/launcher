@@ -50,15 +50,15 @@ node {
 def addStagesCustom() {
 
     stage('Echo') {
-        when { branch 'development-deploy-ntg' }
+        //when { branch 'development-deploy-ntg' }
         steps {
-                sh '''
-                    echo "I'm in echo stage"
-                '''
+            sh '''
+                echo "I'm in echo stage"
+            '''
         }
     }
     stage('Downloading bundles from AWS development env') {
-        when { branch 'development-deploy-ntg' }
+        //when { branch 'development-deploy-ntg' }
         steps {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
@@ -76,7 +76,7 @@ def addStagesCustom() {
         }
     }
     stage ('Zipping Artifact from DEV') {
-        when { branch 'development-deploy-ntg' }
+        //when { branch 'development-deploy-ntg' }
         steps {
             sh '''
                 rm -rf omnichannel-standard-ui.zip
@@ -92,7 +92,7 @@ def addStagesCustom() {
         }
     }
     stage('Upload Artifact All') {
-        when { branch 'development-deploy-ntg' }
+        //when { branch 'development-deploy-ntg' }
         steps {
             withCredentials([usernamePassword(credentialsId:"diaas-rw", passwordVariable:"ARTIF_PASSWORD", usernameVariable:"ARTIF_USER")]) {
                 sh '''
@@ -102,7 +102,7 @@ def addStagesCustom() {
         }
     }
     stage('Push Artifact to DEV') {
-        when { expression {branch 'development' | branch 'development-deploy-ntg'} }
+        //when { branch 'development-deploy-ntg' }
         steps {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
