@@ -48,7 +48,7 @@ node {
 }
 
 def addStagesCustom() {
-    /*
+    
     stage('Downloading bundle') {
         //when { branch 'development-deploy-ntg' }
             withCredentials([[
@@ -60,12 +60,11 @@ def addStagesCustom() {
                 withAWS(role:"arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser"){
                     sh '''
                         rm -rf ui-package/react
-                        aws s3 cp s3://dev.eu.standard.project/omnichannel/react/ ./ui-package/react/
+                        aws s3 cp s3://dev.eu.standard.project/omnichannel/react/ ./ui-package/react/ --recursive
                     '''
                 }
             }
     }
-    */
     stage ('Zipping Artifact All') {
         //when { branch 'development-deploy-ntg' }
         sh '''
