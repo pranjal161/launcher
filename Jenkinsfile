@@ -71,7 +71,7 @@ def addStagesCustom() {
         sh '''
             rm -rf omnichannel-standard-ui.zip
             mkdir -p ui-package/react
-            cp ./dist/* ./ui-package/react
+            cp ./* ./ui-package/react
             cd ./ui-package/react
             gzip *.*
             find -type f -name '*.gz' | while read f; do mv "$f" "${f%.gz}"; done
