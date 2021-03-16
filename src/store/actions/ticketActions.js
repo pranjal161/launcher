@@ -1,10 +1,10 @@
-import admin from 'firebase-admin'
-
 export const create = (ticket) => {
     return (dispatch, getState, {getFirebase,}) => {
         dispatch({type: 'CREATE_TICKET_PENDING', ticket})
         const firestore = getFirebase().firestore()
-        return firestore.collection('tickets').add(ticket)
+        console.log('getState()', getState())
+        const creatorId = getState().auth.id
+        return firestore.collection('tickets').add({...ticket, creatorId })
             .then((result) => {
                 dispatch({type: 'CREATE_TICKET_SUCCESS', result})
             }).catch(error => {
@@ -48,7 +48,7 @@ export const assign = (ticketId, userId) => {
         const firestore = getFirebase().firestore()
         return firestore.collection('tickets').doc(ticketId).update(
             {
-                assignedToList: admin.firestore.FieldValue.arrayUnion(userId)
+                assignedToList: firestore.FieldValue.arrayUnion(userId)
             }
             )
             .then((result) => {

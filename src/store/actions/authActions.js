@@ -1,5 +1,5 @@
 export const signUp = (newUser) => {
-    return (dispatch, getState, {getFirebase, }) => {
+    return (dispatch, getState, {getFirebase,}) => {
         const firebase = getFirebase()
         const firestore = getFirebase().firestore()
         let result
@@ -27,13 +27,15 @@ export const signIn = (credentials) => {
     return (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase()
         const {email, password} = credentials
-        console.log('credentials', credentials)
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(result => {
-                dispatch({type: 'SIGNED_SUCCESS', result})
-            })
-            .catch(error => {
-                dispatch({type: 'SIGNED_ERROR', error})
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+            .then(() => {
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                    .then(result => {
+                        dispatch({type: 'SIGNED_SUCCESS', result})
+                    })
+                    .catch(error => {
+                        dispatch({type: 'SIGNED_ERROR', error})
+                    })
             })
     }
 

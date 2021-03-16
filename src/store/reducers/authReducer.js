@@ -13,6 +13,10 @@ const authReducer = (state = initialState, action) => {
             //console.log('SIGNED_SUCCESS', action)
             const {uid: id, email} = action.result.user
             return {...state, logged: true, errorMessage: undefined, id, email}
+
+        case '@@reactReduxFirebase/LOGIN':
+            return {...state, logged: true, errorMessage: undefined, id:action.auth.uid, email:action.auth.email}
+
         case 'SIGNED_ERROR':
             //console.log('SIGNED_ERROR', action)
             return {...state, logged: false, errorMessage: action.error.message, id: undefined}

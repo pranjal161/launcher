@@ -1,29 +1,24 @@
 import React from 'react';
-import {Redirect} from "react-router-dom";
 import useTickets from "../../../data/hooks/useTickets";
 
 
-function TicketDetail({id}) {
-    console.log('id', id)
-   const {getOne}= useTickets()
-    let ticket
-    if (id)
-         ticket =  getOne(id)
+function TicketDetail({id, remove}) {
+    const {getOne}= useTickets()
+    let ticket = id ? getOne(id) : undefined
 
-    //if (!auth.logged) return <Redirect to={"/signin"}></Redirect>
+
+
     if (ticket) {
         return (
-            <div className={"container section project-details"}>
-                <div className="card z-depth-0">
-                    <div className="card-content">
-                        <span className="card-title">Project Title : {ticket.title}</span>
-                        <p>{ticket.content}</p>
+            <div className="card mt-3" style={{width: '18rem;'}}>
+                    <div className="card-body">
+                        <h5 className="card-title">{ticket.title}</h5>
+                        <p className="card-text">
+                            <div>Post by {ticket.creatorFirstName} {ticket.creatorLastName}</div>
+                            <small>{ticket.id}</small>
+                        </p>
+                        <a href="#" className="btn btn-primary" onClick={() => remove(id) }>Remove</a>
                     </div>
-                </div>
-                <div className="card-action grey lighten-4 grey-text">
-                    <div>Post by {ticket.creatorFirstName} {ticket.creatorLastName}</div>
-
-                </div>
             </div>
         )
     } else

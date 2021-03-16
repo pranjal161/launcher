@@ -4,7 +4,7 @@ interface Ticket {
     requestedBy:string;
     activityId:string;
     assignedToList:User[];
-    createdBy:string;
+    creatorId:string;
     title: string;
     description:string;
     receivedDate:string;

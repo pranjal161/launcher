@@ -7,8 +7,9 @@ function TicketList(props) {
     return (
         <ul className="list-group">
             {tickets && tickets.map(ticket =>
-                <li key= {ticket.uid} className="list-group-item" onClick ={() => handleTicketClick(ticket)}>{ticket.title}
-                    <small>{ticket.uid}</small>
+                <li key= {ticket.uid} className="list-group-item" onClick ={() => handleTicketClick(ticket)}>
+                    {ticket.title}
+                    <small>{ticket.id}</small>
                 </li>
             )}
 

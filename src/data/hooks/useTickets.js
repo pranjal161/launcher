@@ -2,8 +2,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {useFirestoreConnect} from "react-redux-firebase";
 import * as ticketActions from "../../store/actions/ticketActions";
 import {useCallback} from "react";
-import {signUp as signUpAction} from "../../store/actions/authActions";
-
 
 const useAllTickets = ({storeAs = 'tickets', ...rest} = {}) => {
     useFirestoreConnect([
@@ -13,8 +11,8 @@ const useAllTickets = ({storeAs = 'tickets', ...rest} = {}) => {
 }
 
 const useAllMyTickets = (params = {}) => {
-    const auth = useSelector(state => state.firebase.auth)
-    return useAllTickets({...params, storeAs: 'myTickets', where: ['creatorId', '==', auth.uid]})
+    const auth = useSelector(state => state.auth)
+    return useAllTickets({...params, storeAs: 'myTickets', where: ['creatorId', '==', auth.id]})
 }
 
 const useGetOne = (id) => {
@@ -34,9 +32,9 @@ const useTickets = () => {
 
     const dispatch = useDispatch();
     const create = useCallback((...param) => dispatch(ticketActions.create(...param)),[])
+    const remove = useCallback((...param) => dispatch(ticketActions.remove(...param)),[])
 
-
-    return {getAll, getAllMyTickets, getOne, create}
+    return {getAll, getAllMyTickets, getOne, create, remove}
 }
 
 export default useTickets
