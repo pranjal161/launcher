@@ -98,7 +98,7 @@ def addStagesCustom() {
                 sh '''
                     aws s3 rm s3://dev.eu.standard.project/omnichannel/react/ --recursive
                     aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --recursive
-                    aws s3 ls s3://dev.eu.standard.project/omnichannel --recursive --human-readable --summarize
+                    aws s3 ls s3://dev.eu.standard.project/omnichannel/react --recursive --human-readable --summarize
                 '''
             }
         }
