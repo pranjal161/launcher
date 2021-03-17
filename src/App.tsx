@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
+import Alert from "./components/alert/alert";
 import ContractSummary from "./pages/contractSummary/contractSummary";
 import HomePage from "./pages/homePage/homePage";
 import ClientView from "./pages/clientView/clientView";
@@ -15,10 +16,9 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
-import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
+import { AlertContext, AlertContextProvider} from "./context/alertContext";
 import { Colors } from "../src/styles/dxc-theme";
-import Alert from "./components/alert/alert";
 
 function App() {
   const { ready } = useTranslation();
@@ -54,7 +54,7 @@ function App() {
     <AppContextProvider>
       <AlertContextProvider>
         <ThemeContext.Provider value={Colors}>
-          <>
+        <>
             {isLoading && (
               <div className="spinner">
                 <DxcSpinner margin="xxsmall" mode="overlay" />
@@ -68,7 +68,7 @@ function App() {
       </AlertContext.Consumer>
         <>
           {ready && (
-            <Router>
+            <Router basename="/omnichannel/react">
               <Header />
               <Switch>
                 <Route exact path="/">
