@@ -15,8 +15,10 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
+import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
 import { Colors } from "../src/styles/dxc-theme";
+import Alert from "./components/alert/alert";
 
 function App() {
   const { ready } = useTranslation();
@@ -50,6 +52,7 @@ function App() {
   return (
     <>
     <AppContextProvider>
+      <AlertContextProvider>
         <ThemeContext.Provider value={Colors}>
       <>
         {isLoading && (

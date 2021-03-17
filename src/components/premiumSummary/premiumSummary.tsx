@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import { ApplicationContext } from '../../context/applicationContext';
 import { formatValue, getDescriptionValue } from '../../util/functions';
 import { AppConfig } from '../../config/appConfig';
+import Chart from '../chart/chart';
 export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
 
     const { t } = useTranslation();
@@ -15,6 +16,8 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
     const [investmentFundsResItems, setInvestmentFundsResItems] = React.useState([]);
     const applicationContext = useContext(ApplicationContext);
     const config = AppConfig;
+    let investmentFundsPayload: any[] = [];
+    const [chartData, setChartData] = useState<Array<any>>([]);
 
     useEffect(() => {
         getData();
@@ -49,6 +52,23 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
 
         Promise.all(investmentFunds).then((investmentFundsArray: any) => {
             setInvestmentFundsResItems(investmentFundsArray);
+            investmentFundsArray.forEach((res: any) => {
+                const resHref = res.data['_links']['self'].href;
+                const currentItem = data.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                if (currentItem) {
+                    let result = {
+                        _FUND_LABEL: res.data['coverage_fund:label'],
+                        _ALLOCATION: res.data['contract_allocation_rate'],
+                        _FUND_TYPE: res.data['coverage_fund:type'],
+                        _FUND_SRRI: res.data['interest_fund:s_r_r_i'],
+                        allocation_fund: currentItem['allocation:coverage_fund'],
+                        value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value'],
+                        distribution: currentItem['allocation:rate']
+                    };
+                    investmentFundsPayload.push(result);
+                }
+            });
+            setChartData(investmentFundsPayload);
         });
     }
 
@@ -120,6 +140,11 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                             </tr>
                         ))}
                     </DxcTable>
+                    {chartData.length > 0 && (
+                        <div className="pt-2">
+                            <Chart data={chartData} />
+                        </div>
+                    )}
                 </>
             )}
         </>

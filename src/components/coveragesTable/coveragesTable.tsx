@@ -1,13 +1,14 @@
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { AppConfig } from '../../config/appConfig';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import React from 'react';
 import Table from "../table/table";
+import { ApplicationContext } from '../../context/applicationContext';
 
 const CoverageTable = (props: { mainRiskUrl: string }) => {
-    const { t } = useTranslation();
+
     const config = AppConfig;
+    const applicationContext = useContext(ApplicationContext);
     const [coverageUrl, setCoverageUrl] = useState('');
     const coverageListColumns = [
         { label: '_LABEL', property: 'coverage:label' },
@@ -17,7 +18,7 @@ const CoverageTable = (props: { mainRiskUrl: string }) => {
     ];
     useEffect(() => {
         getData();
-    }, [props.mainRiskUrl]);
+    }, [props.mainRiskUrl, applicationContext]);
 
     const getData = () => {
         axios.get(props.mainRiskUrl, { headers: config.headers }).then(riskRes => {
@@ -36,4 +37,4 @@ const CoverageTable = (props: { mainRiskUrl: string }) => {
         </>
     );
 }
-export default CoverageTable
+export default CoverageTable;
