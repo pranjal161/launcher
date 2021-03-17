@@ -10,8 +10,6 @@ const Alert = (props: { toastList: any }) => {
         setList(toastList);
     }, [toastList]);
 
-    useEffect(() => {}, [toastList, list]);
-
     return (
         <>
           {list && !list.consistent && list['messages'] && list['messages'].length > 0 && 
