@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
 import AllBaskets from "../../../../components/Baskets/AllBaskets";
+import BasketDetail from "../../../../components/Baskets/components/BasketDetail/BasketDetail";
 import CreateButton from "../../../../components/Baskets/components/CreateButton/CreateButton";
 import MyBaskets from "../../../../components/Baskets/MyBaskets";
-import BasketDetail from "../../../../components/Baskets/components/BasketDetail/BasketDetail";
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
-import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
+import React, {useState} from 'react';
 import {Redirect} from "react-router-dom";
+import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
+import useDeskAuth from "../../../../data/hooks/useDeskAuth";
 
-function ExempleBasketsView(props) {
+function ExempleBasketsView() {
     const [clickedBaskets, setclickedBaskets] = useState({})
-    const {create, remove} = useDeskBaskets()
+    const {remove} = useDeskBaskets()
     const {auth} = useDeskAuth()
     if (!auth.logged)
         return (<Redirect to="/signIn"/>)
@@ -34,7 +34,7 @@ function ExempleBasketsView(props) {
                 </div>
                 <div className="col-4">
                     My baskets (assigned to me)
-                    <CreateButton></CreateButton>
+                    <CreateButton/>
                     <MyBaskets handleBasketClick={handleBasketClick}/>
                 </div>
                 <div className="col-4">

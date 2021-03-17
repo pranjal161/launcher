@@ -1,17 +1,17 @@
 import React from 'react';
-import useDeskTickets from "../../../../data/hooks/useDeskTickets";
-import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
 import UpdateButton from "../UpdateButton/UpdateButton";
+import useDeskTickets from "../../../../data/hooks/useDeskTickets";
+import useDeskAuth from "../../../../data/hooks/useDeskAuth";
 
 
 function TicketDetail({id, remove}) {
-    const {getOne, assignTo}= useDeskTickets()
+    const {getOne, assignTo} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
 
     let ticket = id ? getOne(id) : undefined
     const assignButton = ticket && ticket.assignedTo === currentUserId ?
-        <a href="#" className="btn btn-warning ml-2" onClick={() => assignTo(id, null) }>Unassign to me</a>:
-        <a href="#" className="btn btn-info ml-2" onClick={() => assignTo(id, currentUserId) }>Assign to me</a>
+        <a href="#" className="btn btn-warning ml-2" onClick={() => assignTo(id, null)}>Unassign to me</a> :
+        <a href="#" className="btn btn-info ml-2" onClick={() => assignTo(id, currentUserId)}>Assign to me</a>
     if (ticket) {
         return (
             <div className="card mt-3" >

@@ -1,7 +1,7 @@
+import {Button} from "@material-ui/core";
 import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
 import useDeskTickets from "../../../../data/hooks/useDeskTickets";
-import {Button} from "@material-ui/core";
 
 function UpdateButton({ticket}) {
     const [open, setOpen] = React.useState(false);
@@ -24,9 +24,9 @@ function UpdateButton({ticket}) {
     return (
         <>
             <Button variant="contained" color="primary" className="mx-2" onClick={handleClickOpen}>
-            Update
-        </Button>
-            {open && <TicketFormDialog ticket={ticket} close={handleClose} submit={handleSubmit}></TicketFormDialog>}
+                Update
+            </Button>
+            {open && <TicketFormDialog ticket={ticket} close={handleClose} submit={handleSubmit}/>}
         </>
     );
 }

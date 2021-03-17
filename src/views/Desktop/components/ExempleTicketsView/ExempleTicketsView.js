@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import AllTickets from "../../../../components/Tickets/AllTickets";
 import CreateButton from "../../../../components/Tickets/components/CreateButton/CreateButton";
 import MyTickets from "../../../../components/Tickets/MyTickets";
+import {Redirect} from "react-router-dom";
 import TicketDetail from "../../../../components/Tickets/components/TicketDetail/TicketDetail";
 import useDeskTickets from "../../../../data/hooks/useDeskTickets";
-import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
-import {Redirect} from "react-router-dom";
+import useDeskAuth from "../../../../data/hooks/useDeskAuth";
 
-function ExempleTicketsView(props) {
+function ExempleTicketsView() {
     const [clickedTickets, setClickedTickets] = useState({})
-    const {create, remove} = useDeskTickets()
+    const {remove} = useDeskTickets()
     const {auth} = useDeskAuth()
     if (!auth.logged)
         return (<Redirect to="/signIn"/>)
@@ -34,7 +34,7 @@ function ExempleTicketsView(props) {
                 </div>
                 <div className="col-4">
                     My tickets (assigned to me)
-                    <CreateButton></CreateButton>
+                    <CreateButton/>
                     <MyTickets handleTicketClick={handleTicketClick}/>
                 </div>
                 <div className="col-4">

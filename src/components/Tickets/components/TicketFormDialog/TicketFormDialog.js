@@ -1,11 +1,12 @@
-import React from 'react';
-import {useForm} from "react-hook-form";
-import useDeskUsers from "../../../../data/hooks/useDeskUsers";
-import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import React from 'react';
+import useDeskAuth from "../../../../data/hooks/useDeskAuth";
 import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
+import useDeskUsers from "../../../../data/hooks/useDeskUsers";
+import {useForm} from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
 
 const schema = yup.object().shape({
     title: yup.string().required(),
@@ -23,7 +24,7 @@ function TicketFormDialog(props) {
     const {getAll: getAllBaskets} = useDeskBaskets()
     const allUsers = getAll()
     const allBaskets = getAllBaskets()
-    const {submit, ticket}= props
+    const {ticket} = props
 
 
     const defaultValues = ticket ? ticket : {
@@ -36,7 +37,6 @@ function TicketFormDialog(props) {
 
     const basketsOptions = allBaskets && allBaskets.map(basket => <option
         key={basket.id} value={basket.id}>{basket.title} </option>)
-
 
 
     const onSubmit = (updatedTicket) => {
@@ -58,8 +58,8 @@ function TicketFormDialog(props) {
     return (
         <Dialog open={true} aria-labelledby="form-dialog-title" fullWidth={true}>
             <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <DialogTitle id="form-dialog-title">{ticket?'Update a ticket':'Create a ticket'}</DialogTitle>
-            <DialogContent>
+                <DialogTitle id="form-dialog-title">{ticket ? 'Update a ticket' : 'Create a ticket'}</DialogTitle>
+                <DialogContent>
 
                     <div className="form-group">
                         <label className=" control-label" htmlFor="title">Title</label>
@@ -123,16 +123,16 @@ function TicketFormDialog(props) {
                     </div>
 
 
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="default">
-                    Cancel
-                </Button>
-                <Button type="submit" color="primary" variant={"contained"}>
-                    Validate
-                </Button>
-            </DialogActions>
-        </form>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="default">
+                        Cancel
+                    </Button>
+                    <Button type="submit" color="primary" variant={"contained"}>
+                        Validate
+                    </Button>
+                </DialogActions>
+            </form>
         </Dialog>
     );
 }

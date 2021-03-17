@@ -1,11 +1,11 @@
-import { applyMiddleware, createStore, compose } from 'redux'
-import thunk from 'redux-thunk'
-import rootReducer from "./reducers"
-import { getFirebase } from 'react-redux-firebase'
+import {applyMiddleware, compose, createStore} from 'redux'
+import {getFirebase} from 'react-redux-firebase'
 import {getFirestore} from "redux-firestore";
+import rootReducer from "./reducers"
+import thunk from 'redux-thunk'
 
 export default function configureStore(initialState, history) {
-    const middleware = [thunk.withExtraArgument({ getFirebase, getFirestore })]
+    const middleware = [thunk.withExtraArgument({getFirebase, getFirestore})]
     const createStoreWithMiddleware = compose(
         applyMiddleware(...middleware),
         typeof window === 'object' &&

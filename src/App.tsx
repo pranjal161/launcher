@@ -1,32 +1,26 @@
 import "./App.css";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {
-    BrowserRouter as Router,
-    Redirect,
-    Route,
-    Switch,
-} from "react-router-dom";
-import Alert from "./components/alert/alert";
-import ContractSummary from "./pages/contractSummary/contractSummary";
-import HomePage from "./pages/homePage/homePage";
-import ClientView from "./pages/clientView/clientView";
-import Header from "./components/header/header";
+import {BrowserRouter as Router, Redirect, Route, Switch,} from "react-router-dom";
 import axios from "axios";
+import Alert from "./components/alert/alert";
+import ClientView from "./pages/clientView/clientView";
+import ContractSummary from "./pages/contractSummary/contractSummary";
+import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
+import Header from "./components/header/header";
+import HomePage from "./pages/homePage/homePage";
 import React, {useState} from "react";
-import {useTranslation} from "react-i18next";
-import {DxcSpinner} from "@dxc-technology/halstack-react";
-import {AppContextProvider} from "./context/applicationContext";
-import {ThemeContext} from "@dxc-technology/halstack-react";
-import {AlertContext, AlertContextProvider} from "./context/alertContext";
-import {Colors} from "../src/styles/dxc-theme";
 import SignIn from "./views/SignIn/SignIn";
 import SignUp from "./views/SignUp/SignUp";
-import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
+import {useTranslation} from "react-i18next";
+import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
+import {AppContextProvider} from "./context/applicationContext";
+import {AlertContext, AlertContextProvider} from "./context/alertContext";
+import {Colors} from "./styles/dxc-theme";
+
 
 function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
-
     axios.interceptors.request.use(
         function (config) {
             // spinning start to show
