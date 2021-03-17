@@ -10,10 +10,9 @@ function TicketDetail({id, remove}) {
 
     let ticket = id ? getOne(id) : undefined
 
-
     if (ticket) {
         return (
-            <div className="card mt-3" style={{width: '18rem;'}}>
+            <div className="card mt-3" >
                     <div className="card-body">
                         <h5 className="card-title">{ticket.title}</h5>
                         <p className="card-text">
@@ -27,7 +26,7 @@ function TicketDetail({id, remove}) {
             </div>
         )
     } else
-        return (<div className="container center">Loading project ...</div>)
+        return (<div className="container center">Loading ticket ...</div>)
 }
 
 

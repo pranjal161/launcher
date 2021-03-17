@@ -19,7 +19,7 @@ import { ThemeContext } from "@dxc-technology/halstack-react";
 import { Colors} from "./styles/dxc-theme";
 import SignIn from "./views/SignIn/SignIn";
 import SignUp from "./views/SignUp/SignUp";
-import DesktopView from "./views/Desktop/DesktopView";
+import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
 
 function App() {
   const { ready } = useTranslation();
@@ -89,8 +89,8 @@ function App() {
               <Route path="/signup" exact>
                 <SignUp/>
               </Route>
-              <Route path="/desktop" exact>
-                <DesktopView/>
+              <Route path="/exemple/desktop" exact>
+                <ExempleDesktopView/>
               </Route>
 
             </Switch>
