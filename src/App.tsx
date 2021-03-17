@@ -52,6 +52,7 @@ function App() {
   return (
     <>
     <AppContextProvider>
+      <AlertContextProvider>
         <ThemeContext.Provider value={Colors}>
         <>
             {isLoading && (
