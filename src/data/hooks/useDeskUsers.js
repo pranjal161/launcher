@@ -11,14 +11,11 @@ const useAllUsers = ({storeAs = 'users', ...rest} = {}) => {
 }
 
 const useDeskUsers = () => {
-    const dispatch = useDispatch();
-    const signUp = useCallback((credentials) => dispatch(signUpAction(credentials)),[dispatch])
-    const signOut = useCallback((credentials) => dispatch(signOutAction(credentials)),[dispatch])
-    const signIn = useCallback((credentials) => dispatch(signInAction(credentials)),[dispatch])
+
     const getAll = useAllUsers
 
 
-    return {signUp, signOut, signIn, getAll}
+    return {getAll}
 }
 
 export default useDeskUsers

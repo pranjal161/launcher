@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
-import {connect} from "react-redux";
-import {signIn} from "../../store/actions/authActions";
 import {Redirect} from "react-router-dom";
+import {useDeskAuth} from "../../data/hooks/useDeskAuth";
 
-const SignIn = ({signIn, auth}) => {
+const SignIn = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
+    const {auth, signIn} = useDeskAuth()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -40,16 +40,7 @@ const SignIn = ({signIn, auth}) => {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signIn : (credentials) => dispatch(signIn(credentials))
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+
+export default SignIn;
 
 

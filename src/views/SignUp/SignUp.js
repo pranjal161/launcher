@@ -1,7 +1,6 @@
 import React, {useRef} from 'react';
 import {Redirect} from "react-router-dom";
 import {useDeskAuth} from "../../data/hooks/useDeskAuth";
-import useUserDispatch from "../../data/hooks/useDeskUsers";
 
 const SignUp = () => {
     const emailRef = useRef()
@@ -9,8 +8,8 @@ const SignUp = () => {
     const firstNameRef = useRef()
     const lastNameRef = useRef()
     const profileRef= useRef()
-    const {auth} = useDeskAuth()
-    const {signUp} = useUserDispatch()
+    const {auth, signUp} = useDeskAuth()
+
 
     const handleSubmit = (e) => {
         e.preventDefault()

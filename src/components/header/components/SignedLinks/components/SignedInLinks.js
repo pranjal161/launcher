@@ -1,33 +1,16 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {signOut} from "../../../../../store/actions/authActions";
-import {connect} from "react-redux";
+import {useDeskAuth} from "../../../../../data/hooks/useDeskAuth";
 
 function SignedInLinks(props) {
-    console.log('props', props)
-    const signOut = () => {
-        props.signOut()
-    }
+    const {signOut, profile} = useDeskAuth()
     return (
         <ul className="right">
-            <li><a className={"text-white"} onClick={signOut}>Log Out</a></li>
+            <li><a className={"text-white"} onClick={() => signOut()}>Log Out</a></li>
             <li><NavLink to="/desktop">Desktop</NavLink></li>
-            <li><NavLink to="/" className="btn btn-success">{props.profile.initials}</NavLink></li>
+            <li><NavLink to="/" className="btn btn-success">{profile.initials}</NavLink></li>
         </ul>
     );
 }
 
-const mapStateToProps = (state) => (
-{
-    profile : state.firebase.profile
-}
-)
-
-const mapDispatchToProps = (dispatch) =>
-{
-    return {
-        signOut: () => dispatch(signOut())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks)
+export default SignedInLinks
