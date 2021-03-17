@@ -31,10 +31,10 @@ const useDeskBaskets = () => {
     const getOne = useGetOne
 
     const dispatch = useDispatch();
-    const create = useCallback((...param) => dispatch(ticketActions.create(...param)),[])
-    const update = useCallback((...param) => dispatch(ticketActions.update(...param)),[])
-    const remove = useCallback((...param) => dispatch(ticketActions.remove(...param)),[])
-    const assignTo = useCallback((...param) => dispatch(ticketActions.assignTo(...param)),[])
+    const create = useCallback((...param) => dispatch(ticketActions.create(...param)),[dispatch])
+    const update = useCallback((...param) => dispatch(ticketActions.update(...param)),[dispatch])
+    const remove = useCallback((...param) => dispatch(ticketActions.remove(...param)),[dispatch])
+    const assignTo = useCallback((...param) => dispatch(ticketActions.assignTo(...param)),[dispatch])
 
     return {getOne, getAll, getMyAllBaskets, create, update, remove, assignTo}
 }
