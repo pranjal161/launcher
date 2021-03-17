@@ -1,6 +1,7 @@
 import React from 'react';
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 import {useDeskAuth} from "../../../data/hooks/useDeskAuth";
+import UpdateButton from "../UpdateButton/TicketUpdate";
 
 
 function TicketDetail({id, remove}) {
@@ -8,6 +9,7 @@ function TicketDetail({id, remove}) {
     const {currentUserId} = useDeskAuth()
 
     let ticket = id ? getOne(id) : undefined
+
 
     if (ticket) {
         return (
@@ -20,6 +22,7 @@ function TicketDetail({id, remove}) {
                         </p>
                         <a href="#" className="btn btn-danger" onClick={() => remove(id) }>Remove</a>
                         <a href="#" className="btn btn-info ml-2" onClick={() => assignTo(id, currentUserId) }>Assign to me</a>
+                        <UpdateButton ticket={ticket}/>
                     </div>
             </div>
         )
