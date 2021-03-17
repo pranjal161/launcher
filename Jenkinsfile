@@ -70,7 +70,8 @@ def addStagesCustom() {
         sh '''
             rm -rf omnichannel-standard-ui.zip
             mkdir -p ui-package/react
-            cp -r ./* ./ui-package/react
+            cp -r ./src/* ./ui-package/react/
+            cp -r ./public/* ./ui-package/react/
             cp -r ./ui-package omnichannel-standard-ui-dev
         '''
         zip zipFile: 'omnichannel-standard-ui.zip', archive: false, dir: 'ui-package'
