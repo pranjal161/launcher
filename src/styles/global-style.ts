@@ -62,3 +62,21 @@ export const StyledPaginator = styled.div`
         }
     }
 `;
+
+export const StyledMessageContainer = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 99999;
+    justify-content: center;
+    align-items: flex-start;
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+`;

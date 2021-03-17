@@ -119,3 +119,17 @@ export const paginationLink = (paginateUrl: string, page: number, perPageItems: 
         return `${baseUrl}?${params.toString()}`;
     }
 }
+
+export const isResponseConsistent = (response: any) => {
+    if (response && response.data && response.data._embedded &&
+        response.data._embedded['cscaia:status_report']) {
+        return response.data._embedded['cscaia:status_report'].consistent;
+    }
+}
+
+export const getStatusReport = (response: any) => {
+    if (response && response.data && response.data._embedded &&
+        response.data._embedded['cscaia:status_report']) {
+        return response.data._embedded['cscaia:status_report']
+    }
+}
