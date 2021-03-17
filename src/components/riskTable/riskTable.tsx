@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { ApplicationContext } from '../../context/applicationContext';
 
 const RiskTable = (props: { risks: Array<any> }) => {
-
+    const applicationContext = useContext(ApplicationContext)
     const { t } = useTranslation();
 
-    useEffect(() => {}, [props.risks]);
+    useEffect(() => { }, [props.risks, applicationContext]);
 
     return (
         <>
