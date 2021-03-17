@@ -24,7 +24,7 @@ function UpdateButton({ticket}) {
     return (
         <>
             <Button variant="contained" color="primary" className="mx-2" onClick={handleClickOpen}>
-            Update ticket
+            Update
         </Button>
             {open && <TicketFormDialog ticket={ticket} close={handleClose} submit={handleSubmit}></TicketFormDialog>}
         </>

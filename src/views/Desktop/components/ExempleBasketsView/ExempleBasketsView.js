@@ -33,7 +33,7 @@ function ExempleBasketsView(props) {
                     <AllBaskets handleBasketClick={handleBasketClick}/>
                 </div>
                 <div className="col-4">
-                    My baskets
+                    My baskets (assigned to me)
                     <CreateButton></CreateButton>
                     <MyBaskets handleBasketClick={handleBasketClick}/>
                 </div>

@@ -24,7 +24,7 @@ function UpdateButton({basket}) {
     return (
         <>
             <Button variant="contained" color="primary" className="mx-2" onClick={handleClickOpen}>
-            Update basket
+            Update
         </Button>
             {open && <BasketFormDialog basket={basket} close={handleClose} submit={handleSubmit}></BasketFormDialog>}
         </>

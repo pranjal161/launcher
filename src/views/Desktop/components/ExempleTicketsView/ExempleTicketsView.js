@@ -33,7 +33,7 @@ function ExempleTicketsView(props) {
                     <AllTickets handleTicketClick={handleTicketClick}/>
                 </div>
                 <div className="col-4">
-                    My tickets
+                    My tickets (assigned to me)
                     <CreateButton></CreateButton>
                     <MyTickets handleTicketClick={handleTicketClick}/>
                 </div>
