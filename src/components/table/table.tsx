@@ -38,8 +38,8 @@ const Table = (props: { url: string; columnId: any[], showPaginator: boolean }) 
             {tableData && tableData._links && tableData._links.item && tableData._links.item.length > 0 ? (<>
                 <DxcTable>
                     <tr>
-                        {props.columnId.map(columnItem => (
-                            <th key={columnItem['label']}>
+                        {props.columnId.map((columnItem, index) => (
+                            <th key={index}>
                                 {t(columnItem['label'])}
                             </th>
                         ))}
