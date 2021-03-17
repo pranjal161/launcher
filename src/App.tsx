@@ -61,22 +61,22 @@ function App() {
       </>
       <>
         {ready && (
-          <Router basename={'/omnichannel/react'}>
+          <Router basename="/omnichannel/react">
             <Header />
             <Switch>
-              <Route exact path={'${process.env.PUBLIC_URL}/'}>
+              <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
-              <Route path={'${process.env.PUBLIC_URL}/home'} exact>
+              <Route path="/home" exact>
                 <HomePage />
               </Route>
-              <Route path={'${process.env.PUBLIC_URL}/contracts/:contractId'} exact>
+              <Route path="/contracts/:contractId" exact>
                 <ContractSummary />
               </Route>
-              <Route path={'${process.env.PUBLIC_URL}/clientView/person/:personId'} exact>
+              <Route path="/clientView/person/:personId" exact>
                 <ClientView />
               </Route>
-              <Route path={'${process.env.PUBLIC_URL}/clientView/organization/:organizationId'} exact>
+              <Route path="/clientView/organization/:organizationId" exact>
                 {/* to test */}
                 <ClientView />
               </Route>
