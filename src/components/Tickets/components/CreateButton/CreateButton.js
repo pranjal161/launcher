@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
+import useDeskTickets from "../../../../data/hooks/useDeskTickets";
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
 import {
     Button,

@@ -1,10 +1,11 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
-import useDeskUsers from "../../../data/hooks/useDeskUsers";
-import {useDeskAuth} from "../../../data/hooks/useDeskAuth";
+import useDeskUsers from "../../../../data/hooks/useDeskUsers";
+import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 
 const schema = yup.object().shape({
     title: yup.string().required(),
@@ -19,7 +20,9 @@ const schema = yup.object().shape({
 function TicketFormDialog(props) {
     const {currentUserId} = useDeskAuth()
     const {getAll} = useDeskUsers()
+    const {getAll: getAllBaskets} = useDeskBaskets()
     const allUsers = getAll()
+    const allBaskets = getAllBaskets()
     const {submit, ticket}= props
 
 
@@ -28,8 +31,13 @@ function TicketFormDialog(props) {
         assignTo: currentUserId,
     }
 
-    const allUsersToDisplay = allUsers && allUsers.map(user => <option
+    const usersOptions = allUsers && allUsers.map(user => <option
         key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>)
+
+    const basketsOptions = allBaskets && allBaskets.map(basket => <option
+        key={basket.id} value={basket.id}>{basket.title} </option>)
+
+
 
     const onSubmit = (updatedTicket) => {
         const completeTicket = ticket ? {...ticket, ...updatedTicket}:updatedTicket
@@ -65,7 +73,7 @@ function TicketFormDialog(props) {
                         <label className=" control-label" htmlFor="requestBy">Request by</label>
                         <div className="">
                             <select id="requestBy" name="requestBy" className="form-control" ref={register}>
-                                {allUsersToDisplay}
+                                {usersOptions}
                             </select>
                         </div>
                     </div>
@@ -73,7 +81,7 @@ function TicketFormDialog(props) {
                         <label className=" control-label" htmlFor="assignedTo">Assigned To</label>
                         <div className="">
                             <select id="assignedTo" name="assignedTo" className="form-control" ref={register}>
-                                {allUsersToDisplay}
+                                {usersOptions}
                             </select>
                         </div>
                     </div>
@@ -82,8 +90,7 @@ function TicketFormDialog(props) {
                         <label className=" control-label" htmlFor="basketId">Basket</label>
                         <div className="">
                             <select id="basketId" name="basketId" className="form-control" ref={register}>
-                                <option value="1">Option one</option>
-                                <option value="2">Option two</option>
+                                {basketsOptions}
                             </select>
                         </div>
                     </div>

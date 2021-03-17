@@ -1,6 +1,6 @@
 import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
+import useDeskTickets from "../../../../data/hooks/useDeskTickets";
 import {Button} from "@material-ui/core";
 
 function UpdateButton({ticket}) {

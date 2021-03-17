@@ -3,6 +3,7 @@ import ContractTable from '../../components/contractTable/contractTable';
 import { AppConfig } from '../../config/appConfig';
 import { DxcInput, DxcButton } from "@dxc-technology/halstack-react";
 import { useTranslation } from 'react-i18next';
+import {useDeskAuth} from "../../data/hooks/useDeskAuth";
 
 const HomePage = () => {
     const { t } = useTranslation();

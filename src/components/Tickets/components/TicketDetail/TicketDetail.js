@@ -1,7 +1,7 @@
 import React from 'react';
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
-import {useDeskAuth} from "../../../data/hooks/useDeskAuth";
-import UpdateButton from "../UpdateButton/TicketUpdate";
+import useDeskTickets from "../../../../data/hooks/useDeskTickets";
+import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
+import UpdateButton from "../UpdateButton/UpdateButton";
 
 
 function TicketDetail({id, remove}) {
@@ -16,7 +16,6 @@ function TicketDetail({id, remove}) {
                     <div className="card-body">
                         <h5 className="card-title">{ticket.title}</h5>
                         <p className="card-text">
-                            <div>Post by {ticket.creatorFirstName} {ticket.creatorLastName}</div>
                             <small>{ticket.id}</small>
                         </p>
                         <a href="#" className="btn btn-danger" onClick={() => remove(id) }>Remove</a>

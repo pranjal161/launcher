@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useFirestoreConnect} from "react-redux-firebase";
-import * as ticketActions from "../../store/actions/ticketActions";
+import * as basketActions from "../../store/actions/basketActions";
 import {useCallback} from "react";
 
 const useAllBaskets = ({storeAs, ...rest} = {storeAs : 'baskets', limit:50}) => {
@@ -12,7 +12,7 @@ const useAllBaskets = ({storeAs, ...rest} = {storeAs : 'baskets', limit:50}) => 
 
 const useMyAllBaskets = (params = {}) => {
     const auth = useSelector(state => state.auth)
-    return useAllBaskets({...params, storeAs: 'myBaskets', where: ['assignedTo', '==', auth.id]})
+    return useAllBaskets({...params, storeAs: 'myBaskets', where: ['assignedToList', 'array-contains-any', [auth.id]]})
 }
 
 const useGetOne = (id) => {
@@ -31,12 +31,13 @@ const useDeskBaskets = () => {
     const getOne = useGetOne
 
     const dispatch = useDispatch();
-    const create = useCallback((...param) => dispatch(ticketActions.create(...param)),[dispatch])
-    const update = useCallback((...param) => dispatch(ticketActions.update(...param)),[dispatch])
-    const remove = useCallback((...param) => dispatch(ticketActions.remove(...param)),[dispatch])
-    const assignTo = useCallback((...param) => dispatch(ticketActions.assignTo(...param)),[dispatch])
+    const create = useCallback((...param) => dispatch(basketActions.create(...param)),[dispatch])
+    const update = useCallback((...param) => dispatch(basketActions.update(...param)),[dispatch])
+    const remove = useCallback((...param) => dispatch(basketActions.remove(...param)),[dispatch])
+    const assignUser = useCallback((...param) => dispatch(basketActions.assignUser(...param)),[dispatch])
+    const removeUser = useCallback((...param) => dispatch(basketActions.removeUser(...param)),[dispatch])
 
-    return {getOne, getAll, getMyAllBaskets, create, update, remove, assignTo}
+    return {getOne, getAll, getMyAllBaskets, create, update, remove, assignUser, removeUser}
 }
 
 export default useDeskBaskets
