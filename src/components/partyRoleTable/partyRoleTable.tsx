@@ -13,7 +13,7 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
   const history = useHistory();
   const applicationContext = useContext(ApplicationContext);
 
-  useEffect(() => {}, [props.roles]);
+  useEffect(() => {}, [props.roles, applicationContext]);
   
   const goToClientView = (item: any) => {
     axios.get(item.href, { headers: applicationContext.headers}).then((partyRoleResponse) => {

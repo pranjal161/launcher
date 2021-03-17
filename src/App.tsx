@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
+import Alert from "./components/alert/alert";
 import ContractSummary from "./pages/contractSummary/contractSummary";
 import HomePage from "./pages/homePage/homePage";
 import ClientView from "./pages/clientView/clientView";
@@ -16,6 +17,8 @@ import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
+import { AlertContext, AlertContextProvider} from "./context/alertContext";
+import { Colors } from "../src/styles/dxc-theme";
 import { Colors} from "./styles/dxc-theme";
 import SignIn from "./views/SignIn/SignIn";
 import SignUp from "./views/SignUp/SignUp";
@@ -53,51 +56,56 @@ function App() {
   return (
     <>
     <AppContextProvider>
+      <AlertContextProvider>
         <ThemeContext.Provider value={Colors}>
-      <>
-        {isLoading && (
-          <div className="spinner">
-            <DxcSpinner margin="xxsmall" mode="overlay" />
-          </div>
-        )}
-
-      </>
-      <>
-        {ready && (
-          <Router>
-            <Header />
-            <Switch>
-              <Route exact path="/">
-                <Redirect to="/home" />
-              </Route>
-              <Route path="/home" exact>
-                <HomePage />
-              </Route>
-              <Route path="/contracts/:contractId" exact>
-                <ContractSummary />
-              </Route>
-              <Route path="/clientView/person/:personId" exact>
-                <ClientView />
-              </Route>
-              <Route path="/clientView/organization/:organizationId" exact>
-                {/* to test */}
-                <ClientView />
-              </Route>
-              <Route path="/signin" exact>
-                <SignIn />
-              </Route>
-              <Route path="/signup" exact>
-                <SignUp/>
-              </Route>
-              <Route path="/exemple/desktop" exact>
-                <ExempleDesktopView/>
-              </Route>
-
-            </Switch>
-          </Router>
-        )}
-      </>
-        </ThemeContext.Provider>
+        <>
+            {isLoading && (
+              <div className="spinner">
+                <DxcSpinner margin="xxsmall" mode="overlay" />
+              </div>
+            )}
+          </>
+      <AlertContext.Consumer>
+        {(context) => {
+          return <Alert toastList={context.toastMessage} />
+        }}
+      </AlertContext.Consumer>
+        <>
+          {ready && (
+            <Router basename="/omnichannel/react">
+              <Header />
+              <Switch>
+                <Route exact path="/">
+                  <Redirect to="/home" />
+                </Route>
+                <Route path="/home" exact>
+                  <HomePage />
+                </Route>
+                <Route path="/contracts/:contractId" exact>
+                  <ContractSummary />
+                </Route>
+                <Route path="/clientView/person/:personId" exact>
+                  <ClientView />
+                </Route>
+                <Route path="/clientView/organization/:organizationId" exact>
+                  {/* to test */}
+                  <ClientView />
+                </Route>
+                <Route path="/signin" exact>
+                  <SignIn />
+                </Route>
+                <Route path="/signup" exact>
+                  <SignUp/>
+                </Route>
+                <Route path="/exemple/desktop" exact>
+                  <ExempleDesktopView/>
+                </Route>
+              </Switch>
+            </Router>
+          )}
+        </>
+          </ThemeContext.Provider>
+        </AlertContextProvider>
       </AppContextProvider>
     </>
   );
