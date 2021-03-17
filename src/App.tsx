@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
+import Alert from "./components/alert/alert";
 import ContractSummary from "./pages/contractSummary/contractSummary";
 import HomePage from "./pages/homePage/homePage";
 import ClientView from "./pages/clientView/clientView";
@@ -16,7 +17,9 @@ import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
+import { AlertContext, AlertContextProvider} from "./context/alertContext";
 import { Colors } from "../src/styles/dxc-theme";
+import Alert from "./components/alert/alert";
 
 function App() {
   const { ready } = useTranslation();
