@@ -19,7 +19,6 @@ import { AppContextProvider } from "./context/applicationContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
 import { AlertContext, AlertContextProvider} from "./context/alertContext";
 import { Colors } from "../src/styles/dxc-theme";
-import Alert from "./components/alert/alert";
 
 function App() {
   const { ready } = useTranslation();
