@@ -1,14 +1,12 @@
-import { useTranslation } from 'react-i18next';
-import { AppConfig } from '../../config/appConfig';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import React from 'react';
 import { getLink } from '../../util/functions';
 import Table from "../../components/table/table";
+import { ApplicationContext } from '../../context/applicationContext';
 
 const ActivitiesTable = (props: { contractResponse: any }) => {
-    const { t } = useTranslation();
-    const config = AppConfig;
     const [activityUrl, setActivityUrl] = useState('');
+    const applicationContext = useContext(ApplicationContext);
     const activityListColumns = [
         { label: '_USER', property: 'w_m_activity:user' },
         { label: '_TYPE', property: 'w_m_activity:label' },
@@ -18,7 +16,7 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
 
     useEffect(() => {
         getData();
-    }, [props.contractResponse]);
+    }, [props.contractResponse, applicationContext]);
 
     const getData = () => {
         if (props.contractResponse) {
@@ -31,7 +29,7 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         <>
             { activityUrl && (
                 <>
-                    < Table url={activityUrl} columnId={activityListColumns} showPaginator={true}/>
+                    < Table url={activityUrl} columnId={activityListColumns} showPaginator={true} />
                 </>
             )
             }
