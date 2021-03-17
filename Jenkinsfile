@@ -35,7 +35,7 @@ def cloneAndLoadAssurePipeline() {
 
     //Get the shared Assure pipeline utils
     pipelineUtils = pipelineLoader.getUtils()
-    
+
     //Get the pipeline to be run
     pipelineRunner = pipelineLoader.getPipeline(pipelineLoader."${key}")
 }
@@ -92,7 +92,8 @@ def addStagesCustom() {
             withAWS(role:'arn:aws:iam::665158502186:role/ISS_DIAAS_PowerUser'){
                 sh '''
                     aws s3 rm s3://dev.eu.standard.project/omnichannel/react/ --recursive
-                    aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --recursive 
+                    aws s3 cp ./ui-package/react/ s3://dev.eu.standard.project/omnichannel/react/ --recursive
+                    aws s3 ls s3://dev.eu.standard.project/omnichannel
                     aws s3 ls s3://dev.eu.standard.project/omnichannel/react/
                 '''
             }
