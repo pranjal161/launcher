@@ -66,6 +66,11 @@ def addStagesCustom() {
             }
         }
     }
+    stage('Building React App') {
+        sh '''
+            npm run build
+        '''
+    }
     stage ('Zipping Artifact All') {
         sh '''
             rm -rf omnichannel-standard-ui.zip
