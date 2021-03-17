@@ -3,7 +3,7 @@ import {useFirestoreConnect} from "react-redux-firebase";
 import * as ticketActions from "../../store/actions/ticketActions";
 import {useCallback} from "react";
 
-const useAllTickets = ({storeAs = 'tickets', ...rest} = {}) => {
+const useAllTickets = ({storeAs, ...rest} = {storeAs : 'tickets', limit:50}) => {
     useFirestoreConnect([
         {collection: 'tickets', storeAs, ...rest}
     ])

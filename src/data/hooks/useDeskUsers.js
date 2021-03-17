@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { signUp as signUpAction, signOut as signOutAction, signIn as signInAction} from "../../store/actions/authActions";
 import {useFirestoreConnect} from "react-redux-firebase";
 
-const useAllUsers = ({storeAs = 'users', ...rest} = {}) => {
+const useAllUsers = ({storeAs , ...rest} = {storeAs : 'users', limit:50}) => {
     useFirestoreConnect([
         {collection: 'users', storeAs, ...rest}
     ])
