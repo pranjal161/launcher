@@ -19,7 +19,6 @@ import { AppContextProvider } from "./context/applicationContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
 import { AlertContext, AlertContextProvider} from "./context/alertContext";
 import { Colors } from "../src/styles/dxc-theme";
-import { Colors} from "./styles/dxc-theme";
 import SignIn from "./views/SignIn/SignIn";
 import SignUp from "./views/SignUp/SignUp";
 import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
