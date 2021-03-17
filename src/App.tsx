@@ -15,8 +15,10 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DxcSpinner } from "@dxc-technology/halstack-react";
 import { AppContextProvider } from "./context/applicationContext";
+import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import { ThemeContext } from "@dxc-technology/halstack-react";
 import { Colors } from "../src/styles/dxc-theme";
+import Alert from "./components/alert/alert";
 
 function App() {
   const { ready } = useTranslation();
@@ -50,41 +52,47 @@ function App() {
   return (
     <>
     <AppContextProvider>
+      <AlertContextProvider>
         <ThemeContext.Provider value={Colors}>
-      <>
-        {isLoading && (
-          <div className="spinner">
-            <DxcSpinner margin="xxsmall" mode="overlay" />
-          </div>
-        )}
-
-      </>
-      <>
-        {ready && (
-          <Router>
-            <Header />
-            <Switch>
-              <Route exact path="/">
-                <Redirect to="/home" />
-              </Route>
-              <Route path="/home" exact>
-                <HomePage />
-              </Route>
-              <Route path="/contracts/:contractId" exact>
-                <ContractSummary />
-              </Route>
-              <Route path="/clientView/person/:personId" exact>
-                <ClientView />
-              </Route>
-              <Route path="/clientView/organization/:organizationId" exact>
-                {/* to test */}
-                <ClientView />
-              </Route>
-            </Switch>
-          </Router>
-        )}
-      </>
-        </ThemeContext.Provider>
+          <>
+            {isLoading && (
+              <div className="spinner">
+                <DxcSpinner margin="xxsmall" mode="overlay" />
+              </div>
+            )}
+          </>
+      <AlertContext.Consumer>
+        {(context) => {
+          return <Alert toastList={context.toastMessage} />
+        }}
+      </AlertContext.Consumer>
+        <>
+          {ready && (
+            <Router>
+              <Header />
+              <Switch>
+                <Route exact path="/">
+                  <Redirect to="/home" />
+                </Route>
+                <Route path="/home" exact>
+                  <HomePage />
+                </Route>
+                <Route path="/contracts/:contractId" exact>
+                  <ContractSummary />
+                </Route>
+                <Route path="/clientView/person/:personId" exact>
+                  <ClientView />
+                </Route>
+                <Route path="/clientView/organization/:organizationId" exact>
+                  {/* to test */}
+                  <ClientView />
+                </Route>
+              </Switch>
+            </Router>
+          )}
+        </>
+          </ThemeContext.Provider>
+        </AlertContextProvider>
       </AppContextProvider>
     </>
   );

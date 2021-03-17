@@ -70,7 +70,7 @@ export const StyledMessageContainer = styled.div`
     top: 0;
     bottom: 0;
     display: flex;
-    z-index: 99;
+    z-index: 99999;
     justify-content: center;
     align-items: flex-start;
 
