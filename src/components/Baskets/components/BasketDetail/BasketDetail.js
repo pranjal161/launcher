@@ -10,7 +10,6 @@ function BasketDetail({id, remove}) {
 
     let basket = id ? getOne(id) : undefined
 
-    console.log('basket.assignedToList', basket && basket.assignedToList)
     const assignButton = basket && basket.assignedToList.includes(currentUserId) ?
         <a href="#" className="btn btn-warning ml-2" onClick={() => removeUser(id, currentUserId) }>Unassign to me</a>:
         <a href="#" className="btn btn-info ml-2" onClick={() => assignUser(id, currentUserId) }>Assign to me</a>
