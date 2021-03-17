@@ -1,15 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import useDeskTickets from "../../../../data/hooks/useDeskTickets";
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
 import {
     Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    TextField
 } from "@material-ui/core";
+
 
 function CreateButton(props) {
     const [open, setOpen] = React.useState(false);
