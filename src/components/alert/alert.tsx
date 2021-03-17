@@ -12,7 +12,7 @@ const Alert = (props: { toastList: any }) => {
 
     return (
         <>
-          {list && !list.consistent && list['messages'] && list['messages'].length > 0 && 
+          {list && list['messages'] && list['messages'].length > 0 && 
             <StyledMessageContainer onClick={() => setList({})}>
               <div>
                 {
