@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { DxcTabs, DxcDialog } from '@dxc-technology/halstack-react';
+import { DxcDialog, DxcSidenav } from '@dxc-technology/halstack-react';
 import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
 import InvestmentTab from '../../components/InvestmentTab/investmentTab';
 import RiskTable from '../../components/riskTable/riskTable';
@@ -16,9 +16,27 @@ import CoverageTable from '../../components/coveragesTable/coveragesTable';
 import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
 import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
 import ClausesTable from '../../components/clausesTable/clausesTable';
+import Documents from '../../components/documents/documents';
+import { getLink } from '../../util/functions';
+import FinancialInformation from '../../components/financialInformation/financialInformation';
+import './contractSummary.css';
+
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
+    const sections = [
+        { label: t('_INVESTMENT'), id: 'investment' },
+        { label: t("_INTERESTED_PARTIES"), id: 'parties' },
+        { label: t("_RISKS"), id: 'risks' },
+        { label: t("_COVERAGES"), id: 'coverages' },
+        { label: t("_CLAUSES"), id: 'clauses' },
+        { label: t("_DOCUMENTS"), id: 'documents' },
+        { label: t("_FINANCIAL_OPERATIONS"), id: 'financial_op' },
+        { label: t("_FINANCIAL_INFORMATION"), id: 'financial_info' },
+        { label: t("_ACTIVITIES"), id: 'activities' },
+    ];
+    const [visibleSections, setSections] = useState([])
+    const [currentSection, setCurrentSection] = useState<string>();
     const [contractUrl, setContractUrl] = useState(location.state.contractUrl);
     const [contractData, setContractData] = useState<undefined | any>();
     const [partyRole, setPartyRoleData] = useState<undefined | any>();
@@ -30,6 +48,8 @@ const ContractSummary = () => {
     const [historySelectOptions, setHistoryOptions] = useState([]);
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>()
+    const [outputDoc, setOutputDoc] = useState('');
+    const [receivedDoc, setReceivedDoc] = useState('');
     const actionOptions = [
         {
             value: "claim",
@@ -57,10 +77,12 @@ const ContractSummary = () => {
     useEffect(() => {
         getData(contractUrl);
     }, [applicationContext, contractUrl]);
+
     const getData = async (contractUrl: string) => {
         axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
             setContractData(result.data);
             getRiskData(result.data._links);
+            manageSectionVisibility(result.data);
             populateHistorySelect(result.data);
             if (result.data._links && result.data._links['contract:role_list']) {
                 const partyUrl: string = result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
@@ -69,6 +91,12 @@ const ContractSummary = () => {
                         setPartyRoleData(partyRoleRes.data._links.item);
                     }
                 });
+            }
+            if (getLink(result.data, 'cscaia:output_documents')) {
+                setOutputDoc(getLink(result.data, 'cscaia:output_documents'));
+            }
+            if (getLink(result.data, 'cscaia:information_receipts')) {
+                setReceivedDoc(getLink(result.data, 'cscaia:information_receipts'));
             }
         });
     }
@@ -123,10 +151,7 @@ const ContractSummary = () => {
             });
         }
     }
-    const [activeTab, setActiveTab] = useState(0);
-    const onTabClick = (i: number) => {
-        setActiveTab(i);
-    };
+
     const OwnerName = () => {
         const ownerPartyRole = partyRole && Array.isArray(partyRole) ? partyRole : typeof partyRole !== "undefined" ? [partyRole] : '';
         const ownerName = ownerPartyRole && ownerPartyRole.length > 0 && ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
@@ -158,27 +183,61 @@ const ContractSummary = () => {
             }
         })
     }
+    const manageSectionVisibility = (contract: { [x: string]: any; }) => {
+        let newSections: any;
+        const productType = contract['contract:product_type'];
+        if (productType === 'multi_risk') {
+            newSections = sections.filter(item => { return (item.id !== 'investment' && item.id !== 'coverages') })
+        } else if (productType !== 'savings') {
+            newSections = sections.filter(item => { return (item.id !== 'investment' && item.id !== 'risks') })
+        } else if (productType === 'savings') {
+            newSections = sections.filter(item => { return item.id !== 'risks' })
+        }
+        setSections(newSections);
+        setCurrentSection(newSections[0].id)
+    }
+
     function ContractBanner() {
         return (
             <StyledBanner>
                 <div className="row">
-                    <div className="col-2">
+                    <div className="col-2 align-center">
                         <PersonIcon />
                         <OwnerName />
                     </div>
                     <div className="col-4">
-                        <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
-                        <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
-                        <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
-                        <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
-                        <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type ="date" />
+                        <div className="col-12">
+                            <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type="date" />
+                        </div>
                     </div>
                     <div className="col-4">
-                        <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
-                        <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
-                        <Label propertyName="contract:currency_mode" label="_CURRENCY" data={contractData} />
-                        <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
-                        <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type ="date" />
+                        <div className="col-12">
+                            <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:currency_code" label="_CURRENCY" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
+                        </div>
+                        <div className="col-12">
+                            <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type="date" />
+                        </div>
                     </div>
                     <div className="col-2">
                         <div className="select-box">
@@ -204,72 +263,70 @@ const ContractSummary = () => {
     }
     return (
         <>
-            {contractData && (
-                <ContractBanner />
+            {contractData && visibleSections.length > 0 && (
+                <>
+                    <ContractBanner />
+                    <div className="contract-sidenav">
+                        <DxcSidenav>
+                            {visibleSections.map((item, index) => (
+                                <p key= {index} className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={() => setCurrentSection(item['id'])}>{item['label']}</p>
+                            ))}
+                        </DxcSidenav>
+                    </div>
+                </>
             )}
-            {isDialogVisible && unsolicitedPaymentRes && (
-                <DxcDialog padding="medium">
-                    <UnsolicitedPayment onClickDialog={onClickDialog} response={unsolicitedPaymentRes}/>
-                </DxcDialog>
-            )}
-            <div>
-                <DxcTabs
-                    activeTabIndex={activeTab}
-                    onTabClick={onTabClick}
-                    tabs={[
-                        { label: t('_INVESTMENT') },
-                        { label: t("_INTERESTED_PARTIES") },
-                        { label: t("_RISKS") },
-                        { label: t("_COVERAGES") },
-                        { label: t("_CLAUSES") },
-                        { label: t("_DOCUMENTS") },
-                        { label: t("_FINANCIAL_OPERATIONS") },
-                        { label: t("_FINANCIAL_INFORMATION") },
-                        { label: t("_ACTIVITIES") },
-                    ]}
-                ></DxcTabs>
-                {(activeTab === 0 && mainRisk) && (
+            <div className="contract-details">
+                {currentSection === 'investment' && mainRisk && (
                     <div>
                         <InvestmentTab mainRiskUrl={mainRisk} />
                     </div>
                 )}
-                {activeTab === 1 && (
+                {currentSection === 'parties' && (
                     <div>
                         <PartyRoleTable roles={partyRole} />
                     </div>
                 )}
-                {activeTab === 2 && (
+                {currentSection === 'risks' && (
                     <div>
                         <RiskTable risks={risk} />
                     </div>
                 )}
-                {(activeTab === 3 && mainRisk) && (
+                {(currentSection === 'coverages' && mainRisk) && (
                     <div>
                         <CoverageTable mainRiskUrl={mainRisk} />
                     </div>
                 )}
-                {activeTab === 4 && (
+                {currentSection === 'clauses' && (
                     <div>
-                   <ClausesTable contractResponse={contractData}/>
-                   </div>
+                        <ClausesTable contractResponse={contractData} />
+                    </div>
                 )}
-                {activeTab === 5 && (
-                    <div>{t("_DOCUMENTS")}</div>
+                {currentSection === 'documents' && (
+                    <div>
+                        <Documents outputDoc={outputDoc} receivedDoc={receivedDoc}/>
+                    </div>
                 )}
-                {activeTab === 6 && (
+                {currentSection === 'financial_op' && (
                     <div>
                         <FinancialOperationTable contractResponse={contractData} />
                     </div>
                 )}
-                {activeTab === 7 && (
-                    <div>{t("_FINANCIAL_INFORMATION")}</div>
-                )}
-                {activeTab === 8 && (
+                {currentSection === 'financial_info' && (
                     <div>
-                        <ActivitiesTable contractResponse={contractData}/>
-                        </div>
+                        <FinancialInformation contractResponse={contractData} />
+                    </div>
+                )}
+                {currentSection === 'activities' && (
+                    <div>
+                        <ActivitiesTable contractResponse={contractData} />
+                    </div>
                 )}
             </div>
+            {isDialogVisible && unsolicitedPaymentRes && (
+                <DxcDialog onCloseClick={onClickDialog} padding="medium">
+                    <UnsolicitedPayment onClickDialog={onClickDialog} response={unsolicitedPaymentRes} />
+                </DxcDialog>
+            )}
         </>
     )
 }

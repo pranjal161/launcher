@@ -1,14 +1,13 @@
-import { makeStyles } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { AppConfig } from '../../config/appConfig';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Table from "../../components/table/table";
 import React from 'react';
+import { ApplicationContext } from '../../context/applicationContext';
+import { getLink } from '../../util/functions';
 
 const ActivitiesTable = (props: { contractResponse: any }) => {
-    const { t } = useTranslation();
-    const config = AppConfig;
+
     const [clauseUrl, setClauseUrl] = useState('');
+    const applicationContext = useContext(ApplicationContext);
     const clauseListColumns = [
         { label: '_CODE', property: 'clause:code' },
         { label: '_LABEL', property: 'clause:code' },
@@ -20,7 +19,7 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [props.contractResponse, applicationContext]);
 
     const getData = () => {
         if (props.contractResponse) {
@@ -29,21 +28,11 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
         }
     }
 
-    function getLink(response: any, linkName: string) {
-        if (response &&
-            response._links &&
-            response._links[linkName] &&
-            response._links[linkName].href) {
-            return response._links[linkName].href;
-        } else {
-            return null;
-        }
-    }
     return (
         <>
             { clauseUrl && (
                 <>
-                    < Table url={clauseUrl} columnId={clauseListColumns} />
+                    < Table url={clauseUrl} columnId={clauseListColumns} showPaginator={true} />
                 </>
             )
             }

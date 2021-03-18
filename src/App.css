@@ -39,14 +39,14 @@
 
 .MuiAppBar-colorPrimary {
   color: #fff;
-    background-color: black !important
+  background-color: black !important;
 }
 
 .loader {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%
+  width: 100%;
 
   /* width: 300px;
   height: 300px; */
@@ -65,17 +65,21 @@ label {
 
 /* temp fix as it is too big*/
 table tbody tr td {
-    padding: 5px 10px 5px 10px !important;
+  padding: 5px 10px 5px 10px !important;
 }
 
 table tbody tr th {
   padding: 10px 10px 10px 10px !important;
 }
 
- .MuiTabs-root .MuiButtonBase-root{
-  min-width: 100px !important;
-}
-
 .MuiTabs-scrollable {
   overflow-x: hidden !important;
+}
+
+.MuiDialog-root {
+  z-index: 999 !important;
+}
+
+.align-center {
+  text-align: center;
 }

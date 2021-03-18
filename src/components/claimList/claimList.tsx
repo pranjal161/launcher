@@ -5,7 +5,7 @@ import { ApplicationContext } from "../../context/applicationContext";
 import Table from "../table/table";
 
 const ClaimList = (props: { clientUrl: string; }) => {
-    const [claimUrl, setClaimUrl] = useState('');
+    const [claimUrl, setClaimUrl] = useState<string>();
     const { t } = useTranslation();
     const applicationContext = useContext(ApplicationContext);
     const claimListColumns = [
@@ -36,7 +36,7 @@ const ClaimList = (props: { clientUrl: string; }) => {
             { claimUrl && (
                 <>
                     <h5> {t('_CLAIMS')}</h5>
-                    < Table url={claimUrl} columnId={claimListColumns} />
+                    < Table url={claimUrl} columnId={claimListColumns} showPaginator={true}/>
                 </>
             )
             }
