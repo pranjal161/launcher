@@ -5,9 +5,13 @@ import * as ticketActions from "../../store/actions/ticketActions";
 
 
 const useAllTickets = ({storeAs, ...rest} = {storeAs : 'tickets', limit:50}) => {
-    useFirestoreConnect([
-        {collection: 'tickets', storeAs, ...rest}
-    ])
+    //If we have a listen on the query, we dont subscribe again
+    const listenerExist = useSelector((state) => state.firestore.listeners.byId[storeAs])
+    const connectQuery = useCallback(() => listenerExist ? [{
+        collection: 'not-exist',
+        limit: 1
+    }] : [{collection: 'tickets', storeAs, ...rest}], [storeAs])
+    useFirestoreConnect(connectQuery)
     return useSelector((state) => state.firestore.ordered[storeAs])
 }
 

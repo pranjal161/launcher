@@ -33,13 +33,17 @@ function ExempleTicketsView() {
                     <AllTickets handleTicketClick={handleTicketClick}/>
                 </div>
                 <div className="col-4">
-                    My tickets (assigned to me)
-                    <CreateButton/>
+                    <div className={"d-flex justify-content-between"}>
+                        <div>My tickets (assigned to me)</div>
+                        <CreateButton/>
+                    </div>
                     <MyTickets handleTicketClick={handleTicketClick}/>
                 </div>
                 <div className="col-4">
                     Clicked tickets
-                    {clickedTickets && Object.values(clickedTickets).map(ticket=> <TicketDetail id={ticket.id} key={ticket.id} remove={handleRemove}/>)}
+                    {clickedTickets && Object.values(clickedTickets).map(ticket => <TicketDetail id={ticket.id}
+                                                                                                 key={ticket.id}
+                                                                                                 remove={handleRemove}/>)}
                 </div>
             </div>
         </div>
