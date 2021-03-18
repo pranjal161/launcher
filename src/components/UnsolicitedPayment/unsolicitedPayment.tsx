@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ApplicationContext } from "../../context/applicationContext";
 import { DxcTable, DxcButton, DxcInput } from "@dxc-technology/halstack-react";
+import { getStatusReport } from "../../util/functions";
+import {AlertContext} from "../../context/alertContext";
 
 const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void; }) => {
 	const url = props.response._links.self.href;
@@ -12,6 +14,7 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void; }
 	const [total, setTotal] = useState(0);
 	const [investmentSplitPayload, setInvestmentSplitPayload] = useState<any>([])
 	const { t } = useTranslation();
+	const alertContext = useContext(AlertContext);
 
 	useEffect(() => {
 
@@ -84,6 +87,8 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void; }
 			'investment_split': investmentSplitPayload
 		}
 		axios.patch(url, payload, { headers: applicationContext.headers }).then((res) => {
+			const status_report = getStatusReport(res);
+			alertContext.setToastList(status_report);
 			if (res && res.data._embedded['cscaia:status_report'] && res.data._embedded['cscaia:status_report'].consistent) {
 				if (res.data._embedded['cscaia:execute']) {
 					const transferUrl = url + '/execute';
