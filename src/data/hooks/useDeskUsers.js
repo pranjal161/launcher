@@ -5,7 +5,7 @@ const useAllUsers = () => {
 }
 
 const useGetOne = (id) => {
-    return useSelector((state) => state.firestore.data.users[id])
+    return useSelector((state) => ({id, ...state.firestore.data.users[id]}))
 }
 
 const useDeskUsers = () => {

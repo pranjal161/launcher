@@ -14,7 +14,7 @@ const useMyAllBaskets = () => {
 }
 
 const useGetOne = (id) => {
-    return useSelector((state) => state.firestore.data.baskets[id])
+    return useSelector((state) => ({id, ...state.firestore.data.baskets[id]}))
 }
 
 const useDeskBaskets = () => {
