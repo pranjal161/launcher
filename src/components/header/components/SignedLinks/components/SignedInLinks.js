@@ -1,8 +1,8 @@
-import React from 'react';
 import {NavLink} from "react-router-dom";
-import {useDeskAuth} from "../../../../../data/hooks/useDeskAuth";
+import React from 'react';
+import useDeskAuth from "../../../../../data/hooks/useDeskAuth";
 
-function SignedInLinks(props) {
+function SignedInLinks() {
     const {signOut, profile} = useDeskAuth()
     return (
         <ul className="right">

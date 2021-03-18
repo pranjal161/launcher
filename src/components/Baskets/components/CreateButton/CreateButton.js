@@ -1,17 +1,9 @@
-import React, {useRef, useState} from 'react';
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 import BasketFormDialog from "../BasketFormDialog/BasketFormDialog";
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    TextField
-} from "@material-ui/core";
+import React from 'react';
+import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
+import {Button,} from "@material-ui/core";
 
-function CreateButton(props) {
+function CreateButton() {
     const [open, setOpen] = React.useState(false);
     const {create} = useDeskBaskets()
 
@@ -32,7 +24,7 @@ function CreateButton(props) {
             <Button variant="contained" color="primary" onClick={handleClickOpen}>
                 Create basket
             </Button>
-            {open && <BasketFormDialog close={handleClose} submit={handleSubmit}></BasketFormDialog>}
+            {open && <BasketFormDialog close={handleClose} submit={handleSubmit}/>}
         </div>
     )
 }

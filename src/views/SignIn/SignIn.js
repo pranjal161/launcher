@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {Redirect} from "react-router-dom";
-import {useDeskAuth} from "../../data/hooks/useDeskAuth";
+import useDeskAuth from "../../data/hooks/useDeskAuth";
 
 const SignIn = () => {
     const emailRef = useRef()

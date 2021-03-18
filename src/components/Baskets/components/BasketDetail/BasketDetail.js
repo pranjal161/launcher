@@ -1,16 +1,15 @@
 import React from 'react';
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
-import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
 import UpdateButton from "../UpdateButton/UpdateButton";
+import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
+import useDeskAuth from "../../../../data/hooks/useDeskAuth";
 
 
 function BasketDetail({id, remove}) {
-    const {getOne, assignUser, removeUser}= useDeskBaskets()
+    const {getOne, assignUser, removeUser} = useDeskBaskets()
     const {currentUserId} = useDeskAuth()
 
     let basket = id ? getOne(id) : undefined
 
-    console.log('basket.assignedToList', basket && basket.assignedToList)
     const assignButton = basket && basket.assignedToList.includes(currentUserId) ?
         <a href="#" className="btn btn-warning ml-2" onClick={() => removeUser(id, currentUserId) }>Unassign to me</a>:
         <a href="#" className="btn btn-info ml-2" onClick={() => assignUser(id, currentUserId) }>Assign to me</a>

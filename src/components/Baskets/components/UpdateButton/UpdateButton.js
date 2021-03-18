@@ -1,7 +1,7 @@
-import React from 'react';
 import BasketFormDialog from "../BasketFormDialog/BasketFormDialog";
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 import {Button} from "@material-ui/core";
+import React from 'react';
+import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 
 function UpdateButton({basket}) {
     const [open, setOpen] = React.useState(false);
@@ -24,9 +24,9 @@ function UpdateButton({basket}) {
     return (
         <>
             <Button variant="contained" color="primary" className="mx-2" onClick={handleClickOpen}>
-            Update
-        </Button>
-            {open && <BasketFormDialog basket={basket} close={handleClose} submit={handleSubmit}></BasketFormDialog>}
+                Update
+            </Button>
+            {open && <BasketFormDialog basket={basket} close={handleClose} submit={handleSubmit}/>}
         </>
     );
 }

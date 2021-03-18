@@ -1,17 +1,10 @@
-import React, {useRef, useState} from 'react';
-import useDeskTickets from "../../../../data/hooks/useDeskTickets";
+import {Button,} from "@material-ui/core";
+import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    TextField
-} from "@material-ui/core";
+import useDeskTickets from "../../../../data/hooks/useDeskTickets";
 
-function CreateButton(props) {
+
+function CreateButton() {
     const [open, setOpen] = React.useState(false);
     const {create} = useDeskTickets()
 
@@ -32,7 +25,7 @@ function CreateButton(props) {
             <Button variant="contained" color="primary" onClick={handleClickOpen}>
                 Create ticket
             </Button>
-            {open && <TicketFormDialog close={handleClose} submit={handleSubmit}></TicketFormDialog>}
+            {open && <TicketFormDialog close={handleClose} submit={handleSubmit}/>}
         </div>
     )
 }

@@ -1,9 +1,8 @@
-import React from 'react';
-import {useForm} from "react-hook-form";
-import useDeskUsers from "../../../../data/hooks/useDeskUsers";
-import {useDeskAuth} from "../../../../data/hooks/useDeskAuth";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
-import { yupResolver } from '@hookform/resolvers/yup';
+import React from 'react';
+import useDeskAuth from "../../../../data/hooks/useDeskAuth";
+import {useForm} from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -12,18 +11,13 @@ const schema = yup.object().shape({
 
 function BasketFormDialog(props) {
     const {currentUserId} = useDeskAuth()
-    const {getAll} = useDeskUsers()
-    const allUsers = getAll()
-    const {submit, basket}= props
+    const {basket} = props
 
 
     const defaultValues = basket ? basket : {
         requestBy: currentUserId,
         assignTo: currentUserId,
     }
-
-    const allUsersToDisplay = allUsers && allUsers.map(user => <option
-        key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>)
 
     const onSubmit = (updatedBasket) => {
         const completeBasket = basket ? {...basket, ...updatedBasket}:updatedBasket
@@ -44,8 +38,8 @@ function BasketFormDialog(props) {
     return (
         <Dialog open={true} aria-labelledby="form-dialog-title" fullWidth={true}>
             <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <DialogTitle id="form-dialog-title">{basket?'Update a basket':'Create a basket'}</DialogTitle>
-            <DialogContent>
+                <DialogTitle id="form-dialog-title">{basket ? 'Update a basket' : 'Create a basket'}</DialogTitle>
+                <DialogContent>
 
                     <div className="form-group">
                         <label className=" control-label" htmlFor="title">Title</label>
@@ -55,16 +49,16 @@ function BasketFormDialog(props) {
                         </div>
                     </div>
 
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="default">
-                    Cancel
-                </Button>
-                <Button type="submit" color="primary" variant={"contained"}>
-                    Validate
-                </Button>
-            </DialogActions>
-        </form>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="default">
+                        Cancel
+                    </Button>
+                    <Button type="submit" color="primary" variant={"contained"}>
+                        Validate
+                    </Button>
+                </DialogActions>
+            </form>
         </Dialog>
     );
 }

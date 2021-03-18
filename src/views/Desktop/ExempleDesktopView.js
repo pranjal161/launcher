@@ -1,7 +1,7 @@
+import ExempleBasketsView from "./components/ExempleBasketsView/ExempleBasketsView";
+import ExempleTicketsView from "./components/ExempleTicketsView/ExempleTicketsView";
 import React from 'react';
 import {Tab, Tabs} from "@material-ui/core";
-import ExempleTicketsView from "./components/ExempleTicketsView/ExempleTicketsView";
-import ExempleBasketsView from "./components/ExempleBasketsView/ExempleBasketsView";
 
 function ExempleDesktopView() {
     const [value, setValue] = React.useState(0);
@@ -17,7 +17,7 @@ function ExempleDesktopView() {
                 <Tab label="Both"  />
             </Tabs>
             <div className={"m-2"}>
-            {value === 0 && <ExempleTicketsView></ExempleTicketsView>}
+                {value === 0 && <ExempleTicketsView/>}
                 {value === 1 && <ExempleBasketsView/>}
             </div>
         </div>
