@@ -5,9 +5,14 @@ import * as basketActions from "../../store/actions/basketActions";
 
 
 const useAllBaskets = ({storeAs, ...rest} = {storeAs : 'baskets', limit:50}) => {
-    useFirestoreConnect([
+    //If we have a listen on the query, we dont subscribe again
+    const listenerExist = useSelector((state) => state.firestore.listeners.byId[storeAs])
+    const connectQuery = useCallback(() => listenerExist ? [{collection: 'not-exist', limit: 1}] : [
         {collection: 'baskets', storeAs, ...rest}
-    ])
+    ], [storeAs])
+    useFirestoreConnect(connectQuery)
+
+
     return useSelector((state) => state.firestore.ordered[storeAs])
 }
 

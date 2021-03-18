@@ -11,9 +11,9 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore' // make sure you add this for firestore
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
-import { createFirestoreInstance } from 'redux-firestore'
-import { firebase as fbConfig, rrfConfig} from "./config/config";
+import {ReactReduxFirebaseProvider} from 'react-redux-firebase'
+import {createFirestoreInstance} from 'redux-firestore'
+import {firebase as fbConfig, rrfConfig} from "./config/config";
 import configureStore from "./store/store2";
 
 const initialState = {}
@@ -23,7 +23,6 @@ firebase.initializeApp(fbConfig)
 
 
 const loading = () => {
-
     return (
         <div className="spinner">
             <DxcSpinner

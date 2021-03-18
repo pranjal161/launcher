@@ -33,13 +33,17 @@ function ExempleBasketsView() {
                     <AllBaskets handleBasketClick={handleBasketClick}/>
                 </div>
                 <div className="col-4">
-                    My baskets (assigned to me)
-                    <CreateButton/>
+                    <div className={"d-flex justify-content-between"}>
+                        <div>My tickets (assigned to me)</div>
+                        <CreateButton/>
+                    </div>
                     <MyBaskets handleBasketClick={handleBasketClick}/>
                 </div>
                 <div className="col-4">
                     Clicked baskets
-                    {clickedBaskets && Object.values(clickedBaskets).map(basket=> <BasketDetail id={basket.id} key={basket.id} remove={handleRemove}/>)}
+                    {clickedBaskets && Object.values(clickedBaskets).map(basket => <BasketDetail id={basket.id}
+                                                                                                 key={basket.id}
+                                                                                                 remove={handleRemove}/>)}
                 </div>
             </div>
         </div>
