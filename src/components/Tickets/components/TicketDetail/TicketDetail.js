@@ -18,9 +18,12 @@ function TicketDetail({id, remove}) {
                     <div className="card-body">
                         <h5 className="card-title">{ticket.title}</h5>
                         <p className="card-text">
-                            <small>{ticket.id}</small>
+                            <div className="d-flex justify-content-between">
+                                <span>Created by {ticket.creatorDisplay}</span>
+                                <small>{ticket.id}</small>
+                            </div>
                         </p>
-                        <a href="#" className="btn btn-danger" onClick={() => remove(id) }>Remove</a>
+                        <a href="#" className="btn btn-danger" onClick={() => remove(id)}>Remove</a>
                         {assignButton}
                         <UpdateButton ticket={ticket}/>
                     </div>

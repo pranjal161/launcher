@@ -4,7 +4,8 @@ export const create = (ticket) => {
         const firestore = getFirebase().firestore()
         console.log('getState()', getState())
         const creatorId = getState().auth.id
-        return firestore.collection('tickets').add({...ticket, creatorId })
+        const creatorDisplay = getState().firebase.profile.firstName + ' ' + getState().firebase.profile.lastName
+        return firestore.collection('tickets').add({...ticket, creatorId, creatorDisplay})
             .then((result) => {
                 dispatch({type: 'CREATE_TICKET_SUCCESS', result})
             }).catch(error => {
