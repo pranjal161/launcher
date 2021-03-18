@@ -43,7 +43,6 @@ export const signIn = (credentials) => {
 
 export const signOut = () => {
     return (dispatch, getState, {getFirebase}) => {
-        console.log('SIGNED_OUT REQUEST')
         const firebase = getFirebase()
 
         firebase.auth().signOut()
