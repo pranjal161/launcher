@@ -7,7 +7,6 @@ import * as ticketActions from "../../store/actions/ticketActions";
 const useAllTickets = ({storeAs, ...rest} = {storeAs : 'tickets', limit:50}) => {
     //If we have a listen on the query, we dont subscribe again
     const listenerExist = useSelector((state) => state.firestore.listeners.byId[storeAs])
-    console.log('listenerExist', listenerExist)
     const connectQuery = useCallback(() => listenerExist ? [{
         collection: 'not-exist',
         limit: 1
