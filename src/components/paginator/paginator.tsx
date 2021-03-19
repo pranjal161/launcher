@@ -10,7 +10,7 @@ const Paginator = (props: { totalItems: string | number, itemsPerPage: number, d
 
     useEffect(() => {
         changePage(1);
-    }, [props.totalItems]);
+    }, [data]);
 
     const prevClick = () => {
         changePage(page - 1);
