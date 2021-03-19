@@ -4,10 +4,11 @@ import { ApplicationContext } from '../../context/applicationContext';
 import Label from '../../components/label/label';
 import axios from 'axios';
 import { getLink } from '../../util/functions';
-import { useTranslation } from 'react-i18next';
+
+//import { useTranslation } from 'react-i18next';
 
 const FinancialInformation = (props: { contractResponse: any }) => {
-    const { t } = useTranslation();
+    //const { t } = useTranslation();
     const applicationContext = useContext(ApplicationContext);
     const [scheduledPayment, setScheduledPayment] = React.useState<undefined | any>();
     const [billingItem, setBillingItem] = React.useState<undefined | any>();

@@ -3,11 +3,11 @@ import React, { useContext, useState } from 'react';
 
 import { ApplicationContext } from '../../context/applicationContext';
 import DXCLogo from '../../assets/dxc_logo_wht.png';
+import SignedLinks from "./components/SignedLinks/SignedLinks";
 import en from '../../assets/gb.jpg';
 import fr from '../../assets/fr.jpg';
 import nl from '../../assets/nl.jpg';
 import {useHistory} from 'react-router-dom';
-import SignedLinks from "./components/SignedLinks/SignedLinks";
 
 const Header = () => {
     const history = useHistory();

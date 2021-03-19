@@ -11,7 +11,9 @@ export interface SettingInterface {
 
 const ApplicationContext = React.createContext<SettingInterface>({
     language: 'en',
-    changeLang: (newLang: string) => {},
+    changeLang: (newLang: string) => { 
+        // Nothing to do 
+    },
     headers: AppConfig.headers,
 });
 

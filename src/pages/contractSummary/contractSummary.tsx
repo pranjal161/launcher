@@ -84,11 +84,12 @@ const ContractSummary = () => {
     }, [applicationContext, contractUrl]);
 
     const getData = async (contractUrl: string) => {
-        axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {
+        await axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {
             setContractData(result.data);
             getRiskData(result.data._links);
             manageSectionVisibility(result.data);
             populateHistorySelect(result.data);
+            
             if (result.data._links && result.data._links['contract:role_list']) {
                 const partyUrl: string =
                     result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
@@ -98,9 +99,11 @@ const ContractSummary = () => {
                     }
                 });
             }
+
             if (getLink(result.data, 'cscaia:output_documents')) {
                 setOutputDoc(getLink(result.data, 'cscaia:output_documents'));
             }
+            
             if (getLink(result.data, 'cscaia:information_receipts')) {
                 setReceivedDoc(getLink(result.data, 'cscaia:information_receipts'));
             }
@@ -152,8 +155,11 @@ const ContractSummary = () => {
                             if (item.summary['membership:main']) {
                                 return item;
                             }
+                            else 
+                                return null;
                         },
                     );
+                    
                     if (mainRiskItem && mainRiskItem.href) {
                         setMainRisk(mainRiskItem.href);
                     }

@@ -17,7 +17,6 @@ const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) 
 
     useEffect(() => {
         getData();
-        // eslint-disable-next-line
     }, [applicationContext, props.url]);
 
     const getData = () => {
@@ -47,7 +46,7 @@ const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) 
                         {tableData._links.item.map((row: any) => (
                             <StyledHoverRow key={row['href']}>
                                 {props.columnId.map((columnItem) => (
-                                    <td>
+                                    <td key={columnItem.type}>
                                         {typeof columnItem.property === 'object'
                                             ? columnItem.property.map((id: string) => row['summary'][id])
                                             : // property is an array then concatenate
@@ -70,7 +69,9 @@ const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) 
                 <DxcTable>
                     <tr>
                         {props.columnId.map((columnItem) => (
-                            <th>{t(columnItem['label'])}</th>
+                            <th key={columnItem['label']}>
+                                {t(columnItem['label'])}
+                            </th>
                         ))}
                     </tr>
                     <tr>

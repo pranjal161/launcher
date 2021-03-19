@@ -32,7 +32,6 @@ function App() {
     useDeskSubscribe({collection: 'baskets'})
     useDeskSubscribe({collection: 'users'})
 
-
     axios.interceptors.request.use(
         function (config) {
             // spinning start to show
@@ -71,9 +70,7 @@ function App() {
                             )}
                         </>
                         <AlertContext.Consumer>
-                            {(context) => {
-                                return <Alert toastList={context.toastMessage}/>
-                            }}
+                            {(context) => <Alert toastList={context.toastMessage}/>}
                         </AlertContext.Consumer>
                         <>
                             {ready && (

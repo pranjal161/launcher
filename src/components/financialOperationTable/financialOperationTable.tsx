@@ -12,8 +12,6 @@ import { SwitchSummary } from '../../components/switchSummary/switchSummary';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
-const FinancialOperationTable = (props: { contractResponse: any }) => {
-
 /**
  * Display financial operation in a table
  * @param {props} props Contains information related to the contract
@@ -86,7 +84,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
     function getOperationItems(url: string, id: string) {
         if (url) {
             const tableUrl = url + '?_num=5';
-            axios.get(tableUrl, { headers: applicationContext.headers }).then(getResponse => {
+            axios.get(tableUrl, { headers: applicationContext.headers }).then((getResponse) => {
                 if (getResponse && getResponse.data['_links']['item']) {
                     if (!Array.isArray(getResponse.data['_links']['item'])) {
                         getResponse.data['_links']['item'] = [getResponse.data['_links']['item']];
@@ -278,7 +276,6 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             )}
         </>
     );
-}
 }
 
 export default FinancialOperationTable;

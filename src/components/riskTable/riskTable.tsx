@@ -8,7 +8,11 @@ const RiskTable = (props: { risks: Array<any> }) => {
     const applicationContext = useContext(ApplicationContext);
     const { t } = useTranslation();
 
-    useEffect(() => {}, [props.risks, applicationContext]);
+    useEffect(() => {
+        // Nothing to do
+    }, 
+    [props.risks, applicationContext]
+    );
 
     return (
         <>

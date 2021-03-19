@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void }) => {
     const url = props.response._links.self.href;
     const applicationContext = useContext(ApplicationContext);
-    const [funddata, setFundData] = useState<any>([]);
+    const [fundData, setFundData] = useState<any>([]);
     const [amount, setOperationAmount] = useState(props.response['operation:amount']);
     const [total, setTotal] = useState(0);
     const [investmentSplitPayload, setInvestmentSplitPayload] = useState<any>([]);
@@ -32,12 +32,14 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
                 );
             }
         });
+        
         Promise.all(requestArray).then((response: any[]) => {
-            response.map((res) => {
+            response.forEach((res) => { // Use forEach instead of map (no extra memory used)
                 const resHref = res.data['_links']['self'].href;
                 const currentItem = data.find(
                     (item: { [x: string]: any }) => item['allocation:coverage_fund'] === resHref,
                 );
+
                 if (currentItem) {
                     let result: any = {
                         allocation_fund: currentItem['allocation:coverage_fund'],
@@ -47,15 +49,18 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
                             : res.data['unit_linked_fund:net_cash_value'],
                         distribution: currentItem['allocation:rate'],
                     };
+
                     let payload = {
                         'allocation:coverage_fund': currentItem['allocation:coverage_fund'],
                         'allocation:rate': currentItem['allocation:rate'],
                     };
+
                     investmentSplitPayload.push(payload);
-                    funddata.push(result);
+                    fundData.push(result);
                 }
             });
-            setFundData(funddata);
+            
+            setFundData(fundData);
             setInvestmentSplitPayload(investmentSplitPayload);
             calculateTotal(investmentSplitPayload);
         });
@@ -63,26 +68,30 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
 
     const calculateTotal = (investmentSplitPayload: { [x: string]: number }[]) => {
         let total = 0;
+        
         investmentSplitPayload.forEach((element: { [x: string]: number }) => {
             total = total + element['allocation:rate'];
         });
+        
         setTotal(total);
     };
 
     const updateFunds = (change: any, data: any) => {
         if (change.target.value) {
-            investmentSplitPayload.map((element: { [x: string]: any }) => {
+            investmentSplitPayload.forEach((element: { [x: string]: any }) => { // Use forEach instead of map (no extra memory used)
                 if (element['allocation:coverage_fund'] === data['allocation_fund']) {
                     element['allocation:rate'] = parseInt(change.target.value);
                 }
             });
-            funddata.map((element: { [x: string]: any }) => {
+            
+            fundData.forEach((element: { [x: string]: any }) => { // Use forEach instead of map (no extra memory used)
                 if (element.allocation_fund === data['allocation_fund']) {
                     element.distribution = parseInt(change.target.value);
                 }
             });
         }
-        setFundData(funddata);
+        
+        setFundData(fundData);
         setInvestmentSplitPayload(investmentSplitPayload);
         calculateTotal(investmentSplitPayload);
     };
@@ -91,6 +100,7 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
         const payload = {
             investment_split: investmentSplitPayload,
         };
+        
         axios.patch(url, payload, { headers: applicationContext.headers }).then((res) => {
             const status_report = getStatusReport(res);
             alertContext.setToastList(status_report);
@@ -101,6 +111,7 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
             ) {
                 if (res.data._embedded['cscaia:execute']) {
                     const transferUrl = url + '/execute';
+                    
                     axios.post(transferUrl, {}, { headers: applicationContext.headers }).then((res) => {
                         props.onClickDialog();
                     });
@@ -120,7 +131,7 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
 
     return (
         <>
-            {funddata.length > 0 && (
+            {fundData.length > 0 && (
                 <>
                     <div className="col-12 pb-4">
                         <DxcInput label={t('_GROSS_AMOUNT')} value={amount} onBlur={updateAmount} margin="xxsmall" />
@@ -131,7 +142,7 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
                                 <th>{t('_FUND_LABEL')}</th>
                                 <th>{t('_DISTRIBUTION')} %</th>
                             </tr>
-                            {funddata.map((data: any, i: number) => (
+                            {fundData.map((data: any, i: number) => (
                                 <tr key={i}>
                                     <td>{data.fund_label}</td>
                                     <td>

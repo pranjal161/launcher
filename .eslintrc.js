@@ -17,7 +17,6 @@ module.exports = {
         "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
     ],
     "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/ban-types": ["error",
             {
                 "types": {
@@ -32,7 +31,9 @@ module.exports = {
                 "extendDefaults": true
             }
         ],
-        "accessor-pairs": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "accessor-pairs": "error",  
         "array-bracket-newline": "off",
         "array-bracket-spacing": "off",
         "array-callback-return": "error",
