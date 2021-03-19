@@ -11,9 +11,13 @@ import { AppContextProvider } from './context/applicationContext';
 import ClientView from './pages/clientView/clientView';
 import { Colors } from '../src/styles/dxc-theme';
 import ContractSummary from './pages/contractSummary/contractSummary';
+import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
 import Header from './components/header/header';
 import HomePage from './pages/homePage/homePage';
+import SignIn from "./views/SignIn/SignIn";
+import SignUp from "./views/SignUp/SignUp";
 import axios from 'axios';
+import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -21,8 +25,13 @@ import { useTranslation } from 'react-i18next';
  * @returns {void} The app depending on the context
  */
 function App() {
-    const { ready } = useTranslation();
+    const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
+
+    useDeskSubscribe({collection: 'tickets'})
+    useDeskSubscribe({collection: 'baskets'})
+    useDeskSubscribe({collection: 'users'})
+
 
     axios.interceptors.request.use(
         function (config) {
@@ -33,7 +42,7 @@ function App() {
         function (error) {
             setLoader(false);
             return Promise.reject(error);
-        },
+        }
     );
 
     axios.interceptors.response.use(
@@ -46,7 +55,7 @@ function App() {
         function (error) {
             setLoader(false);
             return Promise.reject(error);
-        },
+        }
     );
 
     return (
@@ -57,33 +66,44 @@ function App() {
                         <>
                             {isLoading && (
                                 <div className="spinner">
-                                    <DxcSpinner margin="xxsmall" mode="overlay" />
+                                    <DxcSpinner margin="xxsmall" mode="overlay"/>
                                 </div>
                             )}
                         </>
                         <AlertContext.Consumer>
-                            {(context) => <Alert toastList={context.toastMessage} />}
+                            {(context) => {
+                                return <Alert toastList={context.toastMessage}/>
+                            }}
                         </AlertContext.Consumer>
                         <>
                             {ready && (
                                 <Router basename="/omnichannel/react">
-                                    <Header />
+                                    <Header/>
                                     <Switch>
                                         <Route exact path="/">
-                                            <Redirect to="/home" />
+                                            <Redirect to="/home"/>
                                         </Route>
                                         <Route path="/home" exact>
-                                            <HomePage />
+                                            <HomePage/>
                                         </Route>
                                         <Route path="/contracts/:contractId" exact>
-                                            <ContractSummary />
+                                            <ContractSummary/>
                                         </Route>
                                         <Route path="/clientView/person/:personId" exact>
-                                            <ClientView />
+                                            <ClientView/>
                                         </Route>
                                         <Route path="/clientView/organization/:organizationId" exact>
                                             {/* to test */}
-                                            <ClientView />
+                                            <ClientView/>
+                                        </Route>
+                                        <Route path="/signin" exact>
+                                            <SignIn/>
+                                        </Route>
+                                        <Route path="/signup" exact>
+                                            <SignUp/>
+                                        </Route>
+                                        <Route path="/exemple/desktop" exact>
+                                            <ExempleDesktopView/>
                                         </Route>
                                     </Switch>
                                 </Router>

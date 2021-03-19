@@ -6,7 +6,8 @@ import DXCLogo from '../../assets/dxc_logo_wht.png';
 import en from '../../assets/gb.jpg';
 import fr from '../../assets/fr.jpg';
 import nl from '../../assets/nl.jpg';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+import SignedLinks from "./components/SignedLinks/SignedLinks";
 
 const Header = () => {
     const history = useHistory();
@@ -48,16 +49,20 @@ const Header = () => {
             <DxcHeader
                 logoSrc={DXCLogo}
                 onClick={goToHome}
-                padding={{ right: 'xsmall' }}
+                padding={{right: 'xsmall'}}
                 content={
                     <>
-                        <DxcSelect
-                            options={langs}
-                            onChange={changeLang}
-                            value={lang}
-                            margin="xxsmall"
-                            padding="xxsmall"
-                        ></DxcSelect>
+                        <SignedLinks/>
+                        <div style={{width: '100px'}}>
+                            <DxcSelect
+                                options={langs}
+                                onChange={changeLang}
+                                value={lang}
+                                margin="xxsmall"
+                                padding="xxsmall"
+                            />
+                        </div>
+
                     </>
                 }
             />
