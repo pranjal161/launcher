@@ -11,6 +11,7 @@ import HomePage from "./pages/homePage/homePage";
 import React, {useState} from "react";
 import SignIn from "./views/SignIn/SignIn";
 import SignUp from "./views/SignUp/SignUp";
+import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
 import {useTranslation} from "react-i18next";
 import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import {AppContextProvider} from "./context/applicationContext";
@@ -21,6 +22,12 @@ import {Colors} from "./styles/dxc-theme";
 function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
+
+    useDeskSubscribe({collection: 'tickets'})
+    useDeskSubscribe({collection: 'baskets'})
+    useDeskSubscribe({collection: 'users'})
+
+
     axios.interceptors.request.use(
         function (config) {
             // spinning start to show
