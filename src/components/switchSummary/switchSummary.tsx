@@ -1,13 +1,13 @@
-import React from 'react';
-import { useEffect, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useEffect } from 'react';
+
+import { AppConfig } from '../../config/appConfig';
+import { ApplicationContext } from '../../context/applicationContext';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
-import { ApplicationContext } from '../../context/applicationContext';
-import { AppConfig } from '../../config/appConfig';
 import axios from 'axios';
-export const SwitchSummary = (props: { switchSummaryHref: string }) => {
+import { useTranslation } from 'react-i18next';
 
+export const SwitchSummary = (props: { switchSummaryHref: string }) => {
     const { t } = useTranslation();
     const [disinvestmentSplitList, setDisinvestmentSplitList] = React.useState([]);
     const [switchResponse, setSwitchResponse] = React.useState([]);
@@ -22,20 +22,26 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
     const getData = () => {
         axios.get(props.switchSummaryHref, { headers: config.headers }).then((res: any) => {
             setSwitchResponse(res.data);
-            const disinvestmentSplitListItems: any = res.data && res.data['disinvestment_split'] && Array.isArray(res.data['disinvestment_split']) ? res.data['disinvestment_split'] :
-                [res['disinvestment_split']];
+            const disinvestmentSplitListItems: any =
+                res.data && res.data['disinvestment_split'] && Array.isArray(res.data['disinvestment_split'])
+                    ? res.data['disinvestment_split']
+                    : [res['disinvestment_split']];
             setDisinvestmentSplitList(disinvestmentSplitListItems);
 
-            const savingsFlowListHref = res.data['_links'] && res.data['_links']['operation:savings_flow_list'] ? res.data['_links']['operation:savings_flow_list'].href : '';
-            axios.get(savingsFlowListHref, { headers: applicationContext.headers }).then(response => {
+            const savingsFlowListHref =
+                res.data['_links'] && res.data['_links']['operation:savings_flow_list']
+                    ? res.data['_links']['operation:savings_flow_list'].href
+                    : '';
+            axios.get(savingsFlowListHref, { headers: applicationContext.headers }).then((response) => {
                 if (response && response.data['_links'] && response.data['_links']['item']) {
-                    const savingsFlowListItems: any = Array.isArray(response.data['_links']['item']) ? response.data['_links']['item'] :
-                        [response.data['_links']['item']];
+                    const savingsFlowListItems: any = Array.isArray(response.data['_links']['item'])
+                        ? response.data['_links']['item']
+                        : [response.data['_links']['item']];
                     setSavingsFlowListItems(savingsFlowListItems);
                 }
             });
         });
-    }
+    };
 
     return (
         <>
@@ -54,10 +60,20 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                             <Label propertyName="switch:type_label" label="_TYPE" data={switchResponse} />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={switchResponse} type="date" />
+                            <Label
+                                propertyName="operation:value_date"
+                                label="_EFFECTIVE_DATE"
+                                data={switchResponse}
+                                type="date"
+                            />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={switchResponse} type="currency" />
+                            <Label
+                                propertyName="operation:amount"
+                                label="_GROSS_AMOUNT"
+                                data={switchResponse}
+                                type="currency"
+                            />
                         </div>
                     </div>
                 </>
@@ -66,7 +82,7 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                 <>
                     <h5>{t('_DISINVESTED_FUNDS')}</h5>
                     <DxcTable>
-                        <tr >
+                        <tr>
                             <th>{t('_ALLOCATION')}</th>
                             <th>{t('_ALLOCATION_RATE')}</th>
                             <th>{t('_GLOBAL_RATE')}</th>
@@ -106,8 +122,4 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             )}
         </>
     );
-
-}
-
-
-
+};

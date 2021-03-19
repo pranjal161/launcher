@@ -1,22 +1,21 @@
-import { useTranslation } from 'react-i18next';
-import { DxcTable } from '@dxc-technology/halstack-react';
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+
 import { ApplicationContext } from '../../context/applicationContext';
+import { DxcTable } from '@dxc-technology/halstack-react';
+import { useTranslation } from 'react-i18next';
 
 const RiskTable = (props: { risks: Array<any> }) => {
-    const applicationContext = useContext(ApplicationContext)
+    const applicationContext = useContext(ApplicationContext);
     const { t } = useTranslation();
 
-    useEffect(() => { }, [props.risks, applicationContext]);
+    useEffect(() => {}, [props.risks, applicationContext]);
 
     return (
         <>
             {props.risks.length > 0 && (
                 <DxcTable>
                     <tr>
-                        <th>
-                            {t('_RISK_DATA')}
-                        </th>
+                        <th>{t('_RISK_DATA')}</th>
                     </tr>
                     {props.risks.map((row) => (
                         <tr key={row['href']}>
@@ -27,5 +26,5 @@ const RiskTable = (props: { risks: Array<any> }) => {
             )}
         </>
     );
-}
-export default RiskTable
+};
+export default RiskTable;

@@ -1,29 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import './i18n';
 import './index.css';
 import App from './App';
-import './i18n';
-import reportWebVitals from './reportWebVitals';
 import { DxcSpinner } from '@dxc-technology/halstack-react';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import reportWebVitals from './reportWebVitals';
 
-const loading = () => {
-
-  return (
+const loading = () => (
     <div className="spinner">
-      <DxcSpinner
-      margin="xxsmall"
-        mode="overlay" />
+        <DxcSpinner margin="xxsmall" mode="overlay" />
     </div>
-  );
-}
+);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <React.Suspense fallback={loading()}>
-      <App />
-    </React.Suspense>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <React.Suspense fallback={loading()}>
+            <App />
+        </React.Suspense>
+    </React.StrictMode>,
+    document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

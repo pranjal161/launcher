@@ -1,41 +1,46 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
-import { DxcDialog, DxcSidenav } from '@dxc-technology/halstack-react';
-import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
-import InvestmentTab from '../../components/InvestmentTab/investmentTab';
-import RiskTable from '../../components/riskTable/riskTable';
-import { PersonIcon } from '../../assets/svg';
-import Label from '../../components/label/label';
-import { DxcSelect } from '@dxc-technology/halstack-react';
-import FinancialOperationTable from '../../components/financialOperationTable/financialOperationTable';
-import { ApplicationContext } from '../../context/applicationContext';
-import { StyledBanner } from '../../styles/global-style';
-import CoverageTable from '../../components/coveragesTable/coveragesTable';
-import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
-import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
-import ClausesTable from '../../components/clausesTable/clausesTable';
-import Documents from '../../components/documents/documents';
-import { getLink } from '../../util/functions';
-import FinancialInformation from '../../components/financialInformation/financialInformation';
 import './contractSummary.css';
 
+import { DxcDialog, DxcSelect, DxcSidenav } from '@dxc-technology/halstack-react';
+import React, { useContext, useEffect, useState } from 'react';
+
+import ActivitiesTable from '../../components/activitiesTable/activitiesTable';
+import { ApplicationContext } from '../../context/applicationContext';
+import ClausesTable from '../../components/clausesTable/clausesTable';
+import CoverageTable from '../../components/coveragesTable/coveragesTable';
+import Documents from '../../components/documents/documents';
+import FinancialInformation from '../../components/financialInformation/financialInformation';
+import FinancialOperationTable from '../../components/financialOperationTable/financialOperationTable';
+import InvestmentTab from '../../components/InvestmentTab/investmentTab';
+import Label from '../../components/label/label';
+import PartyRoleTable from '../../components/partyRoleTable/partyRoleTable';
+import { PersonIcon } from '../../assets/svg';
+import RiskTable from '../../components/riskTable/riskTable';
+import { StyledBanner } from '../../styles/global-style';
+import UnsolicitedPayment from '../../components/UnsolicitedPayment/unsolicitedPayment';
+import axios from 'axios';
+import { getLink } from '../../util/functions';
+import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+/**
+ * Retrieve information and return the summary of a contract
+ * @returns {void} Display the summary of a contract
+ */
 const ContractSummary = () => {
     const location: any = useLocation();
     const { t } = useTranslation();
     const sections = [
         { label: t('_INVESTMENT'), id: 'investment' },
-        { label: t("_INTERESTED_PARTIES"), id: 'parties' },
-        { label: t("_RISKS"), id: 'risks' },
-        { label: t("_COVERAGES"), id: 'coverages' },
-        { label: t("_CLAUSES"), id: 'clauses' },
-        { label: t("_DOCUMENTS"), id: 'documents' },
-        { label: t("_FINANCIAL_OPERATIONS"), id: 'financial_op' },
-        { label: t("_FINANCIAL_INFORMATION"), id: 'financial_info' },
-        { label: t("_ACTIVITIES"), id: 'activities' },
+        { label: t('_INTERESTED_PARTIES'), id: 'parties' },
+        { label: t('_RISKS'), id: 'risks' },
+        { label: t('_COVERAGES'), id: 'coverages' },
+        { label: t('_CLAUSES'), id: 'clauses' },
+        { label: t('_DOCUMENTS'), id: 'documents' },
+        { label: t('_FINANCIAL_OPERATIONS'), id: 'financial_op' },
+        { label: t('_FINANCIAL_INFORMATION'), id: 'financial_info' },
+        { label: t('_ACTIVITIES'), id: 'activities' },
     ];
-    const [visibleSections, setSections] = useState([])
+    const [visibleSections, setSections] = useState([]);
     const [currentSection, setCurrentSection] = useState<string>();
     const [contractUrl, setContractUrl] = useState(location.state.contractUrl);
     const [contractData, setContractData] = useState<undefined | any>();
@@ -47,22 +52,22 @@ const ContractSummary = () => {
     const [historySelect, changeHistory] = useState('');
     const [historySelectOptions, setHistoryOptions] = useState([]);
     const [isDialogVisible, setDialogVisible] = useState(false);
-    const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>()
+    const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>();
     const [outputDoc, setOutputDoc] = useState('');
     const [receivedDoc, setReceivedDoc] = useState('');
     const actionOptions = [
         {
-            value: "claim",
-            label: t('_DECLARE_CLAIM')
+            value: 'claim',
+            label: t('_DECLARE_CLAIM'),
         },
         {
-            value: "contract",
-            label: t('_AMENDMENT')
+            value: 'contract',
+            label: t('_AMENDMENT'),
         },
         {
-            value: "unsolicitedPayment",
-            label: t('_UNSOLICITED_PAYMENT')
-        }
+            value: 'unsolicitedPayment',
+            label: t('_UNSOLICITED_PAYMENT'),
+        },
     ];
     const onActionChange = (newValue: string) => {
         changeAction(newValue);
@@ -79,14 +84,15 @@ const ContractSummary = () => {
     }, [applicationContext, contractUrl]);
 
     const getData = async (contractUrl: string) => {
-        axios.get(contractUrl, { headers: applicationContext.headers }).then(result => {
+        axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {
             setContractData(result.data);
             getRiskData(result.data._links);
             manageSectionVisibility(result.data);
             populateHistorySelect(result.data);
             if (result.data._links && result.data._links['contract:role_list']) {
-                const partyUrl: string = result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
-                axios.get(partyUrl, { headers: applicationContext.headers }).then(partyRoleRes => {
+                const partyUrl: string =
+                    result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
+                axios.get(partyUrl, { headers: applicationContext.headers }).then((partyRoleRes) => {
                     if (partyRoleRes && partyRoleRes.data._links && partyRoleRes.data._links.item) {
                         setPartyRoleData(partyRoleRes.data._links.item);
                     }
@@ -99,29 +105,31 @@ const ContractSummary = () => {
                 setReceivedDoc(getLink(result.data, 'cscaia:information_receipts'));
             }
         });
-    }
+    };
     const populateHistorySelect = (contractResponse: any) => {
         let stateUrl;
         if (contractResponse && contractResponse['_links'] && contractResponse['_links']['cscaia:states']) {
             stateUrl = contractResponse._links['cscaia:states'].href;
         } else if (contractUrl.indexOf('/states') >= 0) {
-            stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf("/"));
+            stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf('/'));
         }
         if (stateUrl) {
             axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
                 const response: any = res && res['data'];
                 if (response && response['_links'] && response['_links']['item']) {
-                    const items = Array.isArray(response['_links']['item']) ? response['_links']['item'] : [response['_links']['item']];
+                    const items = Array.isArray(response['_links']['item'])
+                        ? response['_links']['item']
+                        : [response['_links']['item']];
                     const historyOptions: any = [];
                     const version = t('_STATE_VERSION');
                     const fromLabel = t('_FROM_VERSION');
                     const toLabel = t('_TO_VERSION');
-                    items.forEach(element => {
+                    items.forEach((element) => {
                         const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
                         const value = element.href;
                         const data = {
                             value: value,
-                            label: label
+                            label: label,
                         };
                         historyOptions.push(data);
                     });
@@ -129,74 +137,78 @@ const ContractSummary = () => {
                 }
             });
         }
-    }
-    const getRiskData = (data: { [x: string]: any; }) => {
+    };
+    const getRiskData = (data: { [x: string]: any }) => {
         if (data && data['contract:membership_list']) {
             const risks: string = data['contract:membership_list'].href;
-            axios.get(risks, { headers: applicationContext.headers }).then(riskResponse => {
+            axios.get(risks, { headers: applicationContext.headers }).then((riskResponse) => {
                 if (riskResponse && riskResponse.data && riskResponse.data._links && riskResponse.data._links.item) {
                     if (!Array.isArray(riskResponse.data._links.item)) {
                         riskResponse.data._links.item = [riskResponse.data._links.item];
                     }
                     setRiskData(riskResponse.data._links.item);
-                    const mainRiskItem = riskResponse.data._links.item.find((item: { summary: { [x: string]: any; }; }) => {
-                        if (item.summary['membership:main']) {
-                            return item;
-                        }
-                    })
+                    const mainRiskItem = riskResponse.data._links.item.find(
+                        (item: { summary: { [x: string]: any } }) => {
+                            if (item.summary['membership:main']) {
+                                return item;
+                            }
+                        },
+                    );
                     if (mainRiskItem && mainRiskItem.href) {
-                        setMainRisk(mainRiskItem.href)
+                        setMainRisk(mainRiskItem.href);
                     }
                 }
             });
         }
-    }
+    };
 
     const OwnerName = () => {
-        const ownerPartyRole = partyRole && Array.isArray(partyRole) ? partyRole : typeof partyRole !== "undefined" ? [partyRole] : '';
-        const ownerName = ownerPartyRole && ownerPartyRole.length > 0 && ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
-        return (
-            <>
-                {ownerName && ownerName['title'] && (
-                    <label className="d-block">{ownerName['title']}</label>
-                )}
-            </>
-        );
+        const ownerPartyRole =
+            partyRole && Array.isArray(partyRole) ? partyRole : typeof partyRole !== 'undefined' ? [partyRole] : '';
+        const ownerName =
+            ownerPartyRole &&
+            ownerPartyRole.length > 0 &&
+            ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
+        return <>{ownerName && ownerName['title'] && <label className="d-block">{ownerName['title']}</label>}</>;
     };
     const onClickDialog = () => {
         setDialogVisible(false);
-    }
+    };
     const createunsollicitedPayment = () => {
         const operationUrl = contractUrl + '/operations';
         axios.get(operationUrl, { headers: applicationContext.headers }).then((operationRes) => {
             if (operationRes && operationRes.data._links && operationRes.data._links['item']) {
                 const operationItem = operationRes.data._links['item'];
-                const payment = operationItem.find((item: { name: string; }) => item.name === 'unsolicited_payment');
+                const payment = operationItem.find((item: { name: string }) => item.name === 'unsolicited_payment');
                 if (payment && payment.href) {
                     axios.post(payment.href, {}, { headers: applicationContext.headers }).then((res) => {
                         if (res && res.data) {
-                            setunsolicitedPaymentRes(res.data)
+                            setunsolicitedPaymentRes(res.data);
                             setDialogVisible(true);
                         }
-                    })
+                    });
                 }
             }
-        })
-    }
-    const manageSectionVisibility = (contract: { [x: string]: any; }) => {
+        });
+    };
+    const manageSectionVisibility = (contract: { [x: string]: any }) => {
         let newSections: any;
         const productType = contract['contract:product_type'];
         if (productType === 'multi_risk') {
-            newSections = sections.filter(item => { return (item.id !== 'investment' && item.id !== 'coverages') })
+            newSections = sections.filter((item) => item.id !== 'investment' && item.id !== 'coverages');
         } else if (productType !== 'savings') {
-            newSections = sections.filter(item => { return (item.id !== 'investment' && item.id !== 'risks') })
+            newSections = sections.filter((item) => item.id !== 'investment' && item.id !== 'risks');
         } else if (productType === 'savings') {
-            newSections = sections.filter(item => { return item.id !== 'risks' })
+            newSections = sections.filter((item) => item.id !== 'risks');
         }
         setSections(newSections);
-        setCurrentSection(newSections[0].id)
-    }
+        setCurrentSection(newSections[0].id);
+    };
 
+    /**
+     * Display the contract in a banner
+     * @returns {void} Display main information of a contract in a banner
+     */
     function ContractBanner() {
         return (
             <StyledBanner>
@@ -216,10 +228,20 @@ const ContractSummary = () => {
                             <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="contract:start_date" label="_EFFECTIVE_DATE" data={contractData} type="date" />
+                            <Label
+                                propertyName="contract:start_date"
+                                label="_EFFECTIVE_DATE"
+                                data={contractData}
+                                type="date"
+                            />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="contract:renewal_date" label="_RENEWAL_DATE" data={contractData} type="date" />
+                            <Label
+                                propertyName="contract:renewal_date"
+                                label="_RENEWAL_DATE"
+                                data={contractData}
+                                type="date"
+                            />
                         </div>
                     </div>
                     <div className="col-4">
@@ -236,7 +258,12 @@ const ContractSummary = () => {
                             <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="contract:end_validity_date" label="_END_DATE" data={contractData} type="date" />
+                            <Label
+                                propertyName="contract:end_validity_date"
+                                label="_END_DATE"
+                                data={contractData}
+                                type="date"
+                            />
                         </div>
                     </div>
                     <div className="col-2">
@@ -244,7 +271,7 @@ const ContractSummary = () => {
                             <DxcSelect
                                 options={actionOptions}
                                 onChange={onActionChange}
-                                label={t("_ACTIONS")}
+                                label={t('_ACTIONS')}
                                 value={action}
                             ></DxcSelect>
                         </div>
@@ -252,14 +279,14 @@ const ContractSummary = () => {
                             <DxcSelect
                                 options={historySelectOptions}
                                 onChange={onHistoryChange}
-                                label={t("_HISTORY")}
+                                label={t('_HISTORY')}
                                 value={historySelect}
                             ></DxcSelect>
                         </div>
                     </div>
                 </div>
             </StyledBanner>
-        )
+        );
     }
     return (
         <>
@@ -269,7 +296,13 @@ const ContractSummary = () => {
                     <div className="contract-sidenav">
                         <DxcSidenav>
                             {visibleSections.map((item, index) => (
-                                <p key= {index} className={item['id'] === currentSection ? 'selectedSection' : 'section'} onClick={() => setCurrentSection(item['id'])}>{item['label']}</p>
+                                <p
+                                    key={index}
+                                    className={item['id'] === currentSection ? 'selectedSection' : 'section'}
+                                    onClick={() => setCurrentSection(item['id'])}
+                                >
+                                    {item['label']}
+                                </p>
                             ))}
                         </DxcSidenav>
                     </div>
@@ -291,7 +324,7 @@ const ContractSummary = () => {
                         <RiskTable risks={risk} />
                     </div>
                 )}
-                {(currentSection === 'coverages' && mainRisk) && (
+                {currentSection === 'coverages' && mainRisk && (
                     <div>
                         <CoverageTable mainRiskUrl={mainRisk} />
                     </div>
@@ -303,7 +336,7 @@ const ContractSummary = () => {
                 )}
                 {currentSection === 'documents' && (
                     <div>
-                        <Documents outputDoc={outputDoc} receivedDoc={receivedDoc}/>
+                        <Documents outputDoc={outputDoc} receivedDoc={receivedDoc} />
                     </div>
                 )}
                 {currentSection === 'financial_op' && (
@@ -328,6 +361,6 @@ const ContractSummary = () => {
                 </DxcDialog>
             )}
         </>
-    )
-}
+    );
+};
 export default ContractSummary;
