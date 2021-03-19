@@ -2,7 +2,6 @@ export const create = (ticket) => {
     return (dispatch, getState, {getFirebase,}) => {
         dispatch({type: 'CREATE_TICKET_PENDING', ticket})
         const firestore = getFirebase().firestore()
-        console.log('getState()', getState())
         const creatorId = getState().auth.id
         const creatorDisplay = getState().firebase.profile.firstName + ' ' + getState().firebase.profile.lastName
         return firestore.collection('tickets').add({...ticket, creatorId, creatorDisplay})
