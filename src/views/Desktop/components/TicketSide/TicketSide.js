@@ -1,26 +1,27 @@
-import React, {useReducer} from 'react';
-import {initialState, reducer} from "./store";
-import Context from "./Context";
+import React from 'react';
 import Toolbar from "./components/Sidebar/Toolbar";
-import {Grid} from "@material-ui/core";
+import {Drawer, Grid} from "@material-ui/core";
+import {withTicketStore} from "../../Norbert/LocalStore/withTicketStore";
+import TicketDetail from "../../../../components/Tickets/components/TicketDetail/TicketDetail";
 
-function TicketSide(props) {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const TicketDetailBound = () => (<div>Content</div>)
-
+function TicketSide({state}) {
+    const mapStateToProps = (state) => ({
+        id: state.ticketId,
+        sectionId: state.sectionId
+    })
+    const TicketDetailBound = withTicketStore(TicketDetail, mapStateToProps)
+    const ToolbarBound = withTicketStore(Toolbar)
     return (
-        <Context.Provider value={{state, dispatch,}}>
-            <Grid container spacing={3}>
+        <Drawer open={state.ticketId} anchor={"right"} variant={"persistent"}>
+            <Grid container>
                 <Grid item>
-                    <Toolbar></Toolbar>
+                    <ToolbarBound/>
                 </Grid>
                 <Grid item>
-                    <TicketDetailBound></TicketDetailBound>
+                    <TicketDetailBound/>
                 </Grid>
             </Grid>
-
-
-        </Context.Provider>
+        </Drawer>
     );
 }
 
