@@ -13,7 +13,12 @@ const MyTicketsConnected = () => {
     const mapDispatchToProps = (dispatch) => ({
         onClick: (object) => dispatch(selectTicket(object.id))
     })
-    const Impl = withTicketStore(MyTickets, null, mapDispatchToProps)
+
+    const mapStateToProps = (state) => ({
+        ticketId: state.ticketId,
+    })
+
+    const Impl = withTicketStore(MyTickets, mapStateToProps, mapDispatchToProps)
     return <Impl/>
 }
 

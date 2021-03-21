@@ -2,20 +2,13 @@ import React from 'react';
 import UpdateButton from "../UpdateButton/UpdateButton";
 import useDeskTickets from "../../../../data/hooks/useDeskTickets";
 import useDeskAuth from "../../../../data/hooks/useDeskAuth";
-import {Button, Card, CardActions, CardContent, CardHeader, makeStyles} from "@material-ui/core";
-import clsx from "clsx";
+import {Button, makeStyles} from "@material-ui/core";
+import Summary from "./components/Summary/Summary";
 
 const useStyles = makeStyles(theme => ({
     root: {},
     content: {
         padding: 0
-    },
-    actions: {
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        '& > * + *': {
-            marginLeft: 0
-        }
     },
     buttonIcon: {
         marginRight: theme.spacing(1)
@@ -38,32 +31,13 @@ function TicketDetail({id, sectionId, className, onRemove, onClose}) {
         <a href="#" className="btn btn-warning ml-2" onClick={removeToCurrentUser}>Unassign to me</a> :
         <a href="#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
 
+    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Remove</a>{assignButton}
+        <UpdateButton ticket={ticket}/>
+        <Button onClick={closeHandle}>Close</Button></>)
 
     if (ticket) {
         return (
-            <Card
-                className={clsx(classes.root, className)}
-            >
-                <CardHeader title="Order info"/>
-                <CardContent>
-                    <h5 className="card-title">{ticket.title}</h5>
-                    <p className="card-text d-flex justify-content-between">
-                        <span>Created by {ticket.creatorDisplay}</span>
-                        <small>{ticket.id}</small>
-                    </p>
-                    <p>
-                        {sectionId}
-                    </p>
-                </CardContent>
-                <CardActions>
-                    <a href="#" className="btn btn-danger" onClick={removeHandle}>Remove</a>
-                    {assignButton}
-                    <UpdateButton ticket={ticket}/>
-                    <Button onClick={closeHandle}>Close</Button>
-                </CardActions>
-            </Card>
-
-
+            <Summary ticket={ticket} actions={Actions}/>
         )
     } else
         return (<div className="container center">Loading ticket ...</div>)

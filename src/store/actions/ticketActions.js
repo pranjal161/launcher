@@ -1,10 +1,16 @@
+import {addDays} from "../../util/functions";
+
 export const create = (ticket) => {
     return (dispatch, getState, {getFirebase,}) => {
         dispatch({type: 'CREATE_TICKET_PENDING', ticket})
         const firestore = getFirebase().firestore()
         const creatorId = getState().auth.id
         const creatorDisplay = getState().firebase.profile.firstName + ' ' + getState().firebase.profile.lastName
-        return firestore.collection('tickets').add({...ticket, creatorId, creatorDisplay})
+
+        const receivedDate = Date.now()
+        const deadlineDate = addDays(receivedDate, 2)
+
+        return firestore.collection('tickets').add({deadlineDate, receivedDate, ...ticket, creatorId, creatorDisplay})
             .then((result) => {
                 dispatch({type: 'CREATE_TICKET_SUCCESS', result})
             }).catch(error => {

@@ -1,10 +1,10 @@
 import React from 'react';
 
 function TicketList(props) {
-    const {tickets, onClick} = props
+    const {tickets, onClick, ticketId} = props
 
     const handleClick = (ticket) => onClick && onClick(ticket)
-    const selected = (id) => props.state.ticketId === id
+    const selected = (id) => ticketId === id
 
     return (
         <ul className="list-group mt-2">
