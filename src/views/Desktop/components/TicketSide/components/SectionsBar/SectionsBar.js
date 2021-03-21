@@ -21,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SectionsBar(props) {
-    const {value, onChange} = props
+function SectionsBar({value, onChange}) {
 
     const classes = useStyles();
     const handleClick = (sectionId) => {

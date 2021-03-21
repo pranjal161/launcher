@@ -21,7 +21,6 @@ export const closeTicketDetail = () => ({
 export const initialState = {
     ticketId: undefined,
     sectionId: undefined,
-    openTicketDetail: false
 };
 
 export const reducer = (state = initialState, action) => {
