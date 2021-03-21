@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import moment from 'moment';
 import {makeStyles} from '@material-ui/styles';
-import {Card, CardContent, CardHeader, List, ListItem, Typography} from '@material-ui/core';
+import {Card, CardActions, CardContent, CardHeader, List, ListItem, Typography} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
@@ -16,11 +16,11 @@ const useStyles = makeStyles(theme => ({
     listItem: {
         padding: '2px',
         justifyContent: 'space-between'
-    }
+    },
 }));
 
 const Summary = props => {
-    const {ticket, className, ...rest} = props;
+    const {ticket, className, actions, onClose, sectionId, ...rest} = props;
 
     const classes = useStyles();
 
@@ -30,7 +30,7 @@ const Summary = props => {
             className={clsx(classes.root, className)}
         >
             <CardHeader
-                action={<CloseIcon/>}
+                action={<CloseIcon onClick={onClose}/>}
                 className={classes.header}
                 disableTypography
                 title={
@@ -78,15 +78,25 @@ const Summary = props => {
                     <ListItem
                         className={classes.listItem}
                         disableGutters
-                        divider
                     >
                         <Typography variant="subtitle2">Status</Typography>
                         <Typography variant="h6">
                             {ticket.status}
                         </Typography>
                     </ListItem>
+                    <ListItem
+                        className={classes.listItem}
+                        disableGutters
+                    >
+                        <Typography variant="subtitle2">Selected section</Typography>
+                        <Typography variant="h6">
+                            {sectionId}
+                        </Typography>
+                    </ListItem>
+
                 </List>
             </CardContent>
+            {actions && <CardActions>{actions}</CardActions>}
         </Card>
     );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import UpdateButton from "../UpdateButton/UpdateButton";
 import useDeskTickets from "../../../../data/hooks/useDeskTickets";
 import useDeskAuth from "../../../../data/hooks/useDeskAuth";
-import {Button, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import Summary from "./components/Summary/Summary";
 
 const useStyles = makeStyles(theme => ({
@@ -32,12 +32,11 @@ function TicketDetail({id, sectionId, className, onRemove, onClose}) {
         <a href="#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
 
     const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Remove</a>{assignButton}
-        <UpdateButton ticket={ticket}/>
-        <Button onClick={closeHandle}>Close</Button></>)
+        <UpdateButton ticket={ticket}/></>)
 
     if (ticket) {
         return (
-            <Summary ticket={ticket} actions={Actions}/>
+            <Summary ticket={ticket} actions={Actions} onClose={closeHandle} sectionId={sectionId}/>
         )
     } else
         return (<div className="container center">Loading ticket ...</div>)

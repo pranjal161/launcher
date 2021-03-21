@@ -41,7 +41,9 @@ function ExempleTicketsView() {
                     Clicked tickets
                     {clickedTickets && Object.values(clickedTickets).map(ticket => <TicketDetail id={ticket.id}
                                                                                                  key={ticket.id}
-                                                                                                 OnRemove={handleRemove}/>)}
+                                                                                                 OnRemove={handleRemove}
+                                                                                                 onClose={() => handleRemove(ticket.id)}
+                    />)}
                 </div>
             </div>
         </div>
