@@ -5,13 +5,19 @@ import {Grid} from "@material-ui/core";
 import MyTickets from "../../../../components/Tickets/MyTickets";
 import {withTicketStore} from "./components/LocalStore/withTicketStore";
 import Context from "./components/LocalStore/Context";
-import {initialState, reducer} from "./components/LocalStore/store";
+import {initialState, reducer, selectTicket} from "./components/LocalStore/store";
 
 
 function TrainingNorbert(props) {
     // I create a contextual store
     const [state, dispatch] = useReducer(reducer, initialState);
-    const MyTicketsBound = withTicketStore(MyTickets)
+
+    //Bound the ticketlist to the store
+    const mapDispatchToProps = (dispatch) => ({
+        onClick: (object) => dispatch(selectTicket(object.id))
+    })
+    const MyTicketsBound = withTicketStore(MyTickets, null, mapDispatchToProps)
+
     const TicketSideBound = withTicketStore(TicketSide)
 
     return (

@@ -1,16 +1,10 @@
 import React from 'react';
-import {selectTicket} from "../../views/Desktop/Norbert/TrainingNorbert/components/LocalStore/store";
 
 function TicketList(props) {
-    const {
-        tickets, handleTicketClick = () => {
-        }
-    } = props
+    const {tickets, onClick} = props
 
     const handleClick = (ticket) => {
-        const {dispatch} = props
-        dispatch && dispatch(selectTicket(ticket.id))
-        handleTicketClick(ticket)
+        onClick && onClick(ticket)
     }
 
     const selected = (id) => props.state.ticketId === id

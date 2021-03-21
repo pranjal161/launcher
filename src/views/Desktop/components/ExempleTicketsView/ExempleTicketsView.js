@@ -30,14 +30,14 @@ function ExempleTicketsView() {
             <div className="row">
                 <div className="col-4">
                     All tickets
-                    <AllTickets handleTicketClick={handleTicketClick}/>
+                    <AllTickets onClick={handleTicketClick}/>
                 </div>
                 <div className="col-4">
                     <div className={"d-flex justify-content-between"}>
                         <div>My tickets (assigned to me)</div>
                         <CreateButton/>
                     </div>
-                    <MyTickets handleTicketClick={handleTicketClick}/>
+                    <MyTickets onClick={handleTicketClick}/>
                 </div>
                 <div className="col-4">
                     Clicked tickets

@@ -47,11 +47,9 @@ function TicketDetail({id, sectionId, className, onRemove, onClose}) {
                 <CardHeader title="Order info"/>
                 <CardContent>
                     <h5 className="card-title">{ticket.title}</h5>
-                    <p className="card-text">
-                        <div className="d-flex justify-content-between">
-                            <span>Created by {ticket.creatorDisplay}</span>
-                            <small>{ticket.id}</small>
-                        </div>
+                    <p className="card-text d-flex justify-content-between">
+                        <span>Created by {ticket.creatorDisplay}</span>
+                        <small>{ticket.id}</small>
                     </p>
                     <p>
                         {sectionId}

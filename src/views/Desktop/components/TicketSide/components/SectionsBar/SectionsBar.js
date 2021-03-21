@@ -7,7 +7,6 @@ import SubjectIcon from '@material-ui/icons/Subject';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotesOutlined';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import {setCurrentSection} from "../../../../Norbert/TrainingNorbert/components/LocalStore/store";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,11 +21,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Sidebar({state, dispatch}) {
-    const classes = useStyles();
+function SectionsBar(props) {
+    const {value, onChange} = props
 
+    const classes = useStyles();
     const handleClick = (sectionId) => {
-        dispatch(setCurrentSection(sectionId))
+        onChange && onChange(sectionId)
     }
 
     const sections = [{id: 'info', icon: InfoIcon},
@@ -34,9 +34,8 @@ function Sidebar({state, dispatch}) {
         {id: 'date', icon: DateRangeIcon},
         {id: 'notes', icon: SpeakerNotesIcon},
         {id: 'documents', icon: AttachFileIcon}]
-    const curentSectionId = state.sectionId
 
-    const selected = (id) => id === curentSectionId
+    const selected = (id) => id === value
     return (
         <div className={classes.root}>
             <List component="nav" dense>
@@ -51,4 +50,4 @@ function Sidebar({state, dispatch}) {
     );
 }
 
-export default Sidebar;
+export default SectionsBar;
