@@ -3,10 +3,7 @@ import React from 'react';
 function TicketList(props) {
     const {tickets, onClick} = props
 
-    const handleClick = (ticket) => {
-        onClick && onClick(ticket)
-    }
-
+    const handleClick = (ticket) => onClick && onClick(ticket)
     const selected = (id) => props.state.ticketId === id
 
     return (
@@ -21,7 +18,6 @@ function TicketList(props) {
                     </div>
                 </li>
             )}
-
         </ul>
     );
 }

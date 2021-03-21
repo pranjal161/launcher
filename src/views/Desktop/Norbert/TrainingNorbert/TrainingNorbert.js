@@ -9,7 +9,7 @@ import {initialState, reducer, selectTicket, setCurrentSection} from "./componen
 
 
 const MyTicketsConnected = () => {
-    //Bound the ticketlist to the store
+    //Bound the ticket list to the store
     const mapDispatchToProps = (dispatch) => ({
         onClick: (object) => dispatch(selectTicket(object.id))
     })
