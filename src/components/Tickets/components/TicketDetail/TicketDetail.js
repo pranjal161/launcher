@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function TicketDetail({id, sectionId, className, onRemove, onClose}) {
-    const {getOne, assignTo} = useDeskTickets()
+    const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
     const classes = useStyles();
 
@@ -31,7 +31,7 @@ function TicketDetail({id, sectionId, className, onRemove, onClose}) {
 
     const assignToCurrentUser = () => assignTo(id, currentUserId)
     const removeToCurrentUser = () => assignTo(id, null)
-    const removeHandle = () => onRemove && onRemove(id)
+    const removeHandle = () => remove(id) && onRemove && onRemove(id)
     const closeHandle = () => onClose && onClose()
 
     const assignButton = ticket && ticket.assignedTo === currentUserId ?
@@ -68,7 +68,6 @@ function TicketDetail({id, sectionId, className, onRemove, onClose}) {
     } else
         return (<div className="container center">Loading ticket ...</div>)
 }
-
 
 export default TicketDetail;
 

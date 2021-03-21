@@ -24,7 +24,8 @@ const TicketSideConnected = () => {
     })
 
     const mapDispatchToProps = (dispatch) => ({
-        onSectionChange: id => dispatch(setCurrentSection(id))
+        onSectionChange: id => dispatch(setCurrentSection(id)),
+        onClose: () => dispatch(selectTicket(undefined))
     })
     const Impl = withTicketStore(TicketSide, mapStateToProps, mapDispatchToProps)
     return <Impl/>
