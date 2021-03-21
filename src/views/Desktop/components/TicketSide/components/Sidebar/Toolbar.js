@@ -7,7 +7,7 @@ import SubjectIcon from '@material-ui/icons/Subject';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotesOutlined';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import {setCurrentSection} from "../../../../Norbert/LocalStore/store";
+import {setCurrentSection} from "../../../../Norbert/TrainingNorbert/components/LocalStore/store";
 
 const useStyles = makeStyles((theme) => ({
     root: {

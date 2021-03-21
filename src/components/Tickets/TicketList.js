@@ -1,5 +1,5 @@
 import React from 'react';
-import {selectTicket} from "../../views/Desktop/Norbert/LocalStore/store";
+import {selectTicket} from "../../views/Desktop/Norbert/TrainingNorbert/components/LocalStore/store";
 
 function TicketList(props) {
     const {

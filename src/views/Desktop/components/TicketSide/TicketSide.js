@@ -1,7 +1,7 @@
 import React from 'react';
 import Toolbar from "./components/Sidebar/Toolbar";
 import {Drawer, Grid} from "@material-ui/core";
-import {withTicketStore} from "../../Norbert/LocalStore/withTicketStore";
+import {withTicketStore} from "../../Norbert/TrainingNorbert/components/LocalStore/withTicketStore";
 import TicketDetail from "../../../../components/Tickets/components/TicketDetail/TicketDetail";
 
 function TicketSide({state}) {

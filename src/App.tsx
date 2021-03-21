@@ -17,7 +17,7 @@ import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import {AppContextProvider} from "./context/applicationContext";
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {Colors} from "./styles/dxc-theme";
-import TrainingNorbert from "./views/Desktop/Norbert/LocalStore/TrainingNorbert/TrainingNorbert";
+import TrainingNorbert from "./views/Desktop/Norbert/TrainingNorbert/TrainingNorbert";
 
 
 function App() {
@@ -60,7 +60,7 @@ function App() {
                 <AlertContextProvider>
                     <ThemeContext.Provider value={Colors}>
                         <>
-                            {isLoading && (
+                            {isLoading && false && (
                                 <div className="spinner">
                                     <DxcSpinner margin="xxsmall" mode="overlay"/>
                                 </div>
