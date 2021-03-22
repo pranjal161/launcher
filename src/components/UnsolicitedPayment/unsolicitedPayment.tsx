@@ -104,6 +104,7 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
         axios.patch(url, payload, { headers: applicationContext.headers }).then((res) => {
             const status_report = getStatusReport(res);
             alertContext.setToastList(status_report);
+            
             if (
                 res &&
                 res.data._embedded['cscaia:status_report'] &&
