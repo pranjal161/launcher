@@ -124,11 +124,11 @@ def addStagesCustom() {
 
 // Add custom stages
 def stagesMap = [:]
-
-stagesMap['upload'] = ['skip': false, 'func': this.&addStagesCustom]
 stagesMap['install'] = ['skip': false, 'func': this.&addStagesCustomCodeQuality]
+stagesMap['upload'] = ['skip': false, 'func': this.&addStagesCustom]
 
 // Stages to skip
-stagesMap['codequality', 'customDeploy'] = ['skip': true]
+stagesMap['codequality'] = ['skip': true]
+stagesMap['customDeploy'] = ['skip': true]
 
 pipelineRunner(stagesMap, pipelineUtils, 'docker/Dockerfile')

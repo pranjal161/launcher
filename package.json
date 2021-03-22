@@ -44,6 +44,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "install": "npm install",
     "lint": "eslint ./**/*.tsx --fix",
     "lint-quiet": "eslint ./**/*.tsx --quiet --fix"
   },
