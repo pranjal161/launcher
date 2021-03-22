@@ -49,11 +49,21 @@ node {
     cloneAndLoadAssurePipeline()
 }
 
+def addStagesCustomCodeQuality() {
+    stage('Code Quality with ESLint') {
+        sh '''
+            echo 'Check code quality using ESLint'
+
+            npm run lint
+        '''
+    }
+}
+
 def addStagesCustom() {
 
     stage('Downloading bundle') {
-        when { branch 'development' }
-        steps {
+        //when { branch 'development' }
+        //steps {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
@@ -67,19 +77,11 @@ def addStagesCustom() {
                     '''
                 }
             }
-        }
-    }
-    stage('Building React App') {
-        when { branch 'development' }
-        steps {
-            sh '''
-                npm run build
-            '''
-        }
+        //}
     }
     stage ('Zipping Artifact All') {
-        when { branch 'development' }
-        steps {
+        //when { branch 'development' }
+        //steps {
             sh '''
                 rm -rf omnichannel-standard-ui.zip
                 mkdir -p ui-package/react
@@ -87,21 +89,21 @@ def addStagesCustom() {
                 cp -r ./ui-package omnichannel-standard-ui-dev
             '''
             zip zipFile: 'omnichannel-standard-ui.zip', archive: false, dir: 'ui-package'
-        }
+        //}
     }
     stage('Upload Artifact All') {
-        when { branch 'development' }
-        steps {
+        //when { branch 'development' }
+        //steps {
             withCredentials([usernamePassword(credentialsId:'diaas-rw', passwordVariable:'ARTIF_PASSWORD', usernameVariable:'ARTIF_USER')]) {
                 sh '''
                     curl -u${ARTIF_USER}:${ARTIF_PASSWORD} -T ./omnichannel-standard-ui.zip "https://artifactory.csc.com/artifactory/diaas-generic/graphtalk-launcher/${BRANCH_NAME}/graphtalk-launcher-bundle.${BRANCH_NAME}.zip"
                 '''
             }
-        }
+        //}
     }
     stage('Push Artifact React') {
-        when { branch 'development' }
-        steps {
+        //when { branch 'development' }
+        //steps {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
@@ -116,15 +118,16 @@ def addStagesCustom() {
                     '''
                 }
             }
-        }
+        //}
     }
 }
 
-// To skip upload stage and add custom stages
+// Add custom stages
 def stagesMap = [:]
+stagesMap['codequality'] = ['skip': true, 'func': this.&addStagesCustomCodeQuality]
 stagesMap['upload'] = ['skip': false, 'func': this.&addStagesCustom]
 
-// To skip customDeploy stage
+// Stages to skip
 stagesMap['customDeploy'] = ['skip': true]
 
 pipelineRunner(stagesMap, pipelineUtils, 'docker/Dockerfile')
