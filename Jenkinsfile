@@ -67,7 +67,7 @@ def addStagesCustomCodeQuality() {
     }
     */
 
-    stage('Code Quality with ESLint') {
+    stage('Code Quality ESLint') {
         sh '''
             echo 'Install TypeScript'
             npm install typescript
@@ -77,12 +77,10 @@ def addStagesCustomCodeQuality() {
             npm install @typescript-eslint/eslint-plugin@latest --save-dev
             npm install @typescript-eslint/parser --save-dev
 
+            ls
+
             echo 'Check code quality using ESLint'
             npm run lint
-
-            echo 'Check code quality using ESLint Quiet'
-            npm run lint-quiet
-            ls
         '''
     }
 }

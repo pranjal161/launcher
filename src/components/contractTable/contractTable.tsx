@@ -15,11 +15,7 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
     const { t } = useTranslation();
     const history = useHistory();
 
-    /**
-     * Redirection to a contract
-     * @param {item} item Resource that representing a contract
-     * @returns {void} Return the link to the contract
-     */
+
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
         history.push('/contracts/' + contractNumber, { contractUrl: item.href });
