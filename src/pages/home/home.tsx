@@ -22,8 +22,8 @@ const HomePage = () => {
     }
 
     const handleRemove = (id: string | number) => {
-        const newAfterDelete = { ...clickedTickets }
-        // delete newAfterDelete[id]
+        const newAfterDelete: any = { ...clickedTickets }
+        delete newAfterDelete[id];
         remove(id)
         setClickedTickets(newAfterDelete)
     }
@@ -58,7 +58,7 @@ const HomePage = () => {
                         Ticket Details
                     {clickedTickets && Object.values(clickedTickets).map((ticket: any) => <TicketDetail id={ticket.id}
                         key={ticket.id}
-                        remove={handleRemove} />)}
+                        onRemove={handleRemove} className="" onClose={() => handleRemove(ticket.id)} sectionId="ticket-details" />)}
                     </div>
                 </div>
             </div>
