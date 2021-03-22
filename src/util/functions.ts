@@ -1,4 +1,4 @@
-import { AppConfig } from '../config/appConfig';
+import {AppConfig} from '../config/appConfig';
 
 export const getLink = (response: any, linkName: string) => {
     if (response &&
@@ -132,4 +132,10 @@ export const getStatusReport = (response: any) => {
         response.data._embedded['cscaia:status_report']) {
         return response.data._embedded['cscaia:status_report']
     }
+}
+
+export function addDays(date: any, days: number) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 }
