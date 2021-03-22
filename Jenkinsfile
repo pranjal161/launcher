@@ -51,6 +51,7 @@ node {
 
 def addStagesCustomCodeQuality() {
     // Lint with Mega-Linter: https://nvuillam.github.io/mega-linter/
+    /*
     stage('Mega-Linter') {
         agent {
             docker {
@@ -64,6 +65,7 @@ def addStagesCustomCodeQuality() {
             sh 'ls'
         }
     }
+    */
 
     stage('Code Quality with ESLint') {
         sh '''
@@ -88,8 +90,8 @@ def addStagesCustomCodeQuality() {
 def addStagesCustom() {
 
     stage('Downloading bundle') {
-        //when { branch 'development' }
-        //steps {
+        when { branch 'development' }
+        steps {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
@@ -103,11 +105,11 @@ def addStagesCustom() {
                     '''
                 }
             }
-        //}
+        }
     }
     stage ('Zipping Artifact All') {
-        //when { branch 'development' }
-        //steps {
+        when { branch 'development' }
+        steps {
             sh '''
                 rm -rf omnichannel-standard-ui.zip
                 mkdir -p ui-package/react
@@ -115,21 +117,21 @@ def addStagesCustom() {
                 cp -r ./ui-package omnichannel-standard-ui-dev
             '''
             zip zipFile: 'omnichannel-standard-ui.zip', archive: false, dir: 'ui-package'
-        //}
+        }
     }
     stage('Upload Artifact All') {
-        //when { branch 'development' }
-        //steps {
+        when { branch 'development' }
+        steps {
             withCredentials([usernamePassword(credentialsId:'diaas-rw', passwordVariable:'ARTIF_PASSWORD', usernameVariable:'ARTIF_USER')]) {
                 sh '''
                     curl -u${ARTIF_USER}:${ARTIF_PASSWORD} -T ./omnichannel-standard-ui.zip "https://artifactory.csc.com/artifactory/diaas-generic/graphtalk-launcher/${BRANCH_NAME}/graphtalk-launcher-bundle.${BRANCH_NAME}.zip"
                 '''
             }
-        //}
+        }
     }
     stage('Push Artifact React') {
-        //when { branch 'development' }
-        //steps {
+        when { branch 'development' }
+        steps {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
@@ -144,7 +146,7 @@ def addStagesCustom() {
                     '''
                 }
             }
-        //}
+        }
     }
 }
 
