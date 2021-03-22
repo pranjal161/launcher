@@ -66,6 +66,18 @@ export const assignTo = (id, userId) => {
 
 }
 
+export const select = (id) => {
+    return (dispatch) => {
+        dispatch({type: 'SELECT_TICKET', id})
+    }
+}
+
+export const unSelect = (id) => {
+    return (dispatch) => {
+        dispatch({type: 'UNSELECT_TICKET', id})
+    }
+}
+
 /*
 export const assign = (id, userId) => {
     return (dispatch, getState, {getFirebase}) => {
