@@ -83,3 +83,16 @@ table tbody tr th {
 .align-center {
   text-align: center;
 }
+
+.flag-css .MuiInput-formControl {
+  margin-top: 0px !important;
+}
+
+.flag-css div {
+  width: unset !important;
+}
+
+.header-svg svg{
+  fill: white !important;
+  cursor: pointer;
+}

@@ -6,17 +6,18 @@ import {
     DxcHeader,
     DxcSelect
 } from '@dxc-technology/halstack-react';
-import React, {useContext, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import {ApplicationContext} from '../../context/applicationContext';
-import SignedLinks from "./components/SignedLinks/SignedLinks";
+import { ApplicationContext } from '../../context/applicationContext';
+import { SearchIcon } from '../../assets/svg';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
     const history = useHistory();
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
-
+    const { t } = useTranslation();
 
     const langs = [
         {
@@ -48,16 +49,28 @@ const Header = () => {
         history.push("/home");
     };
 
+    const goToSearch = () => {
+        history.push("/contractSearch");
+    }
+
     return (
         <>
             <DxcHeader
                 logoSrc={DXCLogo}
                 onClick={goToHome}
-                padding={{right: 'xsmall'}}
+                padding={{ right: 'xsmall' }}
                 content={
                     <>
-                        <SignedLinks/>
-                        <div style={{width: '100px'}}>
+                        <div className="col-1 pt-3 p-0 header-svg">
+                            <p
+                                aria-label="add an alarm"
+                                onClick={goToSearch}
+                            >
+                                {t('_SEARCH')}
+                                <SearchIcon />
+                            </p>
+                        </div>
+                        <div className="col-1 p-0 flag-css">
                             <DxcSelect
                                 options={langs}
                                 onChange={changeLang}
@@ -66,7 +79,6 @@ const Header = () => {
                                 padding="xxsmall"
                             />
                         </div>
-
                     </>
                 }
             />
