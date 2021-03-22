@@ -68,6 +68,7 @@ def addStagesCustomCodeQuality() {
     */
 
     stage('Code Quality ESLint') {
+        if (env.BRANCH_NAME=='development-jenkins-ntg') {
         sh '''
             echo 'Install TypeScript'
             npm install typescript
@@ -84,6 +85,7 @@ def addStagesCustomCodeQuality() {
             echo 'Check code quality using ESLint'
             npm run lint
         '''
+        }
     }
 }
 
