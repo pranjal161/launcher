@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { ApplicationContext } from '../../context/applicationContext';
 
-const HomePage = () => {
+const ContractSearch = () => {
     const { t } = useTranslation();
     const initialURL = AppConfig.hostUrl.defaultHostUrl + 'contracts?_num=5';
     const [url, setURL] = useState(initialURL);
@@ -82,4 +82,4 @@ const HomePage = () => {
 
 }
 
-export default HomePage;
+export default ContractSearch;
