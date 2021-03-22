@@ -62,6 +62,9 @@ def addStagesCustomCodeQuality() {
 
             echo 'Check code quality using ESLint'
             npm run lint
+
+            echo 'Check code quality using ESLint Quiet'
+            npm run lint-quiet
         '''
     }
 }
