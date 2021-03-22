@@ -21,6 +21,7 @@ function TicketDetail({id, sectionId, className, onRemove, onClose}) {
     const classes = useStyles();
 
     let ticket = id ? getOne(id) : undefined
+    //console.log('ticket detail render', ticket)
 
     const assignToCurrentUser = () => assignTo(id, currentUserId)
     const removeToCurrentUser = () => assignTo(id, null)

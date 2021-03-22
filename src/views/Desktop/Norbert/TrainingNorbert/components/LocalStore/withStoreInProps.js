@@ -7,8 +7,8 @@ export const withStoreInProps = Context => (Component, mapStateToProps, mapDispa
             const addDispatchMaps = mapDispatchToProps && mapDispatchToProps(dispatch)
             return (<Component
                 {...props}
-                state={state}
-                dispatch={dispatch}
+                //state={state}
+                //dispatch={dispatch}
                 {...addStateMaps}
                 {...addDispatchMaps}>
                 {props.children}

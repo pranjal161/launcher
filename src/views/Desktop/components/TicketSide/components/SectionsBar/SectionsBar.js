@@ -27,6 +27,7 @@ function SectionsBar({value, onChange}) {
     const handleClick = (sectionId) => {
         onChange && onChange(sectionId)
     }
+    //console.log('SectionsBar detail render')
 
     const sections = [{id: 'info', icon: InfoIcon},
         {id: 'description', icon: SubjectIcon},

@@ -6,10 +6,11 @@ import MyTickets from "../../../../components/Tickets/MyTickets";
 import {withTicketStore} from "./components/LocalStore/withTicketStore";
 import Context from "./components/LocalStore/Context";
 import {initialState, reducer, selectTicket, setCurrentSection} from "./components/LocalStore/store";
+import AllTickets from "../../../../components/Tickets/AllTickets";
 
 
 const MyTicketsConnected = () => {
-    //Bound the ticket list to the store
+    //Connect the ticket list to the store
     const mapDispatchToProps = (dispatch) => ({
         onClick: (object) => dispatch(selectTicket(object.id))
     })
@@ -19,6 +20,21 @@ const MyTicketsConnected = () => {
     })
 
     const Impl = withTicketStore(MyTickets, mapStateToProps, mapDispatchToProps)
+    return <Impl/>
+}
+
+
+const AllTicketsConnected = () => {
+    //Connect the ticket list to the store
+    const mapDispatchToProps = (dispatch) => ({
+        onClick: (object) => dispatch(selectTicket(object.id))
+    })
+
+    const mapStateToProps = (state) => ({
+        ticketId: state.ticketId,
+    })
+
+    const Impl = withTicketStore(AllTickets, mapStateToProps, mapDispatchToProps)
     return <Impl/>
 }
 
@@ -39,17 +55,24 @@ const TicketSideConnected = () => {
 function TrainingNorbert(props) {
     // I create a contextual store
     const [state, dispatch] = useReducer(reducer, initialState);
-
+    //console.log("TrainingNorbert render")
     return (
         <Context.Provider value={{state, dispatch}}>
-            <Grid container spacing={3}>
+            <div>
+                <Grid container spacing={3}>
+                    <Grid item xs={7}>
+                        <MyTicketsConnected/>
+                    </Grid>
+                    <Grid item xs={5}>
+                        <TicketSideConnected/>
+                    </Grid>
+                </Grid>
                 <Grid item xs={7}>
-                    <MyTicketsConnected/>
+                    <AllTicketsConnected/>
                 </Grid>
-                <Grid item xs={5}>
-                    <TicketSideConnected/>
-                </Grid>
-            </Grid>
+
+
+            </div>
         </Context.Provider>
     );
 }
