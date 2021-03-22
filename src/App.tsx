@@ -60,7 +60,7 @@ function App() {
                 <AlertContextProvider>
                     <ThemeContext.Provider value={Colors}>
                         <>
-                            {isLoading && false && (
+                            {isLoading && (
                                 <div className="spinner">
                                     <DxcSpinner margin="xxsmall" mode="overlay"/>
                                 </div>
