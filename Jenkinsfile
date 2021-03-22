@@ -52,9 +52,6 @@ node {
 def addStagesCustomCodeQuality() {
     stage('Code Quality with ESLint') {
         sh '''
-            echo 'Install peers dependency'
-            npm run install-peers
-
             echo 'Install ESLint plugin'
             npm install eslint-plugin-react@latest --save-dev
 
