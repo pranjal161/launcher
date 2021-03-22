@@ -18,6 +18,7 @@ import {AppContextProvider} from "./context/applicationContext";
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {Colors} from "./styles/dxc-theme";
 import TrainingNorbert from "./views/Desktop/Norbert/TrainingNorbert/TrainingNorbert";
+import HomePage from "./pages/home/home";
 
 
 function App() {
