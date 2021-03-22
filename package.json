@@ -90,5 +90,8 @@
     "*.{js,ts,tsx}": [
       "eslint --fix"
     ]
+  },
+  "peerDependencies": {
+    "typescript": ">= 3.0.0"
   }
 }
