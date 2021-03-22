@@ -90,8 +90,7 @@ def addStagesCustomCodeQuality() {
 def addStagesCustom() {
 
     stage('Downloading bundle') {
-        when { branch 'development' }
-        steps {
+        if (branch=='development') {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
@@ -108,8 +107,7 @@ def addStagesCustom() {
         }
     }
     stage ('Zipping Artifact All') {
-        when { branch 'development' }
-        steps {
+        if (branch=='development') {
             sh '''
                 rm -rf omnichannel-standard-ui.zip
                 mkdir -p ui-package/react
@@ -120,8 +118,7 @@ def addStagesCustom() {
         }
     }
     stage('Upload Artifact All') {
-        when { branch 'development' }
-        steps {
+        if (branch=='development') {
             withCredentials([usernamePassword(credentialsId:'diaas-rw', passwordVariable:'ARTIF_PASSWORD', usernameVariable:'ARTIF_USER')]) {
                 sh '''
                     curl -u${ARTIF_USER}:${ARTIF_PASSWORD} -T ./omnichannel-standard-ui.zip "https://artifactory.csc.com/artifactory/diaas-generic/graphtalk-launcher/${BRANCH_NAME}/graphtalk-launcher-bundle.${BRANCH_NAME}.zip"
@@ -130,8 +127,7 @@ def addStagesCustom() {
         }
     }
     stage('Push Artifact React') {
-        when { branch 'development' }
-        steps {
+        if (branch=='development') {
             withCredentials([[
                 $class: 'AmazonWebServicesCredentialsBinding',
                 credentialsId: 'DIAAS-AWS-CLI',
