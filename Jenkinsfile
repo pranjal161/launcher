@@ -50,6 +50,21 @@ node {
 }
 
 def addStagesCustomCodeQuality() {
+    // Lint with Mega-Linter: https://nvuillam.github.io/mega-linter/
+    stage('Mega-Linter') {
+        agent {
+            docker {
+                image 'nvuillam/mega-linter:latest'
+                args "-e VALIDATE_ALL_CODEBASE=true -v ${WORKSPACE}:/tmp/lint --entrypoint=''"
+                reuseNode true
+            }
+        }
+        steps {
+            sh '/entrypoint.sh'
+            sh 'ls'
+        }
+    }
+
     stage('Code Quality with ESLint') {
         sh '''
             echo 'Install TypeScript'
@@ -65,6 +80,7 @@ def addStagesCustomCodeQuality() {
 
             echo 'Check code quality using ESLint Quiet'
             npm run lint-quiet
+            ls
         '''
     }
 }

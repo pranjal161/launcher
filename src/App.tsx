@@ -20,10 +20,6 @@ import axios from 'axios';
 import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
 import { useTranslation } from 'react-i18next';
 
-/**
- * Main app
- * @returns {void} The app depending on the context
- */
 function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
@@ -34,7 +30,7 @@ function App() {
 
     axios.interceptors.request.use(
         function (config) {
-            // spinning start to show
+            // Spinning start to show
             setLoader(true);
             return config;
         },
