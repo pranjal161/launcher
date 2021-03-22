@@ -50,25 +50,8 @@ node {
 }
 
 def addStagesCustomCodeQuality() {
-    // Lint with Mega-Linter: https://nvuillam.github.io/mega-linter/
-    /*
-    stage('Mega-Linter') {
-        agent {
-            docker {
-                image 'nvuillam/mega-linter:latest'
-                args "-e VALIDATE_ALL_CODEBASE=true -v ${WORKSPACE}:/tmp/lint --entrypoint=''"
-                reuseNode true
-            }
-        }
-        steps {
-            sh '/entrypoint.sh'
-            sh 'ls'
-        }
-    }
-    */
 
     stage('Code Quality ESLint') {
-        if (env.BRANCH_NAME == 'development') {
         sh '''
             echo 'Install TypeScript'
             npm install typescript
@@ -85,7 +68,6 @@ def addStagesCustomCodeQuality() {
             echo 'Check code quality using ESLint'
             npm run lint
         '''
-        }
     }
 }
 
@@ -108,6 +90,7 @@ def addStagesCustom() {
             }
         }
     }
+
     stage ('Zipping Artifact All') {
         if (env.BRANCH_NAME == 'development') {
             sh '''
@@ -119,6 +102,7 @@ def addStagesCustom() {
             zip zipFile: 'omnichannel-standard-ui.zip', archive: false, dir: 'ui-package'
         }
     }
+
     stage('Upload Artifact All') {
         if (env.BRANCH_NAME == 'development') {
             withCredentials([usernamePassword(credentialsId:'diaas-rw', passwordVariable:'ARTIF_PASSWORD', usernameVariable:'ARTIF_USER')]) {
@@ -128,6 +112,7 @@ def addStagesCustom() {
             }
         }
     }
+    
     stage('Push Artifact React') {
         if (env.BRANCH_NAME == 'development') {
             withCredentials([[
