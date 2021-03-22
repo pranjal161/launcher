@@ -125,9 +125,8 @@ def addStagesCustom() {
 // Add custom stages
 def stagesMap = [:]
 
-stagesMap['validate'] = ['skip': false, 'func': this.&addStagesCustomCodeQuality]
-//stagesMap['codequality'] = ['skip': true]
 stagesMap['upload'] = ['skip': false, 'func': this.&addStagesCustom]
+stagesMap['install'] = ['skip': false, 'func': this.&addStagesCustomCodeQuality]
 
 // Stages to skip
 stagesMap['codequality', 'customDeploy'] = ['skip': true]
