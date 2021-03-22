@@ -5,7 +5,7 @@ import axios from "axios";
 import Alert from "./components/alert/alert";
 import ClientView from "./pages/clientView/clientView";
 import ContractSummary from "./pages/contractSummary/contractSummary";
-import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
+import ExempleDesktopView from "./views/Desktop/Norbert/ExempleDesktopView";
 import Header from "./components/header/header";
 import HomePage from "./pages/homePage/homePage";
 import React, {useState} from "react";
@@ -17,6 +17,7 @@ import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import {AppContextProvider} from "./context/applicationContext";
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {Colors} from "./styles/dxc-theme";
+import TrainingNorbert from "./views/Desktop/Norbert/TrainingNorbert/TrainingNorbert";
 
 
 function App() {
@@ -99,6 +100,9 @@ function App() {
                                         </Route>
                                         <Route path="/exemple/desktop" exact>
                                             <ExempleDesktopView/>
+                                        </Route>
+                                        <Route path="/training/norbert" exact>
+                                            <TrainingNorbert/>
                                         </Route>
                                     </Switch>
                                 </Router>
