@@ -46,7 +46,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install-peers": "npm install -g npm-install-peers",
-    "lint": "eslint ./**/*.tsx --fix",
+    "lint": "eslint './**/*.tsx' --fix",
+    "lint2": "eslint ./**/*.tsx --fix",
     "lint-quiet": "eslint ./**/*.tsx --quiet --fix"
   },
   "eslintConfig": {
