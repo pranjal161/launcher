@@ -52,8 +52,9 @@ node {
 def addStagesCustomCodeQuality() {
     stage('Code Quality with ESLint') {
         sh '''
-            echo 'Install ESLint plugin'
+            echo 'Install ESLint plugins'
             npm install eslint-plugin-react@latest --save-dev
+            npm install @typescript-eslint/eslint-plugin@latest --save-dev
 
             echo 'Check code quality using ESLint'
             npm run lint
