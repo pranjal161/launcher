@@ -7,11 +7,11 @@ const Paginator = (props: { totalItems: string | number, itemsPerPage: number, d
 
     const { totalItems, itemsPerPage, data, handler } = props;
     const [page, changePage] = useState(1);
-    const firstLink = data && data['_links'] && data['_links']['first'] ? data['_links']['first'].href : '';
+    const first = data && getLink(data, 'first') ? getLink(data, 'first') : '';
 
     useEffect(() => {
         changePage(1);
-    }, [firstLink]);
+    }, [first]);
 
     const prevClick = () => {
         changePage(page - 1);
