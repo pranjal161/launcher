@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+import { NavLink } from 'react-router-dom';
 import {Redirect} from "react-router-dom";
 import useDeskAuth from "../../data/hooks/useDeskAuth";
 
@@ -16,7 +17,7 @@ const SignIn = () => {
 
     const { logged, errorMessage} = auth
     if (logged)
-        return <Redirect to={"/"}/>
+        return <Redirect to={"/home"}/>
 
     return (
         <div className={"container"}>
@@ -32,7 +33,8 @@ const SignIn = () => {
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
                                ref={passwordRef}/>
                     </div>
-                    <button className="btn btn-primary" >Submit</button>
+                    <button className="m-2">Submit</button>
+                    <button className="m-2"><NavLink to="/signup">Sign Up</NavLink></button>
                     {errorMessage && <div className="alert alert-danger mt-2" role="alert">{errorMessage}</div>}
                 </form>
             </div>

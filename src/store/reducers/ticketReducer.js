@@ -1,8 +1,9 @@
 const initialState = {
-    createTicketStatus:undefined,
-    updateTicketStatus:undefined,
-    deleteTicketStatus:undefined,
-    assignTicketStatus:undefined,
+    createTicketStatus: undefined,
+    updateTicketStatus: undefined,
+    deleteTicketStatus: undefined,
+    assignTicketStatus: undefined,
+    selectedTicketId: undefined,
 }
 
 const ticketReducer = (state = initialState, action) => {
@@ -26,14 +27,20 @@ const ticketReducer = (state = initialState, action) => {
         case 'DELETE_TICKET_SUCCESS':
             return {...state, deleteTicketStatus:'done'}
         case 'DELETE_TICKET_ERROR':
-            return {...state, deleteTicketStatus:'error'}
+            return {...state, deleteTicketStatus: 'error'}
 
         case 'ASSIGN_TICKET_PENDING':
-            return {...state, assignTicketStatus:'pending'}
+            return {...state, assignTicketStatus: 'pending'}
         case 'ASSIGN_TICKET_SUCCESS':
-            return {...state, assignTicketStatus:'done'}
+            return {...state, assignTicketStatus: 'done'}
         case 'ASSIGN_TICKET_ERROR':
-            return {...state, assignTicketStatus:'error'}
+            return {...state, assignTicketStatus: 'error'}
+
+        case 'SELECT_TICKET':
+            return {...state, selectedTicketId: action.id}
+
+        case 'UNSELECT_TICKET':
+            return {...state, selectedTicketId: undefined}
 
         default:
             return state
