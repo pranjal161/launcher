@@ -1,18 +1,21 @@
 import React from 'react';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
 import { ApplicationContext } from '../../context/applicationContext';
 import { AppConfig } from '../../config/appConfig';
 import axios from 'axios';
+import Chart from '../chart/chart';
+import { formatValue } from '../../util/functions';
 export const SwitchSummary = (props: { switchSummaryHref: string }) => {
 
     const { t } = useTranslation();
-    const [disinvestmentSplitList, setDisinvestmentSplitList] = React.useState([]);
     const [switchResponse, setSwitchResponse] = React.useState([]);
-    const [savingsFlowList, setSavingsFlowListItems] = React.useState([]);
     const applicationContext = useContext(ApplicationContext);
+    const [investmentSplitList, setinvestmentSplitList] = useState<Array<any>>([]);
+    const [chartData, setChartData] = useState<Array<any>>([]);
+    let investmentSplit: any[] = [];
     const config = AppConfig;
 
     useEffect(() => {
@@ -22,19 +25,63 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
     const getData = () => {
         axios.get(props.switchSummaryHref, { headers: config.headers }).then((res: any) => {
             setSwitchResponse(res.data);
-            const disinvestmentSplitListItems: any = res.data && res.data['disinvestment_split'] && Array.isArray(res.data['disinvestment_split']) ? res.data['disinvestment_split'] :
-                [res['disinvestment_split']];
-            setDisinvestmentSplitList(disinvestmentSplitListItems);
 
-            const savingsFlowListHref = res.data['_links'] && res.data['_links']['operation:savings_flow_list'] ? res.data['_links']['operation:savings_flow_list'].href : '';
-            axios.get(savingsFlowListHref, { headers: applicationContext.headers }).then(response => {
-                if (response && response.data['_links'] && response.data['_links']['item']) {
-                    const savingsFlowListItems: any = Array.isArray(response.data['_links']['item']) ? response.data['_links']['item'] :
-                        [response.data['_links']['item']];
-                    setSavingsFlowListItems(savingsFlowListItems);
+            const investmentSplitListItems: any = res.data && res.data['investment_split'] && Array.isArray(res.data['investment_split']) ? res.data['investment_split'] :
+                [res['investment_split']];
+            if (investmentSplitListItems) {
+                let investmentSplitElement: any[] = [];
+                investmentSplitListItems.forEach((element: any) => {
+                    if (element && element['allocation:coverage_fund']) {
+                        investmentSplit.push(element);
+                        investmentSplitElement.push(axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }));
+                    }
+                });
+                Promise.all(investmentSplitElement).then((investmentRes: any) => {
+                    if (investmentSplitListItems && investmentRes) {
+                        let _list: any[] = [];
+                        investmentRes.forEach((res: any) => {
+                            const resHref = res.data['_links']['self'].href;
+                            const currentItem = investmentSplit.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                            if (currentItem) {
+                                let _result = {
+                                    'coverage_fund:label': res.data['coverage_fund:label'],
+                                    'coverage_fund:type': res.data['coverage_fund:type'],
+                                    'savings_flow:start_date': investmentRes['operation:investment_date'],
+                                    'allocation:amount': currentItem['allocation:amount'],
+                                    'allocation:rate': currentItem['allocation:rate']
+                                };
+                                _list.push(_result);
+                            }
+                        });
+                        setinvestmentSplitList(_list);
+                        buildChartData(investmentRes);
+                    }
+                });
+            }
+        });
+    }
+
+
+    const buildChartData = (unitFunds: any[]) => {
+        if (investmentSplit && unitFunds && unitFunds.length > 0) {
+            let _list: any[] = [];
+            unitFunds.forEach((res) => {
+                const resHref = res.data['_links']['self'].href;
+                const currentItem = investmentSplit.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                if (currentItem) {
+                    let _result = {
+                        _FUND_LABEL: res.data['coverage_fund:label'],
+                        _ALLOCATION: currentItem['allocation:rate'],
+                        _FUND_TYPE: res.data['unit_linked_fund:category'],
+                        _FUND_SRRI: res.data['unit_linked_fund:s_r_r_i'],
+                        value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value'],
+                        allocation_fund: currentItem['allocation:coverage_fund']
+                    };
+                    _list.push(_result);
                 }
             });
-        });
+            setChartData(_list);
+        }
     }
 
     return (
@@ -62,46 +109,49 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                     </div>
                 </>
             )}
-            {disinvestmentSplitList && (
+            {investmentSplitList && (
                 <>
                     <h5>{t('_DISINVESTED_FUNDS')}</h5>
                     <DxcTable>
                         <tr >
-                            <th>{t('_ALLOCATION')}</th>
-                            <th>{t('_ALLOCATION_RATE')}</th>
-                            <th>{t('_GLOBAL_RATE')}</th>
+                            <th>{t('_FUND_LABEL')}</th>
+                            <th>{t('_TYPE')}</th>
+                            <th>{t('_DATE')}</th>
                             <th>{t('_AMOUNT')}</th>
                         </tr>
-                        {disinvestmentSplitList.map((row: any, i: number) => (
+                        {investmentSplitList.map((row: any, i: number) => (
                             <tr key={i}>
-                                <td>{row['allocation_type']}</td>
-                                <td>{row['allocation:rate']}</td>
-                                <td>{row['global_rate']}</td>
-                                <td>{row['allocation:amount']}</td>
+                                <td>{row['coverage_fund:label']}</td>
+                                <td>{row['coverage_fund:type']}</td>
+                                <td>{formatValue(row['savings_flow:start_date'], "date")}</td>
+                                <td>{formatValue(row['allocation:amount'], "currency")}</td>
                             </tr>
                         ))}
                     </DxcTable>
                 </>
             )}
-            {savingsFlowList && (
+            {investmentSplitList && (
                 <>
-                    <h5>{t('_BREAKDOWN_AFTER_SURRENDER')}</h5>
+                    <h5>{t('_BREAKDOWN_AFTER_SWITCH')}</h5>
                     <DxcTable>
                         <tr>
-                            <th>{t('_TYPE')}</th>
-                            <th>{t('_STATUS_LABEL')}</th>
-                            <th>{t('_DATE')}</th>
-                            <th>{t('_AMOUNT')}</th>
+                            <th>{t('_FUND_LABEL')}</th>
+                            <th>{t('_ALLOCATION')}</th>
+                            <th>{t('_FUND_VALUE')}</th>
                         </tr>
-                        {savingsFlowList.map((row: any, i: number) => (
+                        {investmentSplitList.map((row: any, i: number) => (
                             <tr key={i}>
-                                <td>{row['summary']['savings_flow:type_label']}</td>
-                                <td>{row['summary']['savings_flow:status_label']}</td>
-                                <td>{row['summary']['savings_flow:investment_date']}</td>
-                                <td>{row['summary']['savings_flow:amount']}</td>
+                                <td>{row['coverage_fund:label']}</td>
+                                <td>{row['allocation:rate']}</td>
+                                <td>{formatValue(row['allocation:amount'], "currency")}</td>
                             </tr>
                         ))}
                     </DxcTable>
+                    {chartData.length > 0 && (
+                        <div className="pt-2">
+                            <Chart data={chartData} />
+                        </div>
+                    )}
                 </>
             )}
         </>

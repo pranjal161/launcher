@@ -18,6 +18,6 @@ interface Ticket {
     status: string;
     notes: object[];
     documents: object[];
-    history: object;
+    history: object[];
 }
 
