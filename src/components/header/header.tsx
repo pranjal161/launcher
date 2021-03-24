@@ -64,11 +64,11 @@ const Header = () => {
                     <>
                         <div className="col-9">
                             <ul className="toolbar">
-                                <li className="col-2"><NavLink to="/home">Home</NavLink></li>
-                                <li className="col-2"><NavLink to="/home">Baskets</NavLink></li>
-                                <li className="col-3"><NavLink to="/home">My Tickets</NavLink></li>
-                                <li className="col-2"><NavLink to="/home">Help</NavLink></li>
-                                <li className="col-4"><button>New Ticket</button></li>
+                                <li><NavLink to="/home">Home</NavLink></li>
+                                <li><NavLink to="/baskets/all">Baskets</NavLink></li>
+                                <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
+                                <li><NavLink to="/help">Help</NavLink></li>
+                                <li><NavLink to="/tickets/create" className="btn">New Ticket</NavLink></li>
                             </ul>
                         </div>
                         <div className="col-1 pt-3 p-0 header-svg">
