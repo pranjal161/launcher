@@ -24,6 +24,24 @@
   color: white;
 }
 
+.toolbar{
+  display:inline-flex;
+  margin-top: 19px;
+}
+
+.toolbar a{
+  color:black;  
+}
+
+.toolbar a:hover{
+  color: #6F2C91;
+  font-weight:bold;
+}
+
+.toolbar li{
+  list-style-type:none;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -39,7 +57,7 @@
 
 .MuiAppBar-colorPrimary {
   color: #fff;
-  background-color: black !important;
+  background-color: white !important;
 }
 
 .loader {
@@ -88,11 +106,15 @@ table tbody tr th {
   margin-top: 0px !important;
 }
 
+.flag-css .MuiSelect-select {
+  color:white !important;
+}
+
 .flag-css div {
   width: unset !important;
 }
 
 .header-svg svg{
-  fill: white !important;
+  fill: black !important;
   cursor: pointer;
 }
