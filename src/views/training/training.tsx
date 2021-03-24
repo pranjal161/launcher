@@ -1,9 +1,10 @@
 import React from "react";
-import routes from '../../routes';
-import { DxcButton } from "@dxc-technology/halstack-react";
-import { useHistory } from 'react-router-dom';
+import routes, {applyRoutes} from '../../routes';
+import {DxcButton} from "@dxc-technology/halstack-react";
+import {useHistory} from 'react-router-dom';
 
-const Training = () => {
+const Training = (props: any): any => {
+    console.log('props', props)
     const trainingRoutes = routes.find((route: any) => route['name'] === 'training');
     const childRoutes = trainingRoutes && trainingRoutes.routes ? trainingRoutes.routes : [];
     const history = useHistory();
@@ -11,11 +12,12 @@ const Training = () => {
     const jumpToTraining = (path: string) => {
         history.push(path);
     }
+    const displayButton = props.location.pathname === '/training'
 
     return (
         <>
             {
-                childRoutes.map((route: any, index: number) => 
+                displayButton && childRoutes.map((route: any, index: number) =>
                     <DxcButton
                         key={index}
                         label={route.name}
@@ -24,6 +26,7 @@ const Training = () => {
                     />
                 )
             }
+            {applyRoutes(props.route.routes)}
         </>
     );
 };

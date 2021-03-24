@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Switch } from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import routes from "./routes";
 
 export interface CustomProps {
@@ -7,6 +7,7 @@ export interface CustomProps {
     name: string,
     exact: boolean,
     component: React.ComponentType
+    routes: Array<any>
 }
 
 const applyRoutes = (routes: Array<any>) => {
