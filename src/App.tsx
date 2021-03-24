@@ -1,29 +1,23 @@
 import "./App.css";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Redirect, Route, Switch,} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 import Alert from "./components/alert/alert";
-import ClientView from "./pages/clientView/clientView";
-import ContractSummary from "./pages/contractSummary/contractSummary";
-import ExempleDesktopView from "./views/Desktop/Norbert/ExempleDesktopView";
 import Header from "./components/header/header";
-import ContractSearch from "./pages/contractSearch/contractSearch";
 import React, {useState} from "react";
-import SignIn from "./views/SignIn/SignIn";
-import SignUp from "./views/SignUp/SignUp";
 import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
 import {useTranslation} from "react-i18next";
 import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import {AppContextProvider} from "./context/applicationContext";
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {Colors} from "./styles/dxc-theme";
-import TrainingNorbert from "./views/Desktop/Norbert/TrainingNorbert/TrainingNorbert";
-import HomePage from "./pages/home/home";
+import routes, { applyRoutes } from './routes';
 
 
 function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
+    const routeNodes = applyRoutes(routes);
 
     useDeskSubscribe({collection: 'tickets'})
     useDeskSubscribe({collection: 'baskets'})
@@ -76,39 +70,7 @@ function App() {
                             {ready && (
                                 <Router basename="/omnichannel/react">
                                     <Header/>
-                                    <Switch>
-                                        <Route exact path="/">
-                                            <Redirect to="/signin"/>
-                                        </Route>
-                                        <Route path="/home" exact>
-                                            <HomePage />
-                                        </Route>
-                                        <Route path="/contractSearch" exact>
-                                            <ContractSearch />
-                                        </Route>
-                                        <Route path="/contracts/:contractId" exact>
-                                            <ContractSummary/>
-                                        </Route>
-                                        <Route path="/clientView/person/:personId" exact>
-                                            <ClientView/>
-                                        </Route>
-                                        <Route path="/clientView/organization/:organizationId" exact>
-                                            {/* to test */}
-                                            <ClientView/>
-                                        </Route>
-                                        <Route path="/signin" exact>
-                                            <SignIn/>
-                                        </Route>
-                                        <Route path="/signup" exact>
-                                            <SignUp/>
-                                        </Route>
-                                        <Route path="/exemple/desktop" exact>
-                                            <ExempleDesktopView/>
-                                        </Route>
-                                        <Route path="/training/norbert" exact>
-                                            <TrainingNorbert/>
-                                        </Route>
-                                    </Switch>
+                                    {routeNodes}
                                 </Router>
                             )}
                         </>

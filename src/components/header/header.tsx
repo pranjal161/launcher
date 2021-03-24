@@ -1,4 +1,4 @@
-import DXCLogo from '../../assets/dxc_logo_wht.png';
+import DXCLogo from '../../assets/dxc_logo.jpg';
 import fr from '../../assets/fr.jpg';
 import nl from '../../assets/nl.jpg';
 import en from '../../assets/gb.jpg';
@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { ApplicationContext } from '../../context/applicationContext';
 import { SearchIcon } from '../../assets/svg';
 import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     const history = useHistory();
@@ -61,6 +62,15 @@ const Header = () => {
                 padding={{ right: 'xsmall' }}
                 content={
                     <>
+                        <div className="col-9">
+                            <ul className="toolbar">
+                                <li><NavLink to="/home">Home</NavLink></li>
+                                <li><NavLink to="/baskets/all">Baskets</NavLink></li>
+                                <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
+                                <li><NavLink to="/help">Help</NavLink></li>
+                                <li><NavLink to="/tickets/create" className="btn">New Ticket</NavLink></li>
+                            </ul>
+                        </div>
                         <div className="col-1 pt-3 p-0 header-svg">
                             <p
                                 aria-label="add an alarm"
