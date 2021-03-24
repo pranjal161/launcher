@@ -5,9 +5,9 @@ import axios from "axios";
 import Alert from "./components/alert/alert";
 import ClientView from "./pages/clientView/clientView";
 import ContractSummary from "./pages/contractSummary/contractSummary";
-import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
+import ExempleDesktopView from "./views/Desktop/Norbert/ExempleDesktopView";
 import Header from "./components/header/header";
-import HomePage from "./pages/homePage/homePage";
+import ContractSearch from "./pages/contractSearch/contractSearch";
 import React, {useState} from "react";
 import SignIn from "./views/SignIn/SignIn";
 import SignUp from "./views/SignUp/SignUp";
@@ -17,6 +17,8 @@ import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import {AppContextProvider} from "./context/applicationContext";
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {Colors} from "./styles/dxc-theme";
+import TrainingNorbert from "./views/Desktop/Norbert/TrainingNorbert/TrainingNorbert";
+import HomePage from "./pages/home/home";
 
 
 function App() {
@@ -76,10 +78,13 @@ function App() {
                                     <Header/>
                                     <Switch>
                                         <Route exact path="/">
-                                            <Redirect to="/home"/>
+                                            <Redirect to="/signin"/>
                                         </Route>
                                         <Route path="/home" exact>
-                                            <HomePage/>
+                                            <HomePage />
+                                        </Route>
+                                        <Route path="/contractSearch" exact>
+                                            <ContractSearch />
                                         </Route>
                                         <Route path="/contracts/:contractId" exact>
                                             <ContractSummary/>
@@ -99,6 +104,9 @@ function App() {
                                         </Route>
                                         <Route path="/exemple/desktop" exact>
                                             <ExempleDesktopView/>
+                                        </Route>
+                                        <Route path="/training/norbert" exact>
+                                            <TrainingNorbert/>
                                         </Route>
                                     </Switch>
                                 </Router>

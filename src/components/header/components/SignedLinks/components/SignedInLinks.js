@@ -8,6 +8,7 @@ function SignedInLinks() {
         <ul className="right">
             <li><a className={"text-white"} onClick={() => signOut()}>Log Out</a></li>
             <li><NavLink to="/exemple/desktop">Desktop Exemple</NavLink></li>
+            <li><NavLink to="/training/norbert">Training Norbert</NavLink></li>
             <li><NavLink to="/" className="btn btn-success">{profile.initials}</NavLink></li>
         </ul>
     );
