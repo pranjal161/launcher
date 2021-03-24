@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch,} from "react-router-dom";
+import {Redirect,} from "react-router-dom";
 import ClientView from "../views/clientView/clientView";
 import ContractSummary from "../views/contractSummary/contractSummary";
 import ExempleDesktopView from "../views/Desktop/Norbert/ExempleDesktopView";
@@ -27,13 +27,14 @@ const routes = [
         path: '/',
         name: 'default',
         exact: true,
-        component: () => <Redirect to={'signIn'} />
+        component: () => <Redirect to={'signIn'}/>
     },
     {
         path: '/home',
         name: 'home',
         exact: true,
-        component: HomePage
+        component: HomePage,
+        routes: []
     },
     {
         path: '/contractSearch',
@@ -104,7 +105,6 @@ const routes = [
     {
         path: '/training',
         name: 'training',
-        exact: true,
         component: Training,
         routes: [
             {
