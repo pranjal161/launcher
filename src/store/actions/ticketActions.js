@@ -1,3 +1,12 @@
+const addHistory = (state, action, metadata = {}) => {
+    const historyField = 'history.' + Date.now()
+    const updatedBy = state.auth.id
+    return {
+        [historyField]: {action, metadata: {...metadata, updatedBy}}
+    }
+
+}
+
 export const create = (ticket) => {
     return (dispatch, getState, {getFirebase,}) => {
         dispatch({type: 'CREATE_TICKET_PENDING', ticket})
@@ -23,9 +32,15 @@ export const update = (ticket) => {
     return (dispatch, getState, {getFirebase}) => {
         dispatch({type: 'UPDATE_TICKET_PENDING'})
         const firestore = getFirebase().firestore()
-        return firestore.collection('tickets').doc(ticket.id).update(ticket)
+        const history = addHistory(getState(), 'ticketUpdated')
+
+        return firestore.collection('tickets').doc(ticket.id).update({
+            ...ticket,
+            ...history
+        })
             .then((result) => {
                 dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
+                addHistory(ticket.id)
             }).catch(error => {
                 console.log(error)
                 dispatch({type: 'UPDATE_TICKET_ERROR', error})
@@ -51,9 +66,12 @@ export const assignTo = (id, userId) => {
     return (dispatch, getState, {getFirebase}) => {
         dispatch({type: 'ASSIGN_TICKET_PENDING'})
         const firestore = getFirebase().firestore()
+        const history = addHistory(getState(), 'assignedTo', {newValue: userId})
+
         return firestore.collection('tickets').doc(id).update(
             {
-                assignedTo: userId
+                assignedTo: userId,
+                ...history
             }
         )
             .then((result) => {
@@ -63,8 +81,29 @@ export const assignTo = (id, userId) => {
                 dispatch({type: 'ASSIGN_TICKET_ERROR', error})
             })
     }
-
 }
+
+export const createdBy = (id, userId) => {
+    return (dispatch, getState, {getFirebase}) => {
+        dispatch({type: 'CREATED_BY_TICKET_PENDING'})
+        const firestore = getFirebase().firestore()
+
+        const history = addHistory(getState(), 'createdBy', {newValue: userId})
+        return firestore.collection('tickets').doc(id).update(
+            {
+                createdBy: userId,
+                ...history
+            }
+        )
+            .then((result) => {
+                dispatch({type: 'CREATED_BY_TICKET_SUCCESS', result})
+            }).catch(error => {
+                console.log(error)
+                dispatch({type: 'CREATED_BY_TICKET_ERROR', error})
+            })
+    }
+}
+
 
 export const select = (id) => {
     return (dispatch) => {

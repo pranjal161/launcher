@@ -4,6 +4,7 @@ const initialState = {
     deleteTicketStatus: undefined,
     assignTicketStatus: undefined,
     selectedTicketId: undefined,
+    history: []
 }
 
 const ticketReducer = (state = initialState, action) => {
@@ -25,7 +26,7 @@ const ticketReducer = (state = initialState, action) => {
         case 'DELETE_TICKET_PENDING':
             return {...state, deleteTicketStatus:'pending'}
         case 'DELETE_TICKET_SUCCESS':
-            return {...state, deleteTicketStatus:'done'}
+            return {...state, deleteTicketStatus: 'done'}
         case 'DELETE_TICKET_ERROR':
             return {...state, deleteTicketStatus: 'error'}
 
@@ -35,6 +36,12 @@ const ticketReducer = (state = initialState, action) => {
             return {...state, assignTicketStatus: 'done'}
         case 'ASSIGN_TICKET_ERROR':
             return {...state, assignTicketStatus: 'error'}
+        case 'CREATED_BY_TICKET_PENDING':
+            return {...state}
+        case 'CREATED_BY_TICKET_SUCCESS':
+            return {...state}
+        case 'CREATED_BY_TICKET_ERROR':
+            return {...state}
 
         case 'SELECT_TICKET':
             return {...state, selectedTicketId: action.id}
@@ -42,6 +49,8 @@ const ticketReducer = (state = initialState, action) => {
         case 'UNSELECT_TICKET':
             return {...state, selectedTicketId: undefined}
 
+        case 'ADD_HISTORY_TICKET':
+            return {...state, history: [...state.history, action.process]}
         default:
             return state
     }
