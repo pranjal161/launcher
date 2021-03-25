@@ -9,7 +9,6 @@ import {NavLink, useHistory} from 'react-router-dom';
 import { ApplicationContext } from '../../context/applicationContext';
 import { SearchIcon } from '../../assets/svg';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 import CreateButton from '../Tickets/components/CreateButton/CreateButton';
 
 const Header = () => {
