@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NotificationIcon, TimeIcon } from '../../assets/svg';
+import { formatValue } from '../../util/functions';
 import './deadline.scss';
 
 const Deadline = (props: { deadline: any; }) => {
@@ -20,7 +21,7 @@ const Deadline = (props: { deadline: any; }) => {
     return (
         <>
         {deadline && diffInDays !== undefined && (
-            <span className="deadline-container">
+            <div title={formatValue(deadline, 'date')} className="deadline-container">
                 {diffInDays >= 3 && (
                     <div className="normal">
                         <TimeIcon /> {Math.abs(diffInDays)} {t('_DAYS_LEFT')}
@@ -41,7 +42,7 @@ const Deadline = (props: { deadline: any; }) => {
                         <NotificationIcon /> Today
                     </div>
                 )}
-            </span>
+            </div>
         )}   
         </>
     )
