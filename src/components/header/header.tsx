@@ -60,7 +60,7 @@ const Header = () => {
                 padding={{ right: 'xsmall' }}
                 content={
                     <>
-                        <div className="col-9">
+                        <div className="col-9 p-0">
                             <ul className="toolbar m-0">
                                 <li><NavLink to="/home">Home</NavLink></li>
                                 <li><NavLink to="/baskets/all">Baskets</NavLink></li>
