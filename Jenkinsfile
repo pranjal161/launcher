@@ -112,7 +112,7 @@ def addStagesCustom() {
             }
         }
     }
-    
+
     stage('Push Artifact React') {
         if (env.BRANCH_NAME == 'development') {
             withCredentials([[
@@ -143,3 +143,41 @@ stagesMap['codequality'] = ['skip': true]
 stagesMap['customDeploy'] = ['skip': true]
 
 pipelineRunner(stagesMap, pipelineUtils, 'docker/Dockerfile')
+
+/********************************************************************************************************/
+/**************************************** FUNCTIONS *****************************************************/
+/********************************************************************************************************/
+
+// Teams notifications
+def myOffice365ConnectorSend(String status, String message, factDefinitionsTeams=[]) {
+    def color
+
+    switch (status) {
+        case 'Success':
+            color = '#36A64F'
+            break
+        case 'Failure':
+            color = 'FF0000'
+            break
+        case 'Information':
+            color = '#F2C744'
+            break
+        default:
+            color = '#0099CC'
+            break
+    }
+
+    if (factDefinitionsTeams == null) {
+        office365ConnectorSend color: color,
+                            message: message,
+                            status: status,
+                            webhookUrl: TEAMS_WEBHOOK_URL
+    }
+    else {
+        office365ConnectorSend color: color,
+                            message: message,
+                            status: status,
+                            webhookUrl: TEAMS_WEBHOOK_URL,
+                            factDefinitions : factDefinitionsTeams
+    }
+}
