@@ -2,23 +2,19 @@ import DXCLogo from '../../assets/dxc_logo.jpg';
 import fr from '../../assets/fr.jpg';
 import nl from '../../assets/nl.jpg';
 import en from '../../assets/gb.jpg';
-import {
-    DxcHeader,
-    DxcSelect
-} from '@dxc-technology/halstack-react';
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
+import React, {useContext, useState} from 'react';
+import {NavLink, useHistory} from 'react-router-dom';
 
-import { ApplicationContext } from '../../context/applicationContext';
-import { SearchIcon } from '../../assets/svg';
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import {ApplicationContext} from '../../context/applicationContext';
+import {SearchIcon} from '../../assets/svg';
+import {useTranslation} from 'react-i18next';
 
 const Header = () => {
     const history = useHistory();
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const langs = [
         {
@@ -69,6 +65,7 @@ const Header = () => {
                                 <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
                                 <li><NavLink to="/help">Help</NavLink></li>
                                 <li><NavLink to="/tickets/create" className="btn">New Ticket</NavLink></li>
+                                <li><NavLink to="/training">Training pages</NavLink></li>
                             </ul>
                         </div>
                         <div className="col-1 pt-3 p-0 header-svg">
