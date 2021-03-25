@@ -6,7 +6,7 @@ export interface CustomProps {
     path: string,
     name: string,
     exact: boolean,
-    component: React.ComponentType
+    component: React.ComponentType,
     routes: Array<any>
 }
 
