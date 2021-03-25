@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect,} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import ClientView from "../views/clientView/clientView";
 import ContractSummary from "../views/contractSummary/contractSummary";
 import ExempleDesktopView from "../views/Desktop/Norbert/ExempleDesktopView";
