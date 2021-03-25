@@ -66,7 +66,6 @@ const Header = () => {
                                 <li><NavLink to="/baskets/all">Baskets</NavLink></li>
                                 <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
                                 <li><NavLink to="/help">Help</NavLink></li>
-                                <li><NavLink to="/tickets/create" className="btn">New Ticket</NavLink></li>
                                 <li><NavLink to="/training">Training pages</NavLink></li>
                                 <li><CreateButton /></li>
                             </ul>
