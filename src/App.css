@@ -35,11 +35,27 @@
 
 .toolbar a:hover{
   color: #6F2C91;
-  font-weight:bold;
 }
 
 .toolbar li{
-  list-style-type:none;
+  display: inline-flex;
+  margin: 5px 13px;
+  font-size: 14px;
+  font-weight: 600;
+  align-items: center;
+}
+
+.toolbar li a.btn {
+  color: #6F2C91;
+  border: 1px solid #6F2C91;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toolbar li a.btn:hover {
+  background: #6F2C91;
+  color: #fff;
+  transition: all 0.2s ease-in;
 }
 
 .App-link {
