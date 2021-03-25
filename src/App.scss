@@ -24,24 +24,6 @@
   color: white;
 }
 
-.toolbar{
-  display:inline-flex;
-  margin-top: 19px;
-}
-
-.toolbar a{
-  color: #000000;  
-}
-
-.toolbar a:hover{
-  color: #6F2C91;
-  font-weight:bold;
-}
-
-.toolbar li{
-  list-style-type:none;
-}
-
 .App-link {
   color: #61dafb;
 }
@@ -106,15 +88,60 @@ table tbody tr th {
   margin-top: 0px !important;
 }
 
-.flag-css .MuiSelect-select {
-  color:white !important;
-}
-
 .flag-css div {
   width: unset !important;
+}
+
+.flag-css .MuiSelect-select {
+  color:white !important;
 }
 
 .header-svg svg{
   fill: black !important;
   cursor: pointer;
 }
+
+.progressbar > div {
+min-width: 200px !important;
+.jKSkdn { width: 75% !important }
+.dvqOpF { width: unset !important;}
+}
+
+.toolbar{
+  display:inline-flex;
+  margin-top: 19px;
+}
+
+.toolbar a{
+  color: #000000;  
+}
+
+.toolbar a:hover{
+  color: #6F2C91;
+}
+
+.toolbar li{
+  display: inline-flex;
+  margin: 5px 13px;
+  font-size: 14px;
+  font-weight: 600;
+  align-items: center;
+}
+
+.toolbar li a.btn {
+  color: #6F2C91;
+  border: 1px solid #6F2C91;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toolbar li a.btn:hover {
+  background: #6F2C91;
+  color: #fff;
+  transition: all 0.2s ease-in;
+}
+
+
+  .MuiPaper-elevation4 {
+    border-bottom: 1px solid rgba(0, 50, 150, 0.1) !important;}
+

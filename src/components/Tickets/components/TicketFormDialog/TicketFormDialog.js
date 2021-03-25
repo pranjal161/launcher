@@ -16,6 +16,8 @@ const schema = yup.object().shape({
     description: yup.string(),
     status: yup.string().required(),
     notes: yup.string(),
+    deadline: yup.string(),
+    stage: yup.number()
 });
 
 function TicketFormDialog(props) {
@@ -100,6 +102,22 @@ function TicketFormDialog(props) {
                         <div className="">
                         <textarea className="form-control" id="description" name="description"
                                   ref={register}></textarea>
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label className=" control-label" htmlFor="deadline">Deadline</label>
+                        <div className="">
+                        <input id="deadline" name="deadline" type="date"
+                                   className="form-control input-md" ref={register}/>
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label className=" control-label" htmlFor="stage">Stage (%)</label>
+                        <div className="">
+                        <input id="stage" name="stage"
+                                   className="form-control input-md" ref={register}/>
                         </div>
                     </div>
 
