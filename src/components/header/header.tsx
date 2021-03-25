@@ -6,14 +6,16 @@ import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
 import React, {useContext, useState} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 
-import {ApplicationContext} from '../../context/applicationContext';
-import {SearchIcon} from '../../assets/svg';
-import {useTranslation} from 'react-i18next';
+import { ApplicationContext } from '../../context/applicationContext';
+import { SearchIcon } from '../../assets/svg';
+import { useTranslation } from 'react-i18next';
+import CreateButton from '../Tickets/components/CreateButton/CreateButton';
 
 const Header = () => {
     const history = useHistory();
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
+
     const {t} = useTranslation();
 
     const langs = [
@@ -58,14 +60,14 @@ const Header = () => {
                 padding={{ right: 'xsmall' }}
                 content={
                     <>
-                        <div className="col-9">
-                            <ul className="toolbar">
+                        <div className="col-9 p-0">
+                            <ul className="toolbar m-0">
                                 <li><NavLink to="/home">Home</NavLink></li>
                                 <li><NavLink to="/baskets/all">Baskets</NavLink></li>
                                 <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
                                 <li><NavLink to="/help">Help</NavLink></li>
-                                <li><NavLink to="/tickets/create" className="btn">New Ticket</NavLink></li>
                                 <li><NavLink to="/training">Training pages</NavLink></li>
+                                <li><CreateButton /></li>
                             </ul>
                         </div>
                         <div className="col-1 pt-3 p-0 header-svg">
@@ -73,7 +75,6 @@ const Header = () => {
                                 aria-label="add an alarm"
                                 onClick={goToSearch}
                             >
-                                {t('_SEARCH')}
                                 <SearchIcon />
                             </p>
                         </div>

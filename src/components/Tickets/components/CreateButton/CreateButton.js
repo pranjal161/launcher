@@ -1,4 +1,4 @@
-import {Button,} from "@material-ui/core";
+import {DxcButton} from '@dxc-technology/halstack-react';
 import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
 import useDeskTickets from "../../../../data/hooks/useDeskTickets";
@@ -6,7 +6,7 @@ import useDeskTickets from "../../../../data/hooks/useDeskTickets";
 
 function CreateButton() {
     const [open, setOpen] = React.useState(false);
-    const {create} = useDeskTickets()
+    const { create } = useDeskTickets()
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -22,10 +22,13 @@ function CreateButton() {
     }
     return (
         <div>
-            <Button variant="contained" color="primary" onClick={handleClickOpen}>
-                Create ticket
-            </Button>
-            {open && <TicketFormDialog close={handleClose} submit={handleSubmit}/>}
+            <DxcButton
+                mode="primary"
+                label="New Ticket"
+                onClick={handleClickOpen}
+                margin="xxsmall"
+            />
+            {open && <TicketFormDialog close={handleClose} submit={handleSubmit} />}
         </div>
     )
 }
