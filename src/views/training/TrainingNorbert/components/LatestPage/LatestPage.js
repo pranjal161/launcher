@@ -2,7 +2,7 @@ import React from 'react';
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import {DxcButton} from "@dxc-technology/halstack-react"
 
-const LatestPage = (props) => {
+const LatestPage = () => {
     const {addRelatedClients, removeRelatedClients} = useDeskTickets()
     const handleAddRelatedClient = () => {
         addRelatedClients('cFJCLyR9Al3EB1iZYdfP', 'titi')
