@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionsBar from "./components/SectionsBar/SectionsBar";
 import {Drawer, Grid} from "@material-ui/core";
-import TicketDetail from "../../../../components/Tickets/components/TicketDetail/TicketDetail";
+import TicketDetail from "../../../../../../../components/Tickets/TicketDetail/TicketDetail";
 
 function TicketSide({id, sectionId, onSectionChange, onClose}) {
     const open = (id !== undefined)

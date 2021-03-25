@@ -1,8 +1,8 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import ClientView from "../views/clientView/clientView";
 import ContractSummary from "../views/contractSummary/contractSummary";
-import ExempleDesktopView from "../views/training/TrainingNorbert/ExempleDesktopView";
+import ExempleDesktopView from "../views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
 import ContractSearch from "../views/contractSearch/contractSearch";
 import SignIn from "../views/SignIn/SignIn";
 import SignUp from "../views/SignUp/SignUp";

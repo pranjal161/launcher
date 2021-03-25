@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import useDeskAuth from '../../data/hooks/useDeskAuth';
-import { DxcBox } from '@dxc-technology/halstack-react';
+import {DxcBox} from '@dxc-technology/halstack-react';
 import './home.scss';
 import useDeskTickets from '../../data/hooks/useDeskTickets';
 import TicketList from '../../components/ticketsList/ticketsList';
-import TicketDetail from '../../components/Tickets/components/TicketDetail/TicketDetail';
+import TicketDetail from '../../components/Tickets/TicketDetail/TicketDetail';
 import useDeskBaskets from '../../data/hooks/useDeskBaskets';
 import BasketList from '../../components/basketList/basketList';
 
