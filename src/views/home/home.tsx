@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useDeskAuth from '../../data/hooks/useDeskAuth';
 import { DxcBox } from '@dxc-technology/halstack-react';
-import './home.css';
+import './home.scss';
 import useDeskTickets from '../../data/hooks/useDeskTickets';
 import TicketList from '../../components/ticketsList/ticketsList';
 import TicketDetail from '../../components/Tickets/components/TicketDetail/TicketDetail';
@@ -38,28 +38,29 @@ const HomePage = () => {
             <div className="main-container">
                 <div className="grid-container col-9 pr-0">
                     <div className="col-8">
-                        All Baskets
-                    {baskets &&
+                        <span className="p-2">All Baskets</span>
+                        {baskets &&
                             <BasketList baskets={baskets} />
                         }
                     </div>
                     <div className="col-4">
-                        Today's Reminder
+                        <span className="p-2">Today's Reminder</span>
                     </div>
                     <div className="col-12">
-                        All Tickets
-                    {tickets &&
+                        <span className="p-2">All Tickets</span>
+                        {tickets &&
                             <TicketList handleTicketClick={handleTicketClick} tickets={tickets} />
                         }
                     </div>
                 </div>
                 <div className="grid-container col-3 pl-0">
                     <div className="col-12">
-                        Ticket Details
-                    {clickedTickets && Object.values(clickedTickets).map((ticket: any) => <TicketDetail id={ticket.id}
-                        key={ticket.id}
-                        onRemove={handleRemove} className="" onClose={() => handleRemove(ticket.id)} sectionId="ticket-details" />)}
+                        <span className="p-2">Ticket Details</span>
+                        {clickedTickets && Object.values(clickedTickets).map((ticket: any) => <TicketDetail id={ticket.id}
+                            key={ticket.id}
+                            onRemove={handleRemove} className="" onClose={() => handleRemove(ticket.id)} sectionId="ticket-details" />)}
                     </div>
+
                 </div>
             </div>
         </span>
