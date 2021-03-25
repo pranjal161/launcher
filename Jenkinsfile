@@ -180,4 +180,4 @@ def myOffice365ConnectorSend(String status, String message, factDefinitionsTeams
                             webhookUrl: TEAMS_WEBHOOK_URL,
                             factDefinitions : factDefinitionsTeams
     }
-}
+} 
