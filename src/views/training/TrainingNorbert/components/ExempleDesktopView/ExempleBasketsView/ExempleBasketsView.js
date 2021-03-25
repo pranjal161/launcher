@@ -1,11 +1,11 @@
-import AllBaskets from "../../../../components/Baskets/AllBaskets";
-import BasketDetail from "../../../../components/Baskets/components/BasketDetail/BasketDetail";
-import CreateButton from "../../../../components/Baskets/components/CreateButton/CreateButton";
-import MyBaskets from "../../../../components/Baskets/MyBaskets";
+import AllBaskets from "../../../../../../components/Baskets/AllBaskets";
+import BasketDetail from "../../../../../../components/Baskets/components/BasketDetail/BasketDetail";
+import CreateButton from "../../../../../../components/Baskets/components/CreateButton/CreateButton";
+import MyBaskets from "../../../../../../components/Baskets/MyBaskets";
 import React, {useState} from 'react';
 import {Redirect} from "react-router-dom";
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
-import useDeskAuth from "../../../../data/hooks/useDeskAuth";
+import useDeskBaskets from "../../../../../../data/hooks/useDeskBaskets";
+import useDeskAuth from "../../../../../../data/hooks/useDeskAuth";
 
 function ExempleBasketsView() {
     const [clickedBaskets, setclickedBaskets] = useState({})

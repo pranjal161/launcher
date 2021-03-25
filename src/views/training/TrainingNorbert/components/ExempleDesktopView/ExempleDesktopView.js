@@ -1,5 +1,5 @@
-import ExempleBasketsView from "../../Desktop/components/ExempleBasketsView/ExempleBasketsView";
-import ExempleTicketsView from "../../Desktop/components/ExempleTicketsView/ExempleTicketsView";
+import ExempleBasketsView from "./ExempleBasketsView/ExempleBasketsView";
+import ExempleTicketsView from "./ExempleTicketsView/ExempleTicketsView";
 import React from 'react';
 import {Tab, Tabs} from "@material-ui/core";
 

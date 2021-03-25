@@ -1,7 +1,7 @@
-import AllTickets from "../../../../../components/Tickets/AllTickets";
+import AllTickets from "../../../../../components/Tickets/AllTickets/AllTickets";
 import Context from "../../../../../store/contextualStore/Context";
 import React, {useReducer} from 'react';
-import TicketSide from "../../../../Desktop/components/TicketSide/TicketSide";
+import TicketSide from "./components/TicketSide/TicketSide";
 import {withTicketStore} from "../../../../../store/contextualStore/withTicketStore";
 import {Grid} from "@material-ui/core";
 import {initialState, reducer, selectTicket, setCurrentSection} from "../../../../../store/contextualStore/store";

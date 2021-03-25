@@ -1,7 +1,7 @@
 import {Button} from "@material-ui/core";
 import React from 'react';
-import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
-import useDeskTickets from "../../../../data/hooks/useDeskTickets";
+import TicketFormDialog from "../../../TicketFormDialog/TicketFormDialog";
+import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 
 function UpdateButton({ticket}) {
     const [open, setOpen] = React.useState(false);

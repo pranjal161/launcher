@@ -5,11 +5,11 @@ import {DxcButton} from "@dxc-technology/halstack-react"
 const LatestPage = () => {
     const {addRelatedClients, removeRelatedClients} = useDeskTickets()
     const handleAddRelatedClient = () => {
-        addRelatedClients('cFJCLyR9Al3EB1iZYdfP', 'titi')
+        addRelatedClients('6OhFlgtodm43dP4wM1ez', 'toto')
     }
 
     const handleRemoveRelatedClient = () => {
-        removeRelatedClients('cFJCLyR9Al3EB1iZYdfP', 'toto')
+        removeRelatedClients('6OhFlgtodm43dP4wM1ez', 'toto')
     }
 
     return (
