@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";

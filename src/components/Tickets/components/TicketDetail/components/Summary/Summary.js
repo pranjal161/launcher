@@ -52,7 +52,7 @@ const Summary = props => {
                     >
                         <Typography variant="subtitle2">Deadline</Typography>
                         <Typography variant="h6">
-                            {moment(ticket.deadlineDate).format('DD MMM YYYY')}
+                            {moment(ticket.deadline).format('DD MMM YYYY')}
                         </Typography>
                     </ListItem>
                     <ListItem
