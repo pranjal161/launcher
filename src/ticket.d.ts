@@ -2,7 +2,7 @@ interface Ticket {
     uid?: string;
     number?: string;
     requestedBy: string;
-    activityId: string;
+    activities: object[];
     assignedTo: User;
     basketId: string;
     creatorId: string;
@@ -14,6 +14,7 @@ interface Ticket {
     lastUpdate: string;
     relatedClients: object[];
     relatedContrats: object[];
+    suggestedActivities:object;
     stages: object[];
     status: string;
     notes: object[];
