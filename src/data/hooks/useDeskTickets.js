@@ -40,6 +40,8 @@ const useDeskTickets = () => {
     const createdBy = useCallback((...param) => dispatch(ticketActions.createdBy(...param)), [dispatch])
     const select = useCallback((...param) => dispatch(ticketActions.select(...param)), [dispatch])
     const unSelect = useCallback((...param) => dispatch(ticketActions.unSelect(...param)), [dispatch])
+    const addRelatedClients = useCallback((...param) => dispatch(ticketActions.addRelatedClients(...param)), [dispatch])
+    const removeRelatedClients = useCallback((...param) => dispatch(ticketActions.removeRelatedClients(...param)), [dispatch])
 
 
     return {
@@ -53,7 +55,9 @@ const useDeskTickets = () => {
         assignTo,
         createdBy,
         select,
-        unSelect
+        unSelect,
+        addRelatedClients,
+        removeRelatedClients
     }
 }
 

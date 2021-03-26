@@ -1,7 +1,7 @@
 import React from 'react';
-import UpdateButton from "../UpdateButton/UpdateButton";
-import useDeskTickets from "../../../../data/hooks/useDeskTickets";
-import useDeskAuth from "../../../../data/hooks/useDeskAuth";
+import UpdateButton from "./components/UpdateButton/UpdateButton";
+import useDeskTickets from "../../../data/hooks/useDeskTickets";
+import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import {makeStyles} from "@material-ui/core";
 import Summary from "./components/Summary/Summary";
 

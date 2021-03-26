@@ -1,11 +1,10 @@
+import AllTickets from "../../../../../components/Tickets/AllTickets/AllTickets";
+import Context from "../../../../../store/contextualStore/Context";
 import React, {useReducer} from 'react';
-
-import TicketSide from "../../components/TicketSide/TicketSide";
+import TicketSide from "./components/TicketSide/TicketSide";
+import {withTicketStore} from "../../../../../store/contextualStore/withTicketStore";
 import {Grid} from "@material-ui/core";
-import {withTicketStore} from "./components/LocalStore/withTicketStore";
-import Context from "./components/LocalStore/Context";
-import {initialState, reducer, selectTicket, setCurrentSection} from "./components/LocalStore/store";
-import AllTickets from "../../../../components/Tickets/AllTickets";
+import {initialState, reducer, selectTicket, setCurrentSection} from "../../../../../store/contextualStore/store";
 
 /*
 const MyTicketsConnected = () => {
@@ -51,10 +50,10 @@ const TicketSideConnected = () => {
     return <Impl/>
 }
 
-function TrainingNorbert(props) {
+const TicketListPage = () => {
     // I create a contextual store
     const [state, dispatch] = useReducer(reducer, initialState);
-    //console.log("TrainingNorbert render")
+
     return (
         <Context.Provider value={{state, dispatch}}>
             <div>
@@ -71,4 +70,4 @@ function TrainingNorbert(props) {
     );
 }
 
-export default TrainingNorbert;
+export default TicketListPage;

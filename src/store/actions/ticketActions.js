@@ -27,7 +27,6 @@ export const create = (ticket) => {
     }
 }
 
-
 export const update = (ticket) => {
     return (dispatch, getState, {getFirebase}) => {
         dispatch({type: 'UPDATE_TICKET_PENDING'})
@@ -37,14 +36,13 @@ export const update = (ticket) => {
         return firestore.collection('tickets').doc(ticket.id).update({
             ...ticket,
             ...history
+        }).then((result) => {
+            dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
+            addHistory(ticket.id)
+        }).catch(error => {
+            console.log(error)
+            dispatch({type: 'UPDATE_TICKET_ERROR', error})
         })
-            .then((result) => {
-                dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
-                addHistory(ticket.id)
-            }).catch(error => {
-                console.log(error)
-                dispatch({type: 'UPDATE_TICKET_ERROR', error})
-            })
     }
 }
 
@@ -73,13 +71,12 @@ export const assignTo = (id, userId) => {
                 assignedTo: userId,
                 ...history
             }
-        )
-            .then((result) => {
-                dispatch({type: 'ASSIGN_TICKET_SUCCESS', result})
-            }).catch(error => {
-                console.log(error)
-                dispatch({type: 'ASSIGN_TICKET_ERROR', error})
-            })
+        ).then((result) => {
+            dispatch({type: 'ASSIGN_TICKET_SUCCESS', result})
+        }).catch(error => {
+            console.log(error)
+            dispatch({type: 'ASSIGN_TICKET_ERROR', error})
+        })
     }
 }
 
@@ -94,16 +91,14 @@ export const createdBy = (id, userId) => {
                 createdBy: userId,
                 ...history
             }
-        )
-            .then((result) => {
-                dispatch({type: 'CREATED_BY_TICKET_SUCCESS', result})
-            }).catch(error => {
-                console.log(error)
-                dispatch({type: 'CREATED_BY_TICKET_ERROR', error})
-            })
+        ).then((result) => {
+            dispatch({type: 'CREATED_BY_TICKET_SUCCESS', result})
+        }).catch(error => {
+            console.log(error)
+            dispatch({type: 'CREATED_BY_TICKET_ERROR', error})
+        })
     }
 }
-
 
 export const select = (id) => {
     return (dispatch) => {
@@ -117,24 +112,42 @@ export const unSelect = (id) => {
     }
 }
 
-/*
-export const assign = (id, userId) => {
+export const addRelatedClients = (id, clientId) => {
     return (dispatch, getState, {getFirebase}) => {
-        dispatch({type: 'ASSIGN_TICKET_PENDING'})
         const firestore = getFirebase().firestore()
+        const history = addHistory(getState(), 'addedRelatedClient', {newValue: clientId})
+
         return firestore.collection('tickets').doc(id).update(
             {
-                assignedToList: firestore.FieldValue.arrayUnion(userId)
+                relatedClients: getFirebase().firestore.FieldValue.arrayUnion(clientId),
+                ...history
             }
-            )
-            .then((result) => {
-                dispatch({type: 'ASSIGN_TICKET_SUCCESS', result})
-            }).catch(error => {
-                console.log(error)
-                dispatch({type: 'ASSIGN_TICKET_ERROR', error})
-            })
+        ).then((result) => {
+            dispatch({type: 'ADD_RELATED_CLIENT_TICKET_SUCCESS', result})
+        }).catch(error => {
+            console.log(error)
+            dispatch({type: 'REMOVE_RELATED_CLIENT_TICKET_ERROR', error})
+        })
     }
+}
 
-}*/
+export const removeRelatedClients = (id, clientId) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firestore = getFirebase().firestore()
+        const history = addHistory(getState(), 'removedRelatedClient', {newValue: clientId})
+
+        return firestore.collection('tickets').doc(id).update(
+            {
+                relatedClients: getFirebase().firestore.FieldValue.arrayRemove(clientId),
+                ...history
+            }
+        ).then((result) => {
+            dispatch({type: 'REMOVE_RELATED_CLIENT_TICKET_SUCCESS', result})
+        }).catch(error => {
+            console.log(error)
+            dispatch({type: 'ADD_RELATED_CLIENT_TICKET_ERROR', error})
+        })
+    }
+}
 
 
