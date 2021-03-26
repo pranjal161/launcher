@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import {DxcButton, DxcInput} from "@dxc-technology/halstack-react"
 import MyTickets from "../../../../../components/Tickets/MyTickets/MyTickets";
+import Upload from "../../../../../components/Tickets/TicketDetail/components/Upload/Upload";
 
 const LatestPage = () => {
     const [ticket, setTicket] = useState(undefined)
@@ -23,9 +24,9 @@ const LatestPage = () => {
     }
     return (
         <div className="row">
-            <div className="col-6"><MyTickets onClick={ticket => setTicket(ticket)}
+            <div className="col-4"><MyTickets onClick={ticket => setTicket(ticket)}
                                               ticketId={ticket && ticket.id}/></div>
-            <div className="col-6">
+            <div className="col-4">
                 <DxcInput
                     label="Client"
                     value={client}
@@ -63,9 +64,12 @@ const LatestPage = () => {
                     disabled={!ticket}
                 />
             </div>
+            <div className="col-1">
+                <Upload></Upload>
+            </div>
 
         </div>
-    );
+    )
 }
 
 export default LatestPage;

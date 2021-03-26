@@ -9,6 +9,7 @@ const addHistory = (state, action, metadata = {}) => {
 
 }
 
+
 export const create = (ticket) => {
     return (dispatch, getState, {getFirebase,}) => {
         dispatch({type: 'CREATE_TICKET_PENDING', ticket})
