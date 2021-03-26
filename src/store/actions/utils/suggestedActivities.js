@@ -1,24 +1,24 @@
-const elements = [
-    payments = {
+const elements = {
+    payments : {
         keys: ['payment', 'versement', 'vl', 'up'],
         activities: {
             unsolicitedPayment: ['vl', 'up', 'unsolicited', 'libre', 'ultérieur'],
         }
     },
-    newBusiness = {
+    newBusiness : {
         keys: ['business', 'contrat'],
         activities: {
             newBusiness: ['new', 'nouveau', 'contrat', 'création', 'create'],
         }
     },
-    rachat = {
+    rachat : {
         keys: ['rachat'],
         activities: {
             rachatTotal: ['rachat', 'total', 'full'],
             rachatPartiel: ['rachat', 'partiel', 'partial'],
         }
     },
-    PostalAddress = {
+    PostalAddress : {
         keys: ['postal', 'postale', 'adresse', 'address', 'déménagement', 'domicile', 'move'],
         activities: {
             createPostalAddress: ['create', 'création'],
@@ -26,7 +26,7 @@ const elements = [
             deletePostalAddress: ['supprimer', 'arrêter', 'delete', 'remove']
         }
     },
-    emailAccount = {
+    emailAccount : {
         keys: ['email', 'adresse', 'address', 'mail', '@'],
         activities: {
             createEmailAddress: ['create', 'création'],
@@ -34,17 +34,17 @@ const elements = [
             deleteEmailAddress: ['supprimer', 'arrêter', 'delete', 'remove']
         }
     },
-    bankAccount = {
-        keys: ['bank', 'account', 'rib', 'iban'],
+    bankAccount : {
+        keys: ['bank', 'account', 'rib', 'iban', 'compte', 'bancaire'],
         activities: {
             createBankAccount: ['create', 'création'],
             updateBankAccount: ['change', 'changer', 'update', 'modifier', 'à jour', 'modification'],
             deleteBankAccount: ['supprimer', 'arrêter', 'delete', 'remove']
         }
     }
-    ,
 
-]
+
+}
 Array.prototype.unique = function () {
     return this.filter(function (value, index, self) {
         return self.indexOf(value) === index;
@@ -52,7 +52,6 @@ Array.prototype.unique = function () {
 }
 
 const removeAccent = (word) => word.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-
 const convertWord = (word) => removeAccent(word).toUpperCase()
 
 const ticketForTesting = {
@@ -66,13 +65,13 @@ const ticketForTesting = {
 
 }
 
-const getSuggestedActivities = (ticket) => {
+const foundSuggestedActivities = (ticket) => {
     const titleAndDescription = convertWord(ticket && ticket.title + ' ' + ticket.description)
     const reg = new RegExp("[ ,.]+", "g");
     const uniqueWords = titleAndDescription.split(reg).unique()
 
 
-    const result = elements.map(element => {
+    const result = Object.values(elements).map(element => {
         //If one is find, it's ok to parse activities elements
         const keys = element.keys.map(key => convertWord(key))
 
@@ -94,12 +93,16 @@ const getSuggestedActivities = (ticket) => {
     return result.filter(it => it).flat()
 }
 
-const newSuggestedList = getSuggestedActivities(ticketForTesting).flat()
+export const getSuggestedActivities = (ticket) => {
+    const newSuggestedList = foundSuggestedActivities(ticket).flat()
 
-newSuggestedList.forEach(suggestion => {
-    const [activityScore] = Object.entries(suggestion)
-    ticketForTesting.suggestedActivities[activityScore[0]] = {status : 'suggested', ...ticketForTesting.suggestedActivities[activityScore[0]], score : activityScore[1]}
-})
+    const result = {}
+    newSuggestedList.forEach(suggestion => {
+        const [activityScore] = Object.entries(suggestion)
+        const existingActivity = ticket.suggestedActivities && ticket.suggestedActivities[activityScore[0]] ? ticket.suggestedActivities[activityScore[0]] : {}
+        result[activityScore[0]] = {status : 'suggested', ...existingActivity, score : activityScore[1]}
+    })
+    return result
+}
 
-console.log(ticketForTesting)
 

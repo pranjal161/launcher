@@ -1,3 +1,5 @@
+import {getSuggestedActivities} from "./utils/suggestedActivities";
+
 const addHistory = (state, action, metadata = {}) => {
     const historyField = 'history.' + Date.now()
     const updatedBy = state.auth.id
@@ -32,10 +34,12 @@ export const update = (ticket) => {
         dispatch({type: 'UPDATE_TICKET_PENDING'})
         const firestore = getFirebase().firestore()
         const history = addHistory(getState(), 'ticketUpdated')
+        const suggestedActivities = getSuggestedActivities(ticket)
 
         return firestore.collection('tickets').doc(ticket.id).update({
             ...ticket,
-            ...history
+            ...history,
+            suggestedActivities
         }).then((result) => {
             dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
             addHistory(ticket.id)
