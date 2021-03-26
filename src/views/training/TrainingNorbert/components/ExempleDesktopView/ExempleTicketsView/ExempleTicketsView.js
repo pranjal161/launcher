@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import AllTickets from "../../../../components/Tickets/AllTickets";
-import CreateButton from "../../../../components/Tickets/components/CreateButton/CreateButton";
-import MyTickets from "../../../../components/Tickets/MyTickets";
+import AllTickets from "../../../../../../components/Tickets/AllTickets/AllTickets";
+import CreateButton from "../../../../../../components/Tickets/CreateButton/CreateButton";
+import MyTickets from "../../../../../../components/Tickets/MyTickets/MyTickets";
 import {Redirect} from "react-router-dom";
-import TicketDetail from "../../../../components/Tickets/components/TicketDetail/TicketDetail";
-import useDeskAuth from "../../../../data/hooks/useDeskAuth";
+import TicketDetail from "../../../../../../components/Tickets/TicketDetail/TicketDetail";
+import useDeskAuth from "../../../../../../data/hooks/useDeskAuth";
 
 function ExempleTicketsView() {
     const [clickedTickets, setClickedTickets] = useState({})

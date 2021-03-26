@@ -6,10 +6,10 @@ import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
 import React, {useContext, useState} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 
-import { ApplicationContext } from '../../context/applicationContext';
-import { SearchIcon } from '../../assets/svg';
-import { useTranslation } from 'react-i18next';
-import CreateButton from '../Tickets/components/CreateButton/CreateButton';
+import {ApplicationContext} from '../../context/applicationContext';
+import {SearchIcon} from '../../assets/svg';
+import {useTranslation} from 'react-i18next';
+import CreateButton from '../Tickets/CreateButton/CreateButton';
 
 const Header = () => {
     const history = useHistory();
