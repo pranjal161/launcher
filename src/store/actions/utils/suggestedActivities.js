@@ -1,8 +1,8 @@
 const elements = {
     payments : {
-        keys: ['payment', 'versement', 'vl', 'up'],
+        keys: ['payment', 'versement', 'vl', 'up', '$', '€'],
         activities: {
-            unsolicitedPayment: ['vl', 'up', 'unsolicited', 'libre', 'ultérieur'],
+            unsolicitedPayment: ['vl', 'up', 'unsolicited', 'libre', 'ultérieur', '$', '€'],
         }
     },
     newBusiness : {
@@ -19,17 +19,17 @@ const elements = {
         }
     },
     PostalAddress : {
-        keys: ['postal', 'postale', 'adresse', 'address', 'déménagement', 'domicile', 'move'],
+        keys: ['postal', 'postale', 'adresse', 'address', 'déménagement', 'domicile', 'move', 'town', 'npai'],
         activities: {
-            createPostalAddress: ['create', 'création'],
-            updatePostalAddress: ['change', 'changer', 'update', 'modifier', 'déménagé', 'à jour', 'modification'],
+            createPostalAddress: ['create', 'création', 'new'],
+            updatePostalAddress: ['change', 'changer', 'update', 'modifier', 'déménagé', 'déménagement', 'move', 'à jour', 'modification', 'npai'],
             deletePostalAddress: ['supprimer', 'arrêter', 'delete', 'remove']
         }
     },
     emailAccount : {
-        keys: ['email', 'adresse', 'address', 'mail', '@'],
+        keys: ['email', 'mail', '@'],
         activities: {
-            createEmailAddress: ['create', 'création'],
+            createEmailAddress: ['create', 'création', 'new'],
             updateEmailAddress: ['change', 'changer', 'update', 'modifier', 'à jour', 'modification'],
             deleteEmailAddress: ['supprimer', 'arrêter', 'delete', 'remove']
         }
@@ -37,7 +37,7 @@ const elements = {
     bankAccount : {
         keys: ['bank', 'account', 'rib', 'iban', 'compte', 'bancaire'],
         activities: {
-            createBankAccount: ['create', 'création'],
+            createBankAccount: ['create', 'création', 'new'],
             updateBankAccount: ['change', 'changer', 'update', 'modifier', 'à jour', 'modification'],
             deleteBankAccount: ['supprimer', 'arrêter', 'delete', 'remove']
         }
