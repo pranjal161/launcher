@@ -21,6 +21,11 @@ const useGetState = () => {
     return useSelector((state) => (state.tickets))
 }
 
+const callActionCreator = (dispatch, action, param) => {
+    dispatch(ticketActions[action](...param))
+}
+
+
 const useDeskTickets = () => {
     const getAll = useAllTickets
     const getMyAllTickets = useMyAllTickets
@@ -32,8 +37,12 @@ const useDeskTickets = () => {
     const update = useCallback((...param) => dispatch(ticketActions.update(...param)), [dispatch])
     const remove = useCallback((...param) => dispatch(ticketActions.remove(...param)), [dispatch])
     const assignTo = useCallback((...param) => dispatch(ticketActions.assignTo(...param)), [dispatch])
+    const createdBy = useCallback((...param) => dispatch(ticketActions.createdBy(...param)), [dispatch])
     const select = useCallback((...param) => dispatch(ticketActions.select(...param)), [dispatch])
     const unSelect = useCallback((...param) => dispatch(ticketActions.unSelect(...param)), [dispatch])
+    const addRelatedClients = useCallback((...param) => dispatch(ticketActions.addRelatedClients(...param)), [dispatch])
+    const removeRelatedClients = useCallback((...param) => dispatch(ticketActions.removeRelatedClients(...param)), [dispatch])
+
 
     return {
         getOne,
@@ -44,8 +53,11 @@ const useDeskTickets = () => {
         update,
         remove,
         assignTo,
+        createdBy,
         select,
-        unSelect
+        unSelect,
+        addRelatedClients,
+        removeRelatedClients
     }
 }
 

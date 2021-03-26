@@ -2,23 +2,21 @@ import DXCLogo from '../../assets/dxc_logo.jpg';
 import fr from '../../assets/fr.jpg';
 import nl from '../../assets/nl.jpg';
 import en from '../../assets/gb.jpg';
-import {
-    DxcHeader,
-    DxcSelect
-} from '@dxc-technology/halstack-react';
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
+import React, {useContext, useState} from 'react';
+import {NavLink, useHistory} from 'react-router-dom';
 
-import { ApplicationContext } from '../../context/applicationContext';
-import { SearchIcon } from '../../assets/svg';
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import {ApplicationContext} from '../../context/applicationContext';
+import {SearchIcon} from '../../assets/svg';
+import {useTranslation} from 'react-i18next';
+import CreateButton from '../Tickets/CreateButton/CreateButton';
 
 const Header = () => {
     const history = useHistory();
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
-    const { t } = useTranslation();
+
+    const {t} = useTranslation();
 
     const langs = [
         {
@@ -62,13 +60,14 @@ const Header = () => {
                 padding={{ right: 'xsmall' }}
                 content={
                     <>
-                        <div className="col-9">
-                            <ul className="toolbar">
-                                <li className="col-2"><NavLink to="/home">Home</NavLink></li>
-                                <li className="col-2"><NavLink to="/home">Baskets</NavLink></li>
-                                <li className="col-3"><NavLink to="/home">My Tickets</NavLink></li>
-                                <li className="col-2"><NavLink to="/home">Help</NavLink></li>
-                                <li className="col-4"><button>New Ticket</button></li>
+                        <div className="col-9 p-0">
+                            <ul className="toolbar m-0">
+                                <li><NavLink to="/home">Home</NavLink></li>
+                                <li><NavLink to="/baskets/all">Baskets</NavLink></li>
+                                <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
+                                <li><NavLink to="/help">Help</NavLink></li>
+                                <li><NavLink to="/training">Training pages</NavLink></li>
+                                <li><CreateButton /></li>
                             </ul>
                         </div>
                         <div className="col-1 pt-3 p-0 header-svg">
@@ -76,7 +75,6 @@ const Header = () => {
                                 aria-label="add an alarm"
                                 onClick={goToSearch}
                             >
-                                {t('_SEARCH')}
                                 <SearchIcon />
                             </p>
                         </div>
