@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import useDeskAuth from '../../data/hooks/useDeskAuth';
-import { DxcBox } from '@dxc-technology/halstack-react';
+import {DxcBox} from '@dxc-technology/halstack-react';
 import './home.scss';
 import useDeskTickets from '../../data/hooks/useDeskTickets';
 import TicketList from '../../components/ticketsList/ticketsList';
-import TicketDetail from '../../components/Tickets/components/TicketDetail/TicketDetail';
+import TicketDetail from '../../components/Tickets/TicketDetail/TicketDetail';
 import useDeskBaskets from '../../data/hooks/useDeskBaskets';
 import BasketList from '../../components/basketList/basketList';
 
@@ -15,17 +15,19 @@ const HomePage = () => {
     const { remove } = useDeskTickets()
     const tickets = ticketDesk.getAll()
     const baskets = basketDesk.getAll()
-    const [clickedTickets, setClickedTickets] = useState({});
+    const [clickedTicket, setClickedTicket] = useState({id: null});
 
     const handleTicketClick = (ticket: { id: any; }) => {
-        setClickedTickets({ ...clickedTickets, [ticket.id]: ticket })
+        setClickedTicket({ ...ticket })
     }
 
     const handleRemove = (id: string | number) => {
-        const newAfterDelete: any = { ...clickedTickets }
-        delete newAfterDelete[id];
         remove(id)
-        setClickedTickets(newAfterDelete)
+        setClickedTicket({id: null})
+    }
+
+    const handleClose = () => {
+        setClickedTicket({id: null})
     }
 
     return (
@@ -56,9 +58,16 @@ const HomePage = () => {
                 <div className="grid-container col-3 pl-0">
                     <div className="col-12">
                         <span className="p-2">Ticket Details</span>
-                        {clickedTickets && Object.values(clickedTickets).map((ticket: any) => <TicketDetail id={ticket.id}
-                            key={ticket.id}
-                            onRemove={handleRemove} className="" onClose={() => handleRemove(ticket.id)} sectionId="ticket-details" />)}
+                        {
+                            clickedTicket.id && 
+                            <TicketDetail 
+                                id={clickedTicket.id}
+                                key={clickedTicket.id}
+                                onRemove={handleRemove} 
+                                className="" 
+                                onClose={handleClose} 
+                                sectionId="ticket-details" />
+                            }
                     </div>
 
                 </div>

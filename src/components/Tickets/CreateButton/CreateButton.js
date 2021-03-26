@@ -1,7 +1,7 @@
 import {DxcButton} from '@dxc-technology/halstack-react';
 import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
-import useDeskTickets from "../../../../data/hooks/useDeskTickets";
+import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
 
 function CreateButton() {

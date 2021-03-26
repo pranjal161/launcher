@@ -1,8 +1,8 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import React from 'react';
-import useDeskAuth from "../../../../data/hooks/useDeskAuth";
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
-import useDeskUsers from "../../../../data/hooks/useDeskUsers";
+import useDeskAuth from "../../../data/hooks/useDeskAuth";
+import useDeskBaskets from "../../../data/hooks/useDeskBaskets";
+import useDeskUsers from "../../../data/hooks/useDeskUsers";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
