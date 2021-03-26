@@ -1,3 +1,5 @@
+import {getSuggestedActivities} from "./utils/suggestedActivities";
+
 const addHistory = (state, action, metadata = {}) => {
     const historyField = 'history.' + Date.now()
     const updatedBy = state.auth.id
@@ -32,10 +34,12 @@ export const update = (ticket) => {
         dispatch({type: 'UPDATE_TICKET_PENDING'})
         const firestore = getFirebase().firestore()
         const history = addHistory(getState(), 'ticketUpdated')
+        const suggestedActivities = getSuggestedActivities(ticket)
 
         return firestore.collection('tickets').doc(ticket.id).update({
             ...ticket,
-            ...history
+            ...history,
+            suggestedActivities
         }).then((result) => {
             dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
             addHistory(ticket.id)
@@ -150,4 +154,38 @@ export const removeRelatedClients = (id, clientId) => {
     }
 }
 
+export const removeSuggestedActivity = (id, activityId) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firestore = getFirebase().firestore()
+        const statusField = `suggestedActivities.${activityId}.status`
+        return firestore.collection('tickets').doc(id).update(
+            {
+                [statusField] : 'removed'
+            }
+        ).then(() => {
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+}
 
+export const executeActivity = (id, activityId) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firestore = getFirebase().firestore()
+        const statusField = `suggestedActivities.${activityId}.status`
+        const executionNumber = `suggestedActivities.${activityId}.executionNumber`
+        const history = addHistory(getState(), 'executedActivity', {newValue: activityId})
+        return firestore.collection('tickets').doc(id).update(
+            {
+                [statusField] : 'executed',
+                [executionNumber] : getFirebase().firestore.FieldValue.increment(1),
+                activities :getFirebase().firestore.FieldValue.arrayUnion({activityId, executionDate:Date.now()}),
+                ...history
+            }
+        ).then(() => {
+            window.alert(`Execution of Activity : ${activityId} for ticket ${id}`)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+}
