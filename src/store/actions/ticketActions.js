@@ -1,10 +1,14 @@
 import {getSuggestedActivities} from "./utils/suggestedActivities";
+import moment from "moment";
 
-const addHistory = (state, action, metadata = {}) => {
-    const historyField = 'history.' + Date.now()
+const addHistory = (state, action, values = {}) => {
+    const timestamp = Date.now()
+    const historyField = 'history.' + timestamp
     const updatedBy = state.auth.id
+    const updatedByDisplay= state.firebase.profile.displayName
+    const updatedISODate = moment(timestamp).format()
     return {
-        [historyField]: {action, metadata: {...metadata, updatedBy}}
+        [historyField]: {action, ...values, metadata: {updatedBy, updatedByDisplay, updatedISODate, timestamp}}
     }
 
 }
@@ -19,7 +23,13 @@ export const create = (ticket) => {
         const receivedDate = Date.now()
         const deadlineDate = receivedDate
 
-        return firestore.collection('tickets').add({deadlineDate, receivedDate, ...ticket, suggestedActivities, creatorId, creatorDisplay})
+        return firestore.collection('tickets').add({
+            deadlineDate,
+            receivedDate, ...ticket,
+            suggestedActivities,
+            creatorId,
+            creatorDisplay
+        })
             .then((result) => {
                 dispatch({type: 'CREATE_TICKET_SUCCESS', result})
             }).catch(error => {
@@ -160,7 +170,7 @@ export const removeSuggestedActivity = (id, activityId) => {
         const statusField = `suggestedActivities.${activityId}.status`
         return firestore.collection('tickets').doc(id).update(
             {
-                [statusField] : 'removed'
+                [statusField]: 'removed'
             }
         ).then(() => {
         }).catch(error => {
@@ -177,9 +187,9 @@ export const executeActivity = (id, activityId) => {
         const history = addHistory(getState(), 'executedActivity', {newValue: activityId})
         return firestore.collection('tickets').doc(id).update(
             {
-                [statusField] : 'executed',
-                [executionNumber] : getFirebase().firestore.FieldValue.increment(1),
-                activities :getFirebase().firestore.FieldValue.arrayUnion({activityId, executionDate:Date.now()}),
+                [statusField]: 'executed',
+                [executionNumber]: getFirebase().firestore.FieldValue.increment(1),
+                activities: getFirebase().firestore.FieldValue.arrayUnion({activityId, executionDate: Date.now()}),
                 ...history
             }
         ).then(() => {
@@ -187,5 +197,64 @@ export const executeActivity = (id, activityId) => {
         }).catch(error => {
             console.log(error)
         })
+    }
+}
+
+export const uploadDocument = (id, name, blob) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase()
+
+        const filesPath = `/tickets/${id}`
+        const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
+        console.log('uploadPromise', uploadPromise)
+        uploadPromise.then(uploadResult => {
+            console.log('ici', uploadResult)
+            addDocument(id, {name, url: uploadResult.downloadURL})(dispatch, getState, {getFirebase})
+        })
+
+        return uploadPromise
+    }
+}
+
+export const addDocument = (id, document) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firestore = getFirebase().firestore()
+        const history = addHistory(getState(), 'addedDocument', {newValue: document})
+        const documentId = `documents.${Date.now()}`
+        return firestore.collection('tickets').doc(id).update(
+            {
+                [documentId]: document,
+                ...history
+            }
+        ).then((result) => {
+            console.log('history', history)
+            addToDailyUpdates(id, history)(dispatch, getState, {getFirebase})
+            dispatch({type: 'ADD_DOCUMENT_TICKET_SUCCESS', result})
+        }).catch(error => {
+            console.log(error)
+            dispatch({type: 'ADD_DOCUMENT_TICKET_ERROR, error'})
+        })
+    }
+}
+
+export const currentDailyUpdatesId = moment().format("DD-MM-Y");
+
+const addToDailyUpdates = (id, change) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firestore = getFirebase().firestore()
+        const dailyUpdateId = currentDailyUpdatesId
+
+        const dailyUpdatesExist = (getState().firestore.data.dailyUpdates)
+
+        //the format of the nested object is different using set and update !!!
+        if (!dailyUpdatesExist)
+            //Create the document empty
+            firestore.collection('dailyUpdates').doc(dailyUpdateId).set({})
+
+        return firestore.collection('dailyUpdates').doc(dailyUpdateId).update({
+            ...change
+        }).catch(e => console.log(e))
+
+
     }
 }
