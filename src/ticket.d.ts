@@ -18,7 +18,7 @@ interface Ticket {
     stages: object[];
     status: string;
     notes: object[];
-    documents: object[];
+    documents: object;
     history: object[];
 }
 

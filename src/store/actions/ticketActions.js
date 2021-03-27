@@ -190,3 +190,40 @@ export const executeActivity = (id, activityId) => {
         })
     }
 }
+
+export const uploadDocument = (id, name, blob) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase()
+
+        const filesPath = `/tickets/${id}`
+        const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
+        console.log('uploadPromise', uploadPromise)
+        uploadPromise.then(uploadResult => {
+            console.log('ici', uploadResult)
+                addDocument(id, { name, url: uploadResult.downloadURL})(dispatch, getState, {getFirebase})
+            })
+
+        return uploadPromise
+    }
+}
+
+export const addDocument = (id, document) => {
+    return (dispatch, getState, {getFirebase}) => {
+        console.log('addDocument',id, document )
+        const firestore = getFirebase().firestore()
+        const history = addHistory(getState(), 'addedDocument', {newValue: document})
+        console.log('addDocument')
+        const documentId = `documents.${Date.now()}`
+        return firestore.collection('tickets').doc(id).update(
+            {
+                [documentId]: document,
+                ...history
+            }
+        ).then((result) => {
+            dispatch({type: 'ADD_DOCUMENT_TICKET_SUCCESS', result})
+        }).catch(error => {
+            console.log(error)
+            dispatch({type: 'ADD_DOCUMENT_TICKET_ERROR, error'})
+        })
+    }
+}

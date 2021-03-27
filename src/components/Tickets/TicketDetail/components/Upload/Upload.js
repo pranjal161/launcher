@@ -1,25 +1,23 @@
 import React from 'react';
 import {DxcUpload} from "@dxc-technology/halstack-react"
-import {useFirebase} from "react-redux-firebase";
+import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 
 
-const Upload = (props) => {
-    const firebase = useFirebase()
-    const filesPath = '/tests'
+const Upload = ({ticketId}) => {
+    const {uploadDocument} = useDeskTickets()
 
     const callbackFunc=(param) => {
+        //We need to get just encoded from the received format
         const onlyEncoded = param.image.slice(param.image.indexOf(','))
 
         var blob = new Blob(
-            
             [new Buffer(onlyEncoded, 'base64')],
             {
                 type: param.type,
             }
         );
-        console.log('blob', param, blob)
         const name = param.name
-        firebase.uploadFile(filesPath, blob, filesPath, {name})
+        return uploadDocument(ticketId, name, blob)
 
 //Todo : pb d'affichage, on peut aussi sélectionner plusisurs fichiers mais ça ne fonctionne pas
 

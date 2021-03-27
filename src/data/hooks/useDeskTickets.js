@@ -21,11 +21,23 @@ const useGetState = () => {
     return useSelector((state) => (state.tickets))
 }
 
+const useGetAllDocuments  = (ticketId) => {
+    const ticket = useGetOne(ticketId)
+    return ticket && ticket.documents
+}
+
+const useGetDocumentUrl  = (ticketId, documentId) => {
+    const ticket = useGetOne(ticketId)
+    return ticket && ticket.documents && ticket.documents[documentId] && ticket.documents[documentId].url
+}
+
 const useDeskTickets = () => {
     const getAll = useAllTickets
     const getMyAllTickets = useMyAllTickets
     const getOne = useGetOne
     const getTicketsState = useGetState
+    const getDocumentUrl = useGetDocumentUrl
+    const getAllDocuments = useGetAllDocuments
 
     const dispatch = useDispatch();
     const create = useCallback((...param) => dispatch(ticketActions.create(...param)), [dispatch])
@@ -39,11 +51,15 @@ const useDeskTickets = () => {
     const removeRelatedClients = useCallback((...param) => dispatch(ticketActions.removeRelatedClients(...param)), [dispatch])
     const removeSuggestedActivity = useCallback((...param) => dispatch(ticketActions.removeSuggestedActivity(...param)), [dispatch])
     const executeActivity = useCallback((...param) => dispatch(ticketActions.executeActivity(...param)), [dispatch])
+    const uploadDocument = useCallback((...param) => dispatch(ticketActions.uploadDocument(...param)), [dispatch])
+
     return {
         getOne,
         getAll,
         getMyAllTickets,
         getTicketsState,
+        getDocumentUrl,
+        getAllDocuments,
         create,
         update,
         remove,
@@ -54,7 +70,8 @@ const useDeskTickets = () => {
         addRelatedClients,
         removeRelatedClients,
         removeSuggestedActivity,
-        executeActivity
+        executeActivity,
+        uploadDocument
     }
 }
 
