@@ -5,7 +5,7 @@ import {makeStyles} from '@material-ui/styles';
 import {Card, CardActions, CardContent, CardHeader, List, ListItem, Typography} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {},
     header: {
         paddingBottom: 0
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Summary = props => {
+const OLD_Summary = props => {
     const {ticket, className, actions, onClose, sectionId, ...rest} = props;
 
     const classes = useStyles();
@@ -102,4 +102,4 @@ const Summary = props => {
 };
 
 
-export default Summary;
+export default OLD_Summary;

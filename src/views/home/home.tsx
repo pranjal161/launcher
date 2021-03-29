@@ -10,10 +10,10 @@ import BasketList from '../../components/basketList/basketList';
 import EntitySidebar from '../../components/entitySidebar/entitySidebar';
 
 const HomePage = () => {
-    const { profile } = useDeskAuth()
+    const {profile} = useDeskAuth()
     const ticketDesk = useDeskTickets()
     const basketDesk = useDeskBaskets()
-    const { remove } = useDeskTickets()
+    const {remove} = useDeskTickets()
     const tickets = ticketDesk.getAll()
     const baskets = basketDesk.getAll()
     const [clickedTicket, setClickedTicket] = useState({id: null});
@@ -47,7 +47,7 @@ const HomePage = () => {
                     <div className="col-8">
                         <span className="p-2">All Baskets</span>
                         {baskets &&
-                            <BasketList baskets={baskets} />
+                        <BasketList baskets={baskets}/>
                         }
                     </div>
                     <div className="col-4">
@@ -74,7 +74,6 @@ const HomePage = () => {
                                                         key={clickedTicket.id}
                                                         onRemove={handleRemove} 
                                                         onClose={handleClose} 
-                                                        className=""
                                                         sectionId="ticket-details" />
                                                 } />
                                     </div>
@@ -85,18 +84,17 @@ const HomePage = () => {
                 </div>
                 {/*<div className="grid-container col-3 pl-0">
                     <div className="col-12">
-                        <span className="p-2">Ticket Details</span>
                         {
-                            clickedTicket.id && 
-                            <TicketDetail 
+                            clickedTicket.id &&
+                            <TicketDetail
                                 id={clickedTicket.id}
                                 key={clickedTicket.id}
-                                onRemove={handleRemove} 
-                                className="" 
-                                onClose={handleClose} 
-                                sectionId="ticket-details" />
-                            }
+                                onRemove={handleRemove}
+                                onClose={handleClose}
+                                sectionId="ticket-details"/>
+                        }
                     </div>
+
 
                 </div>*/}
             </div>
