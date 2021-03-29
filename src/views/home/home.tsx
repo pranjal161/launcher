@@ -74,7 +74,6 @@ const HomePage = () => {
                                                         key={clickedTicket.id}
                                                         onRemove={handleRemove} 
                                                         onClose={handleClose} 
-                                                        className=""
                                                         sectionId="ticket-details" />
                                                 } />
                                     </div>
