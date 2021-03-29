@@ -9,16 +9,16 @@ import useDeskBaskets from '../../data/hooks/useDeskBaskets';
 import BasketList from '../../components/basketList/basketList';
 
 const HomePage = () => {
-    const { profile } = useDeskAuth()
+    const {profile} = useDeskAuth()
     const ticketDesk = useDeskTickets()
     const basketDesk = useDeskBaskets()
-    const { remove } = useDeskTickets()
+    const {remove} = useDeskTickets()
     const tickets = ticketDesk.getAll()
     const baskets = basketDesk.getAll()
     const [clickedTicket, setClickedTicket] = useState({id: null});
 
     const handleTicketClick = (ticket: { id: any; }) => {
-        setClickedTicket({ ...ticket })
+        setClickedTicket({...ticket})
     }
 
     const handleRemove = (id: string | number) => {
@@ -42,7 +42,7 @@ const HomePage = () => {
                     <div className="col-8">
                         <span className="p-2">All Baskets</span>
                         {baskets &&
-                            <BasketList baskets={baskets} />
+                        <BasketList baskets={baskets}/>
                         }
                     </div>
                     <div className="col-4">
@@ -51,7 +51,7 @@ const HomePage = () => {
                     <div className="col-12">
                         <span className="p-2">All Tickets</span>
                         {tickets &&
-                            <TicketList handleTicketClick={handleTicketClick} tickets={tickets} />
+                        <TicketList handleTicketClick={handleTicketClick} tickets={tickets}/>
                         }
                     </div>
                 </div>
@@ -59,15 +59,14 @@ const HomePage = () => {
                     <div className="col-12">
                         {
                             clickedTicket.id &&
-                            <TicketDetail 
+                            <TicketDetail
                                 id={clickedTicket.id}
                                 key={clickedTicket.id}
                                 onRemove={handleRemove}
-                                onClose={handleClose} 
-                                sectionId="ticket-details" />
-                            }
+                                onClose={handleClose}
+                                sectionId="ticket-details"/>
+                        }
                     </div>
-
                 </div>
             </div>
         </span>
