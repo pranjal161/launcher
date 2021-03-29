@@ -3,10 +3,16 @@ import {DxcTabs} from "@dxc-technology/halstack-react"
 import TicketListPage from "./components/TicketListPage/TicketListPage";
 import LatestPage from "./components/LatestPage/LatestPage";
 import CommunicateAcrossBrowser from "./components/CommunicateAcrossBrowser/CommunicateAcrossBrowser";
+import TicketSummary from "../../../components/Tickets/TicketDetail/components/TicketSummary/TicketSummary";
+import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
 
-function TrainingNorbert(props) {
+function TrainingNorbert() {
     const [activeTab, setActiveTab] = useState(0);
+    const {getOne} = useDeskTickets()
+
+    const ticket = getOne("9ScjOQv2UuVui17r7Jig")
+
     const onTabClick = i => {
         setActiveTab(i);
     };
@@ -18,6 +24,9 @@ function TrainingNorbert(props) {
                 onTabClick={onTabClick}
                 tabs={[
                     {
+                        label: "TicketSummary"
+                    },
+                    {
                         label: "Latest"
                     },
                     {
@@ -28,15 +37,17 @@ function TrainingNorbert(props) {
                     }
                 ]}
             />
-
             {activeTab === 0 && (
-                <LatestPage/>
+                ticket && <TicketSummary ticket={ticket}/>
             )}
             {activeTab === 1 && (
+                <LatestPage/>
+            )}
+            {activeTab === 2 && (
                 <CommunicateAcrossBrowser/>
             )}
 
-            {activeTab === 2 && (
+            {activeTab === 3 && (
                 <TicketListPage/>
             )}
         </>

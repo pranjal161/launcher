@@ -14,7 +14,7 @@ const useMyAllTickets = () => {
 }
 
 const useGetOne = (id) => {
-    return useSelector((state) => ({id, ...state.firestore.data.tickets[id]}))
+    return useSelector((state) => (state.firestore.data.tickets?{id, ...state.firestore.data.tickets[id]}:undefined))
 }
 
 const useGetState = () => {

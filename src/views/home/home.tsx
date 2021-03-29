@@ -57,14 +57,12 @@ const HomePage = () => {
                 </div>
                 <div className="grid-container col-3 pl-0">
                     <div className="col-12">
-                        <span className="p-2">Ticket Details</span>
                         {
                             clickedTicket.id && 
                             <TicketDetail 
                                 id={clickedTicket.id}
                                 key={clickedTicket.id}
-                                onRemove={handleRemove} 
-                                className="" 
+                                onRemove={handleRemove}
                                 onClose={handleClose} 
                                 sectionId="ticket-details" />
                             }
