@@ -58,7 +58,7 @@ const HomePage = () => {
                 <div className="grid-container col-3 pl-0">
                     <div className="col-12">
                         {
-                            clickedTicket.id && 
+                            clickedTicket.id &&
                             <TicketDetail 
                                 id={clickedTicket.id}
                                 key={clickedTicket.id}
