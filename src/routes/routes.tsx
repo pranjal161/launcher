@@ -23,7 +23,7 @@ const routes = [
         path: '/',
         name: 'default',
         exact: true,
-        component: () => <Redirect to={'signIn'}/>
+        component: () => <Redirect to={'/auth/signin'}/>
     },
     {
         path: '/auth',
@@ -187,6 +187,9 @@ const routes = [
                         component: TrainingSuhani
                     }
                 ]
+            },
+            {
+                component: () => <Redirect to="/errors/error-404"/>
             }]
     }
 ];
