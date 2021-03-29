@@ -72,14 +72,11 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                 if (currentItem) {
                     let result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
-                        _ALLOCATION: res.data['contract_allocation_rate'],
-                        _FUND_TYPE: res.data['coverage_fund:type'],
+                        _ALLOCATION: currentItem['allocation:rate'],
+                        _FUND_TYPE: res.data['unit_linked_fund:category'],
                         _FUND_SRRI: res.data['interest_fund:s_r_r_i'],
                         allocation_fund: currentItem['allocation:coverage_fund'],
-                        value: res.data['interest_fund:net_cash_value']
-                            ? res.data['interest_fund:net_cash_value']
-                            : res.data['unit_linked_fund:net_cash_value'],
-                        distribution: currentItem['allocation:rate'],
+                        value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value']
                     };
                     investmentFundsPayload.push(result);
                 }

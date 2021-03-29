@@ -1,7 +1,11 @@
-import './index.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.scss';
+import App from './App';
 import './i18n';
 import 'firebase/auth'
 import 'firebase/database'
+import 'firebase/storage'
 import 'firebase/firestore' // make sure you add this for firestore
 
 import { firebase as fbConfig, rrfConfig } from "./config/config";

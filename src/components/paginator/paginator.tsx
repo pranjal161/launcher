@@ -7,10 +7,11 @@ import { StyledPaginator } from '../../styles/global-style';
 const Paginator = (props: { totalItems: string | number; itemsPerPage: number; data: any; handler: any }) => {
     const { totalItems, itemsPerPage, data, handler } = props;
     const [page, changePage] = useState(1);
+    const first = data && getLink(data, 'first') ? getLink(data, 'first') : '';
 
     useEffect(() => {
         changePage(1);
-    }, [data]);
+    }, [first]);
 
     const prevClick = () => {
         changePage(page - 1);

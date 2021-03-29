@@ -1,24 +1,18 @@
-import './App.css';
+import "./App.scss";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
-import { AlertContext, AlertContextProvider } from './context/alertContext';
-import { DxcSpinner, ThemeContext } from '@dxc-technology/halstack-react';
-import React, { useState } from 'react';
-import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-
-import Alert from './components/alert/alert';
-import { AppContextProvider } from './context/applicationContext';
-import ClientView from './pages/clientView/clientView';
-import { Colors } from '../src/styles/dxc-theme';
-import ContractSummary from './pages/contractSummary/contractSummary';
-import ExempleDesktopView from "./views/Desktop/ExempleDesktopView";
-import Header from './components/header/header';
-import HomePage from './pages/homePage/homePage';
-import SignIn from "./views/SignIn/SignIn";
-import SignUp from "./views/SignUp/SignUp";
-import axios from 'axios';
+import { BrowserRouter as Router } from "react-router-dom";
+import axios from "axios";
+import Alert from "./components/alert/alert";
+import Header from "./components/header/header";
+import React, {useState} from "react";
 import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from "react-i18next";
+import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
+import {AppContextProvider} from "./context/applicationContext";
+import {AlertContext, AlertContextProvider} from "./context/alertContext";
+import {Colors} from "./styles/dxc-theme";
+import routes, { applyRoutes } from './routes';
+import {currentDailyUpdatesId} from "./store/actions/ticketActions";
 
 /**
  * Main app
@@ -27,10 +21,13 @@ import { useTranslation } from 'react-i18next';
 function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
+    const routeNodes = applyRoutes(routes);
 
+    //Please don't touch
     useDeskSubscribe({collection: 'tickets'})
     useDeskSubscribe({collection: 'baskets'})
     useDeskSubscribe({collection: 'users'})
+    useDeskSubscribe({collection: 'dailyUpdates', doc: currentDailyUpdatesId})
 
     axios.interceptors.request.use(
         function (config) {
@@ -76,33 +73,7 @@ function App() {
                             {ready && (
                                 <Router basename="/omnichannel/react">
                                     <Header/>
-                                    <Switch>
-                                        <Route exact path="/">
-                                            <Redirect to="/home"/>
-                                        </Route>
-                                        <Route path="/home" exact>
-                                            <HomePage/>
-                                        </Route>
-                                        <Route path="/contracts/:contractId" exact>
-                                            <ContractSummary/>
-                                        </Route>
-                                        <Route path="/clientView/person/:personId" exact>
-                                            <ClientView/>
-                                        </Route>
-                                        <Route path="/clientView/organization/:organizationId" exact>
-                                            {/* to test */}
-                                            <ClientView/>
-                                        </Route>
-                                        <Route path="/signin" exact>
-                                            <SignIn/>
-                                        </Route>
-                                        <Route path="/signup" exact>
-                                            <SignUp/>
-                                        </Route>
-                                        <Route path="/exemple/desktop" exact>
-                                            <ExempleDesktopView/>
-                                        </Route>
-                                    </Switch>
+                                    {routeNodes}
                                 </Router>
                             )}
                         </>
