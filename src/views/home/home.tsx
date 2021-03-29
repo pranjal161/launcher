@@ -7,6 +7,7 @@ import TicketList from '../../components/ticketsList/ticketsList';
 import TicketDetail from '../../components/Tickets/TicketDetail/TicketDetail';
 import useDeskBaskets from '../../data/hooks/useDeskBaskets';
 import BasketList from '../../components/basketList/basketList';
+import EntitySidebar from '../../components/entitySidebar/entitySidebar';
 
 const HomePage = () => {
     const {profile} = useDeskAuth()
@@ -16,18 +17,22 @@ const HomePage = () => {
     const tickets = ticketDesk.getAll()
     const baskets = basketDesk.getAll()
     const [clickedTicket, setClickedTicket] = useState({id: null});
-    const a = 1
+    const [openSidebar, setOpenSidebar] = useState(false);
+
     const handleTicketClick = (ticket: { id: any; }) => {
-        setClickedTicket({...ticket})
+        setClickedTicket({ id: ticket.id})
+        setOpenSidebar(true)
     }
 
     const handleRemove = (id: string | number) => {
         remove(id)
         setClickedTicket({id: null})
+        setOpenSidebar(false)
     }
 
     const handleClose = () => {
         setClickedTicket({id: null})
+        setOpenSidebar(false)
     }
 
     return (
@@ -38,7 +43,7 @@ const HomePage = () => {
                 </DxcBox>
             </div>
             <div className="main-container">
-                <div className="grid-container col-9 pr-0">
+                <div className="grid-container col-12 pr-0">
                     <div className="col-8">
                         <span className="p-2">All Baskets</span>
                         {baskets &&
@@ -50,12 +55,35 @@ const HomePage = () => {
                     </div>
                     <div className="col-12">
                         <span className="p-2">All Tickets</span>
-                        {tickets &&
-                        <TicketList handleTicketClick={handleTicketClick} tickets={tickets}/>
+                        {
+                            tickets &&
+                            <div className="main-container col-12">
+                                <div className="col-12">
+                                    <div className="row">
+                                        <div className="col">
+                                            <TicketList 
+                                                handleTicketClick={handleTicketClick} 
+                                                tickets={tickets} />
+                                        </div>
+                                        <EntitySidebar 
+                                                open={openSidebar} 
+                                                width={400}
+                                                content={
+                                                    <TicketDetail 
+                                                        id={clickedTicket.id}
+                                                        key={clickedTicket.id}
+                                                        onRemove={handleRemove} 
+                                                        onClose={handleClose} 
+                                                        className=""
+                                                        sectionId="ticket-details" />
+                                                } />
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>
-                <div className="grid-container col-3 pl-0">
+                {/*<div className="grid-container col-3 pl-0">
                     <div className="col-12">
                         {
                             clickedTicket.id &&
@@ -67,7 +95,9 @@ const HomePage = () => {
                                 sectionId="ticket-details"/>
                         }
                     </div>
-                </div>
+
+
+                </div>*/}
             </div>
         </span>
     );
