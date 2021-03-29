@@ -46,8 +46,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install-peers": "npm install -g npm-install-peers",
-    "lint": "eslint -f table './**/*.tsx' --fix",
-    "lint-quiet": "eslint -f table ./**/*.tsx --quiet --fix"
+    "lint": "eslint -f table --fix './**/*.tsx'",
+    "lint-local": "eslint -f table --fix ./**/*.tsx",
+    "lint-quiet-local": "eslint -f table --fix ./**/*.tsx --quiet"
   },
   "eslintConfig": {
     "extends": [
@@ -94,4 +95,4 @@
   "peerDependencies": {
     "typescript": ">= 3.0.0"
   }
-}
+} 
