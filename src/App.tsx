@@ -12,17 +12,18 @@ import {AppContextProvider} from "./context/applicationContext";
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {Colors} from "./styles/dxc-theme";
 import routes, { applyRoutes } from './routes';
-
+import {currentDailyUpdatesId} from "./store/actions/ticketActions";
 
 function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
     const routeNodes = applyRoutes(routes);
 
+    //Please don't touch
     useDeskSubscribe({collection: 'tickets'})
     useDeskSubscribe({collection: 'baskets'})
     useDeskSubscribe({collection: 'users'})
-
+    useDeskSubscribe({collection: 'dailyUpdates', doc: currentDailyUpdatesId})
 
     axios.interceptors.request.use(
         function (config) {
