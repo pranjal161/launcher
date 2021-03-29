@@ -16,7 +16,7 @@ const HomePage = () => {
     const tickets = ticketDesk.getAll()
     const baskets = basketDesk.getAll()
     const [clickedTicket, setClickedTicket] = useState({id: null});
-
+    const a = 1
     const handleTicketClick = (ticket: { id: any; }) => {
         setClickedTicket({...ticket})
     }
