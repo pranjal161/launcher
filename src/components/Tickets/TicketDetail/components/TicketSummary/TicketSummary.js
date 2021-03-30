@@ -4,6 +4,7 @@ import DataLine from "./components/DataLine/DataLine";
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
+import PropTypes from 'prop-types'
 import React from 'react';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";

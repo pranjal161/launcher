@@ -1,5 +1,6 @@
 import "./entitySidebar.css"
 
+import PropTypes from 'prop-types'
 import React from "react";
 import clsx from 'clsx';
 

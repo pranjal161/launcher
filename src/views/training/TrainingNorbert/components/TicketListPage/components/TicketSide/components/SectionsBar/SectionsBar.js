@@ -4,6 +4,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
+import PropTypes from 'prop-types'
 import React from 'react';
 import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotesOutlined';
 import SubjectIcon from '@material-ui/icons/Subject';

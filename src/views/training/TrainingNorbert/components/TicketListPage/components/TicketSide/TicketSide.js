@@ -1,5 +1,6 @@
 import {Drawer, Grid} from "@material-ui/core";
 
+import PropTypes from 'prop-types'
 import React from 'react';
 import SectionsBar from "./components/SectionsBar/SectionsBar";
 import TicketDetail from "../../../../../../../components/Tickets/TicketDetail/TicketDetail";

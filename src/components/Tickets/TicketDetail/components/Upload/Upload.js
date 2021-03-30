@@ -1,4 +1,5 @@
 import {DxcUpload} from "@dxc-technology/halstack-react"
+import PropTypes from 'prop-types'
 import React from 'react';
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 

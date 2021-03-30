@@ -1,6 +1,7 @@
 import {Card, CardActions, CardContent, CardHeader, List, ListItem, Typography} from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
+import PropTypes from 'prop-types'
 import React from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/styles';

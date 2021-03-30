@@ -1,5 +1,6 @@
 import {DxcApplicationLayout, DxcFooter, DxcHeader} from "@dxc-technology/halstack-react";
 
+import PropTypes from 'prop-types'
 import React from 'react';
 import {applyRoutes} from "../../routes";
 

@@ -2,6 +2,7 @@ import * as yup from "yup";
 
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 
+import PropTypes from 'prop-types'
 import React from 'react';
 import useDeskAuth from "../../../../data/hooks/useDeskAuth";
 import {useForm} from "react-hook-form";

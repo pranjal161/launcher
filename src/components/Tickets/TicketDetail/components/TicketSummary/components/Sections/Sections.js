@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react';
 import SectionHeader from "../SectionHeader/SectionHeader";
 import styled from "styled-components";
