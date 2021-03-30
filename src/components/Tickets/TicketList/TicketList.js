@@ -4,7 +4,7 @@ import React from 'react';
 /**
  * Display of all tickets in a list
  * @param {props} props Information on tickets that will be used for the display
- * @returns {void} Display of all tickets in a list
+ * @returns {*} Display of all tickets in a list
  */
 function TicketList(props) {
     const {tickets, onClick, ticketId} = props

@@ -7,7 +7,7 @@ import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 /**
  * Display of update basket button
  * @param {basket} basket The basket which is concerned by the update
- * @returns {void} Display of update basket button
+ * @returns {*} Display of update basket button
  */
 function UpdateButton({basket}) {
     const [open, setOpen] = React.useState(false);

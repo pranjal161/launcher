@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Display financial operation in a table
  * @param {props} props Contains information related to the contract
- * @returns {void} Return information of the financial operation in a table
+ * @returns {*} Return information of the financial operation in a table
  */
 const FinancialOperationTable = (props: { contractResponse: any }) => {
     const { t } = useTranslation();
@@ -45,6 +45,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
         { label: '_GROSS_AMOUNT', property: 'operation:amount', type: 'currency' },
         { label: '_NET_AMOUNT', property: 'operation:net_amount', type: 'currency' },
     ];
+
     const surrenderListColumns = [
         { label: '_OPERATION', property: 'surrender:type' },
         { label: '_EFFECTIVE_DATE', property: 'operation:value_date', type: 'date' },
@@ -52,6 +53,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
         { label: '_GROSS_AMOUNT', property: 'operation:amount', type: 'currency' },
         { label: '_NET_AMOUNT', property: 'operation:net_amount', type: 'currency' },
     ];
+
     const switchListColumns = [
         { label: '_OPERATION', property: 'switch:type_label' },
         { label: '_EFFECTIVE_DATE', property: 'operation:value_date', type: 'date' },
@@ -69,6 +71,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             const premiumUrl = getLink(props.contractResponse, 'contract:operation_list-premium');
             const surrenderUrl = getLink(props.contractResponse, 'contract:operation_list-surrender');
             const switchUrl = getLink(props.contractResponse, 'contract:operation_list-switch');
+           
             getOperationItems(premiumUrl, 'premiumList');
             getOperationItems(surrenderUrl, 'surrenderList');
             getOperationItems(switchUrl, 'switchList');
@@ -91,15 +94,18 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                     }
                     const response = getResponse.data['_links']['item'];
                     const count = getResponse && getResponse.data && getResponse.data._count;
+                    
                     if (id === 'premiumList') {
                         setPremiumData(getResponse.data);
                         setPremiumCount(count === '500+' ? 500 : count);
                         setPremiumList(response);
-                    } else if (id === 'surrenderList') {
+                    } 
+                    else if (id === 'surrenderList') {
                         setSurrenderData(getResponse.data);
                         setSurrenderList(response);
                         setSurrenderCount(count === '500+' ? 500 : count);
-                    } else if (id === 'switchList') {
+                    } 
+                    else if (id === 'switchList') {
                         setSwitchData(getResponse.data);
                         setSwitchList(response);
                         setSwitchCount(count === '500+' ? 500 : count);

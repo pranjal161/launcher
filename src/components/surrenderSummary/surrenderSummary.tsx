@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import { AppConfig } from '../../config/appConfig';
+import { ApplicationContext } from '../../context/applicationContext';
 import Chart from '../chart/chart';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
@@ -27,6 +29,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             setSurrenderResponse(res.data);
             const disinvestmentSplitListItems: any = res.data && res.data['disinvestment_split'] && Array.isArray(res.data['disinvestment_split']) ? res.data['disinvestment_split'] :
                 [res.data['disinvestment_split']];
+
             if (disinvestmentSplitListItems) {
                 let disinvestmentSplitElement: any[] = [];
                 disinvestmentSplitListItems.forEach((element: any) => {
@@ -41,6 +44,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                         disinvestmentRes.forEach((res) => {
                             const resHref = res.data['_links']['self'].href;
                             const currentItem = disinvestmentSplitListItems.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                            
                             if (currentItem) {
                                 let _result = {
                                     'coverage_fund:label': res.data['coverage_fund:label'],
@@ -49,10 +53,13 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                                     'allocation:amount': currentItem['allocation:amount'],
                                     'allocation:rate': currentItem['allocation:rate']
                                 };
+
                                 _list.push(_result);
                             }
+
                             setDisinvestmentSplitList(_list);
                         });
+
                         buildChartData(disinvestmentRes);
                     }
                 });
@@ -66,6 +73,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             unitFunds.forEach((res) => {
                 const resHref = res.data['_links']['self'].href;
                 const currentItem = disinvestmentSplitItem.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                
                 if (currentItem) {
                     let _result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
@@ -75,9 +83,11 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                         value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value'],
                         allocation_fund: currentItem['allocation:coverage_fund']
                     };
+
                     _list.push(_result);
                 }
             });
+
             setChartData(_list);
         }
     }

@@ -3,7 +3,7 @@ import React from 'react';
 
 /**
  * Display for the sign out
- * @returns {void} Sign out link
+ * @returns {*} Sign out link
  */
 function SignedOutLinks() {
     return (

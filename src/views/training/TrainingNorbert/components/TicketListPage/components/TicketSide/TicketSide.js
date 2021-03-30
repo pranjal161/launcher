@@ -8,7 +8,7 @@ import TicketDetail from "../../../../../../../components/Tickets/TicketDetail/T
 /**
  * Information on the ticket
  * @param {param} id, sectionId, onSectionChange, onClose for the ticket
- * @returns {void} Information on the ticket
+ * @returns {*} Information on the ticket
  */
 function TicketSide({id, sectionId, onSectionChange, onClose}) {
     const open = (id !== undefined)

@@ -9,7 +9,7 @@ import useDeskAuth from "../../../../../../data/hooks/useDeskAuth";
 
 /**
  * Example of tickets view
- * @returns {void} Example of tickets view
+ * @returns {*} Example of tickets view
  */
 function ExempleTicketsView() {
     const [clickedTickets, setClickedTickets] = useState({})

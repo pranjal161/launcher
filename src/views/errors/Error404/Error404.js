@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Display of 404 error
- * @returns {void} Display of 404 error
+ * @returns {*} Display of 404 error
  */
 function Error404() {
     return (

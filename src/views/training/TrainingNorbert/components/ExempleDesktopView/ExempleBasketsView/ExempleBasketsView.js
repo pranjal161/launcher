@@ -10,7 +10,7 @@ import useDeskBaskets from "../../../../../../data/hooks/useDeskBaskets";
 
 /**
  * Example of basket view on desktop
- * @returns {void} Example of basket view on desktop
+ * @returns {*} Example of basket view on desktop
  */
 function ExempleBasketsView() {
     const [clickedBaskets, setclickedBaskets] = useState({})
@@ -28,7 +28,6 @@ function ExempleBasketsView() {
         remove(id)
         setclickedBaskets(newAfterDelete)
     }
-
 
     return (
         <div>

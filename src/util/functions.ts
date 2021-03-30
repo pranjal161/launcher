@@ -152,7 +152,7 @@ export function addDays(date: any, days: number) {
 /**
  * Search person
  * @param {value} value that will be used for the search
- * @returns {void} Parameters for the search person
+ * @returns {*} Parameters for the search person
  */
 export function searchPerson(value: string) {
     let url = AppConfig.hostUrl.defaultHostUrl + 'persons?';

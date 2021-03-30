@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Display a label
  * @param {props} props Contains information related to the label
- * @returns {void} Return the label
+ * @returns {*} Return the label
  */
 const Label = (props: { label?: string; propertyName: string; data: any; type?: string }) => {
     const { t } = useTranslation();
@@ -17,7 +17,7 @@ const Label = (props: { label?: string; propertyName: string; data: any; type?: 
     // Functions to process Output
     /**
      * Retrieve description for a given data
-     * @returns {void} Return the description
+     * @returns {*} Return the description
      */
     function processDataOutput() {
         if (data && data.hasOwnProperty(propertyName)) {

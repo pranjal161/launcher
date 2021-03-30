@@ -143,13 +143,13 @@ const TicketSummary = ({ticket}) => {
 TicketSummary.propTypes = {
     ticket: PropTypes.string,
     personId: PropTypes.string,
-    date: PropTypes.date,
+    date: PropTypes.instanceOf(Date),
     activity: PropTypes.string,
     activities: PropTypes.array,
     document: PropTypes.string,
     documents: PropTypes.array,
     description: PropTypes.string,
-    receivedDate: PropTypes.date
+    receivedDate: PropTypes.instanceOf(Date)
 }
 
 export default TicketSummary;

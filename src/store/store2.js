@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
  * The store that is currently used 
  * @param {*} initialState Initial state of the store
  * @param {*} history History of the store
- * @returns {void} The store that is currently used
+ * @returns {*} The store that is currently used
  */
 export default function configureStore(initialState, history) {
     const middleware = [thunk.withExtraArgument({getFirebase, getFirestore})]

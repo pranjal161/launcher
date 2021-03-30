@@ -9,7 +9,7 @@ import {useCallback} from "react";
 
 /**
  * Login page information
- * @returns {void} Information for the login page
+ * @returns {*} Information for the login page
  */
 export default function useDeskAuth() {
     const auth = useSelector((state) => state.auth)

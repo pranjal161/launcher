@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Display premium summary in a table
  * @param {props} props Contains information related to the premium
- * @returns {void} Return information of the  in a table
+ * @returns {*} Return information of the  in a table
  */
 export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
     const { t } = useTranslation();
@@ -69,6 +69,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                 const currentItem = data.find(
                     (item: { [x: string]: any }) => item['allocation:coverage_fund'] === resHref,
                 );
+                
                 if (currentItem) {
                     let result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
@@ -78,9 +79,11 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                         allocation_fund: currentItem['allocation:coverage_fund'],
                         value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value']
                     };
+                    
                     investmentFundsPayload.push(result);
                 }
             });
+            
             setChartData(investmentFundsPayload);
         });
     }

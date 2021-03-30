@@ -17,7 +17,7 @@ import {useTranslation} from "react-i18next";
 
 /**
  * Main app
- * @returns {void} The app depending on the context
+ * @returns {*} The app depending on the context
  */
 function App() {
     const {ready} = useTranslation();

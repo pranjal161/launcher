@@ -5,7 +5,7 @@ import {DxcButton} from "@dxc-technology/halstack-react";
 /**
  * Display DXC button with onClick action
  * @param {props} props Information that will be used for the button
- * @returns {void} Display DXC button with onClick action
+ * @returns {*} Display DXC button with onClick action
  */
 function CommunicateAcrossBrowser(props) {
     const handleSetLocalstorage = () => {
@@ -14,7 +14,7 @@ function CommunicateAcrossBrowser(props) {
     
     useEffect(() => {
         const handleLocalStorage = (event) => {
-            if (event.storageArea != localStorage) 
+            if (event.storageArea !== localStorage) 
                 return;
             
             if (event.key === 'loggedIn') {
@@ -24,6 +24,7 @@ function CommunicateAcrossBrowser(props) {
         }
 
         window.addEventListener('storage', handleLocalStorage)
+        
         return () => window.removeEventListener('storage', handleLocalStorage)
     },[])
     

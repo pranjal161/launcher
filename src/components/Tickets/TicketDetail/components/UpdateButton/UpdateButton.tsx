@@ -7,7 +7,7 @@ import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 /**
  * Display of update button for a ticket
  * @param {props} props Information on the ticket 
- * @returns {void} Display of update button for a ticket
+ * @returns {*} Display of update button for a ticket
  */
 function UpdateButton(props: any) {
     const { ticket } = props;

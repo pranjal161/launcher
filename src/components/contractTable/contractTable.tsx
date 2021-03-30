@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Display contract information in a table
  * @param {props} props Contains information related to the contract
- * @returns {void} Return information of the contract in a table
+ * @returns {*} Return information of the contract in a table
  */
 const ContractTable = (props: { contractData: any; getData: (href: string) => void }) => {
     const { t } = useTranslation();

@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next';
 
 /**
  * Retrieve information and return the summary of a contract
- * @returns {void} Display the summary of a contract
+ * @returns {*} Display the summary of a contract
  */
 const ContractSummary = () => {
     const location: any = useLocation();
@@ -69,16 +69,19 @@ const ContractSummary = () => {
             label: t('_UNSOLICITED_PAYMENT'),
         },
     ];
+
     const onActionChange = (newValue: string) => {
         changeAction(newValue);
         if (newValue === 'unsolicitedPayment') {
             createunsollicitedPayment();
         }
     };
+
     const onHistoryChange = (newValue: string) => {
         changeHistory(newValue);
         setContractUrl(newValue);
     };
+
     useEffect(() => {
         getData(contractUrl);
     }, [applicationContext, contractUrl]);
@@ -109,6 +112,7 @@ const ContractSummary = () => {
             }
         });
     };
+
     const populateHistorySelect = (contractResponse: any) => {
         let stateUrl;
         if (contractResponse && contractResponse['_links'] && contractResponse['_links']['cscaia:states']) {
@@ -119,6 +123,7 @@ const ContractSummary = () => {
         if (stateUrl) {
             axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
                 const response: any = res && res['data'];
+               
                 if (response && response['_links'] && response['_links']['item']) {
                     const items = Array.isArray(response['_links']['item'])
                         ? response['_links']['item']
@@ -127,6 +132,7 @@ const ContractSummary = () => {
                     const version = t('_STATE_VERSION');
                     const fromLabel = t('_FROM_VERSION');
                     const toLabel = t('_TO_VERSION');
+                    
                     items.forEach((element) => {
                         const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
                         const value = element.href;
@@ -134,8 +140,10 @@ const ContractSummary = () => {
                             value: value,
                             label: label,
                         };
+
                         historyOptions.push(data);
                     });
+
                     setHistoryOptions(historyOptions);
                 }
             });
@@ -149,7 +157,9 @@ const ContractSummary = () => {
                     if (!Array.isArray(riskResponse.data._links.item)) {
                         riskResponse.data._links.item = [riskResponse.data._links.item];
                     }
+
                     setRiskData(riskResponse.data._links.item);
+                    
                     const mainRiskItem = riskResponse.data._links.item.find(
                         (item: { summary: { [x: string]: any } }) => {
                             if (item.summary['membership:main']) {
@@ -175,17 +185,21 @@ const ContractSummary = () => {
             ownerPartyRole &&
             ownerPartyRole.length > 0 &&
             ownerPartyRole.find((item: any) => item.summary['party_role:role_type'] === 'owner');
+       
         return <>{ownerName && ownerName['title'] && <label className="d-block">{ownerName['title']}</label>}</>;
     };
+
     const onClickDialog = () => {
         setDialogVisible(false);
     };
+
     const createunsollicitedPayment = () => {
         const operationUrl = contractUrl + '/operations';
         axios.get(operationUrl, { headers: applicationContext.headers }).then((operationRes) => {
             if (operationRes && operationRes.data._links && operationRes.data._links['item']) {
                 const operationItem = operationRes.data._links['item'];
                 const payment = operationItem.find((item: { name: string }) => item.name === 'unsolicited_payment');
+                
                 if (payment && payment.href) {
                     axios.post(payment.href, {}, { headers: applicationContext.headers }).then((res) => {
                         if (res && res.data) {
@@ -197,14 +211,18 @@ const ContractSummary = () => {
             }
         });
     };
+
     const manageSectionVisibility = (contract: { [x: string]: any }) => {
         let newSections: any;
         const productType = contract['contract:product_type'];
+       
         if (productType === 'multi_risk') {
             newSections = sections.filter((item) => item.id !== 'investment' && item.id !== 'coverages');
-        } else if (productType !== 'savings') {
+        } 
+        else if (productType !== 'savings') {
             newSections = sections.filter((item) => item.id !== 'investment' && item.id !== 'risks');
-        } else if (productType === 'savings') {
+        } 
+        else if (productType === 'savings') {
             newSections = sections.filter((item) => item.id !== 'risks');
         }
         setSections(newSections);
@@ -213,7 +231,7 @@ const ContractSummary = () => {
 
     /**
      * Display the contract in a banner
-     * @returns {void} Display main information of a contract in a banner
+     * @returns {*} Display main information of a contract in a banner
      */
     function ContractBanner() {
         return (
@@ -294,6 +312,7 @@ const ContractSummary = () => {
             </StyledBanner>
         );
     }
+    
     return (
         <>
             {contractData && visibleSections.length > 0 && (

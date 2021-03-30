@@ -9,7 +9,7 @@ import useDeskTickets from "../../../data/hooks/useDeskTickets";
 /**
  * Display of ticket in detail
  * @param {param0} id, sectionId, onRemove, onClose Information that will be used for the ticket detail 
- * @returns {void} Display of ticket in detail
+ * @returns {*} Display of ticket in detail
  */
 function TicketDetail({id, sectionId, onRemove, onClose}) {
     const {getOne, assignTo, remove} = useDeskTickets()
@@ -32,7 +32,8 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
         return (
             <TicketSummary ticket={ticket} actions={Actions} onClose={closeHandle} sectionId={sectionId}/>
         )
-    } else
+    } 
+    else
         return (<div className="container center">Loading ticket ...</div>)
 }
 

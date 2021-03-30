@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import Documents from "./components/Documents/Documents";
 import MyTickets from "../../../../../components/Tickets/MyTickets/MyTickets";
 import Upload from "../../../../../components/Tickets/TicketDetail/components/Upload/Upload";
+import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 
 //import moment from "moment/moment";
 

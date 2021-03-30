@@ -17,9 +17,9 @@ const EntitySidebar = ({open, width = 240, content}) => {
 }
 
 EntitySidebar.propTypes = {
-    open: PropTypes.string,
+    open: PropTypes.bool,
     width: PropTypes.number,
-    content: PropTypes.string
+    content: PropTypes.object
 }
 
 export default EntitySidebar;

@@ -9,6 +9,7 @@ import TicketDetail from '../../components/Tickets/TicketDetail/TicketDetail';
 import TicketList from '../../components/ticketsList/ticketsList';
 import useDeskAuth from '../../data/hooks/useDeskAuth';
 import useDeskBaskets from '../../data/hooks/useDeskBaskets';
+import useDeskTickets from '../../data/hooks/useDeskTickets';
 
 const HomePage = () => {
     const {profile} = useDeskAuth()

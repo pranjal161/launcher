@@ -5,7 +5,7 @@ import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 
 /**
  * Button for creating a basket
- * @returns {void} Display the create basket button
+ * @returns {*} Display the create basket button
  */
 function CreateButton() {
     const [open, setOpen] = React.useState(false);

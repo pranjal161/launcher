@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Information of sections
  * @param {param} value, onChange Id of the section and action on the click on the section bar
- * @returns {void} Display the sections bar with information
+ * @returns {*} Display the sections bar with information
  */
 function SectionsBar({value, onChange}) {
 
@@ -41,6 +41,7 @@ function SectionsBar({value, onChange}) {
         {id: 'documents', icon: AttachFileIcon}]
 
     const selected = (id) => id === value
+    
     return (
         <div className={classes.root}>
             <List component="nav" dense>

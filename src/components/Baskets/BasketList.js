@@ -4,7 +4,7 @@ import React from 'react';
 /**
  * List of items
  * @param {*} props Items that we want to display
- * @returns {void} Returns list of item titles with id
+ * @returns {*} Returns list of item titles with id
  */
 function BasketList(props) {
     const {baskets, handleBasketClick=() => {

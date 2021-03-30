@@ -9,7 +9,7 @@ import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
 /**
  * Training's Norbert page
- * @returns {void} Training's Norbert page
+ * @returns {*} Training's Norbert page
  */
 function TrainingNorbert() {
     const [activeTab, setActiveTab] = useState(0);

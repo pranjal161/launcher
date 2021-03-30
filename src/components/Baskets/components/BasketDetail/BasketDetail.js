@@ -6,7 +6,7 @@ import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 /**
  * Detail of an item from the basket
  * @param {*} param0 Item information
- * @returns {void} Return all information of the item from the basket
+ * @returns {*} Return all information of the item from the basket
  */
 function BasketDetail({id, remove}) {
     const {getOne, assignUser, removeUser} = useDeskBaskets()

@@ -25,7 +25,7 @@ const SectionHeader = ({id, title, actions, children}) => (
 )
 
 SectionHeader.propTypes = {
-    id: propTypes.string,
+    id: PropTypes.string,
     title: PropTypes.string,
     actions: PropTypes.array,
     children: PropTypes.string

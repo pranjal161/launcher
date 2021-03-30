@@ -204,6 +204,4 @@ const routes = [
     }
 ];
 
-routes.displayName = 'MyComponent';
-
 export default routes;

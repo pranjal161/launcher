@@ -6,7 +6,7 @@ import React from 'react';
 
 /**
  * Example of tickets view on desktop
- * @returns {void} Example of tickets view on desktop
+ * @returns {*} Example of tickets view on desktop
  */
 function ExempleDesktopView() {
     const [value, setValue] = React.useState(0);
