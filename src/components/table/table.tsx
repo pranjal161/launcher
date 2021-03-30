@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 
-import { ApplicationContext } from '../../context/applicationContext';
-import { DxcTable } from '@dxc-technology/halstack-react';
+import { ApplicationContext } from "context/applicationContext";
+import { DxcTable } from "@dxc-technology/halstack-react";
 import Paginator from '../paginator/paginator';
-import { StyledHoverRow } from '../../styles/global-style';
-import axios from 'axios';
-import { getDescriptionValue } from '../../util/functions';
-import { useTranslation } from 'react-i18next';
+import { StyledHoverRow } from 'styles/global-style';
+import axios from "axios";
+import { getDescriptionValue } from "util/functions";
+import { useTranslation } from "react-i18next";
 
 const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) => {
     const applicationContext = useContext(ApplicationContext);

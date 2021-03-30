@@ -1,19 +1,19 @@
-import { CallIcon, CreditCardIcon, EmailIcon, HomeIcon, LanguageIcon, PersonIcon } from '../../assets/svg';
-import React, { useContext, useEffect, useState } from 'react';
+import { CallIcon, CreditCardIcon, EmailIcon, HomeIcon, LanguageIcon, PersonIcon } from 'assets/svg';
+import React, { useContext, useEffect, useState } from "react";
 
-import AddressTab from '../../components/addressTab/addressTab';
-import { ApplicationContext } from '../../context/applicationContext';
-import ClaimList from '../../components/claimList/claimList';
-import ContractRoles from '../../components/contractRoles/contractRoles';
-import Documents from '../../components/documents/documents';
-import { DxcSidenav } from '@dxc-technology/halstack-react';
-import FinancialTable from '../../components/financialTable/financialTable';
-import Label from '../../components/label/label';
-import { StyledBanner } from '../../styles/global-style';
+import AddressTab from 'views/clientView/components/addressTab/addressTab';
+import { ApplicationContext } from "context/applicationContext";
+import ClaimList from "views/clientView/components/claimList/claimList";
+import ContractRoles from "views/clientView/components/contractRoles/contractRoles";
+import Documents from "components/documents/documents";
+import { DxcSidenav } from "@dxc-technology/halstack-react";
+import FinancialTable from "views/clientView/components/financialTable/financialTable";
+import Label from 'components/label/label';
+import { StyledBanner } from 'styles/global-style';
 import axios from 'axios';
-import { getLink } from '../../util/functions';
-import { useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { getLink } from 'util/functions';
+import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ClientView = () => {
     const location: any = useLocation();

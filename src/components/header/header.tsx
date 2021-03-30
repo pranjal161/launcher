@@ -4,12 +4,11 @@ import React, {useContext, useState} from 'react';
 
 import {ApplicationContext} from '../../context/applicationContext';
 import CreateButton from '../Tickets/CreateButton/CreateButton';
-import DXCLogo from '../../assets/dxc_logo.jpg';
-import {SearchIcon} from '../../assets/svg';
+import DXCLogo from 'assets/dxc_logo.jpg';
 import SignedLinks from "./components/SignedLinks/SignedLinks";
-import en from '../../assets/gb.jpg';
-import fr from '../../assets/fr.jpg';
-import nl from '../../assets/nl.jpg';
+import en from 'assets/gb.jpg';
+import fr from 'assets/fr.jpg';
+import nl from 'assets/nl.jpg';
 
 const Header = () => {
     const history = useHistory();

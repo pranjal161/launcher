@@ -3,13 +3,13 @@ import * as yup from "yup";
 import { DxcButton, DxcDate, DxcInput, DxcSelect, DxcSlider, DxcTextarea } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 
-import { AlertContext } from '../../../context/alertContext';
-import { ApplicationContext } from "../../../context/applicationContext";
+import { AlertContext } from 'context/alertContext';
+import { ApplicationContext } from "context/applicationContext";
 import axios from "axios";
-import { searchPerson } from "../../../util/functions";
-import useDeskAuth from "../../../data/hooks/useDeskAuth";
-import useDeskBaskets from "../../../data/hooks/useDeskBaskets";
-import useDeskUsers from "../../../data/hooks/useDeskUsers";
+import { searchPerson } from "util/functions";
+import useDeskAuth from "data/hooks/useDeskAuth";
+import useDeskBaskets from "data/hooks/useDeskBaskets";
+import useDeskUsers from "data/hooks/useDeskUsers";
 
 //import { useForm } from "react-hook-form";
 //import { yupResolver } from '@hookform/resolvers/yup';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { DxcAlert } from "@dxc-technology/halstack-react";
-import { StyledMessageContainer } from '../../styles/global-style';
+import { StyledMessageContainer } from 'styles/global-style';
 import { useTranslation } from "react-i18next";
 
 const Alert = (props: { toastList: any }) => {

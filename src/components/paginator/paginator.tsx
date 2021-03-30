@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getLink, paginationLink } from '../../util/functions';
+import { getLink, paginationLink } from 'util/functions';
 
 import { DxcPaginator } from '@dxc-technology/halstack-react';
-import { StyledPaginator } from '../../styles/global-style';
+import { StyledPaginator } from 'styles/global-style';
 
 const Paginator = (props: { totalItems: string | number; itemsPerPage: number; data: any; handler: any }) => {
     const { totalItems, itemsPerPage, data, handler } = props;

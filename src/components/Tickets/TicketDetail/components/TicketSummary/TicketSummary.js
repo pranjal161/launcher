@@ -1,5 +1,4 @@
-import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
-
+import React from 'react';
 import DataLine from "./components/DataLine/DataLine";
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";

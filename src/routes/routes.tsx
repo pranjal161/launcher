@@ -1,32 +1,21 @@
 /* eslint-disable react/display-name */
 
 import React, {lazy} from "react";
-import {
-    Training,
-    TrainingAkruti,
-    TrainingJeenal,
-    TrainingMaxime,
-    TrainingNikolay,
-    TrainingNorbert,
-    TrainingPranjal,
-    TrainingQuentin,
-    TrainingShivani,
-    TrainingSuhani
-} from "../views/training";
 
-import AppLayout from "../layouts/AppLayout/AppLayout";
-import AuthLayout from "../layouts/AuthLayout/AuthLayout";
-import ClientView from "../views/clientView/clientView";
-import ContractSearch from "../views/contractSearch/contractSearch";
-import ContractSummary from "../views/contractSummary/contractSummary";
-import ErrorLayout from "../layouts/ErrorLayout/ErrorLayout";
-import ExempleDesktopView from "../views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
-import Help from '../views/help/help';
-import HomePage from "../views/home/home";
-import MyTickets from '../views/tickets/myTickets';
-import NewTicket from '../views/tickets/newTicket';
+import AppLayout from "layouts/AppLayout/AppLayout";
+import AuthLayout from "layouts/AuthLayout/AuthLayout";
+import ClientView from "views/clientView/clientView";
+import ContractSearch from "views/contractSearch/contractSearch";
+import ContractSummary from "views/contractSummary/contractSummary";
+import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
+import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
+import Help from 'views/help/help';
+import HomePage from "views/HomePage/HomePage";
+import MyTickets from 'views/tickets/myTickets';
+import NewTicket from 'views/tickets/newTicket';
 import {Redirect} from "react-router-dom";
-import ViewBaskets from '../views/baskets/viewBaskets';
+import Trainers from "views/training";
+import ViewBaskets from 'views/baskets/viewBaskets';
 
 const routes = [
     {
@@ -45,13 +34,13 @@ const routes = [
                 path: '/auth/signin',
                 name: 'signIn',
                 exact: true,
-                component: lazy(() => import( '../views/SignIn/SignIn'))
+                component: lazy(() => import( 'views/SignIn/SignIn'))
             },
             {
                 path: '/auth/signup',
                 name: 'signUp',
                 exact: true,
-                component: lazy(() => import( '../views/SignUp/SignUp'))
+                component: lazy(() => import( 'views/SignUp/SignUp'))
             },
             {
                 component: () => <Redirect to="/errors/error-404"/>
@@ -65,7 +54,7 @@ const routes = [
             {
                 path: '/errors/error-404',
                 exact: true,
-                component: lazy(() => import('../views/errors/Error404/Error404'))
+                component: lazy(() => import('views/errors/Error404/Error404'))
             },
             {
                 component: () => <Redirect to="/errors/error-404"/>
@@ -140,61 +129,61 @@ const routes = [
             {
                 path: '/training',
                 name: 'training',
-                component: Training,
+                component: Trainers.Training,
                 routes: [
                     {
                         path: '/training/akruti',
                         name: 'trainingAkruti',
                         exact: true,
-                        component: TrainingAkruti
+                        component: Trainers.TrainingAkruti
                     },
                     {
                         path: '/training/jeenal',
                         name: 'trainingJeenal',
                         exact: true,
-                        component: TrainingJeenal
+                        component: Trainers.TrainingJeenal
                     },
                     {
                         path: '/training/maxime',
                         name: 'trainingMaxime',
                         exact: true,
-                        component: TrainingMaxime
+                        component: Trainers.TrainingMaxime
                     },
                     {
                         path: '/training/nikolay',
                         name: 'trainingNikolay',
                         exact: true,
-                        component: TrainingNikolay
+                        component: Trainers.TrainingNikolay
                     },
                     {
                         path: '/training/norbert',
                         name: 'trainingNorbert',
                         exact: true,
-                        component: TrainingNorbert
+                        component: Trainers.TrainingNorbert
                     },
                     {
                         path: '/training/pranjal',
                         name: 'trainingPranjal',
                         exact: true,
-                        component: TrainingPranjal
+                        component: Trainers.TrainingPranjal
                     },
                     {
                         path: '/training/quentin',
                         name: 'trainingQuentin',
                         exact: true,
-                        component: TrainingQuentin
+                        component: Trainers.TrainingQuentin
                     },
                     {
                         path: '/training/shivani',
                         name: 'trainingShivani',
                         exact: true,
-                        component: TrainingShivani
+                        component: Trainers.TrainingShivani
                     },
                     {
                         path: '/training/suhani',
                         name: 'trainingSuhani',
                         exact: true,
-                        component: TrainingSuhani
+                        component: Trainers.TrainingSuhani
                     }
                 ]
             },

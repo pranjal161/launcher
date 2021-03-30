@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-
-import { ApplicationContext } from '../../context/applicationContext';
-import Document from '../../assets/description.png';
+import React, { useEffect, useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { ApplicationContext } from "context/applicationContext";
 import { DxcCard } from '@dxc-technology/halstack-react';
+import Document from 'assets/description.png';
+import { getDescriptionValue } from "util/functions";
 import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 import { getDescriptionValue } from '../../util/functions';

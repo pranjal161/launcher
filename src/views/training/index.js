@@ -1,10 +1,17 @@
-export {default as TrainingAkruti }  from"./TrainingAkruti";
-export {default as TrainingJeenal } from"./TrainingJeenal";
-export {default as TrainingMaxime } from"./TrainingMaxime";
-export {default as TrainingNikolay } from"./TrainingNikolay";
-export {default as TrainingNorbert } from"./TrainingNorbert/TrainingNorbert";
-export {default as TrainingPranjal } from"./TrainingPranjal";
-export {default as TrainingQuentin } from"./TrainingQuentin";
-export {default as TrainingShivani } from"./TrainingShivani";
-export {default as TrainingSuhani } from"./TrainingSuhani";
-export {default as Training} from "./training"
+import TrainingAkruti from "./TrainingAkruti";
+import TrainingJeenal from "./TrainingJeenal";
+import TrainingMaxime from "./TrainingMaxime";
+import TrainingNikolay from "./TrainingNikolay";
+import TrainingNorbert from"./TrainingNorbert/TrainingNorbert";
+import TrainingPranjal from"./TrainingPranjal";
+import TrainingQuentin from"./TrainingQuentin";
+import TrainingShivani from"./TrainingShivani";
+import TrainingSuhani from"./TrainingSuhani";
+import Training from "./training";
+
+ const Trainers = {
+    TrainingAkruti, TrainingJeenal, TrainingMaxime, TrainingNikolay, TrainingNorbert, TrainingPranjal,
+    TrainingQuentin, TrainingShivani, TrainingSuhani, Training 
+}
+
+export default Trainers;

@@ -1,8 +1,8 @@
-import { formatValue, getDescriptionFromOneOf } from '../../util/functions';
+import { formatValue, getDescriptionFromOneOf } from 'util/functions';
 
 import React from 'react';
-import { StyledLabel } from '../../styles/global-style';
-import { useTranslation } from 'react-i18next';
+import { StyledLabel } from 'styles/global-style';
+import { useTranslation } from "react-i18next";
 
 /**
  * Display a label
