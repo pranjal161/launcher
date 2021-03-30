@@ -9,7 +9,7 @@ import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
 import { formatValue } from "../../../../../util/functions";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
-import { DxcChip } from '@dxc-technology/halstack-react';
+import {DxcChip, DxcBox} from '@dxc-technology/halstack-react';
 import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import { AddIcon, DotsIcon } from "../../../../../../src/assets/svg";
@@ -102,8 +102,7 @@ const TicketSummary = ({ ticket }) => {
     const Description = ({ description }) => (<p>{description}</p>)
 
     return (
-        <Card style={{ width: '400px' }}>
-            <CardContent>
+        <DxcBox>
                 <Sections title={"Ticket detail"}>
                     <Section id='information' title='Information'>
                         <DataLine label={<Label>Title</Label>}>
@@ -162,8 +161,7 @@ const TicketSummary = ({ ticket }) => {
                         <Upload ticketId={ticket.id} />
                     </Section>
                 </Sections>
-            </CardContent>
-        </Card>
+        </DxcBox>
     )
 }
 
