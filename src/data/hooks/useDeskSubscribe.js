@@ -29,7 +29,8 @@ const useDeskSubscribe = ({collection, ...rest}) => {
                 collection: 'not-exist',
                 limit: 1
             }]
-
+        //Norbert : Ne pas retirer,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logged, storeAs])
 
     if (logged && !listenerExist)
