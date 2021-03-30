@@ -1,5 +1,4 @@
 import React from 'react';
-import {Card, CardContent} from "@material-ui/core";
 import DataLine from "./components/DataLine/DataLine";
 import Label from "./components/Label/Label";
 import Section from "./components/Section/Section";
