@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+
 import { AppConfig } from "config/appConfig";
 import { ApplicationContext } from "context/applicationContext";
 import Table from "components/table/table";
-
-import { AppConfig } from '../../config/appConfig';
-import { ApplicationContext } from '../../context/applicationContext';
-import Table from '../table/table';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const ClaimList = (props: { clientUrl: string }) => {
     const [claimUrl, setClaimUrl] = useState<string>();

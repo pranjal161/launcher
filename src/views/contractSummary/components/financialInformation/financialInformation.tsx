@@ -1,11 +1,11 @@
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
 import Label from 'components/label/label';
-import React from 'react';
 import axios from 'axios';
 import { getLink } from 'util/functions';
-import { useTranslation } from 'react-i18next';
+
+//import { useTranslation } from 'react-i18next';
 
 const FinancialInformation = (props: { contractResponse: any }) => {
     //const { t } = useTranslation();

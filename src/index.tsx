@@ -17,10 +17,8 @@ import configureStore from "./store/store2";
 import { createFirestoreInstance } from 'redux-firestore'
 import firebase from 'firebase/app'
 import reportWebVitals from './reportWebVitals';
-import { useHistory } from 'react-router-dom';
 
 const initialState = {}
-const history = useHistory();
 const store = configureStore(initialState, history)
 
 // Initialize Firebase instance

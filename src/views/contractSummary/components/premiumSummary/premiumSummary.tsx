@@ -1,12 +1,11 @@
+import React, { useContext, useEffect, useState } from 'react';
 import { formatValue, getDescriptionValue } from 'util/functions';
-import { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/chart/chart';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from 'components/label/label';
-import React from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 

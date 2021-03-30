@@ -1,13 +1,11 @@
+import { DxcDialog, DxcTable } from '@dxc-technology/halstack-react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getDescriptionValue, getLink } from 'util/functions';
-import { useContext, useEffect, useState } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
-import { DxcDialog } from '@dxc-technology/halstack-react';
-import { DxcTable } from '@dxc-technology/halstack-react';
 import { EyeIcon } from 'assets/svg';
 import Paginator from 'components/paginator/paginator';
 import { PremiumSummary } from '../premiumSummary/premiumSummary';
-import React from 'react';
 import { StyledButton } from 'styles/global-style';
 import { SurrenderSummary } from '../surrenderSummary/surrenderSummary';
 import { SwitchSummary } from '../switchSummary/switchSummary';

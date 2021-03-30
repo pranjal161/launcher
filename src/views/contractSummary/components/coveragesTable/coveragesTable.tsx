@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
-import React from 'react';
 import Table from "components/table/table";
 import axios from 'axios';
 

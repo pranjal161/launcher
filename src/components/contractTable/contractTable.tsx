@@ -1,9 +1,7 @@
 import { DxcTable } from '@dxc-technology/halstack-react';
+import Paginator from 'components/paginator/paginator';
 import { StyledHoverRow } from 'styles/global-style';
 import { getDescriptionValue } from 'util/functions';
-import Paginator from 'components/paginator/paginator';
-
-const ContractTable = (props: { contractData: any; getData: (href:string) => void}) => {
 
 /**
  * Display contract information in a table

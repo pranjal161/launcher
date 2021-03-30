@@ -29,7 +29,7 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             const investmentSplitListItems: any = res.data && res.data['investment_split'] && Array.isArray(res.data['investment_split']) ? res.data['investment_split'] :
                 [res['investment_split']];
             
-                if (investmentSplitListItems) {
+            if (investmentSplitListItems) {
                 let investmentSplitElement: any[] = [];
                 
                 investmentSplitListItems.forEach((element: any) => {

@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
-import React from 'react';
 import Table from "components/table/table";
 import { getLink } from 'util/functions';
 
