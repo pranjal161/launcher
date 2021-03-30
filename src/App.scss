@@ -76,9 +76,6 @@ table tbody tr th {
   overflow-x: hidden !important;
 }
 
-.MuiDialog-root {
-  z-index: 999 !important;
-}
 
 .align-center {
   text-align: center;
@@ -104,7 +101,7 @@ table tbody tr th {
 .progressbar > div {
 min-width: 200px !important;
 .jKSkdn { width: 75% !important }
-.sc-euMpXR { width: unset !important;}
+.sc-euMpXR  { width: unset !important;}
 }
 
 .toolbar{
@@ -145,3 +142,11 @@ min-width: 200px !important;
   .MuiPaper-elevation4 {
     border-bottom: 1px solid rgba(0, 50, 150, 0.1) !important;}
 
+// CSS to fix autocomplete
+    div[role="tooltip"] {
+      z-index: 1500 !important;
+      min-width: max-content !important;
+      .MuiMenu-list, .MuiPaper-root {
+        width: max-content !important;
+      }
+    }
