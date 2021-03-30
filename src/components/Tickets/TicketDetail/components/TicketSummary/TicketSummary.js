@@ -1,4 +1,5 @@
-import React from 'react';
+import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
+
 import DataLine from "./components/DataLine/DataLine";
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
@@ -12,8 +13,6 @@ import {formatValue} from "../../../../../util/functions";
 import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
-
-//import {Card, CardContent} from "@material-ui/core";
 
 const Divider = () => <hr className="solid"/>
 
