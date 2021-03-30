@@ -1,5 +1,6 @@
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Paginator from 'components/paginator/paginator';
+import React from 'react';
 import { StyledHoverRow } from 'styles/global-style';
 import { getDescriptionValue } from 'util/functions';
 
