@@ -1,11 +1,17 @@
+import {Drawer, Grid} from "@material-ui/core";
+
 import React from 'react';
 import SectionsBar from "./components/SectionsBar/SectionsBar";
-import {Drawer, Grid} from "@material-ui/core";
 import TicketDetail from "../../../../../../../components/Tickets/TicketDetail/TicketDetail";
 
+/**
+ * Information on the ticket
+ * @param {param} id, sectionId, onSectionChange, onClose for the ticket
+ * @returns {void} Information on the ticket
+ */
 function TicketSide({id, sectionId, onSectionChange, onClose}) {
     const open = (id !== undefined)
-    //console.log('TicketSide render')
+
     return (
         <Drawer open={open} anchor={"right"} variant={"persistent"}>
             <Grid container>
@@ -18,6 +24,13 @@ function TicketSide({id, sectionId, onSectionChange, onClose}) {
             </Grid>
         </Drawer>
     );
+}
+
+TicketSide.propTypes = {
+    id: PropTypes.string,
+    sectionId: PropTypes.string,
+    onSectionChange: PropTypes.func,
+    onClose: PropTypes.func
 }
 
 export default TicketSide;

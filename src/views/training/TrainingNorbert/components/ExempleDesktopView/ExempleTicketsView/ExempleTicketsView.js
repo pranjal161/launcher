@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import AllTickets from "../../../../../../components/Tickets/AllTickets/AllTickets";
 import CreateButton from "../../../../../../components/Tickets/CreateButton/CreateButton";
 import MyTickets from "../../../../../../components/Tickets/MyTickets/MyTickets";
@@ -6,6 +7,10 @@ import {Redirect} from "react-router-dom";
 import TicketDetail from "../../../../../../components/Tickets/TicketDetail/TicketDetail";
 import useDeskAuth from "../../../../../../data/hooks/useDeskAuth";
 
+/**
+ * Example of tickets view
+ * @returns {void} Example of tickets view
+ */
 function ExempleTicketsView() {
     const [clickedTickets, setClickedTickets] = useState({})
 
@@ -21,7 +26,6 @@ function ExempleTicketsView() {
         delete newAfterDelete[id]
         setClickedTickets(newAfterDelete)
     }
-
 
     return (
         <div>
@@ -39,10 +43,10 @@ function ExempleTicketsView() {
                 </div>
                 <div className="col-4">
                     Clicked tickets
-                    {clickedTickets && Object.values(clickedTickets).map(ticket => <TicketDetail id={ticket.id}
-                                                                                                 key={ticket.id}
-                                                                                                 OnRemove={handleRemove}
-                                                                                                 onClose={() => handleRemove(ticket.id)}
+                    {clickedTickets && Object.values(clickedTickets).map((ticket) => <TicketDetail id={ticket.id}
+                        key={ticket.id}
+                        OnRemove={handleRemove}
+                        onClose={() => handleRemove(ticket.id)}
                     />)}
                 </div>
             </div>

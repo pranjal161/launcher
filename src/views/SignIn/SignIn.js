@@ -1,6 +1,6 @@
+import { NavLink, Redirect } from 'react-router-dom';
 import React, {useRef} from 'react';
-import { NavLink } from 'react-router-dom';
-import {Redirect} from "react-router-dom";
+
 import useDeskAuth from "../../data/hooks/useDeskAuth";
 
 const SignIn = () => {
@@ -26,12 +26,12 @@ const SignIn = () => {
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email address</label>
                         <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                               placeholder="Enter email" ref={emailRef}/>
+                            placeholder="Enter email" ref={emailRef}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
-                               ref={passwordRef}/>
+                            ref={passwordRef}/>
                     </div>
                     <button className="m-2">Submit</button>
                     <button className="m-2"><NavLink to="/signup">Sign Up</NavLink></button>

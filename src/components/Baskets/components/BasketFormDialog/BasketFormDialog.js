@@ -1,18 +1,24 @@
+import * as yup from "yup";
+
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
+
 import React from 'react';
 import useDeskAuth from "../../../../data/hooks/useDeskAuth";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from "yup";
 
 const schema = yup.object().shape({
     title: yup.string().required(),
 });
 
+/**
+ * Available actions for a basket
+ * @param {props} props Information of the basket
+ * @returns {void} Display available action for the basket
+ */
 function BasketFormDialog(props) {
     const {currentUserId} = useDeskAuth()
     const {basket} = props
-
 
     const defaultValues = basket ? basket : {
         requestBy: currentUserId,
@@ -45,7 +51,7 @@ function BasketFormDialog(props) {
                         <label className=" control-label" htmlFor="title">Title</label>
                         <div className="">
                             <input id="title" name="title" type="text"
-                                   className="form-control input-md" ref={register}/>
+                                className="form-control input-md" ref={register}/>
                         </div>
                     </div>
 
@@ -61,6 +67,12 @@ function BasketFormDialog(props) {
             </form>
         </Dialog>
     );
+}
+
+BasketFormDialog.propTypes = {
+    basket: PropTypes.string,
+    submit: PropTypes.func,
+    close: PropTypes.func
 }
 
 export default BasketFormDialog;

@@ -54,22 +54,22 @@ export const getDescriptionValue = (value: any, id: string, tableData: any, type
 
 export const getDescriptionFromOneOf = (value: string, id: string, response: any) => {
     if (
-      response._options &&
+        response._options &&
       response._options.properties &&
       response._options.properties[id] &&
       response._options.properties[id]['oneOf']
     ) {
-      for (let i = 0; i < response._options.properties[id]['oneOf'].length; i++) {
-        if (
-          response._options.properties[id]['oneOf'][i]['enum'][0] ===
+        for (let i = 0; i < response._options.properties[id]['oneOf'].length; i++) {
+            if (
+                response._options.properties[id]['oneOf'][i]['enum'][0] ===
           value
-        ) {
-          value = response._options.properties[id]['oneOf'][i]['title'];
+            ) {
+                value = response._options.properties[id]['oneOf'][i]['title'];
+            }
         }
-      }
     }
     return value;
-  }
+}
 
 export const formatValue = (value: any, style?: string | undefined) => {
     const intl = AppConfig.Intl;
@@ -101,7 +101,7 @@ export const formatValue = (value: any, style?: string | undefined) => {
                         const date = new Date(value);
                         formattedValue = new Intl.DateTimeFormat(intl.DateFormat).format(date);
                     }
-                break;     
+                    break;     
             }
         }
         return formattedValue ? formattedValue : value;
@@ -134,8 +134,15 @@ export const getStatusReport = (response: any) => {
     }
 }
 
+/**
+ * 
+ * @param {date}date The initial date for which days will be added
+ * @param {days} days Number of days that will be added on the initial date
+ * @returns {date} The new date
+ */
 export function addDays(date: any, days: number) {
     const result = new Date(date);
     result.setDate(result.getDate() + days);
+
     return result;
 }

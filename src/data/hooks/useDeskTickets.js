@@ -1,25 +1,20 @@
-import {useCallback} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import * as ticketActions from "../../store/actions/ticketActions";
 
+import {useDispatch, useSelector} from "react-redux";
 
-const useAllTickets = () => {
-    return useSelector((state) => state.firestore.ordered['tickets'])
-}
+import {useCallback} from "react";
+
+const useAllTickets = () => useSelector((state) => state.firestore.ordered['tickets'])
 
 const useMyAllTickets = () => {
-    const auth = useSelector(state => state.auth)
+    const auth = useSelector((state) => state.auth)
     const allTickets = useAllTickets()
-    return allTickets && allTickets.filter(ticket => ticket.assignedTo && ticket.assignedTo === auth.id)
+    return allTickets && allTickets.filter((ticket) => ticket.assignedTo && ticket.assignedTo === auth.id)
 }
 
-const useGetOne = (id) => {
-    return useSelector((state) => ({id, ...state.firestore.data.tickets[id]}))
-}
+const useGetOne = (id) => useSelector((state) => ({id, ...state.firestore.data.tickets[id]}))
 
-const useGetState = () => {
-    return useSelector((state) => (state.tickets))
-}
+const useGetState = () => useSelector((state) => (state.tickets))
 
 const useGetAllDocuments  = (ticketId) => {
     const ticket = useGetOne(ticketId)

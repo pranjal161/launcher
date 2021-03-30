@@ -1,12 +1,11 @@
-import React from 'react';
-import { useEffect, useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useEffect, useState } from 'react';
+
+import Chart from '../chart/chart';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
 import axios from 'axios';
 import { formatValue } from '../../util/functions';
-import Chart from '../chart/chart';
-export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
+import { useTranslation } from 'react-i18next';
 
 export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
     const { t } = useTranslation();
@@ -36,7 +35,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                         disinvestmentSplitElement.push(axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }));
                     }
                 });
-                Promise.all(disinvestmentSplitElement).then(disinvestmentRes => {
+                Promise.all(disinvestmentSplitElement).then((disinvestmentRes) => {
                     if (disinvestmentSplitListItems && disinvestmentRes) {
                         let _list: any[] = [];
                         disinvestmentRes.forEach((res) => {
@@ -60,7 +59,6 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             }
         });
     }
-
 
     const buildChartData = (unitFunds: any[]) => {
         if (disinvestmentSplitItem && unitFunds && unitFunds.length > 0) {

@@ -1,12 +1,13 @@
+import * as yup from "yup";
+
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
+
 import React from 'react';
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import useDeskBaskets from "../../../data/hooks/useDeskBaskets";
 import useDeskUsers from "../../../data/hooks/useDeskUsers";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from "yup";
-
 
 const schema = yup.object().shape({
     title: yup.string().required(),
@@ -20,6 +21,11 @@ const schema = yup.object().shape({
     stage: yup.number()
 });
 
+/**
+ * Display of a ticket in dialog form
+ * @param {*} props Information related to the ticket that will be used for the display
+ * @returns {void} Display of a ticket in dialog form
+ */
 function TicketFormDialog(props) {
     const {currentUserId} = useDeskAuth()
     const {getAll} = useDeskUsers()
@@ -28,16 +34,15 @@ function TicketFormDialog(props) {
     const allBaskets = getAllBaskets()
     const {ticket} = props
 
-
     const defaultValues = ticket ? ticket : {
         requestBy: currentUserId,
         assignTo: currentUserId,
     }
 
-    const usersOptions = allUsers && allUsers.map(user => <option
+    const usersOptions = allUsers && allUsers.map((user) => <option
         key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>)
 
-    const basketsOptions = allBaskets && allBaskets.map(basket => <option
+    const basketsOptions = allBaskets && allBaskets.map((basket) => <option
         key={basket.id} value={basket.id}>{basket.title} </option>)
 
 
@@ -67,7 +72,7 @@ function TicketFormDialog(props) {
                         <label className=" control-label" htmlFor="title">Title</label>
                         <div className="">
                             <input id="title" name="title" type="text"
-                                   className="form-control input-md" ref={register}/>
+                                className="form-control input-md" ref={register}/>
                         </div>
                     </div>
 
@@ -100,24 +105,24 @@ function TicketFormDialog(props) {
                     <div className="form-group">
                         <label className=" control-label" htmlFor="description">Description</label>
                         <div className="">
-                        <textarea className="form-control" id="description" name="description"
-                                  ref={register}></textarea>
+                            <textarea className="form-control" id="description" name="description"
+                                ref={register}></textarea>
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className=" control-label" htmlFor="deadline">Deadline</label>
                         <div className="">
-                        <input id="deadline" name="deadline" type="date"
-                                   className="form-control input-md" ref={register}/>
+                            <input id="deadline" name="deadline" type="date"
+                                className="form-control input-md" ref={register}/>
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className=" control-label" htmlFor="stage">Stage (%)</label>
                         <div className="">
-                        <input id="stage" name="stage"
-                                   className="form-control input-md" ref={register}/>
+                            <input id="stage" name="stage"
+                                className="form-control input-md" ref={register}/>
                         </div>
                     </div>
 
@@ -125,7 +130,7 @@ function TicketFormDialog(props) {
                         <label className=" control-label" htmlFor="status">Status</label>
                         <div className="">
                             <select id="status" name="status" className="form-control" ref={register}
-                                    defaultValue={"created"}>
+                                defaultValue={"created"}>
                                 <option value="created">Created</option>
                                 <option value="pending">Pending</option>
                                 <option value="closed">Closed</option>
@@ -153,6 +158,12 @@ function TicketFormDialog(props) {
             </form>
         </Dialog>
     );
+}
+
+TicketFormDialog.propTypes = {
+    ticket: PropTypes.string,
+    submit: PropTypes.func,
+    close: PropTypes.func
 }
 
 export default TicketFormDialog;

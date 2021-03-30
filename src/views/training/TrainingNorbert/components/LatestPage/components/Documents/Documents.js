@@ -9,10 +9,18 @@ const viewDocument = (e, url) => {
 const Documents = ({ticketId}) =>  {
     const {getAllDocuments} = useDeskTickets()
     const documents = getAllDocuments(ticketId)
+
     return (
-        <lu className="list-group">{documents && Object.values(documents).map(document =>
-            <li className="list-group-item"><a href="" onClick={(e) => viewDocument(e, document.url)} >{document.name}</a></li>)}</lu>
+        <ul className="list-group" key="DocumentList">
+            {documents && Object.values(documents).map((document) => <li className="list-group-item" key={document.name}>
+                <a href="" onClick={(e) => viewDocument(e, document.url)} >{document.name}</a>
+            </li>)}
+        </ul>
     );
+}
+
+Documents.propTypes = {
+    ticketId: PropTypes.string
 }
 
 export default Documents;

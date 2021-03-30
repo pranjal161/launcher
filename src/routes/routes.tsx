@@ -1,15 +1,15 @@
-import React from "react";
-import {Redirect} from "react-router-dom";
 import ClientView from "../views/clientView/clientView";
+import ContractSearch from "../views/contractSearch/contractSearch";
 import ContractSummary from "../views/contractSummary/contractSummary";
 import ExempleDesktopView from "../views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
-import ContractSearch from "../views/contractSearch/contractSearch";
-import SignIn from "../views/SignIn/SignIn";
-import SignUp from "../views/SignUp/SignUp";
-import ViewBaskets from '../views/baskets/viewBaskets';
+import Help from '../views/help/help';
+import HomePage from "../views/home/home";
 import MyTickets from '../views/tickets/myTickets';
 import NewTicket from '../views/tickets/newTicket';
-import Help from '../views/help/help';
+import React from "react";
+import {Redirect} from "react-router-dom";
+import SignIn from "../views/SignIn/SignIn";
+import SignUp from "../views/SignUp/SignUp";
 import Training from "../views/training/training";
 import TrainingAkruti from "../views/training/TrainingAkruti";
 import TrainingJeenal from "../views/training/TrainingJeenal";
@@ -20,14 +20,15 @@ import TrainingPranjal from "../views/training/TrainingPranjal";
 import TrainingQuentin from "../views/training/TrainingQuentin";
 import TrainingShivani from "../views/training/TrainingShivani";
 import TrainingSuhani from "../views/training/TrainingSuhani";
-import HomePage from "../views/home/home";
+import ViewBaskets from '../views/baskets/viewBaskets';
 
 const routes = [
     {
         path: '/',
         name: 'default',
         exact: true,
-        component: () => <Redirect to={'signIn'}/>
+        // eslint-disable-next-line react/display-name
+        component: ({}) => <Redirect to={'signIn'}/>
     },
     {
         path: '/home',
@@ -164,5 +165,7 @@ const routes = [
         ]
     }
 ];
+
+routes.displayName = 'MyComponent';
 
 export default routes;

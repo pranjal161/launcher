@@ -1,13 +1,17 @@
-import React from 'react';
-import { DxcTable, DxcProgressBar } from "@dxc-technology/halstack-react";
-import { useTranslation } from 'react-i18next';
-import useDeskBaskets from '../../data/hooks/useDeskBaskets';
-import { formatValue } from '../../util/functions';
-import Deadline from '../deadlineComponent/deadline';
+import { DxcProgressBar, DxcTable } from "@dxc-technology/halstack-react";
 import { RoundIcon, TimeIcon, TimeLapse } from '../../assets/svg';
 
+import Deadline from '../deadlineComponent/deadline';
+import React from 'react';
+import useDeskBaskets from '../../data/hooks/useDeskBaskets';
+import { useTranslation } from 'react-i18next';
+
+//import { formatValue } from '../../util/functions';
+
 const TicketList = (props: any) => {
-    const { tickets, handleTicketClick = () => { } } = props
+    const { tickets, handleTicketClick = () => { 
+        // Nothing to do
+    } } = props
     const { t } = useTranslation();
     const basketDesk = useDeskBaskets()
     const allBaskets = basketDesk.getAll()

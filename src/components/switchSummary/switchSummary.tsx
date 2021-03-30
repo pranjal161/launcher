@@ -1,12 +1,11 @@
-import React from 'react';
-import { useEffect, useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useEffect, useState } from 'react';
+
+import Chart from '../chart/chart';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from '../../components/label/label';
 import axios from 'axios';
-import Chart from '../chart/chart';
 import { formatValue } from '../../util/functions';
-export const SwitchSummary = (props: { switchSummaryHref: string }) => {
+import { useTranslation } from 'react-i18next';
 
 export const SwitchSummary = (props: { switchSummaryHref: string }) => {
     const { t } = useTranslation();

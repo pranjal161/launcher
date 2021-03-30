@@ -1,15 +1,15 @@
-import DXCLogo from '../../assets/dxc_logo.jpg';
-import fr from '../../assets/fr.jpg';
-import nl from '../../assets/nl.jpg';
-import en from '../../assets/gb.jpg';
 import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
-import React, {useContext, useState} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
+import React, {useContext, useState} from 'react';
 
 import {ApplicationContext} from '../../context/applicationContext';
-import {SearchIcon} from '../../assets/svg';
 import CreateButton from '../Tickets/CreateButton/CreateButton';
+import DXCLogo from '../../assets/dxc_logo.jpg';
+import {SearchIcon} from '../../assets/svg';
 import SignedLinks from "./components/SignedLinks/SignedLinks";
+import en from '../../assets/gb.jpg';
+import fr from '../../assets/fr.jpg';
+import nl from '../../assets/nl.jpg';
 
 const Header = () => {
     const history = useHistory();

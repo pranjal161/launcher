@@ -3,7 +3,10 @@ import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
-
+/**
+ * Display of create ticket button
+ * @returns {void} Display of create ticket button
+ */
 function CreateButton() {
     const [open, setOpen] = React.useState(false);
     const { create } = useDeskTickets()

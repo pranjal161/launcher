@@ -1,11 +1,11 @@
 import React from 'react';
-import UpdateButton from "./components/UpdateButton/UpdateButton";
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
-import useDeskAuth from "../../../data/hooks/useDeskAuth";
-import {makeStyles} from "@material-ui/core";
 import Summary from "./components/Summary/Summary";
+import UpdateButton from "./components/UpdateButton/UpdateButton";
+import {makeStyles} from "@material-ui/core";
+import useDeskAuth from "../../../data/hooks/useDeskAuth";
+import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {},
     content: {
         padding: 0
@@ -15,10 +15,16 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+/**
+ * Display of information related to a ticket
+ * @param {param} id, sectionId, className, onRemove, onClose for the ticket
+ * @returns {void} Display of information related to a ticket
+ */
 function TicketDetail({id, sectionId, className, onRemove, onClose}) {
     const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
     const classes = useStyles();
+    console.log('classes', classes)
 
     let ticket = id ? getOne(id) : undefined
     //console.log('ticket detail render', ticket)

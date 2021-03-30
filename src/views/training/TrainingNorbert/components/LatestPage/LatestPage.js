@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import {DxcButton, DxcInput} from "@dxc-technology/halstack-react"
+import React, {useState} from 'react';
+
+import Documents from "./components/Documents/Documents";
 import MyTickets from "../../../../../components/Tickets/MyTickets/MyTickets";
 import Upload from "../../../../../components/Tickets/TicketDetail/components/Upload/Upload";
-import Documents from "./components/Documents/Documents";
+import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 
 const LatestPage = () => {
     const [ticket, setTicket] = useState(undefined)
@@ -28,14 +29,14 @@ const LatestPage = () => {
     return (
         <>
             <div className="row">
-                <div className="col-3"><MyTickets onClick={ticket => setTicket(ticket)}
-                                                  ticketId={ticket && ticket.id}/></div>
+                <div className="col-3"><MyTickets onClick={(ticket) => setTicket(ticket)}
+                    ticketId={ticket && ticket.id}/></div>
                 <div className="col-3">
                     <DxcInput
                         label="Client"
                         value={client}
                         assistiveText={"assistive text"}
-                        onChange={newValue => setClient(newValue)}
+                        onChange={(newValue) => setClient(newValue)}
                         margin="medium"
                         disabled={!ticket}
                     />

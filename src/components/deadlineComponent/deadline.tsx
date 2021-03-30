@@ -1,8 +1,10 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { NotificationIcon, TimeIcon } from '../../assets/svg';
-import { formatValue } from '../../util/functions';
 import './deadline.scss';
+
+import { NotificationIcon, TimeIcon } from '../../assets/svg';
+
+import React from 'react';
+import { formatValue } from '../../util/functions';
+import { useTranslation } from 'react-i18next';
 
 const Deadline = (props: { deadline: any; }) => {
     const { t } = useTranslation();
@@ -20,30 +22,30 @@ const Deadline = (props: { deadline: any; }) => {
     }
     return (
         <>
-        {deadline && diffInDays !== undefined && (
-            <div title={formatValue(deadline, 'date')} className="deadline-container">
-                {diffInDays >= 3 && (
-                    <div className="normal">
-                        <TimeIcon /> {Math.abs(diffInDays)} {t('_DAYS_LEFT')}
-                    </div>
-                )}
-                {diffInDays > 0 && diffInDays < 3 && (
-                    <div className="gentle">
-                        <NotificationIcon /> {t('_DUE_IN')} {Math.abs(diffInDays)} {t('_DAYS')}
-                    </div>
-                )}
-                {diffInDays < 0 && (
-                    <div className="high">
-                        <NotificationIcon /> {t('_OVERDUE')} {Math.abs(diffInDays)} {t('_DAYS')}
-                    </div>
-                )}
-                {diffInDays.valueOf() === 0 && (
-                    <div className="high">
-                        <NotificationIcon /> Today
-                    </div>
-                )}
-            </div>
-        )}   
+            {deadline && diffInDays !== undefined && (
+                <div title={formatValue(deadline, 'date')} className="deadline-container">
+                    {diffInDays >= 3 && (
+                        <div className="normal">
+                            <TimeIcon /> {Math.abs(diffInDays)} {t('_DAYS_LEFT')}
+                        </div>
+                    )}
+                    {diffInDays > 0 && diffInDays < 3 && (
+                        <div className="gentle">
+                            <NotificationIcon /> {t('_DUE_IN')} {Math.abs(diffInDays)} {t('_DAYS')}
+                        </div>
+                    )}
+                    {diffInDays < 0 && (
+                        <div className="high">
+                            <NotificationIcon /> {t('_OVERDUE')} {Math.abs(diffInDays)} {t('_DAYS')}
+                        </div>
+                    )}
+                    {diffInDays.valueOf() === 0 && (
+                        <div className="high">
+                            <NotificationIcon /> Today
+                        </div>
+                    )}
+                </div>
+            )}   
         </>
     )
 }
