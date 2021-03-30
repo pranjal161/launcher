@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import ClientView from "views/ClientView/clientView";
 import ContractSummary from "views/ContractSummary/contractSummary";
 import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
-import ContractSearch from "views/ContractSearch/contractSearch";
+import ContractSearch from "views/contractSearch/contractSearch";
 import ViewBaskets from 'views/baskets/viewBaskets';
 import MyTickets from 'views/tickets/myTickets';
 import NewTicket from 'views/tickets/newTicket';
