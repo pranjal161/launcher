@@ -60,6 +60,7 @@ def addStagesCustomCodeQuality() {
         sh '''
             echo 'Install ESLint plugins'
             npm install eslint-plugin-react@latest --save-dev
+            npm install eslint-plugin-react-hooks@latest --save-dev
             npm install @typescript-eslint/eslint-plugin@latest --save-dev
             npm install @typescript-eslint/parser --save-dev
         '''
