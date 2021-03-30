@@ -35,8 +35,8 @@ export const Colors = {
     color: "#000000"
   },
   table: {
-    headerBackgroundColor: "#000000",
-    headerFontColor: "#FFFFFF"
+    headerBackgroundColor: "#FFFFFF",
+    headerFontColor: "#000000"
   },
   spinner: {
     trackCircleColor: "#6F2C91",

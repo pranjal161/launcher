@@ -8,13 +8,13 @@ import {NavLink, useHistory} from 'react-router-dom';
 
 import {ApplicationContext} from '../../context/applicationContext';
 import {SearchIcon} from '../../assets/svg';
-import {useTranslation} from 'react-i18next';
+import CreateButton from '../Tickets/CreateButton/CreateButton';
+import SignedLinks from "./components/SignedLinks/SignedLinks";
 
 const Header = () => {
     const history = useHistory();
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
-    const {t} = useTranslation();
 
     const langs = [
         {
@@ -51,45 +51,48 @@ const Header = () => {
     }
 
     return (
-        <>
-            <DxcHeader
-                logoSrc={DXCLogo}
-                onClick={goToHome}
-                padding={{ right: 'xsmall' }}
-                content={
-                    <>
-                        <div className="col-9">
-                            <ul className="toolbar">
-                                <li><NavLink to="/home">Home</NavLink></li>
-                                <li><NavLink to="/baskets/all">Baskets</NavLink></li>
-                                <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
-                                <li><NavLink to="/help">Help</NavLink></li>
-                                <li><NavLink to="/tickets/create" className="btn">New Ticket</NavLink></li>
-                                <li><NavLink to="/training">Training pages</NavLink></li>
-                            </ul>
-                        </div>
-                        <div className="col-1 pt-3 p-0 header-svg">
-                            <p
-                                aria-label="add an alarm"
-                                onClick={goToSearch}
-                            >
-                                {t('_SEARCH')}
-                                <SearchIcon />
-                            </p>
-                        </div>
-                        <div className="col-1 p-0 flag-css">
-                            <DxcSelect
-                                options={langs}
-                                onChange={changeLang}
-                                value={lang}
-                                margin="xxsmall"
-                                padding="xxsmall"
-                            />
-                        </div>
-                    </>
-                }
-            />
-        </>
+
+        <DxcHeader
+            logoSrc={DXCLogo}
+            onClick={goToHome}
+            padding={{right: 'xsmall'}}
+            content={
+                <>
+                    <div className="col-8 p-0">
+                        <ul className="toolbar m-0">
+                            <li><NavLink to="/home">Home</NavLink></li>
+                            <li><NavLink to="/baskets/all">Baskets</NavLink></li>
+                            <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
+                            <li><NavLink to="/help">Help</NavLink></li>
+                            <li><NavLink to="/training">Training pages</NavLink></li>
+                            <li><CreateButton/></li>
+                        </ul>
+                    </div>
+                    <div className="col-1 pt-3 p-0 header-svg">
+                        <p
+                            aria-label="add an alarm"
+                            onClick={goToSearch}
+                        >
+                            <SearchIcon/>
+                        </p>
+                    </div>
+                    <div className="col-2 p-0 flag-css">
+                        <ul className="toolbar m-0">
+                            <li>
+                                <DxcSelect
+                                    options={langs}
+                                    onChange={changeLang}
+                                    value={lang}
+                                    margin="xxsmall"
+                                    padding="xxsmall"
+                                />
+                            </li>
+                            <SignedLinks/>
+                        </ul>
+                    </div>
+                </>
+            }
+        />
     )
 }
 
