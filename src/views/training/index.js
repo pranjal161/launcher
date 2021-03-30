@@ -1,0 +1,10 @@
+export {default as TrainingAkruti }  from"./TrainingAkruti";
+export {default as TrainingJeenal } from"./TrainingJeenal";
+export {default as TrainingMaxime } from"./TrainingMaxime";
+export {default as TrainingNikolay } from"./TrainingNikolay";
+export {default as TrainingNorbert } from"./TrainingNorbert/TrainingNorbert";
+export {default as TrainingPranjal } from"./TrainingPranjal";
+export {default as TrainingQuentin } from"./TrainingQuentin";
+export {default as TrainingShivani } from"./TrainingShivani";
+export {default as TrainingSuhani } from"./TrainingSuhani";
+export {default as Training} from "./training"
