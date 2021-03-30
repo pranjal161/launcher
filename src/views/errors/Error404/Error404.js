@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * Display of 404 error
+ * @returns {void} Display of 404 error
+ */
 function Error404() {
     return (
         <div>404 page not found</div>

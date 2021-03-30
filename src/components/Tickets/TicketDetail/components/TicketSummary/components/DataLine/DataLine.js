@@ -16,13 +16,16 @@ const Data = styled.div`
   justify-self: left;
 `;
 
-const DataLine = ({label, children}) => {
-    return (
-        <Root>
-            <Label>{label}</Label>
-            <Data>{children}</Data>
-        </Root>
-    );
+const DataLine = ({label, children}) => (
+    <Root>
+        <Label>{label}</Label>
+        <Data>{children}</Data>
+    </Root>
+)
+
+DataLine.propTypes = {
+    label: PropTypes.string,
+    children: PropTypes.string
 }
 
 export default DataLine;

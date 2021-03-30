@@ -102,7 +102,7 @@ const OLD_Summary = (props) => {
     );
 };
 
-Summary.propTypes = {
+OLD_Summary.propTypes = {
     ticket: PropTypes.string,
     className: PropTypes.string,
     actions: PropTypes.string,

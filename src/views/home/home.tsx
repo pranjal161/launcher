@@ -4,12 +4,11 @@ import React, {useState} from 'react';
 
 import BasketList from '../../components/basketList/basketList';
 import {DxcBox} from '@dxc-technology/halstack-react';
+import EntitySidebar from '../../components/entitySidebar/entitySidebar';
 import TicketDetail from '../../components/Tickets/TicketDetail/TicketDetail';
 import TicketList from '../../components/ticketsList/ticketsList';
 import useDeskAuth from '../../data/hooks/useDeskAuth';
 import useDeskBaskets from '../../data/hooks/useDeskBaskets';
-import BasketList from '../../components/basketList/basketList';
-import EntitySidebar from '../../components/entitySidebar/entitySidebar';
 
 const HomePage = () => {
     const {profile} = useDeskAuth()

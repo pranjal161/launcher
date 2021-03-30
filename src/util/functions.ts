@@ -1,5 +1,6 @@
 import { AppConfig } from '../config/appConfig';
-import axios from 'axios';
+
+//import axios from 'axios';
 
 export const getLink = (response: any, linkName: string) => {
     if (response &&
@@ -148,11 +149,18 @@ export function addDays(date: any, days: number) {
     return result;
 }
 
+/**
+ * Search person
+ * @param {value} value that will be used for the search
+ * @returns {void} Parameters for the search person
+ */
 export function searchPerson(value: string) {
     let url = AppConfig.hostUrl.defaultHostUrl + 'persons?';
     let params;
     const nameSelected = value;
+    
     if (nameSelected && nameSelected !== '') {
+        
         // First name is not empty
         if (nameSelected !== undefined) {
             params = 'person:last_name=' + nameSelected.charAt(0).toUpperCase() + nameSelected.slice(1);
@@ -165,5 +173,6 @@ export function searchPerson(value: string) {
             return (url + params);
         }
     }
+    
     return ''
 }

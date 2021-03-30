@@ -1,16 +1,18 @@
+import * as yup from "yup";
+
+import { DxcButton, DxcDate, DxcInput, DxcSelect, DxcSlider, DxcTextarea } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
+
+import { AlertContext } from '../../../context/alertContext';
+import { ApplicationContext } from "../../../context/applicationContext";
+import axios from "axios";
+import { searchPerson } from "../../../util/functions";
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import useDeskBaskets from "../../../data/hooks/useDeskBaskets";
 import useDeskUsers from "../../../data/hooks/useDeskUsers";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-import axios from "axios";
-import { searchPerson } from "../../../util/functions";
-import { DxcInput, DxcButton, DxcSelect, DxcDate, DxcTextarea, DxcSlider } from '@dxc-technology/halstack-react';
-import { ApplicationContext } from "../../../context/applicationContext";
-import { AlertContext } from '../../../context/alertContext';
 
+//import { useForm } from "react-hook-form";
+//import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = yup.object().shape({
     title: yup.string().required(),
@@ -26,7 +28,7 @@ const schema = yup.object().shape({
 });
 
 const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) => {
-    const { currentUserId } = useDeskAuth()
+    const currentUserId = useDeskAuth()
     const { getAll } = useDeskUsers()
     const { getAll: getAllBaskets } = useDeskBaskets()
     const allUsers = getAll()
@@ -35,10 +37,13 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
     const applicationContext = useContext(ApplicationContext);
     const [autocompleteOptions, setOptions] = useState([]);
     const [clientValue, setClientValue] = useState('')
+    
     const defaultValues = ticket ? ticket : {
         requestBy: currentUserId,
         assignTo: currentUserId,
     }
+    console.log(defaultValues);
+    
     const [updatedTicket, updateTicket] = useState(ticket);
     const alertContext = useContext(AlertContext);
     const usersOptions = allUsers && allUsers.map((user: { id: any; firstName: any; lastName: any; }) => (
@@ -53,7 +58,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
         const completeTicket = ticket ? { ...ticket, ...updatedTicket } : updatedTicket;
         schema.validate(completeTicket).then(() => {
             props.submit(completeTicket)
-        }).catch(err => {
+        }).catch((err) => {
             const statusReport = {
                 consistent: true,
                 messages: [
@@ -66,8 +71,13 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     }
                 ]
             }
+            
+            if (err) {
+                console.log(err);
+            }
+            
             alertContext.setToastList(statusReport);
-        });;
+        });
     }
 
     const handleClose = () => {
@@ -79,6 +89,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
         { value: "pending", label: "Pending" },
         { value: "closed", label: "Closed" }
     ]
+    
     useEffect(() => {
         getPersons(clientValue);
     }, [clientValue]);
@@ -87,7 +98,8 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
         if (newValue !== '' && newValue.length > 3) {
             const searchUrl = searchPerson(newValue);
             const promise = Promise.resolve(axios.get(searchUrl, { headers: applicationContext.headers }))
-            promise.then(result => {
+            
+            await promise.then((result) => {
                 if (result && result.data && result.data._links && result.data._links.item) {
                     const results = result.data._links.item.map((item: any) => (
                         item.title
@@ -96,7 +108,8 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                 }
             })
         }
-        else return []
+        else 
+            return []
     }
 
     const updateValue = (newValue: any, id: string) => {
@@ -104,6 +117,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
             [id]: newValue
         }
         const newUpdate = updatedTicket ? { ...updatedTicket, ...obj } : obj;
+        
         updateTicket(newUpdate)
     };
 

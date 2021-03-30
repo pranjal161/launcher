@@ -1,23 +1,32 @@
+/* eslint-disable react/display-name */
+
 import React, {lazy} from "react";
-import {Redirect} from "react-router-dom";
+import {
+    Training,
+    TrainingAkruti,
+    TrainingJeenal,
+    TrainingMaxime,
+    TrainingNikolay,
+    TrainingNorbert,
+    TrainingPranjal,
+    TrainingQuentin,
+    TrainingShivani,
+    TrainingSuhani
+} from "../views/training";
+
+import AppLayout from "../layouts/AppLayout/AppLayout";
+import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 import ClientView from "../views/clientView/clientView";
 import ContractSearch from "../views/contractSearch/contractSearch";
 import ContractSummary from "../views/contractSummary/contractSummary";
+import ErrorLayout from "../layouts/ErrorLayout/ErrorLayout";
 import ExempleDesktopView from "../views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
-import ContractSearch from "../views/contractSearch/contractSearch";
-
-import ViewBaskets from '../views/baskets/viewBaskets';
+import Help from '../views/help/help';
+import HomePage from "../views/home/home";
 import MyTickets from '../views/tickets/myTickets';
 import NewTicket from '../views/tickets/newTicket';
-import Help from '../views/help/help';
-import {Training, TrainingAkruti, TrainingJeenal,
-    TrainingMaxime, TrainingNikolay, TrainingNorbert,
-    TrainingPranjal, TrainingQuentin, TrainingShivani,
-    TrainingSuhani} from "../views/training";
-import HomePage from "../views/home/home";
-import AuthLayout from "../layouts/AuthLayout/AuthLayout";
-import ErrorLayout from "../layouts/ErrorLayout/ErrorLayout";
-import AppLayout from "../layouts/AppLayout/AppLayout";
+import {Redirect} from "react-router-dom";
+import ViewBaskets from '../views/baskets/viewBaskets';
 
 const routes = [
     {

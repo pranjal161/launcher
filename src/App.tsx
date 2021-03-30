@@ -1,11 +1,7 @@
 import "./App.scss";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router } from "react-router-dom";
-import axios from "axios";
-import Alert from "./components/alert/alert";
-import React, {useState} from "react";
-import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
-import {useTranslation} from "react-i18next";
+
+import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import React, {useState} from "react";
 import routes, { applyRoutes } from './routes';
@@ -13,7 +9,6 @@ import routes, { applyRoutes } from './routes';
 import Alert from "./components/alert/alert";
 import {AppContextProvider} from "./context/applicationContext";
 import {Colors} from "./styles/dxc-theme";
-import Header from "./components/header/header";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 import {currentDailyUpdatesId} from "./store/actions/ticketActions";

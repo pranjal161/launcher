@@ -8,6 +8,7 @@ export const signUp = (newUser) => (dispatch, getState, {getFirebase,}) => {
         newUser.password)
         .then((resp) => {
             result = resp
+            
             // Create a user document in firestore with the same id as the user in firebase.auth()
             return firestore.collection('users').doc(resp.user.uid).set({
                 ...newUser,
@@ -25,6 +26,7 @@ export const signUp = (newUser) => (dispatch, getState, {getFirebase,}) => {
 export const signIn = (credentials) => (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase()
     const {email, password} = credentials
+    
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(() => {
             firebase.auth().signInWithEmailAndPassword(email, password)
@@ -40,10 +42,10 @@ export const signIn = (credentials) => (dispatch, getState, {getFirebase}) => {
 export const signOut = () => (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase()
 
-        return firebase.auth().signOut()
-            .then(() => {
-                dispatch({type: 'SIGNED_OUT'})
-                return true
-            })
-    }
+    return firebase.auth().signOut()
+        .then(() => {
+            dispatch({type: 'SIGNED_OUT'})
+
+            return true
+        })
 }

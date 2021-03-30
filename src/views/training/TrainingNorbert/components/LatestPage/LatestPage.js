@@ -4,16 +4,14 @@ import React, {useState} from 'react';
 import Documents from "./components/Documents/Documents";
 import MyTickets from "../../../../../components/Tickets/MyTickets/MyTickets";
 import Upload from "../../../../../components/Tickets/TicketDetail/components/Upload/Upload";
-import Documents from "./components/Documents/Documents";
-import moment from "moment/moment";
+
+//import moment from "moment/moment";
 
 const LatestPage = () => {
     const [ticket, setTicket] = useState(undefined)
     const [client, setClient] = useState('USA')
 
     const {addRelatedClients, removeRelatedClients, removeSuggestedActivity, executeActivity} = useDeskTickets()
-
-
 
     const handleAddRelatedClient = () => {
         addRelatedClients(ticket.id, client)
