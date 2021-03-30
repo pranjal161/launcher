@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import {DxcBox} from '@dxc-technology/halstack-react';
-import './home.scss';
+import './HomePage.scss';
 import useDeskTickets from 'data/hooks/useDeskTickets';
 import TicketList from 'components/Tickets/ticketsList/ticketsList';
 import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
