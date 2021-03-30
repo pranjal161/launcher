@@ -1,7 +1,7 @@
 import React, {lazy} from "react";
 import {Redirect} from "react-router-dom";
-import ClientView from "views/ClientView/clientView";
-import ContractSummary from "views/ContractSummary/contractSummary";
+import ClientView from "views/clientView/clientView";
+import ContractSummary from "views/contractSummary/contractSummary";
 import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
 import ContractSearch from "views/contractSearch/contractSearch";
 import ViewBaskets from 'views/baskets/viewBaskets';
