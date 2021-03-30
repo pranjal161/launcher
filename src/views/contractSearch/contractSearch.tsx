@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ContractTable from '../../components/contractTable/contractTable';
-import { AppConfig } from '../../config/appConfig';
+import ContractTable from 'components/contractTable/contractTable';
+import { AppConfig } from 'config/appConfig';
 import { DxcInput, DxcButton } from "@dxc-technology/halstack-react";
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { ApplicationContext } from '../../context/applicationContext';
+import { ApplicationContext } from 'context/applicationContext';
 
 const ContractSearch = () => {
     const { t } = useTranslation();

@@ -2,9 +2,9 @@ import { DxcTable } from "@dxc-technology/halstack-react";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ApplicationContext } from "../../context/applicationContext";
-import { StyledHoverRow } from '../../styles/global-style';
-import { getDescriptionValue } from "../../util/functions";
+import { ApplicationContext } from "context/applicationContext";
+import { StyledHoverRow } from 'styles/global-style';
+import { getDescriptionValue } from "util/functions";
 import Paginator from '../paginator/paginator';
 
 const Table = (props: { url: string; columnId: any[], showPaginator: boolean }) => {

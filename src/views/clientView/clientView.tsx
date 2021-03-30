@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { DxcSidenav } from "@dxc-technology/halstack-react";
 import { useTranslation } from "react-i18next";
-import { ApplicationContext } from "../../context/applicationContext";
-import ContractRoles from "../../components/contractRoles/contractRoles";
-import ClaimList from "../../components/claimList/claimList";
-import { getLink } from '../../util/functions';
+import { ApplicationContext } from "context/applicationContext";
+import ContractRoles from "views/ClientView/components/contractRoles/contractRoles";
+import ClaimList from "views/ClientView/components/claimList/claimList";
+import { getLink } from 'util/functions';
 import axios from 'axios';
-import { StyledBanner } from '../../styles/global-style';
-import { PersonIcon, CallIcon, HomeIcon, EmailIcon, CreditCardIcon, LanguageIcon } from '../../assets/svg';
-import Label from '../../components/label/label';
-import AddressTab from '../../components/addressTab/addressTab';
-import FinancialTable from "../../components/financialTable/financialTable";
-import Documents from "../../components/documents/documents";
+import { StyledBanner } from 'styles/global-style';
+import { PersonIcon, CallIcon, HomeIcon, EmailIcon, CreditCardIcon, LanguageIcon } from 'assets/svg';
+import Label from 'components/label/label';
+import AddressTab from 'views/ClientView/components/addressTab/addressTab';
+import FinancialTable from "views/ClientView/components/financialTable/financialTable";
+import Documents from "components/documents/documents";
 
 const ClientView = () => {
   const location: any = useLocation();

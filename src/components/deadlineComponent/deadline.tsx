@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NotificationIcon, TimeIcon } from '../../assets/svg';
-import { formatValue } from '../../util/functions';
+import { NotificationIcon, TimeIcon } from 'assets/svg';
+import { formatValue } from 'util/functions';
 import './deadline.scss';
 
 const Deadline = (props: { deadline: any; }) => {

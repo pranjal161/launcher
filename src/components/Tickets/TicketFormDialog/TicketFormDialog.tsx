@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import useDeskAuth from "../../../data/hooks/useDeskAuth";
-import useDeskBaskets from "../../../data/hooks/useDeskBaskets";
-import useDeskUsers from "../../../data/hooks/useDeskUsers";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import useDeskAuth from "data/hooks/useDeskAuth";
+import useDeskBaskets from "data/hooks/useDeskBaskets";
+import useDeskUsers from "data/hooks/useDeskUsers";
 import * as yup from "yup";
 import axios from "axios";
-import { searchPerson } from "../../../util/functions";
+import { searchPerson } from "util/functions";
 import { DxcInput, DxcButton, DxcSelect, DxcDate, DxcTextarea, DxcSlider } from '@dxc-technology/halstack-react';
-import { ApplicationContext } from "../../../context/applicationContext";
-import { AlertContext } from '../../../context/alertContext';
+import { ApplicationContext } from "context/applicationContext";
+import { AlertContext } from 'context/alertContext';
 
 
 const schema = yup.object().shape({
