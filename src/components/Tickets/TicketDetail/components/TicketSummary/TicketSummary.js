@@ -1,4 +1,4 @@
-import {Card, CardContent} from "@material-ui/core";
+import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
 
 import DataLine from "./components/DataLine/DataLine";
 import Label from "./components/Label/Label";
@@ -9,11 +9,11 @@ import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
 import {formatValue} from "../../../../../util/functions";
-import {DxcChip, DxcBox} from '@dxc-technology/halstack-react';
-
 import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
+
+//import {Card, CardContent} from "@material-ui/core";
 
 const Divider = () => <hr className="solid"/>
 
@@ -78,63 +78,63 @@ const TicketSummary = ({ticket}) => {
 
     return (
         <DxcBox>
-                <Sections title={"Ticket detail"}>
-                    <Section id="information" title="Information">
-                        <DataLine label={<Label>Title</Label>}>
-                            <TitleValue/>
-                        </DataLine>
-                        <DataLine label={<Label>Received on</Label>}>
-                            <DateValue date={ticket.receivedDate}/>
-                        </DataLine>
-                        <DataLine label={<Label>Deadline</Label>}>
-                            <DateValue date={ticket.deadlineDate}/>
-                        </DataLine>
-                        <DataLine label={<Label>Created by</Label>}>
-                            <PersonValue personId={ticket.creatorId}/>
-                        </DataLine>
-                        <DataLine label={<Label>Person in charge</Label>}>
-                            <PersonValue personId={ticket.assignedTo}/>
-                        </DataLine>
-                        <Divider/>
-                    </Section>
-                    <Section id="description" title="Description">
-                        <Description description={ticket.description}/>
-                    </Section>
+            <Sections title={"Ticket detail"}>
+                <Section id="information" title="Information">
+                    <DataLine label={<Label>Title</Label>}>
+                        <TitleValue/>
+                    </DataLine>
+                    <DataLine label={<Label>Received on</Label>}>
+                        <DateValue date={ticket.receivedDate}/>
+                    </DataLine>
+                    <DataLine label={<Label>Deadline</Label>}>
+                        <DateValue date={ticket.deadlineDate}/>
+                    </DataLine>
+                    <DataLine label={<Label>Created by</Label>}>
+                        <PersonValue personId={ticket.creatorId}/>
+                    </DataLine>
+                    <DataLine label={<Label>Person in charge</Label>}>
+                        <PersonValue personId={ticket.assignedTo}/>
+                    </DataLine>
                     <Divider/>
-                    <Section id="relatedClients" title="Related Client">
-                        <DataLine label={<Label>Client</Label>}>
-                            <LinkedClient client={{displayName: "John Doe"}} urj={"jkjk"}/>
-                        </DataLine>
-                    </Section>
-                    <Divider/>
-                    <Section id="relatedContracts" title="Related Contracts">
-                        <DataLine label={<Label>Contract</Label>}>
-                            <LinkedContract client={{displayName: "UI01929821"}} urj={"jkjk"}/>
-                        </DataLine>
-                        <DataLine label={<Label>Contract</Label>}>
-                            <LinkedContract client={{displayName: "UI07292093"}} urj={"jkjk"}/>
-                        </DataLine>
-                        <DataLine label={<Label>Contract</Label>}>
-                            <LinkedContract client={{displayName: "MP27293032"}} urj={"jkjk"}/>
-                        </DataLine>
-                    </Section>
-                    <Divider/>
-                    <Section id="suggestedActivities" title="Suggested activities">
-                        <SuggestedActivities activities={ticket.suggestedActivities}/>
-                    </Section>
-                    <Divider/>
-                    <Section id="notes" title="Notes">
-                        <lu className={"list-group"}>
-                            <li className="list-group-item">Note 1</li>
-                            <li className="list-group-item">Note 2</li>
-                        </lu>
-                    </Section>
-                    <Divider/>
-                    <Section id="documents" title="Documents">
-                        <Documents documents={ticket.documents}/>
-                        <Upload ticketId={ticket.id}/>
-                    </Section>
-                </Sections>
+                </Section>
+                <Section id="description" title="Description">
+                    <Description description={ticket.description}/>
+                </Section>
+                <Divider/>
+                <Section id="relatedClients" title="Related Client">
+                    <DataLine label={<Label>Client</Label>}>
+                        <LinkedClient client={{displayName: "John Doe"}} urj={"jkjk"}/>
+                    </DataLine>
+                </Section>
+                <Divider/>
+                <Section id="relatedContracts" title="Related Contracts">
+                    <DataLine label={<Label>Contract</Label>}>
+                        <LinkedContract client={{displayName: "UI01929821"}} urj={"jkjk"}/>
+                    </DataLine>
+                    <DataLine label={<Label>Contract</Label>}>
+                        <LinkedContract client={{displayName: "UI07292093"}} urj={"jkjk"}/>
+                    </DataLine>
+                    <DataLine label={<Label>Contract</Label>}>
+                        <LinkedContract client={{displayName: "MP27293032"}} urj={"jkjk"}/>
+                    </DataLine>
+                </Section>
+                <Divider/>
+                <Section id="suggestedActivities" title="Suggested activities">
+                    <SuggestedActivities activities={ticket.suggestedActivities}/>
+                </Section>
+                <Divider/>
+                <Section id="notes" title="Notes">
+                    <lu className={"list-group"}>
+                        <li className="list-group-item">Note 1</li>
+                        <li className="list-group-item">Note 2</li>
+                    </lu>
+                </Section>
+                <Divider/>
+                <Section id="documents" title="Documents">
+                    <Documents documents={ticket.documents}/>
+                    <Upload ticketId={ticket.id}/>
+                </Section>
+            </Sections>
         </DxcBox>
     )
 }
