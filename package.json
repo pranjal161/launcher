@@ -51,7 +51,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "install-peers": "npm install -g npm-install-peers",
-        "lint": "eslint -f table --fix './**/*.js ./**/*.ts ./**/*.tsx'",
+        "lint": "eslint -f table --fix './**/*.js' './**/*.ts' './**/*.tsx'",
         "lint-local": "eslint -f table --fix ./**/*.js ./**/*.ts ./**/*.tsx",
         "lint-quiet-local": "eslint -f table --fix --quiet ./**/*.js ./**/*.ts ./**/*.tsx"
     },
