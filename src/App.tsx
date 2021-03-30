@@ -1,7 +1,11 @@
 import "./App.scss";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
-import {AlertContext, AlertContextProvider} from "./context/alertContext";
+import { BrowserRouter as Router } from "react-router-dom";
+import axios from "axios";
+import Alert from "./components/alert/alert";
+import React, {useState} from "react";
+import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
+import {useTranslation} from "react-i18next";
 import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import React, {useState} from "react";
 import routes, { applyRoutes } from './routes';
@@ -72,12 +76,13 @@ function App() {
                             {(context) => <Alert toastList={context.toastMessage}/>}
                         </AlertContext.Consumer>
                         <>
+
                             {ready && (
                                 <Router basename="/omnichannel/react">
-                                    <Header/>
                                     {routeNodes}
                                 </Router>
                             )}
+
                         </>
                     </ThemeContext.Provider>
                 </AlertContextProvider>

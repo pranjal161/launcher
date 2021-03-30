@@ -8,7 +8,7 @@ import React from 'react';
 function SignedOutLinks() {
     return (
         <>
-            <li><NavLink to="/signin">Log In</NavLink></li>
+            <li><NavLink to="/auth/signin">Log In</NavLink></li>
         </>
     );
 }

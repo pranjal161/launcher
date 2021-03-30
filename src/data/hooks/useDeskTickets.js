@@ -12,7 +12,7 @@ const useMyAllTickets = () => {
     return allTickets && allTickets.filter((ticket) => ticket.assignedTo && ticket.assignedTo === auth.id)
 }
 
-const useGetOne = (id) => useSelector((state) => ({id, ...state.firestore.data.tickets[id]}))
+const useGetOne = (id) => useSelector((state) => (state.firestore.data.tickets?{id, ...state.firestore.data.tickets[id]}:undefined))
 
 const useGetState = () => useSelector((state) => (state.tickets))
 

@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import {makeStyles} from '@material-ui/styles';
 import moment from 'moment';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {},
     header: {
         paddingBottom: 0
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Summary = (props) => {
+const OLD_Summary = (props) => {
     const {ticket, className, actions, onClose, sectionId, ...rest} = props;
 
     const classes = useStyles();
@@ -110,4 +110,4 @@ Summary.propTypes = {
     sectionId: PropTypes.string
 }
 
-export default Summary;
+export default OLD_Summary;

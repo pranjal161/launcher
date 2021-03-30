@@ -1,13 +1,10 @@
-import {DxcButton} from '@dxc-technology/halstack-react';
+import { DxcButton, DxcDialog } from '@dxc-technology/halstack-react';
+
 import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
-/**
- * Display of create ticket button
- * @returns {void} Display of create ticket button
- */
-function CreateButton() {
+const CreateButton = () => {
     const [open, setOpen] = React.useState(false);
     const { create } = useDeskTickets()
 
@@ -19,7 +16,7 @@ function CreateButton() {
         setOpen(false);
     };
 
-    const handleSubmit = (ticket) => {
+    const handleSubmit = (ticket: any) => {
         create(ticket)
         handleClose()
     }
@@ -31,7 +28,9 @@ function CreateButton() {
                 onClick={handleClickOpen}
                 margin="xxsmall"
             />
-            {open && <TicketFormDialog close={handleClose} submit={handleSubmit} />}
+            {open && <DxcDialog padding="medium" isCloseVisible={true} onCloseClick={handleClose}>
+                <TicketFormDialog close={handleClose} submit={handleSubmit} />
+            </DxcDialog>}
         </div>
     )
 }

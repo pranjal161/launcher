@@ -4,7 +4,8 @@ import React, {useState} from 'react';
 import Documents from "./components/Documents/Documents";
 import MyTickets from "../../../../../components/Tickets/MyTickets/MyTickets";
 import Upload from "../../../../../components/Tickets/TicketDetail/components/Upload/Upload";
-import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
+import Documents from "./components/Documents/Documents";
+import moment from "moment/moment";
 
 const LatestPage = () => {
     const [ticket, setTicket] = useState(undefined)
@@ -73,8 +74,8 @@ const LatestPage = () => {
                     Associated documents
                     {ticket && <Documents ticketId={ticket.id}/>}
                 </div>
-                <div className="col-3">
 
+                <div className="col-3">
                     {ticket && <Upload ticketId={ticket.id}/>}
                 </div>
 

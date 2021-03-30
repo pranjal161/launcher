@@ -111,7 +111,7 @@ export const SearchIcon = () => (
 )
 
 export const TimeIcon = () => (
-    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs></defs><title/><g data-name="Layer 11" id="Layer_11"><path d="M16,5A11,11,0,1,0,27,16,11,11,0,0,0,16,5Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,16,25Z"/><polygon points="15 15 9.33 15 9.33 17 17 17 17 8.83 15 8.83 15 15"/></g></svg>
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" height="32" width="32"><defs></defs><title/><g data-name="Layer 11" id="Layer_11"><path d="M16,5A11,11,0,1,0,27,16,11,11,0,0,0,16,5Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,16,25Z"/><polygon points="15 15 9.33 15 9.33 17 17 17 17 8.83 15 8.83 15 15"/></g></svg>
 )
 
 export const NotificationIcon = () => (

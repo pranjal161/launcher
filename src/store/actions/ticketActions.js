@@ -10,7 +10,6 @@ const addHistory = (state, action, values = {}) => {
     return {
         [historyField]: {action, ...values, metadata: {updatedBy, updatedByDisplay, updatedISODate, timestamp}}
     }
-
 }
 
 export const create = (ticket) => (dispatch, getState, {getFirebase,}) => {
@@ -186,10 +185,8 @@ export const uploadDocument = (id, name, blob) => (dispatch, getState, {getFireb
 
     const filesPath = `/tickets/${id}`
     const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
-    console.log('uploadPromise', uploadPromise)
     uploadPromise.then((uploadResult) => {
-        console.log('ici', uploadResult)
-        addDocument(id, {name, url: uploadResult.downloadURL})(dispatch, getState, {getFirebase})
+        addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now()})(dispatch, getState, {getFirebase})
     })
 
     return uploadPromise
@@ -198,7 +195,7 @@ export const uploadDocument = (id, name, blob) => (dispatch, getState, {getFireb
 export const addDocument = (id, document) => (dispatch, getState, {getFirebase}) => {
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'addedDocument', {newValue: document})
-    const documentId = `documents.${Date.now()}`
+    const documentId = `documents.${document.receivedDate}`
     return firestore.collection('tickets').doc(id).update(
         {
             [documentId]: document,

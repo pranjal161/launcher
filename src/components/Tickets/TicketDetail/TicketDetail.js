@@ -1,33 +1,14 @@
 import React from 'react';
 import Summary from "./components/Summary/Summary";
+import TicketSummary from "./components/TicketSummary/TicketSummary";
 import UpdateButton from "./components/UpdateButton/UpdateButton";
-import {makeStyles} from "@material-ui/core";
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
-const useStyles = makeStyles((theme) => ({
-    root: {},
-    content: {
-        padding: 0
-    },
-    buttonIcon: {
-        marginRight: theme.spacing(1)
-    }
-}));
-
-/**
- * Display of information related to a ticket
- * @param {param} id, sectionId, className, onRemove, onClose for the ticket
- * @returns {void} Display of information related to a ticket
- */
-function TicketDetail({id, sectionId, className, onRemove, onClose}) {
+function TicketDetail({id, sectionId, onRemove, onClose}) {
     const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
-    const classes = useStyles();
-    console.log('classes', classes)
-
     let ticket = id ? getOne(id) : undefined
-    //console.log('ticket detail render', ticket)
 
     const assignToCurrentUser = () => assignTo(id, currentUserId)
     const removeToCurrentUser = () => assignTo(id, null)
@@ -43,7 +24,7 @@ function TicketDetail({id, sectionId, className, onRemove, onClose}) {
 
     if (ticket) {
         return (
-            <Summary ticket={ticket} actions={Actions} onClose={closeHandle} sectionId={sectionId}/>
+            <TicketSummary ticket={ticket} actions={Actions} onClose={closeHandle} sectionId={sectionId}/>
         )
     } else
         return (<div className="container center">Loading ticket ...</div>)
