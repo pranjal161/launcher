@@ -17,8 +17,11 @@ import configureStore from "./store/store2";
 import { createFirestoreInstance } from 'redux-firestore'
 import firebase from 'firebase/app'
 import reportWebVitals from './reportWebVitals';
+import { useHistory } from 'react-router';
 
 const initialState = {}
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const history = useHistory();
 const store = configureStore(initialState, history)
 
 // Initialize Firebase instance

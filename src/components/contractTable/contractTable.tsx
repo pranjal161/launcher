@@ -3,6 +3,8 @@ import Paginator from 'components/paginator/paginator';
 import React from 'react';
 import { StyledHoverRow } from 'styles/global-style';
 import { getDescriptionValue } from 'util/functions';
+import { useHistory } from 'react-router';
+import { useTranslation } from "react-i18next";
 
 /**
  * Display contract information in a table

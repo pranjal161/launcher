@@ -1,4 +1,3 @@
-import './home.scss';
 import './HomePage.scss';
 
 import React, {useState} from 'react';

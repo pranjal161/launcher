@@ -17,6 +17,7 @@ import { PersonIcon } from 'assets/svg';
 import RiskTable from 'views/contractSummary/components/riskTable/riskTable';
 import { StyledBanner } from 'styles/global-style';
 import UnsolicitedPayment from 'views/contractSummary/components/UnsolicitedPayment/unsolicitedPayment';
+import axios from "axios";
 import { getLink } from 'util/functions';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
