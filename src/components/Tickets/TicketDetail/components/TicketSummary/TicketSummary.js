@@ -1,7 +1,6 @@
 import {Card, CardContent} from "@material-ui/core";
 
 import DataLine from "./components/DataLine/DataLine";
-import {DxcChip} from '@dxc-technology/halstack-react';
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
@@ -10,6 +9,8 @@ import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
 import {formatValue} from "../../../../../util/functions";
+import {DxcChip, DxcBox} from '@dxc-technology/halstack-react';
+
 import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
@@ -76,8 +77,7 @@ const TicketSummary = ({ticket}) => {
     const Description = ({description}) => (<p>{description}</p>)
 
     return (
-        <Card style={{width: '400px'}}>
-            <CardContent>
+        <DxcBox>
                 <Sections title={"Ticket detail"}>
                     <Section id="information" title="Information">
                         <DataLine label={<Label>Title</Label>}>
@@ -135,8 +135,7 @@ const TicketSummary = ({ticket}) => {
                         <Upload ticketId={ticket.id}/>
                     </Section>
                 </Sections>
-            </CardContent>
-        </Card>
+        </DxcBox>
     )
 }
 
