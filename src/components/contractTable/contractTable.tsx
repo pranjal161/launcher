@@ -3,7 +3,7 @@ import Paginator from 'components/paginator/paginator';
 import React from 'react';
 import { StyledHoverRow } from 'styles/global-style';
 import { getDescriptionValue } from 'util/functions';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
 /**
