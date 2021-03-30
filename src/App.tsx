@@ -3,7 +3,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 import Alert from "./components/alert/alert";
-import Header from "./components/header/header";
 import React, {useState} from "react";
 import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
 import {useTranslation} from "react-i18next";
@@ -68,12 +67,13 @@ function App() {
                             }}
                         </AlertContext.Consumer>
                         <>
+
                             {ready && (
                                 <Router basename="/omnichannel/react">
-                                    <Header/>
                                     {routeNodes}
                                 </Router>
                             )}
+
                         </>
                     </ThemeContext.Provider>
                 </AlertContextProvider>

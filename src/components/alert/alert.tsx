@@ -1,10 +1,12 @@
 import { DxcAlert } from "@dxc-technology/halstack-react";
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from "react-i18next";
 import { StyledMessageContainer } from '../../styles/global-style';
 
 const Alert = (props: { toastList: any }) => {
     const { toastList } = props;
     const [list, setList] = useState(toastList);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setList(toastList);
@@ -21,7 +23,7 @@ const Alert = (props: { toastList: any }) => {
                         key={i}
                         type={ toast.severity === 'warn' ? 'warning' : toast.severity }
                         mode="inline"
-                        inlineText={toast.message}
+                        inlineText={t(toast.message)}
                         margin="xxsmall"
                       />
                     )
