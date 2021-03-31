@@ -8,7 +8,7 @@ import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
 import PropTypes from 'prop-types'
-import React from 'react';
+import React, {useCallback, useMemo} from 'react';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
@@ -26,8 +26,8 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
     const PersonValue = ({personId}) => {
         const {getOne} = useDeskUsers()
-        const person = getOne(personId)
-        return (<>{person && person.displayName}</>)
+        const person = useCallback( getOne(personId),[personId])
+        return (<>{person && person.displayName} </>)
     }
 
     const SuggestedActivity = ({activity}) => {
@@ -69,9 +69,11 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
         </div>
     )
 
-    const handleEditChange = (field, newValue) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const handleEditChange = useCallback( (field, newValue) => {
+        console.log('Update',field, newValue)
         update({...ticket, [field]:newValue})
-    }
+    },[ticket])
     return (
         <DxcBox>
             <Sections title={"Ticket detail"} actions={closePopupAction}>
@@ -83,7 +85,8 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                         <EditableField
                             field="title"
                             type="input"
-                            value={<TitleValue/>}
+                            displayValue={<TitleValue/>}
+                            value={ticket.title}
                             onChange={handleEditChange}>
                             <DxcInput
                                 placeholder={ticket.title}
@@ -101,18 +104,20 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                         <EditableField
                             field="creatorId"
                             type="select"
-                            value={<PersonValue personId={ticket.creatorId}/>}
+                            value={ticket.creatorId}
+                            displayValue={<PersonValue personId={ticket.creatorId}/>}
                             onChange={handleEditChange}>
-                            <UserSelection value={ticket.creatorId}/>
+                            <UserSelection />
                         </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Person in charge</Label>}>
                         <EditableField
                             field="assignedTo"
                             type="select"
-                            value={<PersonValue personId={ticket.assignedTo}/>}
+                            value={ticket.assignedTo}
+                            displayValue={<PersonValue personId={ticket.assignedTo}/>}
                             onChange={handleEditChange}>
-                            <UserSelection value={ticket.assignedTo}/>
+                            <UserSelection/>
                         </EditableField>
                     </DataLine>
                     <Divider/>

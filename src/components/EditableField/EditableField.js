@@ -1,39 +1,39 @@
 import "./EditableField.scss";
 
 import {CloseIconMinimize, DoneIconMinimize} from "assets/svg";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 
 
 
 
-const EditableField = ({value, field, mode = "updateOnHover", type, onChange, children}) => {
-    const [newValue, setNewValue ] = useState()
+const EditableField = ({value, displayValue, field, mode = "updateOnHover", type, onChange, children}) => {
+    const [newValue, setNewValue ] = useState(value)
     const handleEditChange =(value) => {console.log('Change handleEditChange', value) ; setNewValue(value)}
     const mapChangeEvent = {
-        input: {onBlur:(value) => handleEditChange(value)},
-        date: {onBlur:(value) => handleEditChange(value)},
-        select: {onChange:(value) => handleEditChange(value)},
+        input: {onBlur:useCallback ((value) => handleEditChange(value),[])},
+        date: {onBlur:useCallback ((value) => handleEditChange(value),[])},
+        select: {onChange:useCallback ((value) => handleEditChange(value),[]), value:newValue}
     }
 
-    const updateComponent = children && <children.type {...children.props} value={newValue} {...mapChangeEvent[type]}></children.type>
+    const updateComponent = children && <children.type {...children.props} {...mapChangeEvent[type]}></children.type>
     const elementId = field
     const [isEditable, setIsEditable] = React.useState(false);
 
-    console.log('value', value)
 
-    const validateChange = () => {
-        setIsEditable(false);
+    const validateChange = useCallback (() => {
         onChange && onChange(field, newValue)
-    }
+        setIsEditable(false);
+
+    },[newValue])
 
     // WIP work on previous version of the component 
-    const cancelChange = () => {
+    const cancelChange = useCallback (() =>{
         setIsEditable(false);
-    }
+    },[])
 
-    const modifyValue = () => {
+    const modifyValue = useCallback (() =>{
         setIsEditable(true);
-    }
+    },[])
 
     React.useEffect(() => {
         if (isEditable) {
@@ -47,7 +47,7 @@ const EditableField = ({value, field, mode = "updateOnHover", type, onChange, ch
         return (
             <div className="editable-field" data-test="editable-input-ro">
                 <div className="value-uneditable-container">
-                    <span className="value-uneditable"> {value}</span>
+                    <span className="value-uneditable">  { displayValue }</span>
                 </div>
             </div>
         )
@@ -73,7 +73,7 @@ const EditableField = ({value, field, mode = "updateOnHover", type, onChange, ch
 
             <div className="editable-field" id={`EditableField${elementId}`}>
                 {
-                    isEditable || value.length === 0 ?
+                    isEditable ?
                         (
                             <div className={
                                 (type === "input" ? "editable-input-container" : "") ||
@@ -99,7 +99,7 @@ const EditableField = ({value, field, mode = "updateOnHover", type, onChange, ch
                         (
                             <div className="value-uneditable-container">
                                 <span className="value-uneditable edit-onHover" data-test="editable-input-uh2"
-                                    onClick={() => modifyValue()}> {value}</span>
+                                    onClick={() => modifyValue()}> { displayValue }</span>
                             </div>
                         )
                 }
@@ -108,4 +108,4 @@ const EditableField = ({value, field, mode = "updateOnHover", type, onChange, ch
     }
 };
 
-export default EditableField;
+export default EditableField
