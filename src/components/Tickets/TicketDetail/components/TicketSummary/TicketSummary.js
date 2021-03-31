@@ -92,7 +92,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     return (
         <DxcBox>
             <Sections title={"Ticket detail"} actions={closePopupAction}>
-                <Section id='actions' title='Actions'>
+                <Section id="actions" title="Actions">
                     {actions}
                 </Section>
                 <Section id="information" title="Information">
@@ -158,6 +158,10 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
 TicketSummary.propTypes = {
     ticket: PropTypes.string,
     personId: PropTypes.string,
+    showPopupIcon: PropTypes.bool,
+    onPopupWindow: PropTypes.func,
+    onClose: PropTypes.func,
+    actions: PropTypes.any,
     date: PropTypes.instanceOf(Date),
     activity: PropTypes.string,
     activities: PropTypes.array,
