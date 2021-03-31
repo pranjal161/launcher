@@ -32,22 +32,22 @@ const SignUp = () => {
                     <div className="form-group">
                         <label htmlFor="email">Email address</label>
                         <input type="email" className="form-control" id="email" aria-describedby="emailHelp"
-                               placeholder="Enter email" ref={emailRef}/>
+                            placeholder="Enter email" ref={emailRef}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" id="password" placeholder="Password"
-                               ref={passwordRef}/>
+                            ref={passwordRef}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="firstname">First name</label>
                         <input type="text" className="form-control" id="firstname"
-                               ref={firstNameRef}/>
+                            ref={firstNameRef}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastname">Last name</label>
                         <input type="text" className="form-control" id="lastname"
-                               ref={lastNameRef}/>
+                            ref={lastNameRef}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="profile">Profile</label>

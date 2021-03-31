@@ -2,7 +2,7 @@ interface Ticket {
     uid?: string;
     number?: string;
     requestedBy: string;
-    activities: object[];
+    activities: Record<string, unknown>[];
     assignedTo: User;
     basketId: string;
     creatorId: string;
@@ -12,13 +12,12 @@ interface Ticket {
     receivedDate: string;
     deadlineDate: string;
     lastUpdate: string;
-    relatedClients: object[];
-    relatedContrats: object[];
-    suggestedActivities:object;
-    stages: object[];
+    relatedClients: Record<string, unknown>[];
+    relatedContrats: Record<string, unknown>[];
+    suggestedActivities:Record<string, unknown>;
+    stages: Record<string, unknown>[];
     status: string;
-    notes: object[];
-    documents: object;
-    history: object[];
+    notes: Record<string, unknown>[];
+    documents: Record<string, unknown>;
+    history: Record<string, unknown>[];
 }
-
