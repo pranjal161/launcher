@@ -1,3 +1,4 @@
+import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
 import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
 
 import DataLine from "./components/DataLine/DataLine";
@@ -13,7 +14,6 @@ import {formatValue} from "../../../../../util/functions";
 import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
-import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
 
 const Divider = () => <hr className="solid"/>
 

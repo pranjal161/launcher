@@ -1,6 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
-import {AppContextProvider} from "../../context/applicationContext";
 
 function copyStyles(sourceDoc, targetDoc) {
     Array.from(sourceDoc.styleSheets).forEach(styleSheet => {
