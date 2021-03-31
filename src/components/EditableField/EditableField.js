@@ -1,24 +1,32 @@
 import "./EditableField.scss";
 
 import {CloseIconMinimize, DoneIconMinimize} from "assets/svg";
-import React from "react";
+import React, {useState} from "react";
 
-const EditableField = ({value = "empty", fieldName, mode = "readOnly", focusComponent, type}) => {
 
+
+
+const EditableField = ({value = "empty", field, mode = "updateOnHover", type, onChange, children}) => {
+    const [newValue, setNewValue ] = useState(value)
+    const handleEditChange =(value) => setNewValue(value)
+    const mapChangeEvent = {
+        input: {onBlur:(value) => handleEditChange(value)},
+        date: {onBlur:(value) => handleEditChange(value)},
+        select: {onChange:(value) => handleEditChange(value)},
+    }
+
+    const updateComponent = children && <children.type {...children.props} {...mapChangeEvent[type]}></children.type>
+    const elementId = field
     const [isEditable, setIsEditable] = React.useState(false);
-
-    // const handleChange = (newValue) => {
-    //     onChange(newValue, fieldName)
-    // }
 
     const validateChange = () => {
         setIsEditable(false);
+        onChange && onChange(field, newValue)
     }
 
     // WIP work on previous version of the component 
     const cancelChange = () => {
         setIsEditable(false);
-        // onChange(test, fieldName)
     }
 
     const modifyValue = () => {
@@ -28,7 +36,7 @@ const EditableField = ({value = "empty", fieldName, mode = "readOnly", focusComp
     React.useEffect(() => {
         if (isEditable) {
             // ref to force focus on the input doesn't work with CDK so i have to do this 
-            const element = document.querySelector(`#EditableField${fieldName}`);
+            const element = document.querySelector(`#EditableField${elementId}`);
             element.querySelector(".MuiInput-input").focus();
         }
     }, [isEditable])
@@ -51,7 +59,7 @@ const EditableField = ({value = "empty", fieldName, mode = "readOnly", focusComp
                     (type === "date" ? "editable-date-container" : "") ||
                     (type === "select" ? "editable-select-container" : "")}>
                     {
-                        focusComponent && (focusComponent)
+                        updateComponent && (updateComponent)
                     }
                 </div>
             </div>
@@ -61,7 +69,7 @@ const EditableField = ({value = "empty", fieldName, mode = "readOnly", focusComp
     if (mode === "updateOnHover") {
         return (
 
-            <div className="editable-field" id={`EditableField${fieldName}`}>
+            <div className="editable-field" id={`EditableField${elementId}`}>
                 {
                     isEditable || value.length === 0 ?
                         (
@@ -70,7 +78,7 @@ const EditableField = ({value = "empty", fieldName, mode = "readOnly", focusComp
                                 (type === "date" ? "editable-date-container" : "") ||
                                 (type === "select" ? "editable-select-container" : "")}>
                                 {
-                                    focusComponent && (focusComponent)
+                                    updateComponent && (updateComponent)
                                 }
                                 <div className={
                                     (type === "input" ? "icon-container-input" : "") ||

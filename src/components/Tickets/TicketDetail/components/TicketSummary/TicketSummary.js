@@ -1,8 +1,9 @@
 import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
-import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
+import {DxcBox, DxcChip, DxcInput} from '@dxc-technology/halstack-react';
 
 import DataLine from "./components/DataLine/DataLine";
 import Documents from './components/documents/documents';
+import EditableField from "../../../../EditableField/EditableField";
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
@@ -15,9 +16,11 @@ import {formatValue} from "util/functions";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
 
+
 const Divider = () => <hr className="solid"/>
 
 const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
+    const {update} = useDeskTickets()
     const TitleValue = () => (<>{ticket.title}</>)
     const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
     const PersonValue = ({personId}) => {
@@ -25,14 +28,14 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
         const person = getOne(personId)
         return (<>{person && person.displayName}</>)
     }
-    
+
     const SuggestedActivity = ({activity}) => {
         const {executeActivity} = useDeskTickets()
         const handleClick = (e) => {
             e.preventDefault()
             executeActivity(ticket.id, activity)
         }
-        
+
         return (
             <div onClick={handleClick}>
                 <DxcChip
@@ -42,7 +45,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
             </div>
         )
     }
-    
+
     const SuggestedActivities = ({activities}) => (
         < > {activities && Object.keys(activities).map((activity, index) => (
             <SuggestedActivity key={index} activity={activity}/>))
@@ -55,16 +58,19 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     const closePopupAction = (
         <div style={{display: 'flex'}}>
             {showPopupIcon &&
-                <div onClick={onPopupWindow}>
-                    <NewWindowIcon />
-                </div>
+            <div onClick={onPopupWindow}>
+                <NewWindowIcon/>
+            </div>
             }
             <div onClick={onClose}>
-                <CloseIcon />
+                <CloseIcon/>
             </div>
         </div>
     )
 
+    const handleEditChange = (field, newValue) => {
+        update({...ticket, [field]:newValue})
+    }
     return (
         <DxcBox>
             <Sections title={"Ticket detail"} actions={closePopupAction}>
@@ -73,7 +79,16 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                 </Section>
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
-                        <TitleValue/>
+                        <EditableField
+                            field="title"
+                            type="input"
+                            value={<TitleValue/>}
+                            onChange={handleEditChange}>
+                            <DxcInput
+                                placeholder={ticket.title}
+                                margin="xsmall"
+                                size="fillParent"/>
+                        </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Received on</Label>}>
                         <DateValue date={ticket.receivedDate}/>

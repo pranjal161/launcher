@@ -73,15 +73,15 @@ const TrainingMaxime = () => {
                         value={name}
                         mode="update"
                         fieldName="name"
-                        onChange={onChangeTestforReset}
-                        focusComponent={
-                            <DxcInput
-                                value={name}
-                                onChange={onChange("name")}
-                                margin="xsmall"
-                                size="fillParent"
-                                autocompleteOptions={suggestionsName}/>}
-                    />
+                        onChange={onChangeTestforReset}>
+                        <DxcInput
+                            value={name}
+                            onChange={onChange("name")}
+                            margin="xsmall"
+                            size="fillParent"
+                            autocompleteOptions={suggestionsName}/>
+                    </EditableField>
+
                 </div>
             </div>
             <div className="dataline-container">
@@ -94,14 +94,13 @@ const TrainingMaxime = () => {
                         value={firstname}
                         mode="updateOnHover"
                         fieldName="firstname"
-                        onChange={onChangeTestforReset}
-                        focusComponent={
-                            <DxcInput
-                                value={firstname}
-                                onChange={onChange("firstname")}
-                                margin="xsmall"
-                                size="fillParent"/>}
-                    />
+                        onChange={onChangeTestforReset}>
+                        <DxcInput
+                            value={firstname}
+                            onChange={onChange("firstname")}
+                            margin="xsmall"
+                            size="fillParent"/>
+                    </EditableField>
                 </div>
 
             </div>
@@ -127,15 +126,14 @@ const TrainingMaxime = () => {
                         type="date"
                         value={date}
                         mode="updateOnHover"
-                        fieldName="date"
-                        focusComponent={
-                            <DxcDate
-                                value={date}
-                                invalid={isInvalid}
-                                format="MM-dd-yyyy"
-                                onChange={onChangeDate}
-                            />}
-                    />
+                        fieldName="date">
+                        <DxcDate
+                            value={date}
+                            invalid={isInvalid}
+                            format="MM-dd-yyyy"
+                            onChange={onChangeDate}
+                        />
+                    </EditableField>
                 </div>
             </div>
             <div className="dataline-container">
@@ -147,15 +145,14 @@ const TrainingMaxime = () => {
                         type="select"
                         value={gender}
                         mode="updateOnHover"
-                        fieldName="gender"
-                        focusComponent={
-                            <DxcSelect
-                                options={genderChoice}
-                                onChange={onChangeSelect}
-                                value={gender}
-                                margin="medium"
-                            />}
-                    />
+                        fieldName="gender">
+                        <DxcSelect
+                            options={genderChoice}
+                            onChange={onChangeSelect}
+                            value={gender}
+                            margin="medium"
+                        />
+                    </EditableField>
                 </div>
             </div>
             <div className="dataline-container">
@@ -167,15 +164,14 @@ const TrainingMaxime = () => {
                         type="select"
                         value={gender}
                         mode="update"
-                        fieldName="gender2"
-                        focusComponent={
-                            <DxcSelect
-                                options={genderChoice}
-                                onChange={onChangeSelect}
-                                value={gender}
-                                margin="medium"
-                            />}
-                    />
+                        fieldName="gender2">
+                        <DxcSelect
+                            options={genderChoice}
+                            onChange={onChangeSelect}
+                            value={gender}
+                            margin="medium"
+                        />
+                    </EditableField>
                 </div>
             </div>
         </div>

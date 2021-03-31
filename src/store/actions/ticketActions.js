@@ -48,7 +48,6 @@ export const update = (ticket) => (dispatch, getState, {getFirebase}) => {
         suggestedActivities
     }).then((result) => {
         dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
-        addHistory(ticket.id)
     }).catch((error) => {
         console.log(error)
         dispatch({type: 'UPDATE_TICKET_ERROR', error})
