@@ -1,21 +1,18 @@
-import {useCallback} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import * as basketActions from "../../store/actions/basketActions";
 
+import {useDispatch, useSelector} from "react-redux";
 
-const useAllBaskets = () => {
-    return useSelector((state) => state.firestore.ordered['baskets'])
-}
+import {useCallback} from "react";
+
+const useAllBaskets = () => useSelector((state) => state.firestore.ordered['baskets'])
 
 const useMyAllBaskets = () => {
-    const auth = useSelector(state => state.auth)
+    const auth = useSelector((state) => state.auth)
     const allBaskets = useAllBaskets()
-    return allBaskets && allBaskets.filter(basket => basket.assignedToList.includes(auth.id))
+    return allBaskets && allBaskets.filter((basket) => basket.assignedToList.includes(auth.id))
 }
 
-const useGetOne = (id) => {
-    return useSelector((state) => ({id, ...state.firestore.data.baskets[id]}))
-}
+const useGetOne = (id) => useSelector((state) => ({id, ...state.firestore.data.baskets[id]}))
 
 const useDeskBaskets = () => {
     const getAll = useAllBaskets

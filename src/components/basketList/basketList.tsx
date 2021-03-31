@@ -1,11 +1,12 @@
-import React from 'react';
 import { DxcTable } from "@dxc-technology/halstack-react";
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const BasketList = (props : any) => {
-    const { baskets,  handleTicketClick=()=>{} } = props
+    const { baskets,  handleTicketClick=() => {
+        // Nothing to do
+    } } = props
     const { t } = useTranslation();
-
 
     return (
         <div className="p-2">
