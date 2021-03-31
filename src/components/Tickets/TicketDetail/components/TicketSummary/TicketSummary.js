@@ -2,6 +2,7 @@ import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
 import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
 
 import DataLine from "./components/DataLine/DataLine";
+import Documents from './components/documents/documents';
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
@@ -10,17 +11,15 @@ import React from 'react';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
-import {formatValue} from "../../../../../util/functions";
-import moment from "moment";
-import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
-import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
+import {formatValue} from "util/functions";
+import useDeskTickets from "data/hooks/useDeskTickets";
+import useDeskUsers from "data/hooks/useDeskUsers";
 
 const Divider = () => <hr className="solid"/>
 
 const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
     const TitleValue = () => (<>{ticket.title}</>)
     const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
-    
     const PersonValue = ({personId}) => {
         const {getOne} = useDeskUsers()
         const person = getOne(personId)
@@ -50,29 +49,6 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
         }</>
     )
 
-    const Document = ({document}) => {
-        const handleClick = (e) => {
-            e.preventDefault()
-            window.open(document.url)
-        }
-        
-        return (
-            <a href="" onClick={handleClick}
-                className="list-group-item list-group-item-action flex-column align-items-start">
-                <div className="mx-auto text-info">
-                    <small>{moment(document.receivedDate).fromNow()}</small>
-                </div>
-                <div>{document.name}</div>
-            </a>
-        )
-    }
-    
-    const Documents = ({documents}) => (
-        <lu className={"list-group"}>
-            {documents && Object.values(documents).map((document, index) => (
-                <Document key={index} document={document}/>))}
-        </lu>
-    )
 
     const Description = ({description}) => (<p>{description}</p>)
 
