@@ -1,18 +1,24 @@
 import "./App.scss";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+import {AlertContext, AlertContextProvider} from "./context/alertContext";
+import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
+import React, {useState} from "react";
+import routes, { applyRoutes } from './routes';
+
+import Alert from "./components/alert/alert";
+import {AppContextProvider} from "./context/applicationContext";
+import {Colors} from "./styles/dxc-theme";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
-import Alert from "./components/alert/alert";
-import React, {useState} from "react";
+import {currentDailyUpdatesId} from "./store/actions/ticketActions";
 import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
 import {useTranslation} from "react-i18next";
-import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
-import {AppContextProvider} from "./context/applicationContext";
-import {AlertContext, AlertContextProvider} from "./context/alertContext";
-import {Colors} from "./styles/dxc-theme";
-import routes, { applyRoutes } from './routes';
-import {currentDailyUpdatesId} from "./store/actions/ticketActions";
 
+/**
+ * Main app
+ * @returns {*} The app depending on the context
+ */
 function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
@@ -26,7 +32,7 @@ function App() {
 
     axios.interceptors.request.use(
         function (config) {
-            // spinning start to show
+            // Spinning start to show
             setLoader(true);
             return config;
         },
@@ -62,9 +68,7 @@ function App() {
                             )}
                         </>
                         <AlertContext.Consumer>
-                            {(context) => {
-                                return <Alert toastList={context.toastMessage}/>
-                            }}
+                            {(context) => <Alert toastList={context.toastMessage}/>}
                         </AlertContext.Consumer>
                         <>
 

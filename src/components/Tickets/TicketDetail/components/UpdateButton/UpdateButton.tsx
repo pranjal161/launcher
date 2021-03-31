@@ -1,8 +1,14 @@
+import { DxcButton, DxcDialog } from "@dxc-technology/halstack-react";
+
 import React from 'react';
 import TicketFormDialog from "../../../TicketFormDialog/TicketFormDialog";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
-import { DxcDialog, DxcButton } from "@dxc-technology/halstack-react";
 
+/**
+ * Display of update button for a ticket
+ * @param {props} props Information on the ticket 
+ * @returns {*} Display of update button for a ticket
+ */
 function UpdateButton(props: any) {
     const { ticket } = props;
     const [open, setOpen] = React.useState(false);

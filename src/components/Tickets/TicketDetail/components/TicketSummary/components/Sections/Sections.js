@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react';
 import SectionHeader from "../SectionHeader/SectionHeader";
 import styled from "styled-components";
@@ -13,17 +14,21 @@ const Content = styled.div`
   overflow-y: auto;
   
 `;
-const Sections = ({title, actions, children}) => {
-    return (
-        <>
-            <Root>
-                <SectionHeader title={title} actions={actions}/>
-                <Content>
-                    {children}
-                </Content>
-            </Root>
-        </>
-    );
+const Sections = ({title, actions, children}) => (
+    <>
+        <Root>
+            <SectionHeader title={title} actions={actions}/>
+            <Content>
+                {children}
+            </Content>
+        </Root>
+    </>
+)
+
+Sections.propTypes = {
+    title: PropTypes.string,
+    actions: PropTypes.array,
+    children: PropTypes.string
 }
 
 export default Sections;

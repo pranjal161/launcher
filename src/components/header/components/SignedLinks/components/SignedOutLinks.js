@@ -1,6 +1,10 @@
-import React from 'react';
 import {NavLink} from "react-router-dom";
+import React from 'react';
 
+/**
+ * Display for the sign out
+ * @returns {*} Sign out link
+ */
 function SignedOutLinks() {
     return (
         <>

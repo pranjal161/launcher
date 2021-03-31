@@ -1,9 +1,16 @@
 import React from 'react';
-import UpdateButton from "./components/UpdateButton/UpdateButton";
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
-import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import TicketSummary from "./components/TicketSummary/TicketSummary";
+import UpdateButton from "./components/UpdateButton/UpdateButton";
+import useDeskAuth from "../../../data/hooks/useDeskAuth";
+import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
+//import Summary from "./components/Summary/Summary";
+
+/**
+ * Display of ticket in detail
+ * @param {param0} id, sectionId, onRemove, onClose Information that will be used for the ticket detail 
+ * @returns {*} Display of ticket in detail
+ */
 function TicketDetail({id, sectionId, onRemove, onClose}) {
     const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
@@ -25,7 +32,8 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
         return (
             <TicketSummary ticket={ticket} actions={Actions} onClose={closeHandle} sectionId={sectionId}/>
         )
-    } else
+    } 
+    else
         return (<div className="container center">Loading ticket ...</div>)
 }
 
