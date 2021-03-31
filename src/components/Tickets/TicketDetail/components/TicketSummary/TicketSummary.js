@@ -13,10 +13,11 @@ import {formatValue} from "../../../../../util/functions";
 import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
+import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
 
 const Divider = () => <hr className="solid"/>
 
-const TicketSummary = ({ticket}) => {
+const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
     const TitleValue = () => (<>{ticket.title}</>)
     const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
     
@@ -75,9 +76,25 @@ const TicketSummary = ({ticket}) => {
 
     const Description = ({description}) => (<p>{description}</p>)
 
+    const closePopupAction = (
+        <div style={{display: 'flex'}}>
+            {showPopupIcon &&
+                <div onClick={onPopupWindow}>
+                    <NewWindowIcon />
+                </div>
+            }
+            <div onClick={onClose}>
+                <CloseIcon />
+            </div>
+        </div>
+    )
+
     return (
         <DxcBox>
-            <Sections title={"Ticket detail"}>
+            <Sections title={"Ticket detail"} actions={closePopupAction}>
+                <Section id='actions' title='Actions'>
+                    {actions}
+                </Section>
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
                         <TitleValue/>
