@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types'
 import React from 'react';
-import {connect} from "react-redux";
 import SignedInLinks from "./components/SignedInLinks";
 import SignedOutLinks from "./components/SignedOutLinks";
+import {connect} from "react-redux";
 
 const SignedLinks = ({logged}) => {
     const links = logged ? <SignedInLinks/> : <SignedOutLinks/>
@@ -12,10 +13,10 @@ const SignedLinks = ({logged}) => {
     );
 }
 
-
-const mapStateToProps = (state) =>
-{
-    return {logged: state.auth.logged}
+SignedLinks.propTypes = {
+    logged: PropTypes.string
 }
+
+const mapStateToProps = (state) => ({logged: state.auth.logged})
 
 export default connect(mapStateToProps)(SignedLinks)

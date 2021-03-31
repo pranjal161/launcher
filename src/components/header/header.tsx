@@ -1,15 +1,15 @@
+import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
+import {NavLink, useHistory} from 'react-router-dom';
+import React, {useContext, useState} from 'react';
+
+import {ApplicationContext} from '../../context/applicationContext';
+import CreateButton from '../Tickets/CreateButton/CreateButton';
 import DXCLogo from 'assets/dxc_logo.jpg';
+import {SearchIcon} from 'assets/svg';
+import SignedLinks from "./components/SignedLinks/SignedLinks";
+import en from 'assets/gb.jpg';
 import fr from 'assets/fr.jpg';
 import nl from 'assets/nl.jpg';
-import en from 'assets/gb.jpg';
-import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
-import React, {useContext, useState} from 'react';
-import {NavLink, useHistory} from 'react-router-dom';
-
-import {ApplicationContext} from 'context/applicationContext';
-import {SearchIcon} from 'assets/svg';
-import CreateButton from '../Tickets/CreateButton/CreateButton';
-import SignedLinks from "./components/SignedLinks/SignedLinks";
 
 const Header = () => {
     const history = useHistory();
@@ -20,18 +20,18 @@ const Header = () => {
         {
             value: 'fr',
             label: 'FR',
-            iconSrc: fr
+            iconSrc: fr,
         },
         {
             value: 'en',
             label: 'EN',
-            iconSrc: en
+            iconSrc: en,
         },
         {
             value: 'nl',
             label: 'NL',
-            iconSrc: nl
-        }
+            iconSrc: nl,
+        },
     ];
 
     const changeLang = (value: string) => {
@@ -40,10 +40,10 @@ const Header = () => {
         if (value !== applicationContext.language) {
             applicationContext.changeLang(value);
         }
-    }
+    };
 
     const goToHome = () => {
-        history.push("/home");
+        history.push('/home');
     };
 
     const goToSearch = () => {
@@ -51,7 +51,6 @@ const Header = () => {
     }
 
     return (
-
         <DxcHeader
             logoSrc={DXCLogo}
             onClick={goToHome}

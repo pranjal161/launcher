@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import React from 'react';
-import { getLink } from 'util/functions';
-import Table from "components/table/table";
+import React, { useContext, useEffect, useState } from 'react';
+
 import { ApplicationContext } from 'context/applicationContext';
+import Table from "components/table/table";
+import { getLink } from 'util/functions';
 
 const ActivitiesTable = (props: { contractResponse: any }) => {
     const [activityUrl, setActivityUrl] = useState('');
@@ -10,8 +10,8 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
     const activityListColumns = [
         { label: '_USER', property: 'w_m_activity:user' },
         { label: '_TYPE', property: 'w_m_activity:label' },
-        { label: '_DATE', property: 'w_m_activity:effective_date', type: "date" },
-        { label: '_STATUS', property: 'w_m_activity:status' }
+        { label: '_DATE', property: 'w_m_activity:effective_date', type: 'date' },
+        { label: '_STATUS', property: 'w_m_activity:status' },
     ];
 
     useEffect(() => {
@@ -23,18 +23,17 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
             const activityUrl = getLink(props.contractResponse, 'cscaia:activities');
             setActivityUrl(activityUrl);
         }
-    }
+    };
 
     return (
         <>
-            { activityUrl && (
+            {activityUrl && (
                 <>
-                    < Table url={activityUrl} columnId={activityListColumns} showPaginator={true} />
+                    <Table url={activityUrl} columnId={activityListColumns} showPaginator={true} />
                 </>
-            )
-            }
+            )}
         </>
-    )
-}
+    );
+};
 
-export default ActivitiesTable
+export default ActivitiesTable;

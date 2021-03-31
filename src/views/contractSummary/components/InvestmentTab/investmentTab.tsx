@@ -1,12 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import { DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { getDescriptionValue } from 'util/functions';
+
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/chart/chart';
-const InvestmentTab = (props: { mainRiskUrl: string }) => {
+import { DxcTable } from "@dxc-technology/halstack-react";
+import axios from 'axios';
+import { getDescriptionValue } from 'util/functions';
+import { useTranslation } from 'react-i18next';
 
+const InvestmentTab = (props: { mainRiskUrl: string }) => {
     const { t } = useTranslation();
     const [interestBasedFund, setInterestBasedFund] = useState<Array<any>>([]);
     const [unitBasedFund, setUnitBasedFund] = useState<Array<any>>([]);
@@ -24,68 +25,92 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
         { label: '_RISK_LEVEL', property: 'unit_linked_fund:s_r_r_i' },
         { label: '_DATE', property: 'unit_linked_fund:unit_value_date', type: 'date' },
         { label: '_VALUE', property: 'coverage_fund:net_cash_value', type: 'currency' },
-        { label: '_DISTRIBUTION', property: 'contract_allocation_rate', type: 'percent' }
+        { label: '_DISTRIBUTION', property: 'contract_allocation_rate', type: 'percent' },
     ];
     const interestFundsColumns = [
         { label: '_FUND_LABEL', property: 'coverage_fund:label' },
         { label: '_TOTAL_AMOUNT', property: 'interest_fund:invested_amount', type: 'currency' },
         { label: '_MIN_GRNTD_RATE', property: 'interest_fund:guaranteed_rate', type: 'percent' },
         { label: '_VALUE', property: 'interest_fund:net_cash_value', type: 'currency' },
-        { label: '_DISTRIBUTION', property: 'contract_allocation_rate', type: 'percent' }
+        { label: '_DISTRIBUTION', property: 'contract_allocation_rate', type: 'percent' },
     ];
     useEffect(() => {
         getData();
     }, [applicationContext, props.mainRiskUrl]);
 
     const getData = () => {
-        axios.get(props.mainRiskUrl, { headers: applicationContext.headers }).then(riskRes => {
+        axios.get(props.mainRiskUrl, { headers: applicationContext.headers }).then((riskRes) => {
             if (riskRes.data._links['cscaia:product_component_list']) {
-                axios.get(riskRes.data._links['cscaia:product_component_list'].href, { headers: applicationContext.headers }).then(res => {
-                    if (res && res.data && res.data._links && res.data._links.item) {
-                        const req: any[] = [];
-                        res.data._links.item = Array.isArray(res.data._links.item) ? res.data._links.item : [res.data._links.item]
-                        res.data._links.item.forEach((element: { summary: { [x: string]: string; }; href: string }) => {
-                            if (element.summary && element.summary['coverage_fund:type_variant'] === 'savings_pool') {
-                                req.push(axios.get(element.href, { headers: applicationContext.headers }));
-                            }
-                        });
-                        Promise.all(req).then(responseArray => {
-                            const investmentFunds: any[] = []
-                            responseArray.forEach(item => {
-                                if (item.data && item.data._links['savings_pool:coverage_fund_list']) {
-                                    const investmentFundsUrl = item.data._links['savings_pool:coverage_fund_list'].href;
-                                    investmentFunds.push(axios.get(investmentFundsUrl, { headers: applicationContext.headers }));
-                                }
-                            });
-                            Promise.all(investmentFunds).then(investmentFundsArray => {
-                                investmentFundsArray.forEach(item => {
-                                    if (item.data && item.data._links.item) {
-                                        const items = Array.isArray(item.data._links.item) ? item.data._links.item : [item.data._links.item];
-                                        items.forEach((element: { summary: { [x: string]: string; }; href: any; }) => {
-                                            if (element.summary['coverage_fund:type_variant'] === 'interest_fund') {
-                                                interestFunds.push({ element: element, data: item.data });
-                                            }
-                                            if (element.summary['coverage_fund:type_variant'] === 'unit_linked_fund') {
-                                                unitFunds.push({ element: element, data: item.data })
-                                            }
-                                        });
+                axios
+                    .get(riskRes.data._links['cscaia:product_component_list'].href, {
+                        headers: applicationContext.headers,
+                    })
+                    .then((res) => {
+                        if (res && res.data && res.data._links && res.data._links.item) {
+                            const req: any[] = [];
+                            res.data._links.item = Array.isArray(res.data._links.item)
+                                ? res.data._links.item
+                                : [res.data._links.item];
+                            res.data._links.item.forEach(
+                                (element: { summary: { [x: string]: string }; href: string }) => {
+                                    if (
+                                        element.summary &&
+                                        element.summary['coverage_fund:type_variant'] === 'savings_pool'
+                                    ) {
+                                        req.push(axios.get(element.href, { headers: applicationContext.headers }));
                                     }
-                                })
-                                setUnitBasedFund(unitFunds)
-                                buildChartData(unitFunds);
-                                setInterestBasedFund(interestFunds);
-                            })
-                        })
-                    }
-                })
+                                },
+                            );
+                            Promise.all(req).then((responseArray) => {
+                                const investmentFunds: any[] = [];
+                                responseArray.forEach((item) => {
+                                    if (item.data && item.data._links['savings_pool:coverage_fund_list']) {
+                                        const investmentFundsUrl =
+                                            item.data._links['savings_pool:coverage_fund_list'].href;
+                                        investmentFunds.push(
+                                            axios.get(investmentFundsUrl, { headers: applicationContext.headers }),
+                                        );
+                                    }
+                                });
+                                Promise.all(investmentFunds).then((investmentFundsArray) => {
+                                    investmentFundsArray.forEach((item) => {
+                                        if (item.data && item.data._links.item) {
+                                            const items = Array.isArray(item.data._links.item)
+                                                ? item.data._links.item
+                                                : [item.data._links.item];
+                                            items.forEach(
+                                                (element: { summary: { [x: string]: string }; href: any }) => {
+                                                    if (
+                                                        element.summary['coverage_fund:type_variant'] ===
+                                                        'interest_fund'
+                                                    ) {
+                                                        interestFunds.push({ element: element, data: item.data });
+                                                    }
+                                                    if (
+                                                        element.summary['coverage_fund:type_variant'] ===
+                                                        'unit_linked_fund'
+                                                    ) {
+                                                        unitFunds.push({ element: element, data: item.data });
+                                                    }
+                                                },
+                                            );
+                                        }
+                                    });
+                                    setUnitBasedFund(unitFunds);
+                                    buildChartData(unitFunds);
+                                    setInterestBasedFund(interestFunds);
+                                });
+                            });
+                        }
+                    });
             }
-        })
-    }
+        });
+    };
 
     const buildChartData = (unitFunds: any[]) => {
         let chartFundList = processChartData(unitFunds);
-        setChartData(chartFundList)
-    }
+        setChartData(chartFundList);
+    };
 
     const processChartData = (investmentFundsResItems: any[]) => {
         let _list: any[] = [];
@@ -94,12 +119,12 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                 _FUND_LABEL: item.element.summary['coverage_fund:label'],
                 _ALLOCATION: item.element.summary['contract_allocation_rate'],
                 _FUND_TYPE: item.element.summary['unit_linked_fund:category'],
-                _FUND_SRRI: item.element.summary['unit_linked_fund:s_r_r_i']
+                _FUND_SRRI: item.element.summary['unit_linked_fund:s_r_r_i'],
             };
             _list.push(_result);
         });
         return _list;
-    }
+    };
 
     return (
         <>
@@ -112,13 +137,20 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                     <DxcTable>
                         <tr>
                             {interestFundsColumns.map((item) => (
-                                <th>{t(item.label)}</th>
+                                <th key={item.label}>{t(item.label)}</th>
                             ))}
                         </tr>
                         {interestBasedFund.map((row) => (
                             <tr key={row['href']}>
                                 {interestFundsColumns.map((item) => (
-                                    <td>{getDescriptionValue(row.element['summary'][item.property], item.property, row.data, item.type)}</td>
+                                    <td key={item.label}>
+                                        {getDescriptionValue(
+                                            row.element['summary'][item.property],
+                                            item.property,
+                                            row.data,
+                                            item.type,
+                                        )}
+                                    </td>
                                 ))}
                             </tr>
                         ))}
@@ -131,13 +163,20 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                     <DxcTable>
                         <tr>
                             {unitLinkedFundColumns.map((item) => (
-                                <th>{t(item.label)}</th>
+                                <th key={item.label}>{t(item.label)}</th>
                             ))}
                         </tr>
                         {unitBasedFund.map((row) => (
                             <tr key={row['href']}>
                                 {unitLinkedFundColumns.map((item) => (
-                                    <td>{getDescriptionValue(row.element['summary'][item.property], item.property, row.data, item.type)}</td>
+                                    <td key={item.label}>
+                                        {getDescriptionValue(
+                                            row.element['summary'][item.property],
+                                            item.property,
+                                            row.data,
+                                            item.type,
+                                        )}
+                                    </td>
                                 ))}
                             </tr>
                         ))}
@@ -151,6 +190,6 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
             )}
         </>
     );
-}
+};
 
 export default InvestmentTab;

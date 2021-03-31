@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
-import Table from "components/table/table";
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
 import { ApplicationContext } from 'context/applicationContext';
+import Table from "components/table/table";
 import { getLink } from 'util/functions';
 
 const ClausesTable = (props: { contractResponse: any }) => {
@@ -13,8 +13,8 @@ const ClausesTable = (props: { contractResponse: any }) => {
         { label: '_LABEL', property: 'clause:code' },
         { label: '_PARENT', property: 'parent_label' },
         { label: '_TYPE', property: 'clause:type_label' },
-        { label: '_START_DATE', property: 'clause:start_date', type: "date" },
-        { label: '_END_DATE', property: 'clause:end_date', type: "date" }
+        { label: '_START_DATE', property: 'clause:start_date', type: 'date' },
+        { label: '_END_DATE', property: 'clause:end_date', type: 'date' },
     ];
 
     useEffect(() => {
@@ -26,17 +26,17 @@ const ClausesTable = (props: { contractResponse: any }) => {
             const clauseUrl = getLink(props.contractResponse, 'contract:clause_list') + '?_inquiry=clauses_all_levels';
             setClauseUrl(clauseUrl);
         }
-    }
+    };
 
     return (
         <>
-            { clauseUrl && (
+            {clauseUrl && (
                 <>
-                    < Table url={clauseUrl} columnId={clauseListColumns} showPaginator={true} />
+                    <Table url={clauseUrl} columnId={clauseListColumns} showPaginator={true} />
                 </>
-            )
-            }
+            )}
         </>
     )
 }
+
 export default ClausesTable

@@ -1,9 +1,12 @@
+import {DxcApplicationLayout, DxcFooter, DxcHeader} from "@dxc-technology/halstack-react";
+
+import PropTypes from 'prop-types'
 import React from 'react';
 import {applyRoutes} from "../../routes";
-import {DxcApplicationLayout, DxcHeader, DxcFooter} from "@dxc-technology/halstack-react";
 
 const AuthLayout= (props) =>  {
     console.log('props', props.route.routes)
+    
     return (
         <DxcApplicationLayout>
             <DxcApplicationLayout.Header>
@@ -18,6 +21,10 @@ const AuthLayout= (props) =>  {
         </DxcApplicationLayout>
 
     );
+}
+
+AuthLayout.propTypes = {
+    route: PropTypes.string
 }
 
 export default AuthLayout;

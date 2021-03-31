@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
-import useDeskAuth from 'data/hooks/useDeskAuth';
-import {DxcBox} from '@dxc-technology/halstack-react';
 import './HomePage.scss';
-import useDeskTickets from 'data/hooks/useDeskTickets';
-import TicketList from 'components/Tickets/ticketsList/ticketsList';
-import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
-import useDeskBaskets from 'data/hooks/useDeskBaskets';
+
+import React, {useState} from 'react';
+
 import BasketList from 'components/basketList/basketList';
+import {DxcBox} from '@dxc-technology/halstack-react';
 import EntitySidebar from 'components/entitySidebar/entitySidebar';
+import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
+import TicketList from 'components/Tickets/ticketsList/ticketsList';
+import useDeskAuth from 'data/hooks/useDeskAuth';
+import useDeskBaskets from 'data/hooks/useDeskBaskets';
+import useDeskTickets from 'data/hooks/useDeskTickets';
 
 const HomePage = () => {
     const {profile} = useDeskAuth()
@@ -51,7 +53,7 @@ const HomePage = () => {
                         }
                     </div>
                     <div className="col-4">
-                        <span className="p-2">Today's Reminder</span>
+                        <span className="p-2">Today&apos;s Reminder</span> 
                     </div>
                     <div className="col-12">
                         <span className="p-2">All Tickets</span>
@@ -66,16 +68,16 @@ const HomePage = () => {
                                                 tickets={tickets} />
                                         </div>
                                         <EntitySidebar 
-                                                open={openSidebar} 
-                                                width={400}
-                                                content={
-                                                    <TicketDetail 
-                                                        id={clickedTicket.id}
-                                                        key={clickedTicket.id}
-                                                        onRemove={handleRemove} 
-                                                        onClose={handleClose} 
-                                                        sectionId="ticket-details" />
-                                                } />
+                                            open={openSidebar} 
+                                            width={400}
+                                            content={
+                                                <TicketDetail 
+                                                    id={clickedTicket.id}
+                                                    key={clickedTicket.id}
+                                                    onRemove={handleRemove} 
+                                                    onClose={handleClose} 
+                                                    sectionId="ticket-details" />
+                                            } />
                                     </div>
                                 </div>
                             </div>
