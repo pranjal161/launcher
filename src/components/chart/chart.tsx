@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import { useTranslation } from 'react-i18next';
-import { DxcToggleGroup } from '@dxc-technology/halstack-react';
 
-const Chart = (props: { data: any; }) => {
+import { Doughnut } from 'react-chartjs-2';
+import { DxcToggleGroup } from '@dxc-technology/halstack-react';
+import { useTranslation } from 'react-i18next';
+
+const Chart = (props: { data: any }) => {
     const { t } = useTranslation();
     const backgroundColor = [
         'rgba(255, 99, 132, 0.2)',
@@ -12,7 +13,7 @@ const Chart = (props: { data: any; }) => {
         'rgba(75, 192, 192, 0.2)',
         'rgba(153, 102, 255, 0.2)',
         'rgba(255, 159, 64, 0.2)',
-        'rgba(160, 40, 70, 0.2)'
+        'rgba(160, 40, 70, 0.2)',
     ];
     const borderColor = [
         'rgba(255,99,132,1)',
@@ -21,8 +22,8 @@ const Chart = (props: { data: any; }) => {
         'rgba(75, 192, 192, 1)',
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)',
-        'rgba(160, 40, 70, 1)'
-    ]
+        'rgba(160, 40, 70, 1)',
+    ];
     const toggleOption = [
         {
             label: t('_FUNDS'),
@@ -30,47 +31,46 @@ const Chart = (props: { data: any; }) => {
         },
         {
             label: t('_FUND_TYPE'),
-            value: 'fundType'
+            value: 'fundType',
         },
         {
             label: t('_RISK_LEVEL'),
-            value: 'riskLevel'
-        }
-    ]
+            value: 'riskLevel',
+        },
+    ];
     const [selected, setChartType] = useState('funds');
 
     const setLabel = (data: any, labelProp: any) => {
         let _data: string[] = [];
         const chartData = data;
-        chartData.forEach((element: { [x: string]: string; }) => {
-            if (typeof (labelProp) === 'string') {
+        chartData.forEach((element: { [x: string]: string }) => {
+            if (typeof labelProp === 'string') {
                 _data.push(element[labelProp]);
             } else {
                 _data.push(element[labelProp[0]] + ' (' + element[labelProp[1]] + ')');
             }
         });
         return _data;
-    }
+    };
     let labels = setLabel(props.data, ['_FUND_LABEL', '_ALLOCATION']);
-
 
     const prepareChartDataList = (data: any) => {
         let _data: any[] = [];
         const chartData = data;
-        chartData.forEach((element: { [x: string]: any; }) => {
+        chartData.forEach((element: { [x: string]: any }) => {
             _data.push(element['_ALLOCATION']);
         });
         return _data;
-    }
+    };
 
     let dataSet = prepareChartDataList(props.data);
 
     const options = {
         legend: {
-            position: 'left'
+            position: 'left',
         },
-        cutoutPercentage: 50
-    }
+        cutoutPercentage: 50,
+    };
     const [chartData, setChartData] = useState();
 
     useEffect(() => {
@@ -89,9 +89,9 @@ const Chart = (props: { data: any; }) => {
                     borderWidth: 1,
                 },
             ],
-        }
+        };
         setChartData(data);
-    }
+    };
 
     const rebuildChart = (value: React.SetStateAction<string>) => {
         setChartType(value);
@@ -109,17 +109,17 @@ const Chart = (props: { data: any; }) => {
                 updateChart(_data, ['_FUND_SRRI', '_ALLOCATION']);
                 break;
         }
-    }
+    };
 
     const processDataSetbyType = (prop: string, data: any[]) => {
         let processedData: any[] = [];
         let _propVal = '';
         let _allocation = 0;
-        data.forEach(item => {
+        data.forEach((item) => {
             let _item: any = {};
             if (_propVal === item[prop]) {
                 _allocation = _allocation + item['_ALLOCATION'];
-                processedData.forEach(processedItem => {
+                processedData.forEach((processedItem) => {
                     if (processedItem[prop] === _propVal) {
                         processedItem['_ALLOCATION'] = _allocation;
                     }
@@ -135,14 +135,14 @@ const Chart = (props: { data: any; }) => {
             }
         });
         return processedData;
-    }
+    };
 
     const updateChart = (data: any, labelProp: string[]) => {
         const newData = data;
         labels = setLabel(newData, labelProp);
         dataSet = prepareChartDataList(newData);
         buildChart(labels, dataSet);
-    }
+    };
 
     return (
         <>
@@ -158,9 +158,8 @@ const Chart = (props: { data: any; }) => {
                     ></DxcToggleGroup>
                 </>
             )}
-
         </>
-    )
-}
+    );
+};
 
 export default Chart;

@@ -1,9 +1,13 @@
 import React from 'react';
 import UpdateButton from "../UpdateButton/UpdateButton";
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 import useDeskAuth from "../../../../data/hooks/useDeskAuth";
+import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 
-
+/**
+ * Detail of an item from the basket
+ * @param {*} param0 Item information
+ * @returns {*} Return all information of the item from the basket
+ */
 function BasketDetail({id, remove}) {
     const {getOne, assignUser, removeUser} = useDeskBaskets()
     const {currentUserId} = useDeskAuth()
@@ -20,15 +24,15 @@ function BasketDetail({id, remove}) {
     if (basket) {
         return (
             <div className="card mt-3" >
-                    <div className="card-body">
-                        <h5 className="card-title">{basket.title}</h5>
-                        <p className="card-text">
-                            <small>{basket.id}</small>
-                        </p>
-                        <a href="#" className="btn btn-danger" onClick={() => remove(id) }>Remove</a>
-                        {assignButton}
-                        <UpdateButton basket={basket}/>
-                    </div>
+                <div className="card-body">
+                    <h5 className="card-title">{basket.title}</h5>
+                    <p className="card-text">
+                        <small>{basket.id}</small>
+                    </p>
+                    <a href="#" className="btn btn-danger" onClick={() => remove(id) }>Remove</a>
+                    {assignButton}
+                    <UpdateButton basket={basket}/>
+                </div>
             </div>
         )
     } else

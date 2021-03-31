@@ -1,7 +1,7 @@
 import {useCallback} from "react";
+import useDeskAuth from "./useDeskAuth";
 import {useFirestoreConnect} from "react-redux-firebase";
 import {useSelector} from "react-redux";
-import useDeskAuth from "./useDeskAuth";
 
 /** Subscribe to query on Firestore and connect it to the store
  *  To be use carefully !!!!!!!!!!!!!!!

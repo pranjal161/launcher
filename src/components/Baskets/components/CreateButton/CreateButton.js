@@ -1,8 +1,12 @@
 import BasketFormDialog from "../BasketFormDialog/BasketFormDialog";
+import {Button,} from "@material-ui/core";
 import React from 'react';
 import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
-import {Button,} from "@material-ui/core";
 
+/**
+ * Button for creating a basket
+ * @returns {*} Display the create basket button
+ */
 function CreateButton() {
     const [open, setOpen] = React.useState(false);
     const {create} = useDeskBaskets()

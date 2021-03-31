@@ -1,18 +1,21 @@
+/* eslint-disable react/display-name */
+
 import React, {lazy} from "react";
-import {Redirect} from "react-router-dom";
+
+import AppLayout from "layouts/AppLayout/AppLayout";
+import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/clientView/clientView";
-import ContractSummary from "views/contractSummary/contractSummary";
-import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
 import ContractSearch from "views/contractSearch/contractSearch";
-import ViewBaskets from 'views/baskets/viewBaskets';
+import ContractSummary from "views/contractSummary/contractSummary";
+import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
+import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
+import Help from 'views/help/help';
+import HomePage from "views/HomePage/HomePage";
 import MyTickets from 'views/tickets/myTickets';
 import NewTicket from 'views/tickets/newTicket';
-import Help from 'views/help/help';
+import {Redirect} from "react-router-dom";
 import Trainers from "views/training";
-import HomePage from "views/HomePage/HomePage";
-import AuthLayout from "layouts/AuthLayout/AuthLayout";
-import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
-import AppLayout from "layouts/AppLayout/AppLayout";
+import ViewBaskets from 'views/baskets/viewBaskets';
 
 const routes = [
     {

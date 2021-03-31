@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { StyledPaginator } from 'styles/global-style';
+import React, { useEffect, useState } from 'react';
+import { getLink, paginationLink } from 'util/functions';
+
 import { DxcPaginator } from '@dxc-technology/halstack-react';
-import { paginationLink, getLink } from 'util/functions';
+import { StyledPaginator } from 'styles/global-style';
 
-const Paginator = (props: { totalItems: string | number, itemsPerPage: number, data: any, handler: any}) => {
-
+const Paginator = (props: { totalItems: string | number; itemsPerPage: number; data: any; handler: any }) => {
     const { totalItems, itemsPerPage, data, handler } = props;
     const [page, changePage] = useState(1);
     const first = data && getLink(data, 'first') ? getLink(data, 'first') : '';
@@ -42,7 +42,8 @@ const Paginator = (props: { totalItems: string | number, itemsPerPage: number, d
     return (
         <>
             <StyledPaginator>
-                <DxcPaginator currentPage={page}
+                <DxcPaginator
+                    currentPage={page}
                     itemsPerPage={itemsPerPage}
                     totalItems={totalItems}
                     prevFunction={prevClick}
@@ -52,7 +53,7 @@ const Paginator = (props: { totalItems: string | number, itemsPerPage: number, d
                 />
             </StyledPaginator>
         </>
-    )
-}
+    );
+};
 
 export default Paginator;

@@ -1,8 +1,8 @@
 import { DxcButton, DxcDialog } from '@dxc-technology/halstack-react';
+
 import React from 'react';
 import TicketFormDialog from "../TicketFormDialog/TicketFormDialog";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
-
 
 const CreateButton = () => {
     const [open, setOpen] = React.useState(false);

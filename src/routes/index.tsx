@@ -1,5 +1,6 @@
-import React from "react";
 import {Route, Switch} from "react-router-dom";
+
+import React from "react";
 import routes from "./routes";
 
 export interface CustomProps {
@@ -19,13 +20,11 @@ const applyRoutes = (routes: Array<any>) => {
     );
 }
 
-const applyRoute: React.FC<CustomProps> = ({ component: Component, ...rest}, index: number) => {
-    return (
-        <Route {...rest} key={index} render={
-            (props: any) => <Component {...props} route={rest} />
-        }
-    />);
-}
+const applyRoute: React.FC<CustomProps> = ({ component: Component, ...rest}, index: number) => (
+    <Route {...rest} key={index} render={
+        (props: any) => <Component {...props} route={rest} />
+    }
+    />)
 
 export {applyRoutes};
 export default routes;
