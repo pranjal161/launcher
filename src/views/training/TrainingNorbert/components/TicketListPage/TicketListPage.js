@@ -1,10 +1,11 @@
+import React, {useReducer} from 'react';
+import {initialState, reducer, selectTicket, setCurrentSection} from "../../../../../store/contextualStore/store";
+
 import AllTickets from "../../../../../components/Tickets/AllTickets/AllTickets";
 import Context from "../../../../../store/contextualStore/Context";
-import React, {useReducer} from 'react';
+import {Grid} from "@material-ui/core";
 import TicketSide from "./components/TicketSide/TicketSide";
 import {withTicketStore} from "../../../../../store/contextualStore/withTicketStore";
-import {Grid} from "@material-ui/core";
-import {initialState, reducer, selectTicket, setCurrentSection} from "../../../../../store/contextualStore/store";
 
 /*
 const MyTicketsConnected = () => {
@@ -43,7 +44,7 @@ const TicketSideConnected = () => {
     })
 
     const mapDispatchToProps = (dispatch) => ({
-        onSectionChange: id => dispatch(setCurrentSection(id)),
+        onSectionChange: (id) => dispatch(setCurrentSection(id)),
         onClose: () => dispatch(selectTicket(undefined))
     })
     const Impl = withTicketStore(TicketSide, mapStateToProps, mapDispatchToProps)

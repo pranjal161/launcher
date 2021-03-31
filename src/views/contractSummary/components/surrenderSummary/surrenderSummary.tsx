@@ -1,15 +1,15 @@
-import React from 'react';
-import { useEffect, useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useEffect, useState } from 'react';
+
+import { AppConfig } from 'config/appConfig';
+import { ApplicationContext } from 'context/applicationContext';
+import Chart from 'components/chart/chart';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from 'components/label/label';
-import { ApplicationContext } from 'context/applicationContext';
-import { AppConfig } from 'config/appConfig';
 import axios from 'axios';
 import { formatValue } from 'util/functions';
-import Chart from 'components/chart/chart';
-export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
+import { useTranslation } from 'react-i18next';
 
+export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
     const { t } = useTranslation();
     const [disinvestmentSplitList, setDisinvestmentSplitList] = useState<Array<any>>([]);
     const [surrenderResponse, setSurrenderResponse] = useState<Array<any>>([]);
@@ -29,6 +29,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             setSurrenderResponse(res.data);
             const disinvestmentSplitListItems: any = res.data && res.data['disinvestment_split'] && Array.isArray(res.data['disinvestment_split']) ? res.data['disinvestment_split'] :
                 [res.data['disinvestment_split']];
+
             if (disinvestmentSplitListItems) {
                 let disinvestmentSplitElement: any[] = [];
                 disinvestmentSplitListItems.forEach((element: any) => {
@@ -37,12 +38,13 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                         disinvestmentSplitElement.push(axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }));
                     }
                 });
-                Promise.all(disinvestmentSplitElement).then(disinvestmentRes => {
+                Promise.all(disinvestmentSplitElement).then((disinvestmentRes) => {
                     if (disinvestmentSplitListItems && disinvestmentRes) {
                         let _list: any[] = [];
                         disinvestmentRes.forEach((res) => {
                             const resHref = res.data['_links']['self'].href;
                             const currentItem = disinvestmentSplitListItems.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                            
                             if (currentItem) {
                                 let _result = {
                                     'coverage_fund:label': res.data['coverage_fund:label'],
@@ -51,10 +53,13 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                                     'allocation:amount': currentItem['allocation:amount'],
                                     'allocation:rate': currentItem['allocation:rate']
                                 };
+
                                 _list.push(_result);
                             }
+
                             setDisinvestmentSplitList(_list);
                         });
+
                         buildChartData(disinvestmentRes);
                     }
                 });
@@ -62,13 +67,13 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
         });
     }
 
-
     const buildChartData = (unitFunds: any[]) => {
         if (disinvestmentSplitItem && unitFunds && unitFunds.length > 0) {
             let _list: any[] = [];
             unitFunds.forEach((res) => {
                 const resHref = res.data['_links']['self'].href;
                 const currentItem = disinvestmentSplitItem.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                
                 if (currentItem) {
                     let _result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
@@ -78,9 +83,11 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                         value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value'],
                         allocation_fund: currentItem['allocation:coverage_fund']
                     };
+
                     _list.push(_result);
                 }
             });
+
             setChartData(_list);
         }
     }
@@ -101,10 +108,20 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                             <Label propertyName="surrender:type" label="_TYPE" data={surrenderResponse} />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={surrenderResponse} type="date" />
+                            <Label
+                                propertyName="operation:value_date"
+                                label="_EFFECTIVE_DATE"
+                                data={surrenderResponse}
+                                type="date"
+                            />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={surrenderResponse} type="currency" />
+                            <Label
+                                propertyName="operation:amount"
+                                label="_GROSS_AMOUNT"
+                                data={surrenderResponse}
+                                type="currency"
+                            />
                         </div>
                     </div>
                 </>
@@ -156,8 +173,4 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             )}
         </>
     );
-
-}
-
-
-
+};

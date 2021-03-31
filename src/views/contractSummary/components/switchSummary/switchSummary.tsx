@@ -1,15 +1,15 @@
-import React from 'react';
-import { useEffect, useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useEffect, useState } from 'react';
+
+import { AppConfig } from 'config/appConfig';
+import { ApplicationContext } from 'context/applicationContext';
+import Chart from 'components/chart/chart';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from 'components/label/label';
-import { ApplicationContext } from 'context/applicationContext';
-import { AppConfig } from 'config/appConfig';
 import axios from 'axios';
-import Chart from 'components/chart/chart';
 import { formatValue } from 'util/functions';
-export const SwitchSummary = (props: { switchSummaryHref: string }) => {
+import { useTranslation } from "react-i18next";
 
+export const SwitchSummary = (props: { switchSummaryHref: string }) => {
     const { t } = useTranslation();
     const [switchResponse, setSwitchResponse] = React.useState([]);
     const applicationContext = useContext(ApplicationContext);
@@ -28,8 +28,10 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
 
             const investmentSplitListItems: any = res.data && res.data['investment_split'] && Array.isArray(res.data['investment_split']) ? res.data['investment_split'] :
                 [res['investment_split']];
+            
             if (investmentSplitListItems) {
                 let investmentSplitElement: any[] = [];
+                
                 investmentSplitListItems.forEach((element: any) => {
                     if (element && element['allocation:coverage_fund']) {
                         investmentSplit.push(element);
@@ -39,9 +41,11 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                 Promise.all(investmentSplitElement).then((investmentRes: any) => {
                     if (investmentSplitListItems && investmentRes) {
                         let _list: any[] = [];
+                        
                         investmentRes.forEach((res: any) => {
                             const resHref = res.data['_links']['self'].href;
                             const currentItem = investmentSplit.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                            
                             if (currentItem) {
                                 let _result = {
                                     'coverage_fund:label': res.data['coverage_fund:label'],
@@ -50,9 +54,11 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                                     'allocation:amount': currentItem['allocation:amount'],
                                     'allocation:rate': currentItem['allocation:rate']
                                 };
+                                
                                 _list.push(_result);
                             }
                         });
+
                         setinvestmentSplitList(_list);
                         buildChartData(investmentRes);
                     }
@@ -61,13 +67,13 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
         });
     }
 
-
     const buildChartData = (unitFunds: any[]) => {
         if (investmentSplit && unitFunds && unitFunds.length > 0) {
             let _list: any[] = [];
             unitFunds.forEach((res) => {
                 const resHref = res.data['_links']['self'].href;
                 const currentItem = investmentSplit.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                
                 if (currentItem) {
                     let _result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
@@ -77,9 +83,11 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                         value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value'],
                         allocation_fund: currentItem['allocation:coverage_fund']
                     };
+
                     _list.push(_result);
                 }
             });
+
             setChartData(_list);
         }
     }
@@ -101,10 +109,20 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                             <Label propertyName="switch:type_label" label="_TYPE" data={switchResponse} />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:value_date" label="_EFFECTIVE_DATE" data={switchResponse} type="date" />
+                            <Label
+                                propertyName="operation:value_date"
+                                label="_EFFECTIVE_DATE"
+                                data={switchResponse}
+                                type="date"
+                            />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={switchResponse} type="currency" />
+                            <Label
+                                propertyName="operation:amount"
+                                label="_GROSS_AMOUNT"
+                                data={switchResponse}
+                                type="currency"
+                            />
                         </div>
                     </div>
                 </>
@@ -156,8 +174,4 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             )}
         </>
     );
-
-}
-
-
-
+};

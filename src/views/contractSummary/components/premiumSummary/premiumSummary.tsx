@@ -1,15 +1,20 @@
-import React from 'react';
-import { useEffect, useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useEffect, useState } from 'react';
+import { formatValue, getDescriptionValue } from 'util/functions';
+
+import { AppConfig } from 'config/appConfig';
+import { ApplicationContext } from 'context/applicationContext';
+import Chart from 'components/chart/chart';
 import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from 'components/label/label';
 import axios from 'axios';
-import { ApplicationContext } from 'context/applicationContext';
-import { formatValue, getDescriptionValue } from 'util/functions';
-import { AppConfig } from 'config/appConfig';
-import Chart from 'components/chart/chart';
-export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
+import { useTranslation } from 'react-i18next';
 
+/**
+ * Display premium summary in a table
+ * @param {props} props Contains information related to the premium
+ * @returns {*} Return information of the  in a table
+ */
+export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
     const { t } = useTranslation();
     const [distributionList, setDistributionList] = React.useState([]);
     const [premiumResponse, setPremiumResponse] = React.useState();
@@ -34,15 +39,22 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                     }
                     investmentSplitData(investmentFundsRes);
                 }
-                const distributionListItems: any = res.data['distribution_list'] && Array.isArray(res.data['distribution_list']) ? res.data['distribution_list'] :
-                    [res.data['distribution_list']];
+                const distributionListItems: any =
+                    res.data['distribution_list'] && Array.isArray(res.data['distribution_list'])
+                        ? res.data['distribution_list']
+                        : [res.data['distribution_list']];
                 setDistributionList(distributionListItems);
             });
         }
-    }
+    };
 
+    /**
+     * Split data of the investment
+     * @param {data} data Contains information related to the investment
+     * @returns {void} Load and set information of the investment in a chart
+     */
     function investmentSplitData(data: any) {
-        const investmentFunds: any[] = []
+        const investmentFunds: any[] = [];
         data.forEach((element: any) => {
             if (element['allocation:coverage_fund']) {
                 const fundsUrl = element['allocation:coverage_fund'];
@@ -54,7 +66,10 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
             setInvestmentFundsResItems(investmentFundsArray);
             investmentFundsArray.forEach((res: any) => {
                 const resHref = res.data['_links']['self'].href;
-                const currentItem = data.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
+                const currentItem = data.find(
+                    (item: { [x: string]: any }) => item['allocation:coverage_fund'] === resHref,
+                );
+                
                 if (currentItem) {
                     let result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
@@ -64,9 +79,11 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                         allocation_fund: currentItem['allocation:coverage_fund'],
                         value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value']
                     };
+                    
                     investmentFundsPayload.push(result);
                 }
             });
+            
             setChartData(investmentFundsPayload);
         });
     }
@@ -88,13 +105,28 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                             <Label propertyName="premium:type" label="_TYPE" data={premiumResponse} />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="premium:due_date" label="_EFFECTIVE_DATE" data={premiumResponse} type="date" />
+                            <Label
+                                propertyName="premium:due_date"
+                                label="_EFFECTIVE_DATE"
+                                data={premiumResponse}
+                                type="date"
+                            />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:amount" label="_GROSS_AMOUNT" data={premiumResponse} type="currency" />
+                            <Label
+                                propertyName="operation:amount"
+                                label="_GROSS_AMOUNT"
+                                data={premiumResponse}
+                                type="currency"
+                            />
                         </div>
                         <div className="col-6">
-                            <Label propertyName="operation:net_amount" label="_NET_AMOUNT" data={premiumResponse} type="currency"  />
+                            <Label
+                                propertyName="operation:net_amount"
+                                label="_NET_AMOUNT"
+                                data={premiumResponse}
+                                type="currency"
+                            />
                         </div>
                     </div>
                 </>
@@ -103,7 +135,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                 <>
                     <h5>{t('_PREMIUM_DISTRIBUTION_LIST')}</h5>
                     <DxcTable>
-                        <tr >
+                        <tr>
                             <th>{t('_PREMIUM_FUND_LABEL')}</th>
                             <th>{t('_PREMIUM_DISTRIBUTION_TYPE')}</th>
                             <th>{t('_PREMIUM_DISTRIBUTION_AMOUNT')}</th>
@@ -112,7 +144,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                             <tr key={i}>
                                 <td>{row['product_component_label']}</td>
                                 <td>{row['premium_distribution_item:type_label']}</td>
-                                <td>{formatValue(row['premium_distribution_item:amount'], "currency")}</td>
+                                <td>{formatValue(row['premium_distribution_item:amount'], 'currency')}</td>
                             </tr>
                         ))}
                     </DxcTable>
@@ -132,7 +164,13 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                         {investmentFundsResItems.map((row: any, i: number) => (
                             <tr key={i}>
                                 <td>{row['data']['coverage_fund:label']}</td>
-                                <td>{getDescriptionValue(row['data']['coverage_fund:type'], 'coverage_fund:type', premiumResponse)}</td>
+                                <td>
+                                    {getDescriptionValue(
+                                        row['data']['coverage_fund:type'],
+                                        'coverage_fund:type',
+                                        premiumResponse,
+                                    )}
+                                </td>
                                 <td>{row['data']['interest_fund:s_r_r_']}</td>
                                 <td>{row['data']['interest_fund:net_cash_value']}</td>
                                 <td>{row['data']['contract_allocation_rate']}</td>
@@ -148,7 +186,4 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
             )}
         </>
     );
-
-}
-
-
+};

@@ -1,3 +1,4 @@
+import Training from "./training";
 import TrainingAkruti from "./TrainingAkruti";
 import TrainingJeenal from "./TrainingJeenal";
 import TrainingMaxime from "./TrainingMaxime";
@@ -7,9 +8,8 @@ import TrainingPranjal from"./TrainingPranjal";
 import TrainingQuentin from"./TrainingQuentin";
 import TrainingShivani from"./TrainingShivani";
 import TrainingSuhani from"./TrainingSuhani";
-import Training from "./training";
 
- const Trainers = {
+const Trainers = {
     TrainingAkruti, TrainingJeenal, TrainingMaxime, TrainingNikolay, TrainingNorbert, TrainingPranjal,
     TrainingQuentin, TrainingShivani, TrainingSuhani, Training 
 }
