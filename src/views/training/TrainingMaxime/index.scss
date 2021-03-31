@@ -1,0 +1,24 @@
+.training-maxime-container {
+    margin: auto;
+    width: 650px;
+    height: 350px;
+    background: rgb(240, 240, 240);
+
+    margin-top: 50px;
+    padding: 10px;
+
+    .dataline-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        width: 100%;
+
+        .label {
+            width: 50%;
+        }
+        .data {
+            width: 50%;
+        }
+    }
+}
