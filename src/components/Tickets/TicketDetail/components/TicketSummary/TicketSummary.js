@@ -15,6 +15,7 @@ import Upload from "../Upload/Upload";
 import {formatValue} from "util/functions";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
+import UserSelection from "./components/UserSelection/UserSelection";
 
 
 const Divider = () => <hr className="solid"/>
@@ -97,10 +98,22 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                         <DateValue date={ticket.deadlineDate}/>
                     </DataLine>
                     <DataLine label={<Label>Created by</Label>}>
-                        <PersonValue personId={ticket.creatorId}/>
+                        <EditableField
+                            field="creatorId"
+                            type="select"
+                            value={<PersonValue personId={ticket.creatorId}/>}
+                            onChange={handleEditChange}>
+                            <UserSelection value={ticket.creatorId}/>
+                        </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Person in charge</Label>}>
-                        <PersonValue personId={ticket.assignedTo}/>
+                        <EditableField
+                            field="assignedTo"
+                            type="select"
+                            value={<PersonValue personId={ticket.assignedTo}/>}
+                            onChange={handleEditChange}>
+                            <UserSelection value={ticket.assignedTo}/>
+                        </EditableField>
                     </DataLine>
                     <Divider/>
                 </Section>

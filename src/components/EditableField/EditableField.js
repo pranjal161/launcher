@@ -6,18 +6,20 @@ import React, {useState} from "react";
 
 
 
-const EditableField = ({value = "empty", field, mode = "updateOnHover", type, onChange, children}) => {
-    const [newValue, setNewValue ] = useState(value)
-    const handleEditChange =(value) => setNewValue(value)
+const EditableField = ({value, field, mode = "updateOnHover", type, onChange, children}) => {
+    const [newValue, setNewValue ] = useState()
+    const handleEditChange =(value) => {console.log('Change handleEditChange', value) ; setNewValue(value)}
     const mapChangeEvent = {
         input: {onBlur:(value) => handleEditChange(value)},
         date: {onBlur:(value) => handleEditChange(value)},
         select: {onChange:(value) => handleEditChange(value)},
     }
 
-    const updateComponent = children && <children.type {...children.props} {...mapChangeEvent[type]}></children.type>
+    const updateComponent = children && <children.type {...children.props} value={newValue} {...mapChangeEvent[type]}></children.type>
     const elementId = field
     const [isEditable, setIsEditable] = React.useState(false);
+
+    console.log('value', value)
 
     const validateChange = () => {
         setIsEditable(false);
