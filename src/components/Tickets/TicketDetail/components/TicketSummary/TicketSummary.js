@@ -18,6 +18,7 @@ import {DxcChip, DxcBox} from '@dxc-technology/halstack-react';
 import moment from "moment";
 import { AddIcon, DotsIcon } from "../../../../../../src/assets/svg";
 import { StyledButton } from '../../../../../../src/styles/global-style';
+import RelatedClient from './components/RelatedClient/RelatedClient';
 
 
 const Divider = () => <hr className="solid" />
@@ -55,7 +56,12 @@ const TicketSummary = ({ticket}) => {
         }</>
     )
 
-    const Document = ({ document }) => {
+    const { addRelatedClients } = useDeskTickets();
+    const handleAddRelatedClient = () => {
+        addRelatedClients('y270CCciTszudNrTtK6g', 'Pet')
+    }
+
+    const Document = ({document}) => {
         const handleClick = (e) => {
             e.preventDefault()
             window.open(document.url)
@@ -106,11 +112,12 @@ const TicketSummary = ({ticket}) => {
                     <Description description={ticket.description}/>
                 </Section>
                 <Divider/>
-                <Section id="relatedClients" title="Related Client">
-                    <DataLine label={<Label>Client</Label>}>
-                        <LinkedClient client={{displayName: "John Doe"}} urj={"jkjk"}/>
-                    </DataLine>
-                </Section>
+                <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>} children={onclick}>
+                        <DataLine label={<Label>Client</Label>}>
+                        {/* <LinkedClient client={{displayName: ticket.relatedClients}} urj={"jkjk"} /> */}
+                            <RelatedClient relatedClient={ticket.relatedClients} onClick={onclick} />
+                        </DataLine>
+                    </Section>
                 <Divider/>
                 <Section id="relatedContracts" title="Related Contracts">
                     <DataLine label={<Label>Contract</Label>}>

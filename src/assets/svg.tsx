@@ -126,14 +126,10 @@ export const RoundIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
 )
 
-export const AddIcon = () => {
-    return (
-    <svg viewBox="0 0 16 16" height="24" width="24" focusable="false" role="img" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Plus icon</title><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path></svg>
-    )
-}
+export const AddIcon = () => (
+       <svg viewBox="0 0 16 16" height="24" width="24" focusable="false" role="img" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Plus icon</title><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path></svg>
+)
 
-export const DotsIcon = () => {
-    return (
+export const DotsIcon = () => (
         <svg viewBox="0 0 16 16" height="48" width="48" focusable="false" role="img" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>ThreeDots icon</title><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path></svg>
-    )
-}
+)

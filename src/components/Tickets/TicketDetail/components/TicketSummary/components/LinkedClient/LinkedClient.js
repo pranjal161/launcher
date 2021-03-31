@@ -5,8 +5,8 @@ import styled from "styled-components";
 const Root = styled.a`
    color: blue;
  `;
-const LinkedClient = ({client, url}) => (
-    <Root href={url}>{client.displayName}</Root>
+const LinkedClient = ({client, url, display}) => (
+    <Root href={url}>{client.displayName}{display} </Root>
 )
 
 LinkedClient.propTypes = {
