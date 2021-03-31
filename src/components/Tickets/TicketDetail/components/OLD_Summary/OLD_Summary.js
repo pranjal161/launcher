@@ -1,9 +1,11 @@
+import {Card, CardActions, CardContent, CardHeader, List, ListItem, Typography} from '@material-ui/core';
+
+import CloseIcon from '@material-ui/icons/Close';
+import PropTypes from 'prop-types'
 import React from 'react';
 import clsx from 'clsx';
-import moment from 'moment';
 import {makeStyles} from '@material-ui/styles';
-import {Card, CardActions, CardContent, CardHeader, List, ListItem, Typography} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import moment from 'moment';
 
 const useStyles = makeStyles(() => ({
     root: {},
@@ -19,7 +21,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const OLD_Summary = props => {
+const OLD_Summary = (props) => {
     const {ticket, className, actions, onClose, sectionId, ...rest} = props;
 
     const classes = useStyles();
@@ -101,5 +103,12 @@ const OLD_Summary = props => {
     );
 };
 
+OLD_Summary.propTypes = {
+    ticket: PropTypes.string,
+    className: PropTypes.string,
+    actions: PropTypes.string,
+    onClose: PropTypes.func,
+    sectionId: PropTypes.string
+}
 
 export default OLD_Summary;

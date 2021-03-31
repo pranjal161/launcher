@@ -36,11 +36,11 @@ const basketReducer = (state = initialState, action) => {
         case 'ASSIGN_USER_BASKET_ERROR':
             return {...state, assignUserToBasketStatus:'error'}
 
-        case 'ASSIGN_USER_BASKET_PENDING':
+        case 'REMOVE_USER_BASKET_PENDING':
             return {...state, removeUserToBasketStatus:'pending'}
-        case 'ASSIGN_USER_BASKET_SUCCESS':
+        case 'REMOVE_USER_BASKET_SUCCESS':
             return {...state, removeUserToBasketStatus:'done'}
-        case 'ASSIGN_USER_BASKET_ERROR':
+        case 'REMOVE_USER_BASKET_ERROR':
             return {...state, removeUserToBasketStatus:'error'}
 
         default:
