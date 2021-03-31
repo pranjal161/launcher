@@ -1,9 +1,9 @@
 import "./EditableField.scss";
 
-import {CloseIconMinimize, DoneIconMinimize} from "./../../assets/svg";
+import {CloseIconMinimize, DoneIconMinimize} from "assets/svg";
 import React from "react";
 
-const EditableField = ({value = "empty", onChange, fieldName, mode = "readOnly", focusComponent, type}) => {
+const EditableField = ({value = "empty", fieldName, mode = "readOnly", focusComponent, type}) => {
 
     const [isEditable, setIsEditable] = React.useState(false);
 
@@ -89,7 +89,7 @@ const EditableField = ({value = "empty", onChange, fieldName, mode = "readOnly",
                         (
                             <div className="value-uneditable-container">
                                 <span className="value-uneditable edit-onHover" data-test="editable-input-uh2"
-                                      onClick={() => modifyValue()}> {value}</span>
+                                    onClick={() => modifyValue()}> {value}</span>
                             </div>
                         )
                 }
