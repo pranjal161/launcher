@@ -1,6 +1,7 @@
 import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
 
 import DataLine from "./components/DataLine/DataLine";
+import Documents from './components/documents/documents';
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
@@ -12,7 +13,6 @@ import Upload from "../Upload/Upload";
 import {formatValue} from "util/functions";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
-import Documents from './components/documents/documents';
 
 const Divider = () => <hr className="solid"/>
 
