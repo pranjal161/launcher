@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import React from 'react';
-import { StyledLabel } from '../../styles/global-style';
-import { formatValue, getDescriptionFromOneOf } from '../../util/functions';
+import { StyledLabel } from 'styles/global-style';
+import { formatValue, getDescriptionFromOneOf } from 'util/functions';
 
 const Label = (props: { label?: string, propertyName: string, data: any, type?: string }) => {
 

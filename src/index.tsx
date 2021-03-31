@@ -10,6 +10,7 @@ import {Provider} from "react-redux";
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+import 'firebase/storage'
 import 'firebase/firestore' // make sure you add this for firestore
 import {ReactReduxFirebaseProvider} from 'react-redux-firebase'
 import {createFirestoreInstance} from 'redux-firestore'
