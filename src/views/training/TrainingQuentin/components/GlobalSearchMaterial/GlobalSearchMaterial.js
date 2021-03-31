@@ -23,7 +23,6 @@ const GlobalSearchMaterial = ({entitiesList, onSearch, onSelect}) => {
     const [isLoading, setIsLoading] = React.useState(false);
 
     const [searchValue, setSearchValue] = React.useState("");
-    // const [selectedResult, setSelectedResult] = React.useState("");
 
     const [resultsList, setResultsList] = React.useState([]);
 

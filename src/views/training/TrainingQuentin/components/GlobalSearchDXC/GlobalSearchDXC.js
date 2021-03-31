@@ -19,10 +19,8 @@ const GlobalSearchDXC = ({entitiesList, onSearch, onSelect}) => {
     const [isLoading, setIsLoading] = React.useState(false);
 
     const [searchValue, setSearchValue] = React.useState("");
-    // const [selectedResult, setSelectedResult] = React.useState("");
 
     const [resultsList, setResultsList] = React.useState([]);
-    const [suggestions, setSuggestions] = React.useState([]);
 
     const handleEntityChange = (newValue) => {
         console.log("Entity : ", newValue);
@@ -40,7 +38,6 @@ const GlobalSearchDXC = ({entitiesList, onSearch, onSelect}) => {
 
     const searchData = async (value) => {
         setResultsList([]);
-        setSuggestions([]);
         setIsLoading(true);
         setSearchValue(value);
 
