@@ -182,6 +182,15 @@ export const NewWindowIcon = () => (
     </svg>
 )
 
+
+export const AddIcon = () => (
+       <svg viewBox="0 0 16 16" height="24" width="24" focusable="false" role="img" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Plus icon</title><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path></svg>
+)
+
+export const DotsIcon = () => (
+        <svg viewBox="0 0 16 16" height="48" width="48" focusable="false" role="img" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>ThreeDots icon</title><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path></svg>
+)
+
 export const CloseIconMinimize = () => (
     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
         <path d="M0 0h24v24H0z" fill="none"/>
@@ -194,4 +203,5 @@ export const DoneIconMinimize = () => (
         <path d="M0 0h24v24H0z" fill="none"/>
         <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
     </svg>)
+
 
