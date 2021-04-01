@@ -5,25 +5,24 @@ import {
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
-import React, {useCallback} from "react";
-
 import DataLine from "./components/DataLine/DataLine";
 import Documents from "./components/documents/documents";
 import EditableField from "../../../../EditableField/EditableField";
+import {formatValue} from "util/functions";
 import Label from "./components/Label/Label";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
+import moment from "moment";
 import PropTypes from "prop-types";
+import React, {useCallback} from "react";
+import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
+import { StyledButton } from '../../../../../../src/styles/global-style';
 import {TextField} from "@material-ui/core";
-
 import Upload from "../Upload/Upload";
-import UserSelection from "./components/UserSelection/UserSelection";
-
-import {formatValue} from "util/functions";
-import moment from "moment";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
+import UserSelection from "./components/UserSelection/UserSelection";
 
 const Divider = () => <hr className="solid"/>;
 
