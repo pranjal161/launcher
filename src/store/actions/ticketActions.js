@@ -180,13 +180,13 @@ export const executeActivity = (id, activityId) => (dispatch, getState, {getFire
     })
 }
 
-export const uploadDocument = (id, name, blob) => (dispatch, getState, {getFirebase}) => {
+export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase()
 
     const filesPath = `/tickets/${id}`
     const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
     uploadPromise.then((uploadResult) => {
-        addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now()})(dispatch, getState, {getFirebase})
+        addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now(), type})(dispatch, getState, {getFirebase})
     })
 
     return uploadPromise

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import NewWindowPortal from "../../../components/newWindowPortal/newWindowPortal";
 import TicketSummary from "./components/TicketSummary/TicketSummary";
 import UpdateButton from "./components/UpdateButton/UpdateButton";
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
@@ -21,6 +22,8 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
     const removeHandle = () => remove(id) && onRemove && onRemove(id)
     const closeHandle = () => onClose && onClose()
 
+    const [openPopup, setOpenPopup] = useState(false);
+
     const assignButton = ticket && ticket.assignedTo === currentUserId ?
         <a href="#" className="btn btn-warning ml-2" onClick={removeToCurrentUser}>Unassign to me</a> :
         <a href="#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
@@ -28,9 +31,30 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
     const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Remove</a>{assignButton}
         <UpdateButton ticket={ticket}/></>)
 
+    const popupHandle = () => {
+        setOpenPopup(true);
+    }
+
     if (ticket) {
         return (
-            <TicketSummary ticket={ticket} actions={Actions} onClose={closeHandle} sectionId={sectionId}/>
+            <>
+                <TicketSummary 
+                    ticket={ticket} 
+                    actions={Actions} 
+                    onClose={closeHandle} 
+                    onPopupWindow={popupHandle}
+                    showPopupIcon={true}
+                    sectionId={sectionId}/>
+
+                {openPopup &&
+                <NewWindowPortal>
+                    <TicketSummary 
+                        ticket={ticket} 
+                        actions={Actions} 
+                        onClose={closeHandle} 
+                        sectionId={sectionId}/>
+                </NewWindowPortal>}
+            </>
         )
     } 
     else
