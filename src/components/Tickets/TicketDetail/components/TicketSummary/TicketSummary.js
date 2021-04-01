@@ -1,46 +1,43 @@
-import {CloseIcon, NewWindowIcon} from "assets/svg";
-
+import { AddIcon, CloseIcon, NewWindowIcon } from "../../../../../assets/svg";
 import {
     DxcBox,
     DxcChip,
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
-import React, {useCallback} from "react";
+import React, { useCallback } from "react";
 
 import DataLine from "./components/DataLine/DataLine";
-import Documents from "./components/documents/documents";
 import EditableField from "../../../../EditableField/EditableField";
 import Label from "./components/Label/Label";
-import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
 import PropTypes from "prop-types";
+import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
-import {TextField} from "@material-ui/core";
-
+import { StyledButton } from '../../../../../../src/styles/global-style';
+import { TextField } from "@material-ui/core";
 import Upload from "../Upload/Upload";
 import UserSelection from "./components/UserSelection/UserSelection";
-
-import {formatValue} from "util/functions";
+import { formatValue } from "util/functions";
 import moment from "moment";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
 
-const Divider = () => <hr className="solid"/>;
+const Divider = () => <hr className="solid" />;
 
-const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
-    const {update, assignTo, createdBy} = useDeskTickets()
+const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, actions }) => {
+    const { update, assignTo, createdBy } = useDeskTickets()
     const TitleValue = () => (<>{ticket.title}</>)
-    const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
-    const PersonValue = ({personId}) => {
-        const {getOne} = useDeskUsers()
+    const DateValue = ({ date }) => (<>{formatValue(date, 'date')}</>)
+    const PersonValue = ({ personId }) => {
+        const { getOne } = useDeskUsers()
         const person = useCallback(getOne(personId), [personId])
         return (<> {person && person.displayName}  </>)
     }
 
-    const SuggestedActivity = ({activity}) => {
-        const {executeActivity} = useDeskTickets()
+    const SuggestedActivity = ({ activity }) => {
+        const { executeActivity } = useDeskTickets()
         const handleClick = (e) => {
             e.preventDefault()
             executeActivity(ticket.id, activity)
@@ -56,15 +53,45 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
         )
     }
 
-    const SuggestedActivities = ({activities}) => (
+    const SuggestedActivities = ({ activities }) => (
         < > {activities && Object.keys(activities).map((activity, index) => (
-            <SuggestedActivity key={index} activity={activity}/>))
+            <SuggestedActivity key={index} activity={activity} />))
         }</>
     )
 
+    const { addRelatedClients } = useDeskTickets();
+    const handleAddRelatedClient = () => {
+        addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
+    }
 
-    const Description = ({description}) => (<p style={{maxHeight:'200px'}}>{description}</p>)
-    const DxcDate2 = ({date, id, ...rest}) => (<TextField
+
+    const Document = ({ document }) => {
+        const handleClick = (e) => {
+            e.preventDefault()
+            window.open(document.url)
+        }
+
+        return (
+            <a href="" onClick={handleClick}
+                className="list-group-item list-group-item-action flex-column align-items-start">
+                <div className="mx-auto text-info">
+                    <small>{moment(document.receivedDate).fromNow()}</small>
+                </div>
+                <div>{document.name}</div>
+            </a>
+        )
+    }
+
+    const Documents = ({ documents }) => (
+        <lu className={"list-group"}>
+            {documents && Object.values(documents).map((document, index) => (
+                <Document key={index} document={document} />))}
+        </lu>
+    )
+
+
+    const Description = ({ description }) => (<p style={{ maxHeight: '200px' }}>{description}</p>)
+    const DxcDate2 = ({ date, id, ...rest }) => (<TextField
         id={id}
         type="date"
         defaultValue={moment(date).format("YYYY-MM-D")}
@@ -77,18 +104,19 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     DxcDate2.propTypes = {
         date: PropTypes.string,
         id: PropTypes.string,
-        rest:PropTypes.any
+        rest: PropTypes.any
     }
 
+
     const closePopupAction = (
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
             {showPopupIcon &&
-            <div onClick={onPopupWindow}>
-                <NewWindowIcon/>
-            </div>
+                <div onClick={onPopupWindow}>
+                    <NewWindowIcon />
+                </div>
             }
             <div onClick={onClose}>
-                <CloseIcon/>
+                <CloseIcon />
             </div>
         </div>
     )
@@ -96,7 +124,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleEditChange = useCallback((field, newValue) => {
         //console.log('handleEditChange',field, newValue)
-        update({...ticket, [field]: newValue})
+        update({ ...ticket, [field]: newValue })
     }, [ticket])
 
     const handleAssignTo = useCallback((field, newValue) => {
@@ -113,19 +141,19 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                 <Section id="actions" title="Actions">
                     {actions}
                 </Section>
-                <Divider/>
+                <Divider />
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
                         <EditableField
                             field="title"
                             type="input"
-                            displayValue={<TitleValue/>}
+                            displayValue={<TitleValue />}
                             value={ticket.title}
                             onChange={handleEditChange}>
                             <DxcInput
                                 placeholder={ticket.title}
                                 margin="xsmall"
-                                size="fillParent"/>
+                                size="fillParent" />
                         </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Received on</Label>}>
@@ -133,9 +161,9 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                             field="receivedDate"
                             type="date"
                             value={ticket.receivedDate}
-                            displayValue={<DateValue date={ticket.receivedDate}/>}
+                            displayValue={<DateValue date={ticket.receivedDate} />}
                             onChange={handleEditChange}>
-                            <DxcDate2 date={ticket.receivedDate} id="receivedDate"/>
+                            <DxcDate2 date={ticket.receivedDate} id="receivedDate" />
                         </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Deadline</Label>}>
@@ -143,9 +171,9 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                             field="deadlineDate"
                             type="date"
                             value={ticket.deadlineDate}
-                            displayValue={<DateValue date={ticket.deadlineDate}/>}
+                            displayValue={<DateValue date={ticket.deadlineDate} />}
                             onChange={handleEditChange}>
-                            <DxcDate2 date={ticket.deadlineDate} id="deadlineDate"/>
+                            <DxcDate2 date={ticket.deadlineDate} id="deadlineDate" />
                         </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Created by</Label>}>
@@ -153,9 +181,9 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                             field="createdBy"
                             type="select"
                             value={ticket.createdBy}
-                            displayValue={<PersonValue personId={ticket.createdBy}/>}
+                            displayValue={<PersonValue personId={ticket.createdBy} />}
                             onChange={handleCreatedBy}>
-                            <UserSelection/>
+                            <UserSelection />
                         </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Person in charge</Label>}>
@@ -163,35 +191,32 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                             field="assignedTo"
                             type="select"
                             value={ticket.assignedTo}
-                            displayValue={<PersonValue personId={ticket.assignedTo}/>}
+                            displayValue={<PersonValue personId={ticket.assignedTo} />}
                             onChange={handleAssignTo}>
-                            <UserSelection/>
+                            <UserSelection />
                         </EditableField>
                     </DataLine>
-                    <Divider/>
+                    <Divider />
                 </Section>
                 <Section id="description" title="Description">
                     <EditableField
                         field="description"
                         type="textarea"
                         value={ticket.description}
-                        displayValue={<Description description={ticket.description}/>}
+                        displayValue={<Description description={ticket.description} />}
                         onChange={handleEditChange}>
-                        <DxcTextarea/>
+                        <DxcTextarea />
                     </EditableField>
                 </Section>
-                <Divider/>
-                <Section id="relatedClients" title="Related Client">
-                    <DataLine label={<Label> Client </Label>}>
-                        <LinkedClient
-                            client={{
-                                displayName: "John Doe",
-                            }}
-                            urj={"jkjk"}
-                        />
+                <Divider />
+                <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>}>
+                    <DataLine label={<Label>Client</Label>}>
+                        {/* <LinkedClient client={{displayName: ticket.relatedClients}} urj={"jkjk"} /> */}
+                        <RelatedClient relatedClient={ticket.relatedClients} onClick={onclick} />
                     </DataLine>
                 </Section>
-                <Divider/>
+
+                <Divider />
                 <Section id="relatedContracts" title="Related Contracts">
                     <DataLine label={<Label> Contract </Label>}>
                         <LinkedContract
@@ -218,21 +243,21 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                         />
                     </DataLine>
                 </Section>
-                <Divider/>
+                <Divider />
                 <Section id="suggestedActivities" title="Suggested activities">
-                    <SuggestedActivities activities={ticket.suggestedActivities}/>
+                    <SuggestedActivities activities={ticket.suggestedActivities} />
                 </Section>
-                <Divider/>
+                <Divider />
                 <Section id="notes" title="Notes">
                     <lu className={"list-group"}>
                         <li className="list-group-item"> Note 1</li>
                         <li className="list-group-item"> Note 2</li>
                     </lu>
                 </Section>
-                <Divider/>
+                <Divider />
                 <Section id="documents" title="Documents">
-                    <Documents documents={ticket.documents}/>
-                    <Upload ticketId={ticket.id}/>
+                    <Documents documents={ticket.documents} />
+                    <Upload ticketId={ticket.id} />
                 </Section>
             </Sections>
         </DxcBox>
