@@ -6,7 +6,6 @@
         display: flex;
         align-items: center;
         min-width: 80%;
-        height: 100%;
         padding: 1px;
 
 
@@ -30,6 +29,7 @@
 
     .editable-input-container {
         height: 35px;
+        width: 100%;
         display: flex;
         align-items: center;
         // All following css is to overwrite css from CDK to avoid offset in the render
@@ -51,6 +51,7 @@
     }
     .editable-textarea-container {
         height: 100px;
+        width: 100%;
         display: flex;
         align-items: center;
         // All following css is to overwrite css from CDK to avoid offset in the render
