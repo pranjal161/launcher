@@ -6,14 +6,13 @@ import {
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
 import DataLine from "./components/DataLine/DataLine";
-import Documents from "./components/documents/documents";
 import EditableField from "../../../../EditableField/EditableField";
 import {formatValue} from "util/functions";
 import Label from "./components/Label/Label";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
 import moment from "moment";
 import PropTypes from "prop-types";
-import React, {useCallback} from "react";
+import React, useCallback from "react";
 import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
