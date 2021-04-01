@@ -6,7 +6,7 @@ const Root = styled.a`
    color: blue;
  `;
 const LinkedClient = ({client, url, display}) => (
-    <Root href={url}>{client.displayName}{display} </Root>
+    <Root href={url}>{client}{display} </Root>
 )
 
 LinkedClient.propTypes = {

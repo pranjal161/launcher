@@ -1,5 +1,4 @@
 import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
-
 import DataLine from "./components/DataLine/DataLine";
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
@@ -13,9 +12,6 @@ import {formatValue} from "../../../../../util/functions";
 import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
-import { formatValue } from "../../../../../util/functions";
-import {DxcChip, DxcBox} from '@dxc-technology/halstack-react';
-import moment from "moment";
 import { AddIcon, DotsIcon } from "../../../../../../src/assets/svg";
 import { StyledButton } from '../../../../../../src/styles/global-style';
 import RelatedClient from './components/RelatedClient/RelatedClient';
