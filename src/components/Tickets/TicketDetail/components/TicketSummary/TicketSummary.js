@@ -1,6 +1,6 @@
 import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
 import {DxcBox, DxcChip, DxcInput} from '@dxc-technology/halstack-react';
-
+import React, {useCallback} from 'react';
 import DataLine from "./components/DataLine/DataLine";
 import Documents from './components/documents/documents';
 import EditableField from "../../../../EditableField/EditableField";
@@ -8,7 +8,6 @@ import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
 import PropTypes from 'prop-types'
-import React, {useCallback, useMemo} from 'react';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
@@ -21,13 +20,13 @@ import UserSelection from "./components/UserSelection/UserSelection";
 const Divider = () => <hr className="solid"/>
 
 const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
-    const {update} = useDeskTickets()
+    const {update, assignTo, createdBy} = useDeskTickets()
     const TitleValue = () => (<>{ticket.title}</>)
     const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
     const PersonValue = ({personId}) => {
         const {getOne} = useDeskUsers()
-        const person = useCallback( getOne(personId),[personId])
-        return (<>{person && person.displayName} </>)
+        const person = useCallback(getOne(personId), [personId])
+        return (<> {person && person.displayName}  </>)
     }
 
     const SuggestedActivity = ({activity}) => {
@@ -70,10 +69,18 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     )
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const handleEditChange = useCallback( (field, newValue) => {
-        console.log('Update',field, newValue)
-        update({...ticket, [field]:newValue})
-    },[ticket])
+    const handleEditChange = useCallback((field, newValue) => {
+        update({...ticket, [field]: newValue})
+    }, [ticket])
+
+    const handleAssignTo = useCallback((field, newValue) => {
+        assignTo(ticket.id, newValue)
+    }, [ticket])
+
+    const handleCreatedBy = useCallback((field, newValue) => {
+        createdBy(ticket.id, newValue)
+    }, [ticket])
+
     return (
         <DxcBox>
             <Sections title={"Ticket detail"} actions={closePopupAction}>
@@ -102,12 +109,12 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                     </DataLine>
                     <DataLine label={<Label>Created by</Label>}>
                         <EditableField
-                            field="creatorId"
+                            field="createdBy"
                             type="select"
-                            value={ticket.creatorId}
-                            displayValue={<PersonValue personId={ticket.creatorId}/>}
-                            onChange={handleEditChange}>
-                            <UserSelection />
+                            value={ticket.createdBy}
+                            displayValue={<PersonValue personId={ticket.createdBy}/>}
+                            onChange={handleCreatedBy}>
+                            <UserSelection/>
                         </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Person in charge</Label>}>
@@ -116,7 +123,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                             type="select"
                             value={ticket.assignedTo}
                             displayValue={<PersonValue personId={ticket.assignedTo}/>}
-                            onChange={handleEditChange}>
+                            onChange={handleAssignTo}>
                             <UserSelection/>
                         </EditableField>
                     </DataLine>

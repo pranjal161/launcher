@@ -6,8 +6,8 @@ import useDeskUsers from "data/hooks/useDeskUsers";
 const UserSelection = (props:any) => {
     const { getAll } = useDeskUsers()
     const allUsers = getAll()
-    const usersOptions = allUsers && allUsers.map((user: { id: any; firstName: any; lastName: any; }) => (
-        { value: user.id, label: user.firstName + ' ' + user.lastName }
+    const usersOptions = allUsers && allUsers.map((user: { id: any; displayName: any; }) => (
+        { value: user.id, label: user.displayName }
     ))
     return (
         <DxcSelect
