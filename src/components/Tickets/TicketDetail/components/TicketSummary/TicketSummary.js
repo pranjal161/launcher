@@ -1,5 +1,7 @@
+import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
 import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
 import DataLine from "./components/DataLine/DataLine";
+import Documents from './components/documents/documents';
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
@@ -8,21 +10,19 @@ import React from 'react';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
-import {formatValue} from "../../../../../util/functions";
 import moment from "moment";
-import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
-import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
-import { AddIcon, DotsIcon } from "../../../../../../src/assets/svg";
+import { AddIcon } from "../../../../../../src/assets/svg";
 import { StyledButton } from '../../../../../../src/styles/global-style';
 import RelatedClient from './components/RelatedClient/RelatedClient';
-
+import {formatValue} from "util/functions";
+import useDeskTickets from "data/hooks/useDeskTickets";
+import useDeskUsers from "data/hooks/useDeskUsers";
 
 const Divider = () => <hr className="solid" />
 
-const TicketSummary = ({ticket}) => {
+const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
     const TitleValue = () => (<>{ticket.title}</>)
     const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
-    
     const PersonValue = ({personId}) => {
         const {getOne} = useDeskUsers()
         const person = getOne(personId)
@@ -83,9 +83,25 @@ const TicketSummary = ({ticket}) => {
 
     const Description = ({ description }) => (<p>{description}</p>)
 
+    const closePopupAction = (
+        <div style={{display: 'flex'}}>
+            {showPopupIcon &&
+                <div onClick={onPopupWindow}>
+                    <NewWindowIcon />
+                </div>
+            }
+            <div onClick={onClose}>
+                <CloseIcon />
+            </div>
+        </div>
+    )
+
     return (
         <DxcBox>
-            <Sections title={"Ticket detail"}>
+            <Sections title={"Ticket detail"} actions={closePopupAction}>
+                <Section id="actions" title="Actions">
+                    {actions}
+                </Section>
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
                         <TitleValue/>
@@ -150,6 +166,10 @@ const TicketSummary = ({ticket}) => {
 TicketSummary.propTypes = {
     ticket: PropTypes.string,
     personId: PropTypes.string,
+    showPopupIcon: PropTypes.bool,
+    onPopupWindow: PropTypes.func,
+    onClose: PropTypes.func,
+    actions: PropTypes.any,
     date: PropTypes.instanceOf(Date),
     activity: PropTypes.string,
     activities: PropTypes.array,

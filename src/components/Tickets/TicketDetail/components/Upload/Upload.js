@@ -16,8 +16,8 @@ const Upload = ({ticketId}) => {
                 type: param.type,
             }
         );
-        const name = param.name
-        return uploadDocument(ticketId, name, blob)
+        const name = param.name;
+        return uploadDocument(ticketId, name, blob, param.type)
 
         //Todo : pb d'affichage, on peut aussi sélectionner plusisurs fichiers mais ça ne fonctionne pas
 
