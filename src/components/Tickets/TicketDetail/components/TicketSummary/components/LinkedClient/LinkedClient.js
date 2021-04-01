@@ -11,7 +11,8 @@ const LinkedClient = ({client, url, display}) => (
 
 LinkedClient.propTypes = {
     client: PropTypes.string,
-    url: PropTypes.string
+    url: PropTypes.string,
+    display: PropTypes.string
 }
 
 export default LinkedClient;

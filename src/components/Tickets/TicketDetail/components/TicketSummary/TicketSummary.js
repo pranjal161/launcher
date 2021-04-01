@@ -1,26 +1,24 @@
-import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
+import {CloseIcon, NewWindowIcon, AddIcon} from "../../../../../assets/svg";
 import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
 import DataLine from "./components/DataLine/DataLine";
+import {formatValue} from "util/functions";
 import Label from "./components/Label/Label";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
+import moment from "moment";
 import PropTypes from 'prop-types'
 import React from 'react';
+import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
+import { StyledButton } from '../../../../../../src/styles/global-style';
 import Upload from "../Upload/Upload";
-import moment from "moment";
 import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
 import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
-import { AddIcon } from "../../../../../../src/assets/svg";
-import { StyledButton } from '../../../../../../src/styles/global-style';
-import RelatedClient from './components/RelatedClient/RelatedClient';
-import {formatValue} from "util/functions";
-import useDeskTickets from "data/hooks/useDeskTickets";
-import useDeskUsers from "data/hooks/useDeskUsers";
 
 const Divider = () => <hr className="solid" />
 
 const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
+    console.log("vvvvvvvvvvvvvvvvvvvvvv",ticket);
     const TitleValue = () => (<>{ticket.title}</>)
     const DateValue = ({date}) => (<>{formatValue(date, 'date')}</>)
     const PersonValue = ({personId}) => {
@@ -54,7 +52,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
 
     const { addRelatedClients } = useDeskTickets();
     const handleAddRelatedClient = () => {
-        addRelatedClients('y270CCciTszudNrTtK6g', 'Pet')
+        addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
     }
 
     const Document = ({document}) => {
@@ -124,7 +122,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                     <Description description={ticket.description}/>
                 </Section>
                 <Divider/>
-                <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>} children={onclick}>
+                <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>}>
                         <DataLine label={<Label>Client</Label>}>
                         {/* <LinkedClient client={{displayName: ticket.relatedClients}} urj={"jkjk"} /> */}
                             <RelatedClient relatedClient={ticket.relatedClients} onClick={onclick} />
