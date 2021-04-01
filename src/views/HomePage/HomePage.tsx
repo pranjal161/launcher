@@ -43,7 +43,7 @@ const HomePage = () => {
     return (
         <span className="home-container">
             <div className="welcome-banner">
-                <DxcBox margin="small" padding="medium">
+                <DxcBox margin="small" padding="medium" size="fillParent">
                     Welcome! {profile.firstName} {profile.lastName}
                 </DxcBox>
             </div>
