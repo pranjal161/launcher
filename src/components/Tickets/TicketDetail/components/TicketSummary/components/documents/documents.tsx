@@ -28,13 +28,13 @@ const Documents = (props: { documents: any; }) => {
         <div>
             <li className={"list-group"}>
                 {documents && Object.values(documents).map((document: any, index) => (
-                    <p key={index} onClick={() => handleClick(document)}
+                    <div key={index} onClick={() => handleClick(document)}
                         className="list-group-item list-group-item-action flex-column align-items-start">
                         <div className="mx-auto text-info">
                             <small>{formatValue(document.receivedDate, 'date')}</small>
                         </div>
                         <div>{document.name}</div>
-                    </p>
+                    </div>
                 ))}
             </li>
             {docOpen && content && (

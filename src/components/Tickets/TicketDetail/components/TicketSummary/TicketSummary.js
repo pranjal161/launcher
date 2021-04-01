@@ -1,23 +1,33 @@
-import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
-import {DxcBox, DxcChip, DxcInput} from '@dxc-technology/halstack-react';
-import React, {useCallback} from 'react';
+import {CloseIcon, NewWindowIcon} from "assets/svg";
+
+import {
+    DxcBox,
+    DxcChip,
+    DxcInput,
+    DxcTextarea,
+} from "@dxc-technology/halstack-react";
+import React, {useCallback} from "react";
+
 import DataLine from "./components/DataLine/DataLine";
-import Documents from './components/documents/documents';
+import Documents from "./components/documents/documents";
 import EditableField from "../../../../EditableField/EditableField";
 import Label from "./components/Label/Label";
 import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
+import {TextField} from "@material-ui/core";
+
 import Upload from "../Upload/Upload";
-import {formatValue} from "util/functions";
-import useDeskTickets from "data/hooks/useDeskTickets";
-import useDeskUsers from "data/hooks/useDeskUsers";
 import UserSelection from "./components/UserSelection/UserSelection";
 
+import {formatValue} from "util/functions";
+import moment from "moment";
+import useDeskTickets from "data/hooks/useDeskTickets";
+import useDeskUsers from "data/hooks/useDeskUsers";
 
-const Divider = () => <hr className="solid"/>
+const Divider = () => <hr className="solid"/>;
 
 const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, actions}) => {
     const {update, assignTo, createdBy} = useDeskTickets()
@@ -40,7 +50,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
             <div onClick={handleClick}>
                 <DxcChip
                     label={activity}
-                    margin="xxxsmall"
+                    margin="xxsmall"
                 />
             </div>
         )
@@ -54,6 +64,21 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
 
 
     const Description = ({description}) => (<p>{description}</p>)
+    const DxcDate2 = ({date, id, ...rest}) => (<TextField
+        id={id}
+        type="date"
+        defaultValue={moment(date).format("YYYY-MM-D")}
+        InputLabelProps={{
+            shrink: true,
+        }}
+        {...rest}
+    />)
+
+    DxcDate2.propTypes = {
+        date: PropTypes.string,
+        id: PropTypes.string,
+        rest:PropTypes.any
+    }
 
     const closePopupAction = (
         <div style={{display: 'flex'}}>
@@ -70,6 +95,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleEditChange = useCallback((field, newValue) => {
+        //console.log('handleEditChange',field, newValue)
         update({...ticket, [field]: newValue})
     }, [ticket])
 
@@ -82,7 +108,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     }, [ticket])
 
     return (
-        <DxcBox>
+        <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
             <Sections title={"Ticket detail"} actions={closePopupAction}>
                 <Section id="actions" title="Actions">
                     {actions}
@@ -102,10 +128,24 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                         </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Received on</Label>}>
-                        <DateValue date={ticket.receivedDate}/>
+                        <EditableField
+                            field="receivedDate"
+                            type="date"
+                            value={ticket.receivedDate}
+                            displayValue={<DateValue date={ticket.receivedDate}/>}
+                            onChange={handleEditChange}>
+                            <DxcDate2 date={ticket.receivedDate} id="receivedDate"/>
+                        </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Deadline</Label>}>
-                        <DateValue date={ticket.deadlineDate}/>
+                        <EditableField
+                            field="deadlineDate"
+                            type="date"
+                            value={ticket.deadlineDate}
+                            displayValue={<DateValue date={ticket.deadlineDate}/>}
+                            onChange={handleEditChange}>
+                            <DxcDate2 date={ticket.deadlineDate} id="deadlineDate"/>
+                        </EditableField>
                     </DataLine>
                     <DataLine label={<Label>Created by</Label>}>
                         <EditableField
@@ -130,24 +170,52 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                     <Divider/>
                 </Section>
                 <Section id="description" title="Description">
-                    <Description description={ticket.description}/>
+                    <EditableField
+                        field="description"
+                        type="textarea"
+                        value={ticket.description}
+                        displayValue={<Description description={ticket.description}/>}
+                        onChange={handleEditChange}>
+                        <DxcTextarea/>
+                    </EditableField>
+
                 </Section>
                 <Divider/>
                 <Section id="relatedClients" title="Related Client">
-                    <DataLine label={<Label>Client</Label>}>
-                        <LinkedClient client={{displayName: "John Doe"}} urj={"jkjk"}/>
+                    <DataLine label={<Label> Client </Label>}>
+                        <LinkedClient
+                            client={{
+                                displayName: "John Doe",
+                            }}
+                            urj={"jkjk"}
+                        />
                     </DataLine>
                 </Section>
                 <Divider/>
                 <Section id="relatedContracts" title="Related Contracts">
-                    <DataLine label={<Label>Contract</Label>}>
-                        <LinkedContract client={{displayName: "UI01929821"}} urj={"jkjk"}/>
+                    <DataLine label={<Label> Contract </Label>}>
+                        <LinkedContract
+                            client={{
+                                displayName: "UI01929821",
+                            }}
+                            urj={"jkjk"}
+                        />
                     </DataLine>
-                    <DataLine label={<Label>Contract</Label>}>
-                        <LinkedContract client={{displayName: "UI07292093"}} urj={"jkjk"}/>
+                    <DataLine label={<Label> Contract </Label>}>
+                        <LinkedContract
+                            client={{
+                                displayName: "UI07292093",
+                            }}
+                            urj={"jkjk"}
+                        />
                     </DataLine>
-                    <DataLine label={<Label>Contract</Label>}>
-                        <LinkedContract client={{displayName: "MP27293032"}} urj={"jkjk"}/>
+                    <DataLine label={<Label> Contract </Label>}>
+                        <LinkedContract
+                            client={{
+                                displayName: "MP27293032",
+                            }}
+                            urj={"jkjk"}
+                        />
                     </DataLine>
                 </Section>
                 <Divider/>
@@ -157,8 +225,8 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                 <Divider/>
                 <Section id="notes" title="Notes">
                     <lu className={"list-group"}>
-                        <li className="list-group-item">Note 1</li>
-                        <li className="list-group-item">Note 2</li>
+                        <li className="list-group-item"> Note 1</li>
+                        <li className="list-group-item"> Note 2</li>
                     </lu>
                 </Section>
                 <Divider/>
@@ -168,8 +236,8 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                 </Section>
             </Sections>
         </DxcBox>
-    )
-}
+    );
+};
 
 TicketSummary.propTypes = {
     ticket: PropTypes.string,
@@ -184,7 +252,7 @@ TicketSummary.propTypes = {
     document: PropTypes.string,
     documents: PropTypes.array,
     description: PropTypes.string,
-    receivedDate: PropTypes.instanceOf(Date)
-}
+    receivedDate: PropTypes.instanceOf(Date),
+};
 
 export default TicketSummary;

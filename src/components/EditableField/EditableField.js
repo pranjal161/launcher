@@ -3,19 +3,17 @@ import "./EditableField.scss";
 import {CloseIconMinimize, DoneIconMinimize} from "assets/svg";
 import React, {useCallback, useState} from "react";
 
-
-
-
 const EditableField = ({value, displayValue, field, mode = "updateOnHover", type, onChange, children}) => {
     const [newValue, setNewValue ] = useState(value)
     const handleEditChange =(value) => {console.log('Change handleEditChange', value) ; setNewValue(value)}
     const mapChangeEvent = {
-        input: {onBlur:useCallback ((value) => handleEditChange(value),[])},
-        date: {onBlur:useCallback ((value) => handleEditChange(value),[])},
+        input: {onBlur:useCallback ((value) => handleEditChange(value),[]), placeholder:newValue},
+        textarea: {onBlur:useCallback ((value) => handleEditChange(value),[]), placeholder:newValue},
+        date: {onBlur:useCallback ((event) => handleEditChange(event.target.value),[])},
         select: {onChange:useCallback ((value) => handleEditChange(value),[]), value:newValue}
     }
 
-    const updateComponent = children && <children.type {...children.props} {...mapChangeEvent[type]}></children.type>
+    const updateComponent = children && <children.type {...children.props} {...mapChangeEvent[type]}/>
     const elementId = field
     const [isEditable, setIsEditable] = React.useState(false);
 
@@ -24,14 +22,14 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
         onChange && onChange(field, newValue)
         setIsEditable(false);
 
-    },[newValue])
+    },[onChange, field, newValue])
 
     // WIP work on previous version of the component 
-    const cancelChange = useCallback (() =>{
+    const cancelChange = useCallback (() => {
         setIsEditable(false);
     },[])
 
-    const modifyValue = useCallback (() =>{
+    const modifyValue = useCallback (() => {
         setIsEditable(true);
     },[])
 
@@ -41,7 +39,7 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
             const element = document.querySelector(`#EditableField${elementId}`);
             element.querySelector(".MuiInput-input").focus();
         }
-    }, [isEditable])
+    }, [elementId, isEditable])
 
     if (mode === "readOnly") {
         return (
@@ -58,6 +56,7 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
             <div className="editable-field" data-test="editable-input-up">
                 <div className={
                     (type === "input" ? "editable-input-container" : "") ||
+                    (type === "textarea" ? "editable-textarea-container" : "") ||
                     (type === "date" ? "editable-date-container" : "") ||
                     (type === "select" ? "editable-select-container" : "")}>
                     {
@@ -77,15 +76,17 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
                         (
                             <div className={
                                 (type === "input" ? "editable-input-container" : "") ||
+                                (type === "textarea" ? "editable-textarea-container" : "") ||
                                 (type === "date" ? "editable-date-container" : "") ||
                                 (type === "select" ? "editable-select-container" : "")}>
                                 {
                                     updateComponent && (updateComponent)
                                 }
                                 <div className={
-                                    (type === "input" ? "icon-container-input" : "") ||
-                                    (type === "date" ? "icon-container-date" : "") ||
-                                    (type === "select" ? "icon-container-select" : "")}>
+                                    (type === "input" ? "icon-container icon-container-input" : "") ||
+                                    (type === "textarea" ? "icon-container icon-container-textarea" : "") ||
+                                    (type === "date" ? "icon-container icon-container-date" : "") ||
+                                    (type === "select" ? "icon-container icon-container-select" : "")}>
                                     <span onClick={validateChange}>
                                         <DoneIconMinimize/>
                                     </span>

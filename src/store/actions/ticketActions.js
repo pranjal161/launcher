@@ -70,7 +70,7 @@ export const assignTo = (id, userId) => (dispatch, getState, {getFirebase}) => {
     dispatch({type: 'ASSIGN_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'assignedTo', {newValue: userId})
-    const assignedToDisplay = getState().firestore.data.users[userId].displayName
+    const assignedToDisplay = userId?getState().firestore.data.users[userId].displayName:''
 
     return firestore.collection('tickets').doc(id).update(
         {
