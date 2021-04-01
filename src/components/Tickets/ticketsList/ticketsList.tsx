@@ -65,7 +65,7 @@ const TicketList = (props: any) => {
                                         value={ticket.stage}/>
                                 </div>
                             </td>
-                            <td>{ticket.creatorDisplay.toUpperCase()}</td>
+                            <td>{ticket.createdByDisplay.toUpperCase()}</td>
                             <td><Deadline deadline={ticket.deadline}/></td>
                         </tr>
 

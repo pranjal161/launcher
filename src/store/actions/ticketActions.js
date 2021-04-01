@@ -15,8 +15,8 @@ const addHistory = (state, action, values = {}) => {
 export const create = (ticket) => (dispatch, getState, {getFirebase,}) => {
     dispatch({type: 'CREATE_TICKET_PENDING', ticket})
     const firestore = getFirebase().firestore()
-    const creatorId = getState().auth.id
-    const creatorDisplay = getState().firebase.profile.firstName + ' ' + getState().firebase.profile.lastName
+    const createdBy = getState().auth.id
+    const createdByDisplay = getState().firebase.profile.displayName
     const suggestedActivities = getSuggestedActivities(ticket)
     const receivedDate = Date.now()
     const deadlineDate = receivedDate
@@ -25,8 +25,8 @@ export const create = (ticket) => (dispatch, getState, {getFirebase,}) => {
         deadlineDate,
         receivedDate, ...ticket,
         suggestedActivities,
-        creatorId,
-        creatorDisplay
+        createdBy,
+        createdByDisplay
     })
         .then((result) => {
             dispatch({type: 'CREATE_TICKET_SUCCESS', result})
@@ -48,7 +48,6 @@ export const update = (ticket) => (dispatch, getState, {getFirebase}) => {
         suggestedActivities
     }).then((result) => {
         dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
-        addHistory(ticket.id)
     }).catch((error) => {
         console.log(error)
         dispatch({type: 'UPDATE_TICKET_ERROR', error})
@@ -71,10 +70,12 @@ export const assignTo = (id, userId) => (dispatch, getState, {getFirebase}) => {
     dispatch({type: 'ASSIGN_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'assignedTo', {newValue: userId})
+    const assignedToDisplay = userId?getState().firestore.data.users[userId].displayName:''
 
     return firestore.collection('tickets').doc(id).update(
         {
             assignedTo: userId,
+            assignedToDisplay,
             ...history
         }
     ).then((result) => {
@@ -88,11 +89,12 @@ export const assignTo = (id, userId) => (dispatch, getState, {getFirebase}) => {
 export const createdBy = (id, userId) => (dispatch, getState, {getFirebase}) => {
     dispatch({type: 'CREATED_BY_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
-
+    const createdByDisplay = getState().firestore.data.users[userId].displayName
     const history = addHistory(getState(), 'createdBy', {newValue: userId})
     return firestore.collection('tickets').doc(id).update(
         {
             createdBy: userId,
+            createdByDisplay,
             ...history
         }
     ).then((result) => {
