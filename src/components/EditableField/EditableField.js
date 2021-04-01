@@ -37,7 +37,9 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
         if (isEditable) {
             // ref to force focus on the input doesn't work with CDK so i have to do this 
             const element = document.querySelector(`#EditableField${elementId}`);
-            element.querySelector(".MuiInput-input").focus();
+            const domElt = element.querySelector(".MuiInput-input")
+            if (domElt)
+                domElt.focus();
         }
     }, [elementId, isEditable])
 

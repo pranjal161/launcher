@@ -63,7 +63,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
     )
 
 
-    const Description = ({description}) => (<p>{description}</p>)
+    const Description = ({description}) => (<p style={{maxHeight:'200px'}}>{description}</p>)
     const DxcDate2 = ({date, id, ...rest}) => (<TextField
         id={id}
         type="date"
