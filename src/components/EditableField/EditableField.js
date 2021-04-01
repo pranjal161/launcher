@@ -26,6 +26,7 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
 
     // WIP work on previous version of the component 
     const cancelChange = useCallback (() => {
+        setNewValue(value)
         setIsEditable(false);
     },[])
 
