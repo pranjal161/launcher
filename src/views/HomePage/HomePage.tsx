@@ -3,6 +3,7 @@ import './HomePage.scss';
 import React, {useState} from 'react';
 
 import BasketList from 'components/basketList/basketList';
+import Card from 'components/card/card';
 import {DxcBox} from '@dxc-technology/halstack-react';
 import EntitySidebar from 'components/entitySidebar/entitySidebar';
 import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
@@ -10,6 +11,7 @@ import TicketList from 'components/Tickets/ticketsList/ticketsList';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from 'data/hooks/useDeskTickets';
+
 
 const HomePage = () => {
     const {profile} = useDeskAuth()
@@ -37,6 +39,7 @@ const HomePage = () => {
         setOpenSidebar(false)
     }
 
+
     return (
         <span className="home-container">
             <div className="welcome-banner">
@@ -47,18 +50,22 @@ const HomePage = () => {
             <div className="main-container">
                 <div className="grid-container col-12 pr-0">
                     <div className="col-8">
-                        <span className="p-2">All Baskets</span>
-                        {baskets &&
-                        <BasketList baskets={baskets}/>
-                        }
+                        <Card 
+                            title="All Baskets">
+                            {baskets &&
+                            <BasketList baskets={baskets}/>
+                            }
+                        </Card>
                     </div>
                     <div className="col-4">
-                        <span className="p-2">Today&apos;s Reminder</span> 
+                        <Card 
+                            title="Today&apos;s Reminder">
+                        </Card>
                     </div>
                     <div className="col-12">
-                        <span className="p-2">All Tickets</span>
-                        {
-                            tickets &&
+                        <Card 
+                            title="All Tickets">
+                            {tickets &&
                             <div className="main-container col-12">
                                 <div className="col-12">
                                     <div className="row">
@@ -81,24 +88,10 @@ const HomePage = () => {
                                     </div>
                                 </div>
                             </div>
-                        }
+                            }
+                        </Card>
                     </div>
                 </div>
-                {/*<div className="grid-container col-3 pl-0">
-                    <div className="col-12">
-                        {
-                            clickedTicket.id &&
-                            <TicketDetail
-                                id={clickedTicket.id}
-                                key={clickedTicket.id}
-                                onRemove={handleRemove}
-                                onClose={handleClose}
-                                sectionId="ticket-details"/>
-                        }
-                    </div>
-
-
-                </div>*/}
             </div>
         </span>
     );

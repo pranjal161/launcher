@@ -1,0 +1,7 @@
+div.card-height-wrapper {
+    height: 100%
+}
+
+div.card-height-wrapper > div {
+    height: 100%
+}
