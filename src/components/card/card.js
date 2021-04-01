@@ -4,7 +4,7 @@ import { DxcBox } from '@dxc-technology/halstack-react';
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const CardHeaderFooter = styled.div`
     display: flex;
@@ -30,6 +30,12 @@ const CardHeaderTitle = styled.span`
     font-weight: bold;
 `;
 
+/* 
+    card-height-wrapper is a div class helper that allows us to fill the DxcBox component to height.
+    The size="fillParent" property only works on width, not height.
+    Maybe later add option to enable/disable.
+    Couldn't be done with styled-components
+*/
 const Card = ({title, actions, children, footer, contentFullWidth=true}) => (
     <div className="card-height-wrapper">
         <DxcBox 
