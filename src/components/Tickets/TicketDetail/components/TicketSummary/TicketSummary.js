@@ -113,6 +113,7 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                 <Section id="actions" title="Actions">
                     {actions}
                 </Section>
+                <Divider/>
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
                         <EditableField
@@ -178,7 +179,6 @@ const TicketSummary = ({ticket, onClose, onPopupWindow, showPopupIcon = false, a
                         onChange={handleEditChange}>
                         <DxcTextarea/>
                     </EditableField>
-
                 </Section>
                 <Divider/>
                 <Section id="relatedClients" title="Related Client">
