@@ -13,7 +13,7 @@ const Documents = (props: { documents: any; }) => {
         'Accept': 'application/pdf'
     }
     const handleClick = (document: any) => {
-        axios.get(document.url, { headers: header, responseType: 'blob' }).then(response => {
+        axios.get(document.url, { headers: header, responseType: 'blob' }).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data], {type: document.type}));
             setContent(url);
             setOpenDoc(true)
@@ -26,22 +26,22 @@ const Documents = (props: { documents: any; }) => {
 
     return (
         <div>
-        <li className={"list-group"}>
-            {documents && Object.values(documents).map((document: any, index) => (
-                 <p key={index} onClick={() => handleClick(document)}
-                 className="list-group-item list-group-item-action flex-column align-items-start">
-                 <div className="mx-auto text-info">
-                     <small>{formatValue(document.receivedDate, 'date')}</small>
-                 </div>
-                 <div>{document.name}</div>
-             </p>
+            <li className={"list-group"}>
+                {documents && Object.values(documents).map((document: any, index) => (
+                    <div key={index} onClick={() => handleClick(document)}
+                        className="list-group-item list-group-item-action flex-column align-items-start">
+                        <div className="mx-auto text-info">
+                            <small>{formatValue(document.receivedDate, 'date')}</small>
+                        </div>
+                        <div>{document.name}</div>
+                    </div>
                 ))}
-        </li>
-         {docOpen && content && (
-            <DxcDialog padding="medium" onCloseClick={onClickDialog}>
-            <iframe src={content}  id="doc-preview" />
-             </DxcDialog>
-         )}
+            </li>
+            {docOpen && content && (
+                <DxcDialog padding="medium" onCloseClick={onClickDialog}>
+                    <iframe src={content}  id="doc-preview" />
+                </DxcDialog>
+            )}
         </div> 
     );
 }

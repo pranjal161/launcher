@@ -43,7 +43,7 @@ const NewWindowPortal = ({children}) => {
     let externalWindow = null;
 
     useEffect(() => {
-        externalWindow = window.open('', '', 'width=400,height=600,left=200,top=200');
+        externalWindow = window.open('', '', 'width=620,height=600,left=200,top=200');
         externalWindow.document.body.appendChild(container);
         copyStyles(document, externalWindow.document);
         windowRef.current = externalWindow;

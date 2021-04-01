@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
 import NewWindowPortal from "../../../components/newWindowPortal/newWindowPortal";
 import TicketSummary from "./components/TicketSummary/TicketSummary";
-import UpdateButton from "./components/UpdateButton/UpdateButton";
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
-//import Summary from "./components/Summary/Summary";
-
+// eslint-disable-next-line valid-jsdoc
 /**
  * Display of ticket in detail
- * @param {param0} id, sectionId, onRemove, onClose Information that will be used for the ticket detail 
+ * @param {id, sectionId, onRemove, onClose} Information that will be used for the ticket detail
  * @returns {*} Display of ticket in detail
  */
 function TicketDetail({id, sectionId, onRemove, onClose}) {
@@ -28,8 +26,7 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
         <a href="#" className="btn btn-warning ml-2" onClick={removeToCurrentUser}>Unassign to me</a> :
         <a href="#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
 
-    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Remove</a>{assignButton}
-        <UpdateButton ticket={ticket}/></>)
+    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Delete</a>{assignButton}</>)
 
     const popupHandle = () => {
         setOpenPopup(true);

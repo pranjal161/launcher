@@ -69,7 +69,7 @@ const HomePage = () => {
                                         </div>
                                         <EntitySidebar 
                                             open={openSidebar} 
-                                            width={400}
+                                            width={500}
                                             content={
                                                 <TicketDetail 
                                                     id={clickedTicket.id}
