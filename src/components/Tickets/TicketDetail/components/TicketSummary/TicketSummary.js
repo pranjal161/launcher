@@ -1,9 +1,7 @@
 import {CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
 import {DxcBox, DxcChip} from '@dxc-technology/halstack-react';
 import DataLine from "./components/DataLine/DataLine";
-import Documents from './components/documents/documents';
 import Label from "./components/Label/Label";
-import LinkedClient from "./components/LinkedClient/LinkedClient";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
 import PropTypes from 'prop-types'
 import React from 'react';
