@@ -10,11 +10,11 @@ const Root = styled.div`
 `;
 
 const Label = styled.div`
-  width: 50%;
+  width: 40%;
   justify-self: left;
 `;
 const Data = styled.div`
-  width: 50%;
+  width: 60%;
   justify-self: left;
 `;
 
