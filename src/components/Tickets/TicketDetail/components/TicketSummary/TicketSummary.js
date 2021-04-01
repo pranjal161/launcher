@@ -9,6 +9,8 @@ import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import Upload from "../Upload/Upload";
 import moment from "moment";
+import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
+import useDeskUsers from "../../../../../data/hooks/useDeskUsers";
 import { AddIcon } from "../../../../../../src/assets/svg";
 import { StyledButton } from '../../../../../../src/styles/global-style';
 import RelatedClient from './components/RelatedClient/RelatedClient';
