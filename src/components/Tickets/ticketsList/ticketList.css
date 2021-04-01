@@ -1,0 +1,14 @@
+/*
+    The class progressbar is used to fix an issue with DXC react component DxcProgressBar.
+    The width of the property value is too small for the progress bar width we are giving the component.
+    The width percentages for progress bar originally were 5% for value and 90% for label,
+    now they are changed to 15% for value and 90% for label.
+*/
+
+div.progressbar > div > div > div:first-child > div:nth-child(1){
+    width: 80%;
+}
+
+div.progressbar > div > div > div:first-child > div:nth-child(2){
+    width: 15%;
+}
