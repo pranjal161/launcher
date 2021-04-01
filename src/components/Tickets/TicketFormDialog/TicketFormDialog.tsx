@@ -46,8 +46,8 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
     
     const [updatedTicket, updateTicket] = useState(ticket);
     const alertContext = useContext(AlertContext);
-    const usersOptions = allUsers && allUsers.map((user: { id: any; firstName: any; lastName: any; }) => (
-        { value: user.id, label: user.firstName + user.lastName }
+    const usersOptions = allUsers && allUsers.map((user: { id: any; displayName: any; }) => (
+        { value: user.id, label: user.displayName }
     ))
 
     const basketsOptions = allBaskets && allBaskets.map((basket: { id: any; title: any; }) => (

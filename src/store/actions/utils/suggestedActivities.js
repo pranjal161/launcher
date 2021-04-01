@@ -21,7 +21,7 @@ const elements = {
     PostalAddress : {
         keys: ['postal', 'postale', 'adresse', 'address', 'déménagement', 'domicile', 'move', 'town', 'npai'],
         activities: {
-            createPostalAddress: ['create', 'création', 'new'],
+            createPostalAddress: ['create', 'création', 'new','add', 'ajouter'],
             updatePostalAddress: ['change', 'changer', 'update', 'modifier', 'déménagé', 'déménagement', 'move', 'à jour', 'modification', 'npai'],
             deletePostalAddress: ['supprimer', 'arrêter', 'delete', 'remove']
         }
@@ -29,7 +29,7 @@ const elements = {
     emailAccount : {
         keys: ['email', 'mail', '@'],
         activities: {
-            createEmailAddress: ['create', 'création', 'new'],
+            createEmailAddress: ['create', 'création', 'new', 'add', 'ajouter'],
             updateEmailAddress: ['change', 'changer', 'update', 'modifier', 'à jour', 'modification'],
             deleteEmailAddress: ['supprimer', 'arrêter', 'delete', 'remove']
         }
@@ -37,7 +37,7 @@ const elements = {
     bankAccount : {
         keys: ['bank', 'account', 'rib', 'iban', 'compte', 'bancaire'],
         activities: {
-            createBankAccount: ['create', 'création', 'new'],
+            createBankAccount: ['create', 'création', 'new', 'add', 'ajouter'],
             updateBankAccount: ['change', 'changer', 'update', 'modifier', 'à jour', 'modification'],
             deleteBankAccount: ['supprimer', 'arrêter', 'delete', 'remove']
         }

@@ -1,0 +1,99 @@
+.root {
+    position: relative;
+    max-width: 750px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.filters {
+    position: absolute;
+    top: 0;
+    left: -400px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.entity {
+    width: 125px;
+}
+.property {
+    width: 200px;
+    padding: 0 5px;
+}
+
+.main {
+    /* padding: 0 10px; */
+}
+
+.MuiFormControl-root {
+    height: 44px;
+}
+
+input.MuiInputBase-input.MuiInput-input {
+    padding: 7px 0;
+}
+
+.MuiCircularProgress-colorPrimary {
+    color: #6F2C91 !important;
+}
+
+.resultsList {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    min-height: 44px;
+    max-height: 300px;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.resultLine {
+    position: relative;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.resultLineSolo {
+    border-radius: 0 0 4px 4px;
+}
+
+.dividerH {
+    height: 1px;
+    width: 100%;
+    background-color: lightgray;
+}
+
+.loading {
+    box-sizing: border-box;
+    display: flex;
+    padding: 10px 15px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-radius: 0 0 4px 4px;
+
+    background-color: lightgray;
+}
+
+.resultLine:hover {
+    background-color: lightgray;
+}
+
+.vsTpN {
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+}
+
+label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiFormLabel-filled {
+    display: none;
+}
+
+.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl {
+    margin-top: 0;
+}
