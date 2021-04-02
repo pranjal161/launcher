@@ -1,6 +1,7 @@
+import {CloseIcon, RoundIcon, SearchIcon, TimeLapse} from 'assets/svg';
+import {DxcButton, DxcChip, DxcTabs} from '@dxc-technology/halstack-react'
+
 import DXCLogo  from 'assets/dxc_logo.jpg';
-import {RoundIcon, SearchIcon, TimeLapse, CloseIcon} from 'assets/svg';
-import {DxcButton, DxcTabs, DxcChip} from '@dxc-technology/halstack-react'
 import React from 'react';
 import styled from 'styled-components';
 
@@ -13,11 +14,11 @@ const NavRow = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: ${props => props.justify ? props.justify : 'space-between'};
-    align-items: ${props => props.align ? props.align : 'stretch'};
+    justify-content: ${(props) => (props.justify ? props.justify : 'space-between')};
+    align-items: ${(props) => (props.align ? props.align : 'stretch')};
 `;
 
-const LogoImg = styled.img.attrs(props => ({
+const LogoImg = styled.img.attrs((props) => ({
     src: props.src,
     alt: props.alt
 }))`
@@ -60,10 +61,10 @@ const NavigationBar = () => {
 
     const tabs = [
         {
-          label: "Tab 1"
+            label: "Tab 1"
         },
         {
-          label: "Tab 2"
+            label: "Tab 2"
         }
     ];
 
