@@ -6,9 +6,26 @@ const initialState = {
 
 const getAllDataNotObject = (data) => Object.fromEntries(
     Object.entries(data).filter(
-        ([key, value]) => typeof value !== "object")
+        ([, value]) => typeof value !== "object")
 )
 
+const updateContractPart = (contract, entity, part, data) => {
+    if (!contract[part])
+        contract[part] = {}
+
+    contract[part] = {
+        ...contract[part],
+        count: data.length,
+        data,
+        status: 'success',
+        timestamp: Date.now()
+    }
+    entity[part] = {
+        ...entity[part],
+        status: 'success',
+        timestamp: Date.now()
+    }
+}
 
 const aiaReducer = (state = initialState, action) => {
     let contractNumber = action.contractNumber
@@ -35,8 +52,8 @@ const aiaReducer = (state = initialState, action) => {
                     newState.contracts[contractNumber].data = getAllDataNotObject(action.data)
 
                     //Manage links on contract entity
-                    const createLinkRef = (link) => ({
-                        url: action.data._links[link].href,
+                    const createLinkRef = (link, uri='') => ({
+                        url: action.data._links[link].href + uri,
                         status: 'not_fetch',
                         timestamp: Date.now()
                     })
@@ -45,27 +62,30 @@ const aiaReducer = (state = initialState, action) => {
                         ...newState.entities[contractNumber],
                         data: {url: action.url, status: 'success', timestamp: Date.now()},
                         risks: createLinkRef('contract:membership_list'),
-                        roles: createLinkRef('contract:role_list'),
+                        roles: createLinkRef('contract:role_list', '?_inquiry=e_contract_parties_view'),
                         activities: createLinkRef('cscaia:activities'),
                         outputDocuments: createLinkRef('cscaia:output_documents'),
                     }
                     break;
                 case 'risks':
-                    if (!newState.contracts[contractNumber].risks)
-                        newState.contracts[contractNumber].risks = {}
-                    //newState.contracts[contractNumber].risks.raw = action.data
-                    newState.contracts[contractNumber].risks.count = action.data.length
-                    newState.contracts[contractNumber].risks.data = action.data
-                    newState.entities[contractNumber].risks = {
-                        ...newState.entities[contractNumber].risks,
-                        status: 'success',
-                        timestamp: Date.now()
-                    }
+                    updateContractPart(
+                        newState.contracts[contractNumber],
+                        newState.entities[contractNumber],
+                        'risks', action.data)
                     break;
-
+                case 'activities':
+                    updateContractPart(
+                        newState.contracts[contractNumber],
+                        newState.entities[contractNumber],
+                        'activities', action.data)
+                    break;
+                case 'roles':
+                    updateContractPart(
+                        newState.contracts[contractNumber],
+                        newState.entities[contractNumber],
+                        'roles', action.data)
+                    break;
             }
-
-
             return newState
         case 'FETCH_CONTRAT_DATA_ERROR':
             newState.entities[contractNumber].data = {url: action.url, status: 'error', timestamp: Date.now()}
