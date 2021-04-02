@@ -5,6 +5,7 @@ import { StyledHoverRow } from 'styles/global-style';
 import { getDescriptionValue } from 'util/functions';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import useAiaContract from "data/hooks/useAiaContract";
 
 /**
  * Display contract information in a table
@@ -14,7 +15,7 @@ import { useTranslation } from "react-i18next";
 const ContractTable = (props: { contractData: any; getData: (href: string) => void }) => {
     const { t } = useTranslation();
     const history = useHistory();
-
+    const {get} = useAiaContract()
     /**
      * Redirection to a contract
      * @param {item} item Resource that representing a contract
@@ -22,6 +23,9 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
      */
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
+
+        get(contractNumber)
+
         history.push('/contracts/' + contractNumber, { contractUrl: item.href });
     }
 
