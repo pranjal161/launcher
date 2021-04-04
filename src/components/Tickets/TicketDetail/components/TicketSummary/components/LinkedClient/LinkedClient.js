@@ -5,13 +5,14 @@ import styled from "styled-components";
 const Root = styled.a`
    color: blue;
  `;
-const LinkedClient = ({client, url}) => (
-    <Root href={url}>{client.displayName}</Root>
+const LinkedClient = ({client, url, display}) => (
+    <Root href={url}>{client}{display} </Root>
 )
 
 LinkedClient.propTypes = {
     client: PropTypes.string,
-    url: PropTypes.string
+    url: PropTypes.string,
+    display: PropTypes.string
 }
 
 export default LinkedClient;
