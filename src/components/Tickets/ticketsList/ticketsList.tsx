@@ -1,3 +1,5 @@
+import './ticketList.css'
+
 import {DxcProgressBar, DxcTable} from "@dxc-technology/halstack-react";
 import {RoundIcon, TimeIcon, TimeLapse} from 'assets/svg';
 
@@ -61,11 +63,14 @@ const TicketList = (props: any) => {
                             <td>{getBasketTitle(ticket.basketId)}</td>
                             <td>
                                 <div className="progressbar">
-                                    <DxcProgressBar margin="xxsmall" overlay={false} showValue
+                                    <DxcProgressBar 
+                                        margin="xxsmall"
+                                        overlay={false} 
+                                        showValue
                                         value={ticket.stage}/>
                                 </div>
                             </td>
-                            <td>{ticket.creatorDisplay.toUpperCase()}</td>
+                            <td>{ticket.createdByDisplay.toUpperCase()}</td>
                             <td><Deadline deadline={ticket.deadline}/></td>
                         </tr>
 

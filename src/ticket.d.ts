@@ -4,8 +4,8 @@ interface Ticket {
     requestedBy: string;
     activities: Record<string, unknown>[];
     assignedTo: User;
+    creatorBy: string;
     basketId: string;
-    creatorId: string;
     creatorDisplay: string;
     title: string;
     description: string;

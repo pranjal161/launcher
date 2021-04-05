@@ -1,0 +1,111 @@
+.EditableField {
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: space-between;  */
+    position: relative;
+    /* margin: 10px 0px; */
+    /* height: 50px; */
+    /* width: 350px;  */
+}
+
+.Editable-field-component-container {
+    position: fixed;
+    /* max-width: 450px; */
+    min-width: 245px;
+    /* margin-top: 47px; */
+    overflow: hidden;
+    padding: 2px;
+    background-color: white;
+    box-shadow: 0 3px 6px rgb(111 111 111 / 20%);
+    border-radius: 3px;
+    z-index: 9999;
+}
+
+/* START INPUT SECTION */
+/* .editable-input-container {
+    width: 70%;
+} */
+/* END INPUT SECTION */
+
+
+/* START SPAN UNEDITABLE SECTION */
+/* .EditableField .value-uneditable-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 18px;
+    width: 70%;
+    height: 100%;
+} */
+
+.EditableField .value-uneditable-container {
+    height: 63.5px;
+}
+
+.EditableField .value-uneditable {
+    /* font-size: 18px; */
+    /* margin-left: 10px; */
+    /* min-width: 80px; */
+    border: 1px solid #e7e7e700;
+    transition: 0.4s;
+    /* padding: 0px 15px 0px 3px; */
+    cursor: default;
+
+    /* width: 100%; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.EditableField .edit-onHover:hover {
+    border: 1px solid #666;
+    border-radius: 3px;
+    cursor: text;
+}
+/* END SPAN UNEDITABLE SECTION */
+
+
+/* START ICON SECTION */
+.EditableField .icon-container {
+    
+    position: absolute;
+    bottom: -22px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0px 0px 3px 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 6px rgb(111 111 111 / 20%);
+}
+
+.EditableField .icon-container img{
+    width: 12px;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgba(9,30,66,.08);
+    opacity: 0.7;
+    transition: opacity .1s ease-out;
+}
+
+.EditableField .icon-container img:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+
+.MuiInputAdornment-root img {
+    width: 12px;
+}
+/* END ICON SECTION */
+
+
+
+.EditableField .label {
+    cursor: default;
+}
+
+.EditableField .MuiInput-formControl {
+    margin-top: 0px;
+}
