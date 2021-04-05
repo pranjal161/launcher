@@ -1,10 +1,13 @@
+import React, { useEffect, useState } from 'react';
+
 import { DxcAlert } from "@dxc-technology/halstack-react";
-import React, { useState, useEffect } from 'react';
-import { StyledMessageContainer } from '../../styles/global-style';
+import { StyledMessageContainer } from 'styles/global-style';
+import { useTranslation } from "react-i18next";
 
 const Alert = (props: { toastList: any }) => {
     const { toastList } = props;
     const [list, setList] = useState(toastList);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setList(toastList);
@@ -12,25 +15,24 @@ const Alert = (props: { toastList: any }) => {
 
     return (
         <>
-          {list && list['messages'] && list['messages'].length > 0 && 
+            {list && list['messages'] && list['messages'].length > 0 && 
             <StyledMessageContainer onClick={() => setList({})}>
-              <div>
-                {
-                    list['messages'].map((toast: any, i: number) =>     
-                      <DxcAlert
-                        key={i}
-                        type={ toast.severity === 'warn' ? 'warning' : toast.severity }
-                        mode="inline"
-                        inlineText={toast.message}
-                        margin="xxsmall"
-                      />
-                    )
-                }
-              </div>
+                <div>
+                    {
+                        list['messages'].map((toast: any, i: number) => <DxcAlert
+                            key={i}
+                            type={ toast.severity === 'warn' ? 'warning' : toast.severity }
+                            mode="inline"
+                            inlineText={t(toast.message)}
+                            margin="xxsmall"
+                        />
+                        )
+                    }
+                </div>
             </StyledMessageContainer>
-          }
+            }
         </>
     );
-}
+};
 
 export default Alert;

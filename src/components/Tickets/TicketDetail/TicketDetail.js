@@ -1,45 +1,60 @@
-import React from 'react';
-import UpdateButton from "./components/UpdateButton/UpdateButton";
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
+import React, {useState} from 'react';
+import NewWindowPortal from "../../../components/newWindowPortal/newWindowPortal";
+import TicketSummary from "./components/TicketSummary/TicketSummary";
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
-import {makeStyles} from "@material-ui/core";
-import Summary from "./components/Summary/Summary";
+import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
-const useStyles = makeStyles(theme => ({
-    root: {},
-    content: {
-        padding: 0
-    },
-    buttonIcon: {
-        marginRight: theme.spacing(1)
-    }
-}));
-
-function TicketDetail({id, sectionId, className, onRemove, onClose}) {
+// eslint-disable-next-line valid-jsdoc
+/**
+ * Display of ticket in detail
+ * @param {id, sectionId, onRemove, onClose} Information that will be used for the ticket detail
+ * @returns {*} Display of ticket in detail
+ */
+function TicketDetail({id, sectionId, onRemove, onClose}) {
     const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
-    const classes = useStyles();
-
     let ticket = id ? getOne(id) : undefined
-    //console.log('ticket detail render', ticket)
 
     const assignToCurrentUser = () => assignTo(id, currentUserId)
     const removeToCurrentUser = () => assignTo(id, null)
     const removeHandle = () => remove(id) && onRemove && onRemove(id)
     const closeHandle = () => onClose && onClose()
 
+    const [openPopup, setOpenPopup] = useState(false);
+
     const assignButton = ticket && ticket.assignedTo === currentUserId ?
         <a href="#" className="btn btn-warning ml-2" onClick={removeToCurrentUser}>Unassign to me</a> :
         <a href="#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
 
-    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Remove</a>{assignButton}
-        <UpdateButton ticket={ticket}/></>)
+    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Delete</a>{assignButton}</>)
+
+    const popupHandle = () => {
+        setOpenPopup(true);
+    }
 
     if (ticket) {
         return (
-            <Summary ticket={ticket} actions={Actions} onClose={closeHandle} sectionId={sectionId}/>
+            <>
+                <TicketSummary 
+                    ticket={ticket} 
+                    actions={Actions} 
+                    onClose={closeHandle} 
+                    onPopupWindow={popupHandle}
+                    showPopupIcon={true}
+                    sectionId={sectionId}/>
+
+                {openPopup &&
+                <NewWindowPortal>
+                    <TicketSummary 
+                        ticket={ticket} 
+                        actions={Actions} 
+                        onClose={closeHandle} 
+                        sectionId={sectionId}/>
+                </NewWindowPortal>}
+            </>
         )
-    } else
+    } 
+    else
         return (<div className="container center">Loading ticket ...</div>)
 }
 

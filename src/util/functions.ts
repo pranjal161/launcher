@@ -1,4 +1,6 @@
-import {AppConfig} from '../config/appConfig';
+import { AppConfig } from '../config/appConfig';
+
+//import axios from 'axios';
 
 export const getLink = (response: any, linkName: string) => {
     if (response &&
@@ -38,7 +40,7 @@ export const getPropertyOptions = (tableData: any) => {
 
 }
 
-export const getDescriptionValue = (value: any, id: string, tableData: any, type? :string) => {
+export const getDescriptionValue = (value: any, id: string, tableData: any, type?: string) => {
     const options = getPropertyOptions(tableData);
     if (options && options[id] && options[id].oneOf) {
         for (const item of options[id].oneOf) {
@@ -54,22 +56,22 @@ export const getDescriptionValue = (value: any, id: string, tableData: any, type
 
 export const getDescriptionFromOneOf = (value: string, id: string, response: any) => {
     if (
-      response._options &&
-      response._options.properties &&
-      response._options.properties[id] &&
-      response._options.properties[id]['oneOf']
+        response._options &&
+        response._options.properties &&
+        response._options.properties[id] &&
+        response._options.properties[id]['oneOf']
     ) {
-      for (let i = 0; i < response._options.properties[id]['oneOf'].length; i++) {
-        if (
-          response._options.properties[id]['oneOf'][i]['enum'][0] ===
-          value
-        ) {
-          value = response._options.properties[id]['oneOf'][i]['title'];
+        for (let i = 0; i < response._options.properties[id]['oneOf'].length; i++) {
+            if (
+                response._options.properties[id]['oneOf'][i]['enum'][0] ===
+                value
+            ) {
+                value = response._options.properties[id]['oneOf'][i]['title'];
+            }
         }
-      }
     }
     return value;
-  }
+}
 
 export const formatValue = (value: any, style?: string | undefined) => {
     const intl = AppConfig.Intl;
@@ -88,7 +90,7 @@ export const formatValue = (value: any, style?: string | undefined) => {
                         style: style,
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
-                    }).format(value/100);
+                    }).format(value / 100);
                     break;
                 case 'decimal':
                     formattedValue = new Intl.NumberFormat(intl.locale).format(value);
@@ -101,7 +103,7 @@ export const formatValue = (value: any, style?: string | undefined) => {
                         const date = new Date(value);
                         formattedValue = new Intl.DateTimeFormat(intl.DateFormat).format(date);
                     }
-                break;     
+                    break;
             }
         }
         return formattedValue ? formattedValue : value;
@@ -134,8 +136,43 @@ export const getStatusReport = (response: any) => {
     }
 }
 
+/**
+ * 
+ * @param {date}date The initial date for which days will be added
+ * @param {days} days Number of days that will be added on the initial date
+ * @returns {date} The new date
+ */
 export function addDays(date: any, days: number) {
     const result = new Date(date);
     result.setDate(result.getDate() + days);
+
     return result;
+}
+
+/**
+ * Search person
+ * @param {value} value that will be used for the search
+ * @returns {*} Parameters for the search person
+ */
+export function searchPerson(value: string) {
+    let url = AppConfig.hostUrl.defaultHostUrl + 'persons?';
+    let params;
+    const nameSelected = value;
+    
+    if (nameSelected && nameSelected !== '') {
+        
+        // First name is not empty
+        if (nameSelected !== undefined) {
+            params = 'person:last_name=' + nameSelected.charAt(0).toUpperCase() + nameSelected.slice(1);
+        }
+        if (params !== undefined || params !== null) {
+            params = params + '*&_num=' + 30;
+        }
+
+        if (url !== undefined && (params !== undefined && params !== null)) {
+            return (url + params);
+        }
+    }
+    
+    return ''
 }

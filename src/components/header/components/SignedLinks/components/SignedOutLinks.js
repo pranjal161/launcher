@@ -1,12 +1,15 @@
-import React from 'react';
 import {NavLink} from "react-router-dom";
+import React from 'react';
 
+/**
+ * Display for the sign out
+ * @returns {*} Sign out link
+ */
 function SignedOutLinks() {
     return (
-        <ul className="right">
-            <li><NavLink to="/signup">Sign Up</NavLink></li>
-            <li><NavLink to="/signin">Log In</NavLink></li>
-        </ul>
+        <>
+            <li><NavLink to="/auth/signin">Log In</NavLink></li>
+        </>
     );
 }
 

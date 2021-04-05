@@ -1,16 +1,21 @@
-import {NavLink} from "react-router-dom";
 import React from 'react';
 import useDeskAuth from "../../../../../data/hooks/useDeskAuth";
+import {useHistory} from "react-router-dom";
 
+/**
+ * Display for the sign in
+ * @returns {*} Sign in link
+ */
 function SignedInLinks() {
-    const {signOut, profile} = useDeskAuth()
+    const {signOut} = useDeskAuth()
+    const history = useHistory()
+    const handleLogout = (e) => {
+        e.preventDefault()
+        signOut().then(() => history.push('/auth/signin'))
+    }
+    
     return (
-        <ul className="right">
-            <li><a className={"text-white"} onClick={() => signOut()}>Log Out</a></li>
-            <li><NavLink to="/exemple/desktop">Desktop Exemple</NavLink></li>
-            <li><NavLink to="/training/norbert">Training Norbert</NavLink></li>
-            <li><NavLink to="/" className="btn btn-success">{profile.initials}</NavLink></li>
-        </ul>
+        <li><a href="" onClick={handleLogout}>Log Out</a></li>
     );
 }
 
