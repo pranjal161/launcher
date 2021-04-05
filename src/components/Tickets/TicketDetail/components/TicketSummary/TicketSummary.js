@@ -8,6 +8,7 @@ import {
 import React, { useCallback } from "react";
 
 import DataLine from "./components/DataLine/DataLine";
+import Documents from './components/documents/documents';
 import EditableField from "../../../../EditableField/EditableField";
 import Label from "./components/Label/Label";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
@@ -63,32 +64,6 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
     const handleAddRelatedClient = () => {
         addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
     }
-
-
-    const Document = ({ document }) => {
-        const handleClick = (e) => {
-            e.preventDefault()
-            window.open(document.url)
-        }
-
-        return (
-            <a href="" onClick={handleClick}
-                className="list-group-item list-group-item-action flex-column align-items-start">
-                <div className="mx-auto text-info">
-                    <small>{moment(document.receivedDate).fromNow()}</small>
-                </div>
-                <div>{document.name}</div>
-            </a>
-        )
-    }
-
-    const Documents = ({ documents }) => (
-        <lu className={"list-group"}>
-            {documents && Object.values(documents).map((document, index) => (
-                <Document key={index} document={document} />))}
-        </lu>
-    )
-
 
     const Description = ({ description }) => (<p style={{ maxHeight: '200px' }}>{description}</p>)
     const DxcDate2 = ({ date, id, ...rest }) => (<TextField
