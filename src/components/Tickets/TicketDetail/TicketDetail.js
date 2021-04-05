@@ -44,7 +44,7 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
                     sectionId={sectionId}/>
 
                 {openPopup &&
-                <NewWindowPortal>
+                <NewWindowPortal onCloseCallback={closeHandle}>
                     <TicketSummary 
                         ticket={ticket} 
                         actions={Actions} 
