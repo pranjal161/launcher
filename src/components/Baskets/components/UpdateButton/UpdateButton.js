@@ -1,8 +1,14 @@
 import BasketFormDialog from "../BasketFormDialog/BasketFormDialog";
 import {Button} from "@material-ui/core";
+import PropTypes from 'prop-types'
 import React from 'react';
 import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 
+/**
+ * Display of update basket button
+ * @param {basket} basket The basket which is concerned by the update
+ * @returns {*} Display of update basket button
+ */
 function UpdateButton({basket}) {
     const [open, setOpen] = React.useState(false);
     const {update} = useDeskBaskets()
@@ -29,6 +35,10 @@ function UpdateButton({basket}) {
             {open && <BasketFormDialog basket={basket} close={handleClose} submit={handleSubmit}/>}
         </>
     );
+}
+
+UpdateButton.propTypes = {
+    basket: PropTypes.string
 }
 
 export default UpdateButton;
