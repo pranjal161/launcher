@@ -2,6 +2,7 @@
 
 import React, {lazy} from "react";
 
+import AllBaskets from 'components/Baskets/AllBaskets';
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/clientView/clientView";
@@ -15,7 +16,6 @@ import MyTickets from 'views/tickets/myTickets';
 import NewTicket from 'views/tickets/newTicket';
 import {Redirect} from "react-router-dom";
 import Trainers from "views/training";
-import ViewBaskets from 'views/baskets/viewBaskets';
 
 const routes = [
     {
@@ -106,7 +106,7 @@ const routes = [
                 path: '/baskets/all',
                 name: 'viewBaskets',
                 exact: true,
-                component: ViewBaskets
+                component: AllBaskets
             },
             {
                 path: '/tickets/myTickets',

@@ -5,7 +5,7 @@ import React from 'react'
 import { StyledButton } from '../../../../../../../styles/global-style';
 import useDeskTickets from "../../../../../../../data/hooks/useDeskTickets";
 
-const RelatedClient = props => {
+const RelatedClient = (props) => {
     const { removeRelatedClients } = useDeskTickets();
     const { relatedClient, onClick } = props;
     const handleClick = (relatedClient) => { onClick && onClick(relatedClient) };
@@ -13,18 +13,15 @@ const RelatedClient = props => {
     const handleRemoveRelatedClient = () => {
         removeRelatedClients('y270CCciTszudNrTtK6g', 'Pet')
     }
-    const Display = () => {
-        return (
-            <>
-                {relatedClient && Object.values(relatedClient).map((client, index) =>
-                    <tr key={index}>
-                        <td>{client}</td>
-                        <td> <StyledButton onClick={handleRemoveRelatedClient}><DotsIcon /></StyledButton></td>
-                    </tr>
-                )}
-            </>
-        )
-    }
+    const Display = () => (
+        <>
+            {relatedClient && Object.values(relatedClient).map((client, index) => <tr key={index}>
+                <td>{client}</td>
+                <td> <StyledButton onClick={handleRemoveRelatedClient}><DotsIcon /></StyledButton></td>
+            </tr>
+            )}
+        </>
+    )
 
     return (
         <>
