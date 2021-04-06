@@ -1,15 +1,14 @@
-import {DxcButton, DxcInput} from "@dxc-technology/halstack-react";
-import React, {useContext, useEffect, useState} from 'react';
+import { DxcButton, DxcInput, DxcAlert } from "@dxc-technology/halstack-react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import {AppConfig} from 'config/appConfig';
-import {ApplicationContext} from 'context/applicationContext';
+import { AppConfig } from 'config/appConfig';
+import { ApplicationContext } from 'context/applicationContext';
 import ContractTable from 'components/contractTable/contractTable';
 import axios from 'axios';
-import {useTranslation} from 'react-i18next';
-
+import { useTranslation } from 'react-i18next';
 
 const ContractSearch = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const initialURL = AppConfig.hostUrl.defaultHostUrl + 'contracts?_num=5';
     const [url, setURL] = useState(initialURL);
     const [contractNumber, setContractNumber] = useState('');
@@ -21,13 +20,12 @@ const ContractSearch = () => {
         setContractNumber(updatedValue.toUpperCase());
     };
 
-
     useEffect(() => {
         getData(url);
     }, [url, applicationContext]);
 
     const getData = (url: string) => {
-        axios.get(url, {headers: applicationContext.headers}).then((response) => {
+        axios.get(url, { headers: applicationContext.headers }).then((response) => {
             if (response && response.data['_links']['item']) {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];
@@ -41,8 +39,6 @@ const ContractSearch = () => {
 
     const searchContract = () => {
         const searchURL = AppConfig.hostUrl.defaultHostUrl + 'contracts?contract:number=' + contractNumber + '&_num=5';
-
-
         setURL(searchURL);
     };
 
@@ -68,10 +64,18 @@ const ContractSearch = () => {
                     margin="medium"
                     size="large"
                 />
-                <DxcButton mode="primary" label={t('_RESET')} onClick={resetTable} margin="medium" size="large"/>
+                <DxcButton mode="primary" label={t('_RESET')} onClick={resetTable} margin="medium" size="large" />
+            </div>
+            <div className="align-center">
+                <DxcAlert
+                    type="info"
+                    mode="inline"
+                    inlineText={t('_PAGINATOR_WARNING')}
+                    margin="xxsmall"
+                />
             </div>
             <div className="p-2">
-                <ContractTable contractData={contractData} getData={(href: string) => getData(href)}/>
+                <ContractTable contractData={contractData} getData={(href: string) => getData(href)} />
             </div>
         </>
     );

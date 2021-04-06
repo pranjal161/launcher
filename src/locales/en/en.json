@@ -527,6 +527,7 @@
         "_OWNERS": "Owners",
         "_PACKAGES": "Packages",
         "_PAGE_TRANSITION_TITLE": "Please wait...",
+        "_PAGINATOR_WARNING": "Please add filter to have relevant results - No more than 500 results will be fetch",
         "_PAID_UP_VALUE": "Paid up value",
         "_PARENT": "Clause applies to",
         "_PARKING_DETAILS": "Parking details",

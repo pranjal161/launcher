@@ -1,18 +1,21 @@
-import "./entitySidebar.css"
-
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import React from "react";
-import clsx from 'clsx';
+import styled from 'styled-components';
+
+const StyledSidebar = styled.div`
+    overflow: hidden;
+    display: flex;
+    transition: width 0.2s ease-in;
+    width: ${props => props.open ? props => props.width : 0}px;
+`;
 
 const EntitySidebar = ({open, width = 240, content}) => {
-    const widthInlineStyle = open ? {width, minWidth:width} : {};
-
     return (
-        <div className={clsx('entity-sidebar__container', open && 'entity-sidebar--open', !open && 'entity-sidebar--close')} style={widthInlineStyle}>
+        <StyledSidebar open={open} width={width}>
             <div>
                 {content}
             </div>
-        </div>
+        </StyledSidebar>
     )
 }
 
