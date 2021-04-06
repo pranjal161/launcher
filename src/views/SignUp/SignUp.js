@@ -22,8 +22,8 @@ const SignUp = () => {
     }
 
     const {logged, errorMessage} = auth
-    if (logged)
-        return <Redirect to={"/"}/>
+    // if (logged)
+    //     return <Redirect to={"/"}/>
 
     return (
         <div className={"container"}>

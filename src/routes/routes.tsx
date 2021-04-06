@@ -15,7 +15,7 @@ import MyTickets from 'views/tickets/myTickets';
 import NewTicket from 'views/tickets/newTicket';
 import {Redirect} from "react-router-dom";
 import Trainers from "views/training";
-import ViewBaskets from 'views/baskets/viewBaskets';
+import AllBaskets from 'components/Baskets/AllBaskets';
 
 const routes = [
     {
@@ -106,7 +106,7 @@ const routes = [
                 path: '/baskets/all',
                 name: 'viewBaskets',
                 exact: true,
-                component: ViewBaskets
+                component: AllBaskets
             },
             {
                 path: '/tickets/myTickets',
