@@ -29,18 +29,6 @@
     /* padding: 0 10px; */
 }
 
-.MuiFormControl-root {
-    height: 44px;
-}
-
-input.MuiInputBase-input.MuiInput-input {
-    padding: 7px 0;
-}
-
-.MuiCircularProgress-colorPrimary {
-    color: #6F2C91 !important;
-}
-
 .resultsList {
     position: absolute;
     top: 80px;
@@ -87,13 +75,27 @@ input.MuiInputBase-input.MuiInput-input {
 }
 
 .vsTpN {
-    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+  //  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
 }
 
-label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiFormLabel-filled {
-    display: none;
-}
+.global-search {
+    label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiFormLabel-filled {
+        display: none;
+    }
+    
+    .MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl {
+        margin-top: 0;
+    }
 
-.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl {
-    margin-top: 0;
+    .MuiFormControl-root {
+        height: 44px;
+    }
+    
+    input.MuiInputBase-input.MuiInput-input {
+        padding: 7px 0;
+    }
+    
+    .MuiCircularProgress-colorPrimary {
+        color: #6F2C91 !important;
+    }
 }

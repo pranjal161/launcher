@@ -1,4 +1,4 @@
-import './GlobalSearchDXC.css';
+import './GlobalSearchDXC.scss';
 
 import { DxcBox, DxcInput, DxcSelect, DxcSpinner } from '@dxc-technology/halstack-react';
 
@@ -93,7 +93,7 @@ const GlobalSearchDXC = ({entitiesList, onSearch, onSelect}) => {
     }, [debounceSearchValue])
 
     return (
-        <div className="root">
+        <div className="root global-search">
             {
                 isShown &&
                         <div className="filters">

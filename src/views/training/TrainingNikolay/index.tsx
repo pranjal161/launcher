@@ -1,6 +1,7 @@
+import NavigationBar from "../../../components/navigationBar/navigationBar";
 import React from "react";
 
 const TrainingNikolay = () => (
-    <h1>Nikolay</h1>
+    <NavigationBar></NavigationBar>
 );
 export default TrainingNikolay;
