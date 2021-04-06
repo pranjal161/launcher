@@ -37,7 +37,7 @@ function copyStyles(sourceDoc, targetDoc) {
     });
 }
 
-const NewWindowPortal = ({children}) => {
+const NewWindowPortal = ({children, onCloseCallback = null}) => {
     const container = document.createElement('div');
     let windowRef = useRef(null)
     let externalWindow = null;
@@ -46,6 +46,10 @@ const NewWindowPortal = ({children}) => {
         externalWindow = window.open('', '', 'width=620,height=600,left=200,top=200');
         externalWindow.document.body.appendChild(container);
         copyStyles(document, externalWindow.document);
+
+        if(onCloseCallback)
+            externalWindow.onbeforeunload = onCloseCallback;
+
         windowRef.current = externalWindow;
         return () => {
             externalWindow.close();
