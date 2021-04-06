@@ -1,4 +1,4 @@
-import { DxcButton, DxcInput, DxcAlert } from "@dxc-technology/halstack-react";
+import { DxcAlert, DxcButton, DxcInput } from "@dxc-technology/halstack-react";
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
