@@ -1,11 +1,12 @@
+import React, { useEffect, useState } from 'react';
+
 import BasketTitle from "./components/BasketTitle/BasketTitle";
-import React, { useState, useEffect } from 'react';
-import useDeskBaskets from "../../data/hooks/useDeskBaskets";
-import { DxcSidenav } from '@dxc-technology/halstack-react';
 import Card from 'components/card/card';
+import { DxcSidenav } from '@dxc-technology/halstack-react';
 import EntitySidebar from 'components/entitySidebar/entitySidebar';
 import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
 import TicketList from 'components/Tickets/ticketsList/ticketsList'
+import useDeskBaskets from "../../data/hooks/useDeskBaskets";
 import useDeskTickets from 'data/hooks/useDeskTickets';
 
 const AllBaskets= (props: any) =>  {

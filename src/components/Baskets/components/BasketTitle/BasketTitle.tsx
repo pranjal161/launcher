@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react';
 
-function BasketTitle(props: any) {
-    const {baskets, onBasketClick=() => {}, basketId} = props;
+const BasketTitle = (props: any) => {
+    const {baskets, onBasketClick, basketId} = props;
     const selected = (id: string) => basketId === id;
 
     return (
