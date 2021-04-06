@@ -1,10 +1,10 @@
-import { DxcTable } from '@dxc-technology/halstack-react';
+import {DxcTable} from '@dxc-technology/halstack-react';
 import Paginator from 'components/paginator/paginator';
 import React from 'react';
-import { StyledHoverRow } from 'styles/global-style';
-import { getDescriptionValue } from 'util/functions';
-import { useHistory } from 'react-router-dom';
-import { useTranslation } from "react-i18next";
+import {StyledHoverRow} from 'styles/global-style';
+import {getDescriptionValue} from 'util/functions';
+import {useHistory} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 import useAiaContract from "data/hooks/useAiaContract";
 
 /**
@@ -13,9 +13,10 @@ import useAiaContract from "data/hooks/useAiaContract";
  * @returns {*} Return information of the contract in a table
  */
 const ContractTable = (props: { contractData: any; getData: (href: string) => void }) => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const history = useHistory();
-    const {get} = useAiaContract()
+    const {get, getRisks, getRoles, getActivities} = useAiaContract()
+
     /**
      * Redirection to a contract
      * @param {item} item Resource that representing a contract
@@ -24,9 +25,13 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
 
-        get(contractNumber)
+        get(contractNumber).then(() => {
+            getRisks(contractNumber)
+            getRoles(contractNumber)
+            getActivities(contractNumber)
+        })
 
-        history.push('/contracts/' + contractNumber, { contractUrl: item.href });
+        history.push('/contracts/' + contractNumber, {contractUrl: item.href});
     }
 
     return (
