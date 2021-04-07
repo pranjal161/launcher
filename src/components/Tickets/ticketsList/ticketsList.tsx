@@ -10,7 +10,6 @@ import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from "data/hooks/useDeskTickets";
 import {useTranslation} from 'react-i18next';
 
-
 const ActionsIconContainer = styled.div`
     position: relative;
     width: 24px;
@@ -96,7 +95,7 @@ const ProgressBarContainer = styled.div`
 
 const TicketList = (props: any) => {
     const {
-        height='250px', tickets, handleTicketClick = () => {
+        height, tickets, handleTicketClick = () => {
             // Nothing to do
         }
     } = props
