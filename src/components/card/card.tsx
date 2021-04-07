@@ -35,11 +35,11 @@ const CardHeaderTitle = styled.span`
     Maybe later add option to enable/disable.
     Couldn't be done with styled-components
 */
-const Card = (props: { title: any; actions: any; children: any; footer: any; contentFullWidth?: boolean }) => {
-    const { title, actions, children, footer, contentFullWidth = true } = props;
+const Card = (props: { title: any; actions: any; children: any; footer: any; contentFullWidth?: boolean, className?: string }) => {
+    const { title, actions, children, footer, contentFullWidth = true, className = '' } = props;
 
     return (
-        <div className="card-height-wrapper">
+        <div className={`card-height-wrapper ${className}`}>
             <DxcBox
                 padding={contentFullWidth ? "" : "xsmall"}
                 size="fillParent"
@@ -67,7 +67,8 @@ Card.propTypes = {
     actions: PropTypes.any,
     children: PropTypes.any,
     footer: PropTypes.any,
-    contentFullWidth: PropTypes.bool
+    contentFullWidth: PropTypes.bool,
+    className: PropTypes.string
 }
 
 export default Card;
