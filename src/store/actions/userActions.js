@@ -2,7 +2,7 @@ export const createReminder = (reminder) => (dispatch, getState, { getFirebase, 
     const firestore = getFirebase().firestore();
     const user = getState().auth.id;
     const timestamp = Date.now();
-    reminder = { ...reminder, ...{ time: timestamp} }
+    reminder = { ...reminder, ...{ timestamp: timestamp} }
     const reminderId = `reminders.${timestamp}`
     return firestore.collection('users').doc(user).update(
         {

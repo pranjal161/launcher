@@ -4,6 +4,7 @@ import { DxcButton, DxcDate, DxcDialog, DxcHeading, DxcInput, DxcSelect } from '
 import React, { useContext, useState } from 'react';
 
 import { AlertContext } from "context/alertContext";
+import TextField from "@material-ui/core/TextField";
 import useDeskTickets from 'data/hooks/useDeskTickets';
 import useDeskUsers from "data/hooks/useDeskUsers";
 
@@ -20,28 +21,29 @@ const CreateReminders = (props: any) => {
         ticket.id
     ));
     const statusValues = [
-        { value: "done", label: "Done" },
-        { value: "todo", label: "To Do" },
-        { value: "cancel", label: "Cancel" }
+        { value: "Done", label: "Done" },
+        { value: "To Do", label: "To Do" },
+        { value: "Cancel", label: "Cancel" }
     ];
     const categoryValues = [
-        { value: "requestInfo", label: "Request for Information" },
-        { value: "sendBrochure", label: "Send a commercial brochure"}
+        { value: "Request for Information", label: "Request for Information" },
+        { value: "Send a commercial brochure", label: "Send a commercial brochure" }
     ]
     const schema = yup.object().shape({
         ticket: yup.string(),
         description: yup.string().required(),
         status: yup.string().required(),
         deadline: yup.string().required(),
-        category: yup.string()
+        category: yup.string(),
+        time: yup.string()
     });
 
     const updateValue = (newValue: any, id: string) => {
         const obj = {
-            [id]: newValue
+            [id]: newValue.target ? newValue.target.value : newValue
         }
         const newUpdate = updatedReminder ? { ...updatedReminder, ...obj } : obj;
-        
+
         updateReminder(newUpdate)
     };
 
@@ -68,13 +70,13 @@ const CreateReminders = (props: any) => {
     }
 
     return (
-        <DxcDialog  padding="medium" onCloseClick={onClickDialog}>
+        <DxcDialog padding="medium" onCloseClick={onClickDialog}>
             <DxcHeading level={3} weight="light" text="Create Reminder" />
             <div>
                 <DxcInput
                     label="Description"
                     onChange={(newValue: string) => updateValue(newValue, 'description')}
-                    margin="xxsmall" 
+                    margin="xxsmall"
                     required={true}
                     value={updatedReminder ? updatedReminder.description : ''}
                 />
@@ -88,6 +90,20 @@ const CreateReminders = (props: any) => {
                     required={true}
                     onChange={(newValue: any) => updateValue(newValue.stringValue, 'deadline')}
                     value={updatedReminder ? updatedReminder.deadline : ''}
+                />
+            </div>
+            <div className="w-25">
+                <TextField
+                    id="time"
+                    label="Select time"
+                    type="time"
+                    onChange={(newValue: any) => updateValue(newValue, 'time')}
+                    inputProps={{
+                        step: 300, // 5 min
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                 />
             </div>
             <div>
@@ -116,7 +132,7 @@ const CreateReminders = (props: any) => {
                     onBlur={(newValue: string) => updateValue(newValue, 'ticket')}
                     autocompleteOptions={ticketOptions}
                     margin="xxsmall"
-                    onChange={(newValue:string) => setTicketValue(newValue)}
+                    onChange={(newValue: string) => setTicketValue(newValue)}
                     value={ticketValue}
                 />
             </div>
