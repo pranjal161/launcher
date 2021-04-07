@@ -3,7 +3,7 @@ import Paginator from 'components/paginator/paginator';
 import React from 'react';
 import {StyledHoverRow} from 'styles/global-style';
 import {getDescriptionValue} from 'util/functions';
-import useAiaContract from "data/hooks/useAiaContract";
+import useAia from "data/hooks/useAia";
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from "react-i18next";
 
@@ -15,7 +15,7 @@ import {useTranslation} from "react-i18next";
 const ContractTable = (props: { contractData: any; getData: (href: string) => void }) => {
     const {t} = useTranslation();
     const history = useHistory();
-    const {fetch} = useAiaContract()
+    const {fetch} = useAia()
 
     /**
      * Redirection to a contract

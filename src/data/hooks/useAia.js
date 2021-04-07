@@ -7,7 +7,7 @@ import {useDispatch} from "react-redux";
  * get
  * @returns {*} Information for aia
  */
-export default function useAiaContract() {
+export default function useAia() {
     const dispatch = useDispatch();
     const fetch = useCallback((...params) => dispatch(fetchAction(...params)), [dispatch])
 
