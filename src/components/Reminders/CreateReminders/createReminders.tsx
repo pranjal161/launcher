@@ -90,7 +90,7 @@ const CreateReminders = (props: any) => {
                     label="Deadline"
                     placeholder
                     margin="xxsmall"
-                    format="MM-dd-yyyy"
+                    format="dd-MM-yyyy"
                     required={true}
                     onChange={(newValue: any) => updateValue(newValue.stringValue, 'deadline')}
                     value={updatedReminder ? updatedReminder.deadline : ''}
