@@ -12,8 +12,8 @@ const CreateReminders = (props: any) => {
     const { onClickDialog, reminder } = props;
     const { getMyAllTickets } = useDeskTickets();
     const tickets = getMyAllTickets();
-    const { createReminder } = useDeskUsers();
-    const [updatedReminder, updateReminder] = useState(reminder);
+    const { createReminder, updateReminder } = useDeskUsers();
+    const [updatedReminder, setReminder] = useState(reminder);
     const [ticketValue, setTicketValue] = useState('')
     const alertContext = useContext(AlertContext);
 
@@ -44,13 +44,17 @@ const CreateReminders = (props: any) => {
         }
         const newUpdate = updatedReminder ? { ...updatedReminder, ...obj } : obj;
 
-        updateReminder(newUpdate)
+        setReminder(newUpdate)
     };
 
     const onSubmit = () => {
         const newReminder = reminder ? { ...reminder, ...updatedReminder } : updatedReminder;
         schema.validate(newReminder).then(() => {
-            createReminder(newReminder);
+            if (reminder) {
+                updateReminder(newReminder);
+            } else {
+                createReminder(newReminder);
+            }
             onClickDialog();
         }).catch(() => {
             const statusReport = {
@@ -104,7 +108,7 @@ const CreateReminders = (props: any) => {
                     }}
                     InputLabelProps={{
                         shrink: true,
-                      }}
+                    }}
                 />
             </div>
             <div>
