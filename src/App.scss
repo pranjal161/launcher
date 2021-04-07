@@ -160,35 +160,3 @@ div[role="tooltip"] {
   width: 100%;
   height: 700px;
 }
-
-.list-group {
-  li:hover:not(.active) {
-    color: #6f2c91 !important;
-  }
-
-  .active {
-    background-color: #f2ebfe !important;
-    border-left: 3px solid #6F2C91 !important;
-    color: #6f2c91 !important;
-  }
-}
-
-.search-input > div {
-  margin: 0 !important;
-  padding: 10px;
-}
-
-.baskets-ticket {
-  position: absolute;
-  right: 0;
-  overflow: visible !important;
-}
-
-.basket-title {
-  & > div > div {
-    padding: 0 1rem;
-  }
-  span {
-    width: 100%;
-  }
-}
