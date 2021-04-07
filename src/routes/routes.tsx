@@ -2,7 +2,7 @@
 
 import React, {lazy} from "react";
 
-import AllBaskets from 'components/Baskets/AllBaskets';
+import AllBaskets from 'components/Baskets/components/AllBaskets/AllBaskets';
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/clientView/clientView";

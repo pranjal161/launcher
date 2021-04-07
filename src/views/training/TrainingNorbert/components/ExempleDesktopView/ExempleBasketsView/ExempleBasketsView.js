@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import AllBaskets from "../../../../../../components/Baskets/AllBaskets";
+import AllBaskets from "../../../../../../components/Baskets/components/AllBaskets/AllBaskets";
 import BasketDetail from "../../../../../../components/Baskets/components/BasketDetail/BasketDetail";
 import CreateButton from "../../../../../../components/Baskets/components/CreateButton/CreateButton";
 import MyBaskets from "../../../../../../components/Baskets/MyBaskets";
