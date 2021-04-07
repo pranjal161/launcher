@@ -4,6 +4,7 @@ import {combineReducers} from "redux";
 import {firebaseReducer} from "react-redux-firebase";
 import {firestoreReducer} from "redux-firestore";
 import ticketReducer from "./ticketReducer";
+import userReducer from "./userReducer";
 
 const rootReducer = combineReducers(
     {
@@ -11,7 +12,8 @@ const rootReducer = combineReducers(
         firebase: firebaseReducer,
         firestore: firestoreReducer,
         tickets: ticketReducer,
-        baskets: basketReducer
+        baskets: basketReducer,
+        users: userReducer
     }
 )
 
