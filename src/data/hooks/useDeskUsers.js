@@ -13,7 +13,8 @@ const useDeskUsers = () => {
     const getOne = useGetOne
     const dispatch = useDispatch();
     const createReminder = useCallback((...param) => dispatch(userActions.createReminder(...param)), [dispatch])
-    return { getOne, getAll, createReminder }
+    const updateReminder = useCallback((...param) => dispatch(userActions.updateReminder(...param)), [dispatch])
+    return { getOne, getAll, createReminder, updateReminder }
 }
 
 export default useDeskUsers
