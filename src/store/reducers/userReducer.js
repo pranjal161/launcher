@@ -12,7 +12,7 @@ const userReducer = (state = initialState, action) => {
         
         case 'UPDATE_USER_REMINDER_SUCCESS':
             return {...state}
-        case 'UPDATE_REMINDER_ERROR':
+        case 'UPDATE_USER_REMINDER_ERROR':
             return {...state}
 
         default:

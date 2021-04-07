@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const OLD_Summary = (props) => {
+const OLD_Summary = (props:any) => {
     const {ticket, className, actions, onClose, sectionId, ...rest} = props;
 
     const classes = useStyles();
