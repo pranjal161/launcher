@@ -2,13 +2,16 @@ import React from 'react';
 import TicketList from "../TicketList/TicketList";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
-const AllTickets = (props) => {
-    const {getAll} = useDeskTickets()
-    const tickets = getAll()
+const MyTickets = (props:any) => {
+    const {getMyAllTickets} = useDeskTickets()
+    const tickets = getMyAllTickets()
+    //console.log('MyTickets detail render')
     return (
         <TicketList tickets={tickets} {...props}/>
     );
 }
 
-export default AllTickets
+export default MyTickets;
+
+
 
