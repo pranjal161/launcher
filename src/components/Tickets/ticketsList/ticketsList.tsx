@@ -96,7 +96,7 @@ const ProgressBarContainer = styled.div`
 
 const TicketList = (props: any) => {
     const {
-        tickets, handleTicketClick = () => {
+        height='250px', tickets, handleTicketClick = () => {
             // Nothing to do
         }
     } = props
@@ -143,7 +143,7 @@ const TicketList = (props: any) => {
 
     return (
         <div className="p-2">
-            <WithScroll visibleHeight={'250px'}>
+            <WithScroll visibleHeight={height}>
                 <DxcTable>
                     <tr>
                         <th/>
