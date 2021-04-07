@@ -4,7 +4,7 @@ export const fetch = (hRef, callType='get') => (dispatch, getState) => {
     //Search if we have already fetch this hRef
     const hRefs = getState().aia.hRefs
     const timestamp = Date.now()
-    const alreadyFetched = hRefs[hRef] && hRefs[hRef].status === "success"
+    const alreadyFetched = hRefs[hRef] && hRefs[hRef].status === "succeeded"
     const actionPrefix = alreadyFetched ? 'UPDATE_FETCH_HREF' : 'FETCH_HREF'
 
     dispatch({type: `${actionPrefix}_START`, hRef, timestamp})

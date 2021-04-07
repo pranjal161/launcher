@@ -10,11 +10,11 @@ const aiaReducer = (state = initialState, action) => {
         case 'FETCH_HREF_START':
             //If hRef not exist, we add it
             if (!newState.hRefs[action.hRef])
-                newState.hRefs[action.hRef] = {status:'fetching', hRef, timestamp}
+                newState.hRefs[action.hRef] = {status:'loading', hRef, timestamp}
             return newState
 
         case 'FETCH_HREF_SUCCESS':
-            newState.hRefs[action.hRef] = {...newState.hRefs[action.hRef], status:'success', data, timestamp}
+            newState.hRefs[action.hRef] = {...newState.hRefs[action.hRef], status:'succeeded', data, timestamp}
             return newState
 
         case 'FETCH_HREF_ERROR':
@@ -26,7 +26,7 @@ const aiaReducer = (state = initialState, action) => {
             return newState
 
         case 'UPDATE_FETCH_HREF_SUCCESS':
-            newState.hRefs[action.hRef] = {...newState.hRefs[action.hRef], status:'success', data, timestamp}
+            newState.hRefs[action.hRef] = {...newState.hRefs[action.hRef], status:'succeeded', data, timestamp}
             return newState
 
         case 'UPDATE_FETCH_HREF_ERROR':
