@@ -25,7 +25,7 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
 
-        fetch(item.href)
+        fetch(item.href, 'get')
 
         history.push('/contracts/' + contractNumber, {contractUrl: item.href});
     }
