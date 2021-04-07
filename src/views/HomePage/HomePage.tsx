@@ -85,10 +85,10 @@ const HomePage = () => {
                         <Card 
                             title="All Tickets">
                             {tickets &&
-                            <div className="main-container col-12 p-0">
+                            <div className="main-container col-12">
                                 <div className="col-12">
-                                    <div className="row">
-                                        <div className="col">
+                                    <div className="d-flex flex-nowrap">
+                                        <div className="flex-grow-1">
                                             <TicketList 
                                                 handleTicketClick={handleTicketClick} 
                                                 tickets={tickets} />
