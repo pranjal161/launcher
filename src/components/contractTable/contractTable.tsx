@@ -3,9 +3,9 @@ import Paginator from 'components/paginator/paginator';
 import React from 'react';
 import {StyledHoverRow} from 'styles/global-style';
 import {getDescriptionValue} from 'util/functions';
+import useAiaContract from "data/hooks/useAiaContract";
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from "react-i18next";
-import useAiaContract from "data/hooks/useAiaContract";
 
 /**
  * Display contract information in a table
@@ -15,7 +15,7 @@ import useAiaContract from "data/hooks/useAiaContract";
 const ContractTable = (props: { contractData: any; getData: (href: string) => void }) => {
     const {t} = useTranslation();
     const history = useHistory();
-    const {get, getRisks, getRoles, getActivities} = useAiaContract()
+    const {fetch} = useAiaContract()
 
     /**
      * Redirection to a contract
@@ -25,11 +25,7 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
 
-        get(contractNumber).then(() => {
-            getRisks(contractNumber)
-            getRoles(contractNumber)
-            getActivities(contractNumber)
-        })
+        fetch(item.href)
 
         history.push('/contracts/' + contractNumber, {contractUrl: item.href});
     }
