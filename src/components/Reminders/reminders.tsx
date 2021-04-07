@@ -1,15 +1,21 @@
 import './reminders.scss';
 
+import React, { useState } from 'react';
+
+import CreateReminders from './CreateReminders/createReminders';
 import Deadline from 'components/deadlineComponent/deadline';
 import { DxcRadio } from '@dxc-technology/halstack-react';
 import { InfoIcon } from 'assets/svg';
-import React from 'react';
 import WithScroll from 'components/WithScroll/WithScroll';
 import { formatValue } from 'util/functions';
 
 const Reminders = (props: { reminders: any; }) => {
 
     const { reminders } = props;
+    const [openReminder, setOpenReminder] = useState(false);
+    const onClickDialog = () => {
+        setOpenReminder(false);
+    };
 
     return (
         <>
@@ -28,7 +34,10 @@ const Reminders = (props: { reminders: any; }) => {
                                 <small className="col-12 p-0">{formatValue(reminder.deadline, 'date')} {reminder.time} </small>
                             </div>
                         </div>
-                        <div className="col-2 pt-2"><InfoIcon /></div>
+                        <div onClick={() => setOpenReminder(true)} className="col-2 pt-2"><InfoIcon /></div>
+                        {openReminder && 
+                            <CreateReminders reminder={reminder} onClickDialog={onClickDialog} />
+                        }
                     </div>
                 ))}
             </WithScroll>

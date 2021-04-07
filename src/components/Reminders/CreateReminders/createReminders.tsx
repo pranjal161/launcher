@@ -71,7 +71,7 @@ const CreateReminders = (props: any) => {
 
     return (
         <DxcDialog padding="medium" onCloseClick={onClickDialog}>
-            <DxcHeading level={3} weight="light" text="Create Reminder" />
+            <DxcHeading level={3} weight="light" text={reminder ? 'Update reminder' : 'Create reminder'} />
             <div>
                 <DxcInput
                     label="Description"
@@ -97,6 +97,7 @@ const CreateReminders = (props: any) => {
                     id="time"
                     label="Select time"
                     type="time"
+                    value={updatedReminder ? updatedReminder.time : ''}
                     onChange={(newValue: any) => updateValue(newValue, 'time')}
                     inputProps={{
                         step: 300, // 5 min
