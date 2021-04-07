@@ -85,7 +85,7 @@ const HomePage = () => {
                         <Card 
                             title="All Tickets">
                             {tickets &&
-                            <div className="main-container col-12">
+                            <div className="main-container col-12 p-0">
                                 <div className="col-12">
                                     <div className="row">
                                         <div className="col">
