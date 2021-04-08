@@ -1,3 +1,4 @@
+import aiaReducer from "./aiaReducer";
 import authReducer from "./authReducer";
 import basketReducer from "./basketReducer";
 import {combineReducers} from "redux";
@@ -13,7 +14,8 @@ const rootReducer = combineReducers(
         firestore: firestoreReducer,
         tickets: ticketReducer,
         baskets: basketReducer,
-        users: userReducer
+        users: userReducer,
+        aia: aiaReducer
     }
 )
 
