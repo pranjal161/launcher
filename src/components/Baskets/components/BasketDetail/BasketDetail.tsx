@@ -1,14 +1,15 @@
 import React from 'react';
 import UpdateButton from "../UpdateButton/UpdateButton";
-import useDeskAuth from "../../../../data/hooks/useDeskAuth";
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
+import useDeskAuth from "data/hooks/useDeskAuth";
+import useDeskBaskets from "data/hooks/useDeskBaskets";
 
 /**
  * Detail of an item from the basket
- * @param {*} param0 Item information
+ * @param {*} props: param0 Item information
  * @returns {*} Return all information of the item from the basket
  */
-function BasketDetail({id, remove}) {
+function BasketDetail(props: {id: string, remove: (id: string) => void}) {
+    const { id, remove } = props;
     const {getOne, assignUser, removeUser} = useDeskBaskets()
     const {currentUserId} = useDeskAuth()
 
