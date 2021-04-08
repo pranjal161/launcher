@@ -169,7 +169,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     label="Deadline"
                     placeholder
                     value={updatedTicket ? updatedTicket.deadline : ''}
-                    format="MM-dd-yyyy"
+                    format="dd-MM-yyyy"
                     onChange={(newValue: any) => updateValue(newValue.stringValue, 'deadline')}
                 />
             </div>
