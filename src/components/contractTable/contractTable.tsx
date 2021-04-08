@@ -1,10 +1,11 @@
-import { DxcTable } from '@dxc-technology/halstack-react';
+import {DxcTable} from '@dxc-technology/halstack-react';
 import Paginator from 'components/paginator/paginator';
 import React from 'react';
-import { StyledHoverRow } from 'styles/global-style';
-import { getDescriptionValue } from 'util/functions';
-import { useHistory } from 'react-router-dom';
-import { useTranslation } from "react-i18next";
+import {StyledHoverRow} from 'styles/global-style';
+import {getDescriptionValue} from 'util/functions';
+import useAia from "data/hooks/useAia";
+import {useHistory} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 /**
  * Display contract information in a table
@@ -12,8 +13,9 @@ import { useTranslation } from "react-i18next";
  * @returns {*} Return information of the contract in a table
  */
 const ContractTable = (props: { contractData: any; getData: (href: string) => void }) => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const history = useHistory();
+    const {fetch} = useAia()
 
     /**
      * Redirection to a contract
@@ -22,7 +24,10 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
      */
     function goToContract(item: any) {
         const contractNumber = item.summary['contract:number'];
-        history.push('/contracts/' + contractNumber, { contractUrl: item.href });
+
+        fetch(item.href, 'get')
+
+        history.push('/contracts/' + contractNumber, {contractUrl: item.href});
     }
 
     return (
