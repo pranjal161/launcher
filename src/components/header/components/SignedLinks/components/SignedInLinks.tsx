@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 function SignedInLinks() {
     const {signOut} = useDeskAuth()
     const history = useHistory()
-    const handleLogout = (e) => {
+    const handleLogout = (e:any) => {
         e.preventDefault()
         signOut().then(() => history.push('/auth/signin'))
     }

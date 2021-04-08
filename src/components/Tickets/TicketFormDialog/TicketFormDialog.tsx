@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { DxcButton, DxcDate, DxcInput, DxcSelect, DxcSlider, DxcTextarea } from '@dxc-technology/halstack-react';
+import { DxcButton, DxcDate, DxcHeading, DxcInput, DxcSelect, DxcSlider, DxcTextarea } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AlertContext } from 'context/alertContext';
@@ -123,7 +123,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
 
     return (
         <>
-            <h4>{ticket ? 'Update a ticket' : 'Create a ticket'}</h4>
+            <DxcHeading level={3} weight="light" text={ticket ? 'Update a ticket' : 'Create a ticket'} />
             <div>
                 <DxcInput
                     label="Title"
@@ -169,7 +169,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     label="Deadline"
                     placeholder
                     value={updatedTicket ? updatedTicket.deadline : ''}
-                    format="MM-dd-yyyy"
+                    format="dd-MM-yyyy"
                     onChange={(newValue: any) => updateValue(newValue.stringValue, 'deadline')}
                 />
             </div>
@@ -200,7 +200,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
             <DxcInput
                 label="Client"
                 onBlur={(newValue: string) => updateValue(newValue, 'client')}
-                onChange={setClientValue}
+                onChange={(newValue:string) => setClientValue(newValue)}
                 value={clientValue}
                 autocompleteOptions={autocompleteOptions}
                 margin="xxsmall"

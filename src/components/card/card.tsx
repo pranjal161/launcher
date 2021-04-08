@@ -1,7 +1,6 @@
-import "./card.css"
+import "./card.scss"
 
 import { DxcBox } from '@dxc-technology/halstack-react';
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -36,35 +35,40 @@ const CardHeaderTitle = styled.span`
     Maybe later add option to enable/disable.
     Couldn't be done with styled-components
 */
-const Card = ({title, actions, children, footer, contentFullWidth=true}) => (
-    <div className="card-height-wrapper">
-        <DxcBox 
-            padding={contentFullWidth ? "" : "xsmall"} 
-            size="fillParent" 
-            display="block">
-            <CardHeader>
-                <CardHeaderTitle>
-                    {title}
-                </CardHeaderTitle>
-                {actions}
-            </CardHeader>
-            {children}
-            {
-                footer &&
+const Card = (props: { title: any; actions: any; children: any; footer: any; contentFullWidth?: boolean, className?: string }) => {
+    const { title, actions, children, footer, contentFullWidth = true, className = '' } = props;
+
+    return (
+        <div className={`card-height-wrapper ${className}`}>
+            <DxcBox
+                padding={contentFullWidth ? "" : "xsmall"}
+                size="fillParent"
+                display="block">
+                <CardHeader>
+                    <CardHeaderTitle>
+                        {title}
+                    </CardHeaderTitle>
+                    {actions}
+                </CardHeader>
+                {children}
+                {
+                    footer &&
                     <CardFooter>
                         {footer}
                     </CardFooter>
-            }
-        </DxcBox>
-    </div>
-)
+                }
+            </DxcBox>
+        </div>
+    )
+}
 
 Card.propTypes = {
     title: PropTypes.any,
     actions: PropTypes.any,
     children: PropTypes.any,
     footer: PropTypes.any,
-    contentFullWidth: PropTypes.bool
+    contentFullWidth: PropTypes.bool,
+    className: PropTypes.string
 }
 
 export default Card;

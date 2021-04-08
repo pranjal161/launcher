@@ -1,17 +1,18 @@
 import './HomePage.scss';
 
+import {DxcBox, DxcLink} from '@dxc-technology/halstack-react';
 import React, {useState} from 'react';
 
 import BasketList from 'components/basketList/basketList';
 import Card from 'components/card/card';
-import {DxcBox} from '@dxc-technology/halstack-react';
+import CreateReminders from 'components/Reminders/CreateReminders/createReminders';
 import EntitySidebar from 'components/entitySidebar/entitySidebar';
+import Reminders from 'components/Reminders/reminders';
 import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
 import TicketList from 'components/Tickets/ticketsList/ticketsList';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from 'data/hooks/useDeskTickets';
-
 
 const HomePage = () => {
     const {profile} = useDeskAuth()
@@ -22,6 +23,8 @@ const HomePage = () => {
     const baskets = basketDesk.getAll()
     const [clickedTicket, setClickedTicket] = useState({id: null});
     const [openSidebar, setOpenSidebar] = useState(false);
+    const [openReminder, setOpenReminder] = useState(false);
+    const reminders = profile ? profile.reminders : undefined;
 
     const handleTicketClick = (ticket: { id: any; }) => {
         setClickedTicket({ id: ticket.id})
@@ -39,6 +42,9 @@ const HomePage = () => {
         setOpenSidebar(false)
     }
 
+    const onClickDialog = () => {
+        setOpenReminder(false);
+    };
 
     return (
         <span className="home-container">
@@ -59,7 +65,20 @@ const HomePage = () => {
                     </div>
                     <div className="col-4">
                         <Card 
-                            title="Today&apos;s Reminder">
+                            title="Today&apos;s Reminder"
+                            actions={
+                                <DxcLink onClick={() => {
+                                    setOpenReminder(true);
+                                }}
+                                text="Create Reminders">
+                                </DxcLink>
+                            }>
+                            {openReminder && 
+                            <CreateReminders onClickDialog={onClickDialog} />
+                            }
+                            {reminders && 
+                            <Reminders reminders={reminders} />
+                            }  
                         </Card>
                     </div>
                     <div className="col-12">
@@ -68,8 +87,8 @@ const HomePage = () => {
                             {tickets &&
                             <div className="main-container col-12">
                                 <div className="col-12">
-                                    <div className="row">
-                                        <div className="col">
+                                    <div className="d-flex flex-nowrap">
+                                        <div className="flex-grow-1">
                                             <TicketList 
                                                 handleTicketClick={handleTicketClick} 
                                                 tickets={tickets} />
