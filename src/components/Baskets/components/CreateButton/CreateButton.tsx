@@ -1,7 +1,7 @@
 import BasketFormDialog from "../BasketFormDialog/BasketFormDialog";
 import {Button,} from "@material-ui/core";
 import React from 'react';
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
+import useDeskBaskets from "data/hooks/useDeskBaskets";
 
 /**
  * Button for creating a basket
@@ -19,7 +19,7 @@ function CreateButton() {
         setOpen(false);
     };
 
-    const handleSubmit = (basket) => {
+    const handleSubmit = (basket: any) => {
         create(basket)
         handleClose()
     }
