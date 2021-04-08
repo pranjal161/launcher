@@ -4,7 +4,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@materi
 
 import PropTypes from 'prop-types'
 import React from 'react';
-import useDeskAuth from "../../../../data/hooks/useDeskAuth";
+import useDeskAuth from "data/hooks/useDeskAuth";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 
@@ -17,7 +17,7 @@ const schema = yup.object().shape({
  * @param {props} props Information of the basket
  * @returns {*} Display available action for the basket
  */
-function BasketFormDialog(props) {
+function BasketFormDialog(props: { basket: any, close: () => void, submit: ( basket: any ) => void  }) {
     const {currentUserId} = useDeskAuth()
     const {basket} = props
 
@@ -26,12 +26,12 @@ function BasketFormDialog(props) {
         assignTo: currentUserId,
     }
 
-    const onSubmit = (updatedBasket) => {
+    const onSubmit = (updatedBasket: any) => {
         const completeBasket = basket ? {...basket, ...updatedBasket}:updatedBasket
         props.submit(completeBasket)
     }
 
-    const onError = (errors, e) => console.log(errors, e);
+    const onError = (errors: any, e: any) => console.log(errors, e);
 
     const {register, handleSubmit} = useForm({
         defaultValues,
