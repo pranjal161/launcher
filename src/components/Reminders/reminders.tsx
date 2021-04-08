@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import CreateReminders from './CreateReminders/createReminders';
 import Deadline from 'components/deadlineComponent/deadline';
-import { DxcRadio } from '@dxc-technology/halstack-react';
+import { DxcCheckbox } from '@dxc-technology/halstack-react';
 import { InfoIcon } from 'assets/svg';
 import WithScroll from 'components/WithScroll/WithScroll';
 import useDeskUsers from 'data/hooks/useDeskUsers';
@@ -41,9 +41,9 @@ const Reminders = (props: { reminders: any; }) => {
                 {reminders && Object.values(reminders).map((reminder: any, index) => (
                     <div className="col-12 p-0 reminder-container" key={index}>
                         <div className="col-2">
-                            <DxcRadio
+                            <DxcCheckbox
                                 size="fillParent"
-                                onClick={(newValue: string) => setStatus(newValue, reminder)}
+                                onChange={(newValue: string) => setStatus(newValue, reminder)}
                                 checked={reminder.status === 'Done' ? true : false} />
                         </div>
                         <div className="col-8 pt-2" aria-disabled={reminder.status === 'Done' ? true : false}>
