@@ -1,4 +1,5 @@
-import {useEffect, useRef} from 'react';
+import {MutableRefObject, useEffect, useRef} from 'react';
+
 import ReactDOM from 'react-dom';
 
 /*eslint "require-jsdoc": [2, {
@@ -16,7 +17,7 @@ import ReactDOM from 'react-dom';
  * @param {any} targetDoc The newly created window.
  * @returns {void} attaches the css from source to destination element
  */
-function copyStyles(sourceDoc, targetDoc) {
+function copyStyles(sourceDoc: Document, targetDoc: Document) {
     Array.from(sourceDoc.styleSheets).forEach((styleSheet) => {
         if (styleSheet.cssRules) { // for <style> elements
             const newStyleEl = sourceDoc.createElement('style');
@@ -37,10 +38,11 @@ function copyStyles(sourceDoc, targetDoc) {
     });
 }
 
-const NewWindowPortal = ({children, onCloseCallback = null}) => {
+const NewWindowPortal = ( props : {children: any, onCloseCallback: any}) => {
+    const { children , onCloseCallback=null } = props;
     const container = document.createElement('div');
-    let windowRef = useRef(null)
-    let externalWindow = null;
+    let windowRef = useRef<any>(null);
+    let externalWindow: any;
 
     useEffect(() => {
         externalWindow = window.open('', '', 'width=620,height=600,left=200,top=200');
@@ -57,7 +59,7 @@ const NewWindowPortal = ({children, onCloseCallback = null}) => {
     }, []);
 
     useEffect(() => {
-        windowRef.current.document.body.appendChild(container);
+            windowRef['current'].document.body.appendChild(container);
     }, [children])
 
     return (

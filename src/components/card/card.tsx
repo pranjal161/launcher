@@ -1,6 +1,7 @@
 import "./card.scss"
 
-import { DxcBox } from '@dxc-technology/halstack-react';
+import { DxcBox, DxcHeading } from '@dxc-technology/halstack-react';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -45,9 +46,9 @@ const Card = (props: { title: any; actions: any; children: any; footer: any; con
                 size="fillParent"
                 display="block">
                 <CardHeader>
-                    <CardHeaderTitle>
-                        {title}
-                    </CardHeaderTitle>
+                    <span>
+                    <DxcHeading level={5} weight="light" text={title} />
+                    </span>
                     {actions}
                 </CardHeader>
                 {children}

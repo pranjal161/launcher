@@ -1,17 +1,18 @@
-import React, {useRef} from 'react';
+import React, {FormEvent, useRef} from 'react';
+
 import {Redirect} from "react-router-dom";
 import useDeskAuth from "../../data/hooks/useDeskAuth";
 
 const SignUp = () => {
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const firstNameRef = useRef()
-    const lastNameRef = useRef()
-    const profileRef= useRef()
+    const emailRef = useRef<any>()
+    const passwordRef = useRef<any>()
+    const firstNameRef = useRef<any>()
+    const lastNameRef = useRef<any>()
+    const profileRef= useRef<any>()
     const {auth, signUp} = useDeskAuth()
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const email = emailRef.current.value
         const password = passwordRef.current.value
