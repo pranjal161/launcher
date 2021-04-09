@@ -25,11 +25,6 @@ const CardFooter = styled(CardHeaderFooter)`
     box-shadow: 0px -3px 3px -3px rgb(0 0 0 / 20%);
 `;
 
-const CardHeaderTitle = styled.span`
-    font-size: 1rem;
-    font-weight: bold;
-`;
-
 /* 
     card-height-wrapper is a div class helper that allows us to fill the DxcBox component to height.
     The size="fillParent" property only works on width, not height.
