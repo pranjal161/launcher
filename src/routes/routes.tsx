@@ -12,7 +12,7 @@ import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
 import Help from 'views/help/help';
 import HomePage from "views/HomePage/HomePage";
-import MyTickets from 'views/tickets/myTickets';
+import MyTickets from "components/Tickets/MyTickets/MyTickets";
 import NewTicket from 'views/tickets/newTicket';
 import {Redirect} from "react-router-dom";
 import Trainers from "views/training";
