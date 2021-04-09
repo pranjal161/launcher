@@ -1,6 +1,11 @@
 import { AppConfig } from '../config/appConfig';
+import axios from 'axios';
 
-//import axios from 'axios';
+
+export const aia = {
+    get:(url : string) => axios.get(url, { headers: AppConfig.headers })
+}
+
 
 export const getLink = (response: any, linkName: string) => {
     if (response &&

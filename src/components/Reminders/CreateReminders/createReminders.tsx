@@ -92,6 +92,7 @@ const CreateReminders = (props: any) => {
                     margin="xxsmall"
                     format="dd-MM-yyyy"
                     required={true}
+                    invalid={true}
                     onChange={(newValue: any) => updateValue(newValue.stringValue, 'deadline')}
                     value={updatedReminder ? updatedReminder.deadline : ''}
                 />
