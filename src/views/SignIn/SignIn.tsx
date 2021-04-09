@@ -1,14 +1,14 @@
 import { NavLink, Redirect } from 'react-router-dom';
-import React, {useRef} from 'react';
+import React, {FormEvent, useRef} from 'react';
 
 import useDeskAuth from "../../data/hooks/useDeskAuth";
 
 const SignIn = () => {
-    const emailRef = useRef()
-    const passwordRef = useRef()
+    const emailRef = useRef<any>()
+    const passwordRef = useRef<any>()
     const {auth, signIn} = useDeskAuth()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const email = emailRef.current.value
         const password = passwordRef.current.value

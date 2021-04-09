@@ -14,8 +14,8 @@ const NavRow = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: ${(props) => (props.justify ? props.justify : 'space-between')};
-    align-items: ${(props) => (props.align ? props.align : 'stretch')};
+    justify-content: ${(props: { justify?: string , align?: string }) => (props.justify ? props.justify : 'space-between')};
+    align-items: ${(props: { justify?: string , align?: string }) => (props.align ? props.align : 'stretch')};
 `;
 
 const LogoImg = styled.img.attrs((props) => ({

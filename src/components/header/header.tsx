@@ -1,15 +1,15 @@
-import {DxcHeader, DxcSelect} from '@dxc-technology/halstack-react';
-import {NavLink, useHistory} from 'react-router-dom';
-import React, {useContext, useState} from 'react';
+import { DxcHeader, DxcLink, DxcSelect } from '@dxc-technology/halstack-react';
+import React, { useContext, useState } from 'react';
 
-import {ApplicationContext} from '../../context/applicationContext';
+import { ApplicationContext } from 'context/applicationContext';
 import CreateButton from '../Tickets/CreateButton/CreateButton';
 import DXCLogo from 'assets/dxc_logo.jpg';
-import {SearchIcon} from 'assets/svg';
-import SignedLinks from "./components/SignedLinks/SignedLinks";
+import { SearchIcon } from 'assets/svg';
+import SignedLinks from './components/SignedLinks/SignedLinks';
 import en from 'assets/gb.jpg';
 import fr from 'assets/fr.jpg';
 import nl from 'assets/nl.jpg';
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
     const history = useHistory();
@@ -54,17 +54,17 @@ const Header = () => {
         <DxcHeader
             logoSrc={DXCLogo}
             onClick={goToHome}
-            padding={{right: 'xsmall'}}
+            padding={{ right: 'xsmall' }}
             content={
                 <>
                     <div className="col-8 p-0">
                         <ul className="toolbar m-0">
-                            <li><NavLink to="/home">Home</NavLink></li>
-                            <li><NavLink to="/baskets/all">Baskets</NavLink></li>
-                            <li><NavLink to="/tickets/myTickets">My Tickets</NavLink></li>
-                            <li><NavLink to="/help">Help</NavLink></li>
-                            <li><NavLink to="/training">Training pages</NavLink></li>
-                            <li><CreateButton/></li>
+                            <li><DxcLink href="/home" underlined={false} text="Home" /></li>
+                            <li><DxcLink href="/baskets/all" underlined={false} text="Baskets" /></li>
+                            <li><DxcLink href="/tickets/myTickets" underlined={false} text="My Tickets" /></li>
+                            <li><DxcLink href="/help" underlined={false} text="Help" /></li>
+                            <li><DxcLink href="/training" underlined={false} text="Training pages" /></li>
+                            <li><CreateButton /></li>
                         </ul>
                     </div>
                     <div className="col-1 pt-3 p-0 header-svg">
@@ -72,7 +72,7 @@ const Header = () => {
                             aria-label="add an alarm"
                             onClick={goToSearch}
                         >
-                            <SearchIcon/>
+                            <SearchIcon />
                         </p>
                     </div>
                     <div className="col-2 p-0 flag-css">
@@ -86,7 +86,7 @@ const Header = () => {
                                     padding="xxsmall"
                                 />
                             </li>
-                            <SignedLinks/>
+                            <SignedLinks />
                         </ul>
                     </div>
                 </>
