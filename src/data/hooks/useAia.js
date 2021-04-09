@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useReducer} from "react";
+
 import {fetch as fetchAction} from 'store/actions/aiaActions'
 import {useDispatch} from "react-redux";
-
 
 /**
  * get
@@ -39,7 +39,7 @@ export default function useAia() {
         }, [dispatch])
 
     //On component unmount, we unsubscribe its subscription
-    useEffect(() => (dispatchLocal({type: "unMount"})), [])
+    useEffect(() => (() =>dispatchLocal({type: "unMount"})), [])
 
     return {fetch}
 }
