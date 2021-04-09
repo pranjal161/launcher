@@ -65,8 +65,9 @@ const MyTickets = (props: any) => {
             else {
                 const ticketsInsideItem = tickets && tickets.filter((ticket: { status: any; }) => ticket.status === sideNavItem.status);
                 countArray[sideNavItem.status] = ticketsInsideItem && ticketsInsideItem.length;
-                return null;
+
             }
+            return null;
         });
         setCountArray(countArray);
     }
