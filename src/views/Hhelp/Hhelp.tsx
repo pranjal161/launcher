@@ -1,7 +1,7 @@
 import React from "react";
 
-const Help = () => (
+const Hhelp = () => (
     <h1>Help</h1>
 );
 
-export default Help;
+export default Hhelp;

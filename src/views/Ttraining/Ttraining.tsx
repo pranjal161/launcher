@@ -3,7 +3,7 @@ import React from "react";
 import {applyRoutes} from '../../routes';
 import {useHistory} from 'react-router-dom';
 
-const Training = (props: any): any => {
+const Ttraining = (props: any): any => {
     const history = useHistory();
     const displayButton = props.location.pathname === '/training';
 
@@ -27,4 +27,4 @@ const Training = (props: any): any => {
     );
 };
 
-export default Training;
+export default Ttraining;
