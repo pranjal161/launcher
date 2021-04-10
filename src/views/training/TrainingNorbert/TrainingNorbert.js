@@ -5,6 +5,7 @@ import {DxcTabs} from "@dxc-technology/halstack-react"
 import LatestPage from "./components/LatestPage/LatestPage";
 import TicketListPage from "./components/TicketListPage/TicketListPage";
 import TicketSummary from "../../../components/Tickets/TicketDetail/components/TicketSummary/TicketSummary";
+import TrainingConsultationPanel from "./components/TrainingConsultationPanel/TrainingConsultationPanel";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
 /**
@@ -28,6 +29,9 @@ function TrainingNorbert() {
                 onTabClick={onTabClick}
                 tabs={[
                     {
+                        label : "TrainingConsultationPanel"
+                    },
+                    {
                         label: "TicketSummary"
                     },
                     {
@@ -42,16 +46,19 @@ function TrainingNorbert() {
                 ]}
             />
             {activeTab === 0 && (
+                ticket && <TrainingConsultationPanel />
+            )},
+            {activeTab === 1 && (
                 ticket && <TicketSummary ticket={ticket}/>
             )}
-            {activeTab === 1 && (
+            {activeTab === 2 && (
                 <LatestPage/>
             )}
-            {activeTab === 2 && (
+            {activeTab === 3 && (
                 <CommunicateAcrossBrowser/>
             )}
 
-            {activeTab === 3 && (
+            {activeTab === 4 && (
                 <TicketListPage/>
             )}
         </>
