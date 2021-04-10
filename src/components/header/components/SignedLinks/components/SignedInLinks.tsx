@@ -1,3 +1,4 @@
+import { DxcLink } from '@dxc-technology/halstack-react';
 import React from 'react';
 import useDeskAuth from "../../../../../data/hooks/useDeskAuth";
 import {useHistory} from "react-router-dom";
@@ -15,7 +16,7 @@ function SignedInLinks() {
     }
     
     return (
-        <li><a href="" onClick={handleLogout}>Log Out</a></li>
+        <li><DxcLink text="Log Out" onClick={handleLogout} /></li>
     );
 }
 
