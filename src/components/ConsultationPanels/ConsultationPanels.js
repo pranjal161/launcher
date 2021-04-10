@@ -1,4 +1,4 @@
-import {DoubleArrowIcon} from "assets/svg";
+import {DoubleArrowIcon} from "../../assets/svg";
 import React from 'react';
 import styled from 'styled-components';
 

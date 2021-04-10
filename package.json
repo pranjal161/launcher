@@ -105,6 +105,7 @@
   "jest": {
     "transform": {
       "^.+\\.ts?$": "ts-jest",
+      "^.+\\.tsx?$": "ts-jest",
       "^.+\\.jsx?$": "babel-jest"
     },
     "setupFilesAfterEnv": [
