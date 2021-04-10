@@ -1,4 +1,4 @@
-import Training from "./Training";
+import Training from "./Ttraining";
 import TrainingAkruti from "./TrainingAkruti";
 import TrainingJeenal from "./TrainingJeenal";
 import TrainingMaxime from "./TrainingMaxime";
