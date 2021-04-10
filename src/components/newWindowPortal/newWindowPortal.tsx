@@ -59,7 +59,7 @@ const NewWindowPortal = ( props : {children: any, onCloseCallback: any}) => {
     }, []);
 
     useEffect(() => {
-            windowRef['current'].document.body.appendChild(container);
+        windowRef['current'].document.body.appendChild(container);
     }, [children])
 
     return (

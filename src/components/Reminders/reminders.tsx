@@ -44,9 +44,9 @@ const Reminders = (props: { reminders: any; }) => {
                             <DxcCheckbox
                                 size="fillParent"
                                 onChange={(newValue: string) => setStatus(newValue, reminder)}
-                                checked={reminder.status === 'Done' ? true : false} />
+                                checked={reminder.status === 'Done'} />
                         </div>
-                        <div className="col-8 pt-2" aria-disabled={reminder.status === 'Done' ? true : false}>
+                        <div className="col-8 pt-2" aria-disabled={reminder.status === 'Done'}>
                             {reminder.category}
                             <small className="col-12 p-0"><Deadline deadline={reminder.deadline} /></small>
                             <div className="col-12 p-0 sub-text">

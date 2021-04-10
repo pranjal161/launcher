@@ -42,7 +42,7 @@ const Card = (props: { title: any; actions: any; children: any; footer: any; con
                 display="block">
                 <CardHeader>
                     <span>
-                    <DxcHeading level={5} weight="light" text={title} />
+                        <DxcHeading level={5} weight="light" text={title} />
                     </span>
                     {actions}
                 </CardHeader>
