@@ -9,13 +9,13 @@ import ClientView from "views/clientView/clientView";
 import ContractSearch from "views/contractSearch/contractSearch";
 import ContractSummary from "views/contractSummary/contractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
-import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
-import Help from 'views/help/help';
+import ExempleDesktopView from "views/Ttraining/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
+import Help from 'views/Hhelp/Help';
 import HomePage from "views/HomePage/HomePage";
 import MyTickets from "components/Tickets/MyTickets/MyTickets";
-import NewTicket from 'views/tickets/newTicket';
+import NewTicket from 'views/Ttickets/NewTicket';
 import {Redirect} from "react-router-dom";
-import Trainers from "views/training";
+import Trainers from "views/Ttraining";
 
 const routes = [
     {
@@ -54,7 +54,7 @@ const routes = [
             {
                 path: '/errors/error-404',
                 exact: true,
-                component: lazy(() => import('views/errors/Error404/Error404'))
+                component: lazy(() => import('views/Eerrors/Error404/Error404'))
             },
             {
                 component: () => <Redirect to="/errors/error-404"/>

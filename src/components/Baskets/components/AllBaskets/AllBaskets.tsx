@@ -4,14 +4,14 @@ import { DxcInput, DxcSidenav } from '@dxc-technology/halstack-react';
 import React, { useEffect, useState } from 'react';
 
 import BasketTitle from "../BasketTitle/BasketTitle";
-import Card from 'components/card/card';
-import EntitySidebar from 'components/entitySidebar/entitySidebar';
+import Card from 'components/Ccard/Card';
+import EntitySidebar from 'components/EentitySidebar/EntitySidebar';
 import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
-import TicketList from 'components/Tickets/ticketsList/ticketsList'
+import TicketList from 'components/Tickets/TticketsList/TicketsList'
 import useDeskBaskets from "data/hooks/useDeskBaskets";
 import useDeskTickets from 'data/hooks/useDeskTickets';
 
-const AllBaskets= (props: any) =>  {
+const AllBaskets= (props: any) => {
     const {getAll} = useDeskBaskets()
     const baskets = getAll();
     const ticketDesk = useDeskTickets()

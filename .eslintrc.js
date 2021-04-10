@@ -74,12 +74,8 @@ module.exports = {
         "dot-notation": "off",
         "eol-last": "off",
         "eqeqeq": "off",
-
-        /*
         "filenames/match-regex": [2, "(^[A-Z]+)|^((?!index.ts).)*$", true],
         "filenames/match-exported": [2, null, "^(index.js)$"],
-        */
-       
         "func-call-spacing": "off",
         "func-name-matching": "error",
         "func-names": "off",

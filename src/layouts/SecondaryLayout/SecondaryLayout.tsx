@@ -2,14 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react';
 import {applyRoutes} from "../../routes";
 
-const CanvasLayout = (props: { route: any }) => (
+const SecondaryLayout = (props: { route: any }) => (
     <>
         {applyRoutes(props.route.routes)}
     </>
 )
 
-CanvasLayout.propTypes = {
+SecondaryLayout.propTypes = {
     route: PropTypes.string,
 }
 
-export default CanvasLayout;
+export default SecondaryLayout;
