@@ -2,7 +2,7 @@ import {DotsIcon, RoundIcon, TimeIcon, TimeLapse} from 'assets/svg';
 import {DxcBox, DxcProgressBar, DxcTable} from "@dxc-technology/halstack-react";
 import React, {useState} from 'react';
 
-import Deadline from "components/deadlineComponent/deadline";
+import Deadline from "components/Deadline/Deadline";
 import WithScroll from "components/WithScroll/WithScroll";
 import styled from 'styled-components';
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
