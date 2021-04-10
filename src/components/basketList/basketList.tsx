@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const BasketList = (props : any) => {
-    const { baskets,  handleTicketClick=() => {
+    const { baskets, handleTicketClick=() => {
         // Nothing to do
     } } = props
     const { t } = useTranslation();

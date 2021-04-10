@@ -17,9 +17,9 @@ function ExempleDesktopView() {
     return (
         <div className="container-fluid">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                <Tab label="Tickets"  />
-                <Tab label="Baskets"  />
-                <Tab label="Both"  />
+                <Tab label="Tickets" />
+                <Tab label="Baskets" />
+                <Tab label="Both" />
             </Tabs>
             <div className={"m-2"}>
                 {value === 0 && <ExempleTicketsView/>}

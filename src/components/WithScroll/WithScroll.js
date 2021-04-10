@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const WithScroll = ({visibleHeight = '100%', children}) => (
-    <div  style={{height: visibleHeight, overflowY: "hidden"}}>
+    <div style={{height: visibleHeight, overflowY: "hidden"}}>
         <div className="hide-scroll-bar" style={{height: '100%', overflowY: "scroll"}}>{children}</div>
     </div>
 )

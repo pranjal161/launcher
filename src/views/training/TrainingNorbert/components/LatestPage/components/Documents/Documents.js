@@ -7,7 +7,7 @@ const viewDocument = (e, url) => {
     window.open(url,'Data','height=600,width=600');
 }
 
-const Documents = ({ticketId}) =>  {
+const Documents = ({ticketId}) => {
     const {getAllDocuments} = useDeskTickets()
     const documents = getAllDocuments(ticketId)
 
