@@ -1,6 +1,8 @@
 import {DoubleArrowIcon} from "../../assets/svg";
 import React from 'react';
+import SelectEntity from "./components/SelectEntity/SelectEntity";
 import styled from 'styled-components';
+
 
 //Stylesheet
 export const Root = styled.div`
@@ -34,6 +36,7 @@ const Toggle = styled.div`
 const Header = styled.div`
   background-color: lightsteelblue;
   flex: 1 1 auto;
+  justify-content: space-between;
 `;
 
 const Toolbar = styled.div`
@@ -46,13 +49,19 @@ const Content = styled.div`
   flex: 1 0 auto;
 `;
 
+
+const entities = [{display: "contract A", id: 'contractA'}, {
+    display: "contract B",
+    id: 'contractB'
+}, {display: "contract C", id: 'contractC'}]
 const ConsultationPanels = () => (
     <Root>
         <Row1>
             <Toggle data-test="toggle">
                 <DoubleArrowIcon/></Toggle>
             <Header data-test="header">
-                Header
+
+                {true && <SelectEntity entities={entities}></SelectEntity>}
             </Header>
         </Row1>
         <Row2>
