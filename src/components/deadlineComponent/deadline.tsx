@@ -3,14 +3,22 @@ import './deadline.scss';
 import { NotificationIcon, TimeIcon } from 'assets/svg';
 
 import React from 'react';
-import { formatValue } from 'util/functions';
 import { useTranslation } from 'react-i18next';
+
+/**
+ * 
+ * @param {any} deadline 
+ * Deadline date format should be dd-mm-yyyy 
+ * Performing split to convert the coming string dd-mm-yyyy to mm-dd-yyyy as newDate() does not accept dd-mm-yyyy
+ */
 
 const Deadline = (props: { deadline: any; }) => {
     const { t } = useTranslation();
-    const { deadline } = props
+    const { deadline } = props;
+    const date = deadline ? deadline.split('-') : '';
+    const newDate = date ? date[2] + '-' + date[1] + '-' + date[0] : '';
     const currentDate = new Date();
-    const deadlineDate = new Date(deadline);
+    const deadlineDate = new Date(newDate);
     let diffInDays;
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -23,7 +31,7 @@ const Deadline = (props: { deadline: any; }) => {
     return (
         <>
             {deadline && diffInDays !== undefined && (
-                <div title={formatValue(deadline, 'date')} className="deadline-container">
+                <div title={deadline} className="deadline-container">
                     {diffInDays >= 3 && (
                         <div className="normal">
                             <TimeIcon /> {Math.abs(diffInDays)} {t('_DAYS_LEFT')}
@@ -45,7 +53,7 @@ const Deadline = (props: { deadline: any; }) => {
                         </div>
                     )}
                 </div>
-            )}   
+            )}
         </>
     )
 }

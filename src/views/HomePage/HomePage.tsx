@@ -1,10 +1,13 @@
 import './HomePage.scss';
 
+import {DxcBox, DxcLink} from '@dxc-technology/halstack-react';
 import React, {useState} from 'react';
 
 import BasketList from 'components/basketList/basketList';
-import {DxcBox} from '@dxc-technology/halstack-react';
+import Card from 'components/card/card';
+import CreateReminders from 'components/Reminders/CreateReminders/createReminders';
 import EntitySidebar from 'components/entitySidebar/entitySidebar';
+import Reminders from 'components/Reminders/reminders';
 import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
 import TicketList from 'components/Tickets/ticketsList/ticketsList';
 import useDeskAuth from 'data/hooks/useDeskAuth';
@@ -20,6 +23,8 @@ const HomePage = () => {
     const baskets = basketDesk.getAll()
     const [clickedTicket, setClickedTicket] = useState({id: null});
     const [openSidebar, setOpenSidebar] = useState(false);
+    const [openReminder, setOpenReminder] = useState(false);
+    const reminders = profile ? profile.reminders : undefined;
 
     const handleTicketClick = (ticket: { id: any; }) => {
         setClickedTicket({ id: ticket.id})
@@ -37,6 +42,10 @@ const HomePage = () => {
         setOpenSidebar(false)
     }
 
+    const onClickDialog = () => {
+        setOpenReminder(false);
+    };
+
     return (
         <span className="home-container">
             <div className="welcome-banner">
@@ -47,29 +56,46 @@ const HomePage = () => {
             <div className="main-container">
                 <div className="grid-container col-12 pr-0">
                     <div className="col-8">
-                        <span className="p-2">All Baskets</span>
-                        {baskets &&
-                        <BasketList baskets={baskets}/>
-                        }
+                        <Card 
+                            title="All Baskets">
+                            {baskets &&
+                            <BasketList baskets={baskets}/>
+                            }
+                        </Card>
                     </div>
                     <div className="col-4">
-                        <span className="p-2">Today&apos;s Reminder</span> 
+                        <Card 
+                            title="Today&apos;s Reminder"
+                            actions={
+                                <DxcLink onClick={() => {
+                                    setOpenReminder(true);
+                                }}
+                                text="Create Reminders">
+                                </DxcLink>
+                            }>
+                            {openReminder && 
+                            <CreateReminders onClickDialog={onClickDialog} />
+                            }
+                            {reminders && 
+                            <Reminders reminders={reminders} />
+                            }  
+                        </Card>
                     </div>
                     <div className="col-12">
-                        <span className="p-2">All Tickets</span>
-                        {
-                            tickets &&
+                        <Card 
+                            title="All Tickets">
+                            {tickets &&
                             <div className="main-container col-12">
                                 <div className="col-12">
-                                    <div className="row">
-                                        <div className="col">
+                                    <div className="d-flex flex-nowrap">
+                                        <div className="flex-grow-1">
                                             <TicketList 
                                                 handleTicketClick={handleTicketClick} 
                                                 tickets={tickets} />
                                         </div>
                                         <EntitySidebar 
                                             open={openSidebar} 
-                                            width={400}
+                                            width={500}
                                             content={
                                                 <TicketDetail 
                                                     id={clickedTicket.id}
@@ -81,24 +107,10 @@ const HomePage = () => {
                                     </div>
                                 </div>
                             </div>
-                        }
+                            }
+                        </Card>
                     </div>
                 </div>
-                {/*<div className="grid-container col-3 pl-0">
-                    <div className="col-12">
-                        {
-                            clickedTicket.id &&
-                            <TicketDetail
-                                id={clickedTicket.id}
-                                key={clickedTicket.id}
-                                onRemove={handleRemove}
-                                onClose={handleClose}
-                                sectionId="ticket-details"/>
-                        }
-                    </div>
-
-
-                </div>*/}
             </div>
         </span>
     );

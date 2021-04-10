@@ -1,4 +1,4 @@
-import { DxcButton, DxcInput } from "@dxc-technology/halstack-react";
+import { DxcAlert, DxcButton, DxcInput } from "@dxc-technology/halstack-react";
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
@@ -65,6 +65,14 @@ const ContractSearch = () => {
                     size="large"
                 />
                 <DxcButton mode="primary" label={t('_RESET')} onClick={resetTable} margin="medium" size="large" />
+            </div>
+            <div className="align-center">
+                <DxcAlert
+                    type="info"
+                    mode="inline"
+                    inlineText={t('_PAGINATOR_WARNING')}
+                    margin="xxsmall"
+                />
             </div>
             <div className="p-2">
                 <ContractTable contractData={contractData} getData={(href: string) => getData(href)} />

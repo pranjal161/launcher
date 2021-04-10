@@ -5,15 +5,16 @@ import styled from "styled-components";
 const Root = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px
+  margin-bottom: 12px;
+  height: 30px;
 `;
 
 const Label = styled.div`
-  width: 50%;
+  width: 40%;
   justify-self: left;
 `;
 const Data = styled.div`
-  width: 50%;
+  width: 60%;
   justify-self: left;
 `;
 

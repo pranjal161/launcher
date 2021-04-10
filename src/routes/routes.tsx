@@ -2,6 +2,7 @@
 
 import React, {lazy} from "react";
 
+import AllBaskets from 'components/Baskets/components/AllBaskets/AllBaskets';
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/clientView/clientView";
@@ -11,11 +12,10 @@ import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
 import Help from 'views/help/help';
 import HomePage from "views/HomePage/HomePage";
-import MyTickets from 'views/tickets/myTickets';
+import MyTickets from "components/Tickets/MyTickets/MyTickets";
 import NewTicket from 'views/tickets/newTicket';
 import {Redirect} from "react-router-dom";
 import Trainers from "views/training";
-import ViewBaskets from 'views/baskets/viewBaskets';
 
 const routes = [
     {
@@ -106,7 +106,7 @@ const routes = [
                 path: '/baskets/all',
                 name: 'viewBaskets',
                 exact: true,
-                component: ViewBaskets
+                component: AllBaskets
             },
             {
                 path: '/tickets/myTickets',
