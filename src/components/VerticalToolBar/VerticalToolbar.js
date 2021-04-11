@@ -22,7 +22,8 @@ const ListItem = styled.li`
 const VerticalToolbar = ({items, value, onChange}) => (
     <List>
         {items.map((item) => (
-            <ListItem key={item.value} onChange={onChange} selected={value === item.value}>{item.display}</ListItem>))}
+            <ListItem key={item.value} onClick={() => onChange(item.value)
+            } selected={value === item.value}>{item.display}</ListItem>))}
     </List>
 )
 

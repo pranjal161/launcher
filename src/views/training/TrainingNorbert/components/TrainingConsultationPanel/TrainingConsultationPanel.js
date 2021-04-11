@@ -1,17 +1,17 @@
-import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import React from 'react';
-import SavingToolbar from "../../../../../components/ConsultationPanels/components/SavingToolbar/SavingToolbar";
-import SelectEntity from "../../../../../components/ConsultationPanels/components/SelectEntity/SelectEntity";
+import TicketSavingConsultationPanels
+    from "../../../../../components/TicketSavingConsultationPanels/TicketSavingConsultationPanels";
 import styled from "styled-components";
 
-export const Root = styled.div`
+const Root = styled.div`
   display: flex;
   width: 90%;
   height: 90%;
   margin: 10px;
 `;
 
-export const DAGDIG205 = styled.div`
+
+const Test = styled.div`
   border-style: dotted;
   border-width: medium;
   width: 500px;
@@ -19,21 +19,11 @@ export const DAGDIG205 = styled.div`
   margin: 10px;
 `;
 
-const entities = [{display: "contract A", id: 'contractA'}, {
-    display: "contract B",
-    id: 'contractB'
-}, {display: "contract C", id: 'contractC'}]
-
-const DAGDIG206 =() => <SelectEntity entities={entities}></SelectEntity>
-const DAGDIG207 =() => <SavingToolbar value={'contract'}/>
-
 const TrainingConsultationPanel = () => (
     <Root>
-        <DAGDIG205>
-            <ConsultationPanels header={<DAGDIG206/>} content={"Content"} toolbar={<DAGDIG207/>}/>
-        </DAGDIG205>
-        <DAGDIG206/>
-        <DAGDIG207/>
+        <Test>
+            <TicketSavingConsultationPanels></TicketSavingConsultationPanels>
+        </Test>
     </Root>
 )
 
