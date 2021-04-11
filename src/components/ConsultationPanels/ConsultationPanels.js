@@ -59,7 +59,7 @@ const Content = styled.div`
   flex: 1 0 auto;
 `;
 
-const ConsultationPanels = ({header}) => (
+const ConsultationPanels = ({header, content, toolbar, onOpenInNew, onNewTab}) => (
     <Root>
         <Row1>
             <Toggle data-test="toggle">
@@ -67,14 +67,14 @@ const ConsultationPanels = ({header}) => (
             <Header data-test="header">
                 {header}
                 <HeaderActions>
-                    <OpenInNew/>
-                    <Tab/>
+                    <div onClick={onOpenInNew}><OpenInNew /></div>
+                    <div onClick={onNewTab}><Tab /></div>
                 </HeaderActions>
             </Header>
         </Row1>
         <Row2>
-            <Toolbar data-test="toolbar">TB</Toolbar>
-            <Content data-test="content">Content</Content>
+            <Toolbar data-test="toolbar">{toolbar}</Toolbar>
+            <Content data-test="content">{content}</Content>
         </Row2>
 
     </Root>)
@@ -84,6 +84,16 @@ ConsultationPanels.propTypes = {
         PropTypes.string,
         PropTypes.node
     ]),
+    toolbar: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]),
+    content: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]),
+    onOpenInNew: PropTypes.func,
+    onNewTab: PropTypes.func,
     value: PropTypes.string,
     onChange: PropTypes.func,
 }

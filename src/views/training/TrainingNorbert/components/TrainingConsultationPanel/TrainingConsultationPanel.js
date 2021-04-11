@@ -28,7 +28,7 @@ const DAGDIG206 =() => <SelectEntity entities={entities}></SelectEntity>
 const TrainingConsultationPanel = () => (
     <Root>
         <DAGDIG205>
-            <ConsultationPanels header={<DAGDIG206/>}/>
+            <ConsultationPanels header={<DAGDIG206/>} content={"Content"} toolbar={"TB"}/>
         </DAGDIG205>
         <DAGDIG206/>
     </Root>
