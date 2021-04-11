@@ -1,11 +1,11 @@
-import {AddIcon, CloseIcon, NewWindowIcon} from "../../../../../assets/svg";
+import {AddIcon, CloseIcon, NewWindowIcon} from "assets/svg";
 import {
     DxcChip,
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
 import React, {useCallback} from "react";
-import {StyledButton, StyledDivider} from 'src/styles/global-style';
+import {StyledButton, StyledDivider} from 'styles/global-style';
 import DataLine from "./components/DataLine/DataLine";
 import Documents from './components/documents/documents';
 import EditableField from "../../../../EditableField/EditableField";
