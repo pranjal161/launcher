@@ -4,12 +4,12 @@ import {DxcBox, DxcLink} from '@dxc-technology/halstack-react';
 import React, {useState} from 'react';
 
 import BasketList from 'components/BbasketList/BasketList';
-import Card from 'components/Ccard/Card';
-import CreateReminders from 'components/Reminders/CreateReminders/CcreateReminders';
-import EntitySidebar from 'components/EentitySidebar/EntitySidebar';
-import Reminders from 'components/Reminders/Rreminders';
+import Card from 'components/Card/Card';
+import CreateReminders from 'components/Reminders/CreateReminders/CreateReminders';
+import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
+import Reminders from 'components/Reminders/Reminders';
 import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
-import TicketList from 'components/Tickets/TticketsList/TicketsList';
+import TicketList from 'components/Tickets/TicketsList/TicketsList';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from 'data/hooks/useDeskTickets';

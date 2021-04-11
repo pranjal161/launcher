@@ -6,7 +6,7 @@ import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
 import React, {useState} from "react";
 import routes, { applyRoutes } from './routes';
 
-import Alert from "./components/Aalert/Alert";
+import Alert from "./components/Alert/Alert";
 import {AppContextProvider} from "./context/applicationContext";
 import {Colors} from "./styles/dxc-theme";
 import { BrowserRouter as Router } from "react-router-dom";

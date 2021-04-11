@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
-import NewWindowPortal from "../../../components/NnewWindowPortal/NewWindowPortal";
-import TicketSummary from "./../../NnewWindowPortal/NewWindowPortal";
+import NewWindowPortal from "../../NewWindowPortal/NewWindowPortal";
+import TicketSummary from "../TicketDetail/components/TicketSummary/TicketSummary";
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 

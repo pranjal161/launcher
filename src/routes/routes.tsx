@@ -5,17 +5,17 @@ import React, {lazy} from "react";
 import AllBaskets from 'components/Baskets/components/AllBaskets/AllBaskets';
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
-import ClientView from "views/CclientView/ClientView";
-import ContractSearch from "views/CcontractSearch/ContractSearch";
-import ContractSummary from "views/CcontractSummary/ContractSummary";
+import ClientView from "views/ClientView/ClientView";
+import ContractSearch from "views/ContractSearch/ContractSearch";
+import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
-import ExempleDesktopView from "views/Ttraining/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
-import Help from 'views/Hhelp/Hhelp';
+import ExempleDesktopView from "views/Trainers/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
+import Help from 'views/Help/Help';
 import HomePage from "views/HomePage/HomePage";
 import MyTickets from "components/Tickets/MyTickets/MyTickets";
-import NewTicket from 'views/Ttickets/NewTicket';
+import NewTicket from 'views/Tickets/NewTicket';
 import {Redirect} from "react-router-dom";
-import Trainers from "views/Ttraining";
+import Trainers from "views/Trainers";
 
 const routes = [
     {
@@ -54,7 +54,7 @@ const routes = [
             {
                 path: '/errors/error-404',
                 exact: true,
-                component: lazy(() => import('views/Eerrors/Error404/Error404'))
+                component: lazy(() => import('views/Errors/Error404/Error404'))
             },
             {
                 component: () => <Redirect to="/errors/error-404"/>
