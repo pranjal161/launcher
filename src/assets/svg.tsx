@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 
 export const EyeIcon = () => (
@@ -21,21 +22,29 @@ export const EyeIcon = () => (
     </svg>
 );
 
-export const PersonIcon = () => (
+export const PersonIcon = ({size = "48", color="#4e555b"}) => (
     <svg
         viewBox="0 0 16 16"
-        height="48"
-        width="48"
+        height={size}
+        width={size}
         focusable="false"
         role="img"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
         className="xl-icon"
+        color={color}
     >
         <title>PersonFill icon</title>
         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
     </svg>
 );
+PersonIcon.propTypes = {
+    size: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    color: PropTypes.string,
+}
 
 export const CallIcon = () => (
     <svg
@@ -220,7 +229,7 @@ export const InfoIcon = () => (
 )
 
 export const DoubleArrowIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
         <g>
             <g>
                 <polygon points="15.5,5 11,5 16,12 11,19 15.5,19 20.5,12"/>
@@ -229,16 +238,31 @@ export const DoubleArrowIcon = () => (
         </g>
     </svg>)
 
-export const OpenInNew = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+export const OpenInNewIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
         <path d="M0 0h24v24H0z" fill="none"/>
         <path
             d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
     </svg>
 )
 
-export const Tab = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+export const TabIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
         <path d="M0 0h24v24H0z" fill="none"/>
         <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h10v4h8v10z"/>
     </svg>)
+
+export const DescriptionIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path
+            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+    </svg>
+)
+
+export const ContractIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+    </svg>
+)

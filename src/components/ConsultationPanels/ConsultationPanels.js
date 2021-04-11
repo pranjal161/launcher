@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {DoubleArrowIcon, OpenInNew, Tab} from "../../assets/svg";
+import {DoubleArrowIcon, OpenInNew, OpenInNewIcon, Tab, TabIcon} from "../../assets/svg";
 import PropTypes from "prop-types";
 import React from 'react';
 import styled from 'styled-components';
@@ -30,7 +30,8 @@ const Row2 = styled.div`
 
 const Toggle = styled.div`
   flex: 0 0 52px;
-  justify-self: center;
+  display: flex;
+  justify-content: center;
   align-self: center;
 `;
 
@@ -63,12 +64,13 @@ const ConsultationPanels = ({header, content, toolbar, onOpenInNew, onNewTab}) =
     <Root>
         <Row1>
             <Toggle data-test="toggle">
-                <DoubleArrowIcon/></Toggle>
+                <DoubleArrowIcon/>
+            </Toggle>
             <Header data-test="header">
                 {header}
                 <HeaderActions>
-                    <div onClick={onOpenInNew}><OpenInNew /></div>
-                    <div onClick={onNewTab}><Tab /></div>
+                    <div onClick={onOpenInNew}><OpenInNewIcon /></div>
+                    <div onClick={onNewTab}><TabIcon /></div>
                 </HeaderActions>
             </Header>
         </Row1>

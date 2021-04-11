@@ -1,5 +1,6 @@
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import React from 'react';
+import SavingToolbar from "../../../../../components/ConsultationPanels/components/SavingToolbar/SavingToolbar";
 import SelectEntity from "../../../../../components/ConsultationPanels/components/SelectEntity/SelectEntity";
 import styled from "styled-components";
 
@@ -24,13 +25,15 @@ const entities = [{display: "contract A", id: 'contractA'}, {
 }, {display: "contract C", id: 'contractC'}]
 
 const DAGDIG206 =() => <SelectEntity entities={entities}></SelectEntity>
+const DAGDIG207 =() => <SavingToolbar value={'contract'}/>
 
 const TrainingConsultationPanel = () => (
     <Root>
         <DAGDIG205>
-            <ConsultationPanels header={<DAGDIG206/>} content={"Content"} toolbar={"TB"}/>
+            <ConsultationPanels header={<DAGDIG206/>} content={"Content"} toolbar={<DAGDIG207/>}/>
         </DAGDIG205>
         <DAGDIG206/>
+        <DAGDIG207/>
     </Root>
 )
 
