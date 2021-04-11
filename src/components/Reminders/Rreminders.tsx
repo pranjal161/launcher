@@ -1,4 +1,4 @@
-import './reminders.scss';
+import './Rreminders.scss';
 
 import React, { useState } from 'react';
 
