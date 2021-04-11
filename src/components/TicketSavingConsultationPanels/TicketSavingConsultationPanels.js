@@ -11,7 +11,8 @@ export const Root = styled.div`
 `;
 
 const TicketSavingConsultationPanels = () => {
-    const [currentEntity, setCurrentEntity] = useState('contract')
+    const [entityType, setEntityType] = useState('contract')
+    const [currentEntity, setCurrentEntity] = useState(undefined)
     const entities = {
         contract:
             [{display: "contract A", id: 'contractA'}, {
@@ -22,8 +23,11 @@ const TicketSavingConsultationPanels = () => {
             {display: "Person 2", id: 'person2'}],
     }
 
-    const SelectEntities = () => <SelectEntity entities={entities[currentEntity]}></SelectEntity>
-    const Toolbar = () => <SavingToolbar value={currentEntity} onChange={(value) => setCurrentEntity(value)}/>
+    const handleEntitySelection = (selection) => setCurrentEntity((prev) => ({...prev,[entityType] : selection}))
+    const handleTypeSelection = (value) => setEntityType(value)
+
+    const SelectEntities = () => <SelectEntity entities={entities[entityType]} onChange={handleEntitySelection} value={currentEntity[entityType]}></SelectEntity>
+    const Toolbar = () => <SavingToolbar value={entityType} onChange={handleTypeSelection}/>
 
     return (
         <Root>
