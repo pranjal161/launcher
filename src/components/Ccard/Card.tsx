@@ -1,4 +1,4 @@
-import "./card.scss"
+import "./Card.scss"
 
 import { DxcBox, DxcHeading } from '@dxc-technology/halstack-react';
 
