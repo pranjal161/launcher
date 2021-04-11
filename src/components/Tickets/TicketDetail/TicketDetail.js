@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {DxcBox} from "@dxc-technology/halstack-react";
 import NewWindowPortal from "../../../components/newWindowPortal/newWindowPortal";
 import TicketSummary from "./components/TicketSummary/TicketSummary";
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
@@ -34,27 +35,28 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
 
     if (ticket) {
         return (
-            <>
-                <TicketSummary 
-                    ticket={ticket} 
-                    actions={Actions} 
-                    onClose={closeHandle} 
+            <><DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
+                <TicketSummary
+                    ticket={ticket}
+                    actions={Actions}
+                    onClose={closeHandle}
                     onPopupWindow={popupHandle}
                     showPopupIcon={true}
                     sectionId={sectionId}/>
-
-                {openPopup &&
+            </DxcBox>
+            {openPopup &&
                 <NewWindowPortal onCloseCallback={closeHandle}>
-                    <TicketSummary 
-                        ticket={ticket} 
-                        actions={Actions} 
-                        onClose={closeHandle} 
-                        sectionId={sectionId}/>
+                    <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
+                        <TicketSummary
+                            ticket={ticket}
+                            actions={Actions}
+                            onClose={closeHandle}
+                            sectionId={sectionId}/>
+                    </DxcBox>
                 </NewWindowPortal>}
             </>
         )
-    } 
-    else
+    } else
         return (<div className="container center">Loading ticket ...</div>)
 }
 

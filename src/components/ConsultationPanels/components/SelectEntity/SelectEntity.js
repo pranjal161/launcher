@@ -1,26 +1,38 @@
-import {DxcSelect} from "@dxc-technology/halstack-react";
+import {DxcDropdown} from "@dxc-technology/halstack-react";
 import PropTypes from "prop-types";
 import React from 'react';
+import SectionHeader
+    from "components/Tickets/TicketDetail/components/TicketSummary/components/SectionHeader/SectionHeader";
 
 
 const SelectEntity = ({entities, value, onChange}) => {
-    //By default, we display the first item of entities
-    const currentValue = value ? value : entities[0].id
+    let currentValue
+    if (!value && entities.length) {
+        //By default, we display the first item of entities
+        currentValue = entities[0].id
+        onChange(currentValue)
+    } else
+        currentValue = value
+
     const options = entities.map((entity) => ({value: entity.id, label: entity.display}))
-    return (
-        <DxcSelect
+    return (<>
+        {options.length === 1 && <SectionHeader title={options[0].label}/>}
+        {options.length > 1 && <DxcDropdown
             options={options}
-            margin={{top: 0}}
-            onChange={onChange}
+            label={<SectionHeader title={currentValue}/>}
+            onSelectOption={onChange}
+            padding={{left: 0, bottom: 0, top: 0, right: 0}}
+            margin={{left: 0, bottom: 0, top: 0, right: 0}}
             value={currentValue}
-        />
+        />}
+    </>
     )
 }
 
-
-SelectEntity.propTypes = {
-    entities: PropTypes.array,
-    value: PropTypes.string,
-    onChange: PropTypes.func,
-}
+SelectEntity.propTypes =
+    {
+        entities: PropTypes.array,
+        value: PropTypes.string,
+        onChange: PropTypes.func,
+    }
 export default SelectEntity;

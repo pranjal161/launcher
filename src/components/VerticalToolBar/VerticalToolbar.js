@@ -1,33 +1,26 @@
+import {StyledToolbarItem, StyledToolbarList} from "../../styles/global-style";
 import PropTypes from "prop-types";
 import React from 'react';
 import styled from "styled-components";
 
-//Todo use a list-group
-
-const List = styled.ul`
-  list-style: none;
-  padding: 2px;
-  background-color: #fff;
-`;
-
-const ListItem = styled.li`
+const Item = styled.li`
   display: flex;
   justify-content: center;
-  padding: 6px;
+  padding: 10px;
   margin-bottom: 6px;
-  max-width: 48px;
-  border-style: ${(props) => (props.selected ? 'solid' : 'none')};
-  border-width: thin;
+  max-width: 44px;
+  height: 44px;
 `;
 
-
 const VerticalToolbar = ({items, value, onChange}) => (
-    <List>
+    <StyledToolbarList>
         {items.map((item) => (
-            <ListItem key={item.value}
-                onClick={() => onChange(item.value)}
-                selected={value === item.value}>{item.display}</ListItem>))}
-    </List>
+            <StyledToolbarItem key={item.value} active={value === item.value}>
+                <Item onClick={() => onChange(item.value)}>
+                    {item.display}
+                </Item>
+            </StyledToolbarItem>))}
+    </StyledToolbarList>
 )
 
 VerticalToolbar.propTypes = {

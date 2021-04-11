@@ -8,8 +8,8 @@ import Card from 'components/card/card';
 import CreateReminders from 'components/Reminders/CreateReminders/createReminders';
 import EntitySidebar from 'components/entitySidebar/entitySidebar';
 import Reminders from 'components/Reminders/reminders';
-import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
 import TicketList from 'components/Tickets/ticketsList/ticketsList';
+import TicketSavingConsultationPanels from "components/TicketSavingConsultationPanels/TicketSavingConsultationPanels";
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from 'data/hooks/useDeskTickets';
@@ -27,7 +27,7 @@ const HomePage = () => {
     const reminders = profile ? profile.reminders : undefined;
 
     const handleTicketClick = (ticket: { id: any; }) => {
-        setClickedTicket({ id: ticket.id})
+        setClickedTicket({id: ticket.id})
         setOpenSidebar(true)
     }
 
@@ -56,7 +56,7 @@ const HomePage = () => {
             <div className="main-container">
                 <div className="grid-container col-12 pr-0">
                     <div className="col-8">
-                        <Card 
+                        <Card
                             title="All Baskets">
                             {baskets &&
                             <BasketList baskets={baskets}/>
@@ -64,7 +64,7 @@ const HomePage = () => {
                         </Card>
                     </div>
                     <div className="col-4">
-                        <Card 
+                        <Card
                             title="Today&apos;s Reminder"
                             actions={
                                 <DxcLink onClick={() => {
@@ -73,37 +73,34 @@ const HomePage = () => {
                                 text="Create Reminders">
                                 </DxcLink>
                             }>
-                            {openReminder && 
-                            <CreateReminders onClickDialog={onClickDialog} />
+                            {openReminder &&
+                            <CreateReminders onClickDialog={onClickDialog}/>
                             }
-                            {reminders && 
-                            <Reminders reminders={reminders} />
+                            {reminders &&
+                            <Reminders reminders={reminders}/>
                             }  
                         </Card>
                     </div>
                     <div className="col-12">
-                        <Card 
+                        <Card
                             title="All Tickets">
                             {tickets &&
                             <div className="main-container col-12">
                                 <div className="col-12">
                                     <div className="d-flex flex-nowrap">
                                         <div className="flex-grow-1">
-                                            <TicketList 
-                                                handleTicketClick={handleTicketClick} 
-                                                tickets={tickets} />
+                                            <TicketList
+                                                handleTicketClick={handleTicketClick}
+                                                tickets={tickets}/>
                                         </div>
-                                        <EntitySidebar 
-                                            open={openSidebar} 
+                                        <EntitySidebar
+                                            open={openSidebar}
                                             width={500}
                                             content={
-                                                <TicketDetail 
-                                                    id={clickedTicket.id}
-                                                    key={clickedTicket.id}
-                                                    onRemove={handleRemove} 
-                                                    onClose={handleClose} 
-                                                    sectionId="ticket-details" />
-                                            } />
+                                                <TicketSavingConsultationPanels ticketId={clickedTicket.id}
+                                                    onRemove={handleRemove}
+                                                    onClose={handleClose}/>
+                                            }/>
                                     </div>
                                 </div>
                             </div>

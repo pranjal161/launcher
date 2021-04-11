@@ -5,10 +5,11 @@ import styled from "styled-components";
 const Root = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px; //change to use theme.space and not in px
 `;
 const Title = styled.span`
+  color: #102A43;
   justify-self: left;
+  font-size: larger;
   font-weight: bold;
 `;
 

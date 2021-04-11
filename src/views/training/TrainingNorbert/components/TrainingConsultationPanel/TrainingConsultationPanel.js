@@ -14,7 +14,7 @@ const Root = styled.div`
 const Test = styled.div`
   border-style: none;
   border-width: medium;
-  width: 500px;
+  width: 434px;
   height: 600px;
   margin: 10px;
 `;
@@ -22,7 +22,7 @@ const Test = styled.div`
 const TrainingConsultationPanel = () => (
     <Root>
         <Test>
-            <TicketSavingConsultationPanels></TicketSavingConsultationPanels>
+            <TicketSavingConsultationPanels/>
         </Test>
     </Root>
 )

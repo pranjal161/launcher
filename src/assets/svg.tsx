@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from 'react';
 
+const iconColor = '#4e555b'
+
 export const EyeIcon = () => (
     <svg
         viewBox="0 0 24 24"
@@ -22,7 +24,7 @@ export const EyeIcon = () => (
     </svg>
 );
 
-export const PersonIcon = ({size = "48", color="#4e555b"}) => (
+export const PersonIcon = ({size = "48", color = "#4e555b"}) => (
     <svg
         viewBox="0 0 16 16"
         height={size}
@@ -229,7 +231,7 @@ export const InfoIcon = () => (
 )
 
 export const DoubleArrowIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={iconColor}>
         <g>
             <g>
                 <polygon points="15.5,5 11,5 16,12 11,19 15.5,19 20.5,12"/>
@@ -239,7 +241,7 @@ export const DoubleArrowIcon = () => (
     </svg>)
 
 export const OpenInNewIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={iconColor}>
         <path d="M0 0h24v24H0z" fill="none"/>
         <path
             d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
@@ -247,13 +249,13 @@ export const OpenInNewIcon = () => (
 )
 
 export const TabIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={iconColor}>
         <path d="M0 0h24v24H0z" fill="none"/>
         <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h10v4h8v10z"/>
     </svg>)
 
 export const DescriptionIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={iconColor}>
         <path d="M0 0h24v24H0z" fill="none"/>
         <path
             d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
@@ -261,8 +263,24 @@ export const DescriptionIcon = () => (
 )
 
 export const ContractIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4e555b">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={iconColor}>
         <path d="M0 0h24v24H0V0z" fill="none"/>
         <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+    </svg>
+)
+
+export const PersonSmallIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={iconColor}>
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path
+            d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/>
+    </svg>
+)
+
+export const TicketIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={iconColor}>
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path
+            d="M22 10V6c0-1.11-.9-2-2-2H4c-1.1 0-1.99.89-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zm-2-1.46c-1.19.69-2 1.99-2 3.46s.81 2.77 2 3.46V18H4v-2.54c1.19-.69 2-1.99 2-3.46 0-1.48-.8-2.77-1.99-3.46L4 6h16v2.54zM11 15h2v2h-2zm0-4h2v2h-2zm0-4h2v2h-2z"/>
     </svg>
 )
