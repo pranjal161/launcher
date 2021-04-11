@@ -1,6 +1,7 @@
-import {DoubleArrowIcon} from "../../assets/svg";
+/* eslint-disable no-unused-vars */
+import {DoubleArrowIcon, OpenInNew, Tab} from "../../assets/svg";
+import PropTypes from "prop-types";
 import React from 'react';
-import SelectEntity from "./components/SelectEntity/SelectEntity";
 import styled from 'styled-components';
 
 
@@ -17,7 +18,7 @@ const Row1 = styled.div`
   display: flex;
   flex-direction: row;
   flex: 0 1 auto;
-  height: 36px;
+  height: 52px;
 `;
 
 const Row2 = styled.div`
@@ -28,7 +29,7 @@ const Row2 = styled.div`
 
 
 const Toggle = styled.div`
-  flex: 0 0 30px;
+  flex: 0 0 52px;
   justify-self: center;
   align-self: center;
 `;
@@ -36,12 +37,21 @@ const Toggle = styled.div`
 const Header = styled.div`
   background-color: lightsteelblue;
   flex: 1 1 auto;
+  padding-inline: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+const HeaderActions = styled.div`
+  flex: 0 0 60px;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 
 const Toolbar = styled.div`
   background-color: lightcoral;
-  flex: 0 0 30px;
+  flex: 0 0 52px;
 `;
 
 const Content = styled.div`
@@ -49,19 +59,17 @@ const Content = styled.div`
   flex: 1 0 auto;
 `;
 
-
-const entities = [{display: "contract A", id: 'contractA'}, {
-    display: "contract B",
-    id: 'contractB'
-}, {display: "contract C", id: 'contractC'}]
-const ConsultationPanels = () => (
+const ConsultationPanels = ({header}) => (
     <Root>
         <Row1>
             <Toggle data-test="toggle">
                 <DoubleArrowIcon/></Toggle>
             <Header data-test="header">
-
-                {true && <SelectEntity entities={entities}></SelectEntity>}
+                {header}
+                <HeaderActions>
+                    <OpenInNew/>
+                    <Tab/>
+                </HeaderActions>
             </Header>
         </Row1>
         <Row2>
@@ -70,4 +78,13 @@ const ConsultationPanels = () => (
         </Row2>
 
     </Root>)
+
+ConsultationPanels.propTypes = {
+    header: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]),
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+}
 export default ConsultationPanels

@@ -1,25 +1,24 @@
-import { DxcSelect } from "@dxc-technology/halstack-react";
+import {DxcSelect} from "@dxc-technology/halstack-react";
 import PropTypes from "prop-types";
 import React from 'react';
 
 
-const SelectEntity = ({entities, currentEntity, onChange}) => {
+const SelectEntity = ({entities, value, onChange}) => {
     const options = entities.map((entity) => ({value: entity.id, label: entity.display}))
-    console.log('options', options)
     return (
-        <div data-test={"consult-select"}>
-            <DxcSelect
-                options={options}
-                margin={{top:0}}
-            />
-        </div>
+        <DxcSelect
+            options={options}
+            margin={{top: 0}}
+            onChange={onChange}
+            value={value}
+        />
     )
 }
 
 
 SelectEntity.propTypes = {
     entities: PropTypes.array,
-    currentEntity: PropTypes.string,
+    value: PropTypes.string,
     onChange: PropTypes.func,
 }
 export default SelectEntity;
