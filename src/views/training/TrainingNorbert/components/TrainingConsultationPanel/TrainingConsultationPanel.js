@@ -12,7 +12,7 @@ const Root = styled.div`
 
 
 const Test = styled.div`
-  border-style: dotted;
+  border-style: none;
   border-width: medium;
   width: 500px;
   height: 600px;

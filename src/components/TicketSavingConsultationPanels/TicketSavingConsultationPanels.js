@@ -12,7 +12,7 @@ export const Root = styled.div`
 
 const TicketSavingConsultationPanels = () => {
     const [entityType, setEntityType] = useState('contract')
-    const [currentEntity, setCurrentEntity] = useState(undefined)
+    const [currentEntity, setCurrentEntity] = useState({})
     const entities = {
         contract:
             [{display: "contract A", id: 'contractA'}, {
@@ -28,10 +28,10 @@ const TicketSavingConsultationPanels = () => {
 
     const SelectEntities = () => <SelectEntity entities={entities[entityType]} onChange={handleEntitySelection} value={currentEntity[entityType]}></SelectEntity>
     const Toolbar = () => <SavingToolbar value={entityType} onChange={handleTypeSelection}/>
-
+    const Content = () => <div> Content of id : {currentEntity[entityType]} </div>
     return (
         <Root>
-            <ConsultationPanels header={<SelectEntities/>} content={"Content"} toolbar={<Toolbar/>}/>
+            <ConsultationPanels header={<SelectEntities/>} content={<Content/>} toolbar={<Toolbar/>}/>
         </Root>
     )
 }

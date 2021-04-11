@@ -60,12 +60,17 @@ const Content = styled.div`
   flex: 1 0 auto;
 `;
 
+const Divider =  styled.div`
+    border-bottom: 1px solid #bbb;
+`;
+
 const ConsultationPanels = ({header, content, toolbar, onOpenInNew, onNewTab}) => (
     <Root>
         <Row1>
             <Toggle data-test="toggle">
                 <DoubleArrowIcon/>
             </Toggle>
+
             <Header data-test="header">
                 {header}
                 <HeaderActions>
@@ -74,6 +79,7 @@ const ConsultationPanels = ({header, content, toolbar, onOpenInNew, onNewTab}) =
                 </HeaderActions>
             </Header>
         </Row1>
+        <Divider/>
         <Row2>
             <Toolbar data-test="toolbar">{toolbar}</Toolbar>
             <Content data-test="content">{content}</Content>

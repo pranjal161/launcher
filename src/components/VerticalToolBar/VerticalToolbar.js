@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React from 'react';
 import styled from "styled-components";
 
+//Todo use a list-group
+
 const List = styled.ul`
   list-style: none;
   padding: 2px;
@@ -22,8 +24,9 @@ const ListItem = styled.li`
 const VerticalToolbar = ({items, value, onChange}) => (
     <List>
         {items.map((item) => (
-            <ListItem key={item.value} onClick={() => onChange(item.value)
-            } selected={value === item.value}>{item.display}</ListItem>))}
+            <ListItem key={item.value}
+                onClick={() => onChange(item.value)}
+                selected={value === item.value}>{item.display}</ListItem>))}
     </List>
 )
 
