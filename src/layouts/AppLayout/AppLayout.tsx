@@ -1,5 +1,5 @@
 import { DxcApplicationLayout } from '@dxc-technology/halstack-react';
-import Header from "../../components/header/header";
+import Header from "../../components/Header/Header";
 import PropTypes from 'prop-types'
 import React from 'react';
 import { applyRoutes } from "../../routes";

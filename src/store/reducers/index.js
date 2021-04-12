@@ -7,7 +7,7 @@ import {firestoreReducer} from "redux-firestore";
 import ticketReducer from "./ticketReducer";
 import userReducer from "./userReducer";
 
-const rootReducer = combineReducers(
+const reducers = combineReducers(
     {
         auth: authReducer,
         firebase: firebaseReducer,
@@ -19,4 +19,4 @@ const rootReducer = combineReducers(
     }
 )
 
-export default rootReducer
+export default reducers
