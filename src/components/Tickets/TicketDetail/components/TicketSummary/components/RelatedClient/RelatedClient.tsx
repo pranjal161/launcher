@@ -1,9 +1,9 @@
-import { DotsIcon } from '../../../../../../../assets/svg';
+import { DotsIcon } from 'assets/svg';
 import LinkedClient from '../LinkedClient/LinkedClient';
 import PropTypes from 'prop-types'
 import React from 'react'
-import { StyledButton } from '../../../../../../../styles/global-style';
-import useDeskTickets from "../../../../../../../data/hooks/useDeskTickets";
+import { StyledButton } from 'styles/global-style';
+import useDeskTickets from "data/hooks/useDeskTickets";
 
 const RelatedClient = (props:any) => {
     const { removeRelatedClients } = useDeskTickets();
