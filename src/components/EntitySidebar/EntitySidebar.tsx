@@ -11,7 +11,7 @@ interface EntitySidebarProps {
 const StyledSidebar = styled.div<EntitySidebarProps>`
     overflow: hidden;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     transition: width 0.2s ease-in;
     width: ${(props) => (props.open ? (props) => props.width : 0)}px;
 ` as any;
