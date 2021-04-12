@@ -11,7 +11,8 @@ import useDeskTickets from "../../../data/hooks/useDeskTickets";
  * @param {id, sectionId, onRemove, onClose} Information that will be used for the ticket detail
  * @returns {*} Display of ticket in detail
  */
-function TicketDetail({id, sectionId, onRemove, onClose}) {
+function TicketDetail(props:any) {
+    const {id, sectionId, onRemove, onClose} = props;
     const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
     let ticket = id ? getOne(id) : undefined
@@ -42,9 +43,9 @@ function TicketDetail({id, sectionId, onRemove, onClose}) {
                     onClose={closeHandle}
                     onPopupWindow={popupHandle}
                     showPopupIcon={true}
-                    sectionId={sectionId}/>
-            </DxcBox>
-            {openPopup &&
+                    {...sectionId}/>
+
+                {openPopup &&
                 <NewWindowPortal onCloseCallback={closeHandle}>
                     <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
                         <TicketSummary
