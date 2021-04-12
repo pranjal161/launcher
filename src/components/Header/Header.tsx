@@ -47,7 +47,7 @@ const Header = () => {
     };
 
     const goToSearch = () => {
-        history.push("/contractSearch");
+        history.push("/ContractSearch");
     }
 
     return (
@@ -59,11 +59,11 @@ const Header = () => {
                 <>
                     <div className="col-8 p-0">
                         <ul className="toolbar m-0">
-                            <li><DxcLink href="/home" underlined={false} text="Home" /></li>
-                            <li><DxcLink href="/baskets/all" underlined={false} text="Baskets" /></li>
-                            <li><DxcLink href="/tickets/myTickets" underlined={false} text="My Tickets" /></li>
-                            <li><DxcLink href="/help" underlined={false} text="Help" /></li>
-                            <li><DxcLink href="/training" underlined={false} text="Training pages" /></li>
+                            <li><DxcLink href="/omnichannel/react/home" underlined={false} text="Home" /></li>
+                            <li><DxcLink href="/omnichannel/react/baskets/all" underlined={false} text="Baskets" /></li>
+                            <li><DxcLink href="/omnichannel/react/tickets/myTickets" underlined={false} text="My Tickets" /></li>
+                            <li><DxcLink href="/omnichannel/react/help" underlined={false} text="Help" /></li>
+                            <li><DxcLink href="/omnichannel/react/training" underlined={false} text="Training pages" /></li>
                             <li><CreateButton /></li>
                         </ul>
                     </div>

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react';
 
 /**
- * Display of all tickets in a list
- * @param {props} props Information on tickets that will be used for the display
- * @returns {*} Display of all tickets in a list
+ * Display of all Tickets in a list
+ * @param {props} props Information on Tickets that will be used for the display
+ * @returns {*} Display of all Tickets in a list
  */
 const TicketList = (props:any) => {
     const {tickets, onClick, ticketId} = props
