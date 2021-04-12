@@ -153,7 +153,7 @@ const TicketsList = (props: any) => {
                         <th>{t('_DEADLINE')}</th>
                         <th/>
                     </tr>
-                    {allBaskets && tickets.map((ticket: any, i: number) => (
+                    {allBaskets && tickets && tickets.map((ticket: any, i: number) => (
                         <tr key={i} onClick={() => handleTicketClick(ticket)}>
                             <td>{getStatusIcon(ticket.status)}</td>
                             <td>{ticket.title}</td>
