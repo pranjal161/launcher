@@ -23,7 +23,6 @@ const SelectEntity = ({entities, value, onChange}) => {
             onSelectOption={onChange}
             padding={{left: 0, bottom: 0, top: 0, right: 0}}
             margin={{left: 0, bottom: 0, top: 0, right: 0}}
-            value={currentValue}
         />}
     </>
     )
