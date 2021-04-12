@@ -63,7 +63,7 @@ const Header = () => {
                             <li><DxcLink href="/omnichannel/react/baskets/all" underlined={false} text="Baskets" /></li>
                             <li><DxcLink href="/omnichannel/react/tickets/myTickets" underlined={false} text="My Tickets" /></li>
                             <li><DxcLink href="/omnichannel/react/help" underlined={false} text="Help" /></li>
-                            <li><DxcLink href="/omnichannel/react/training" underlined={false} text="Training pages" /></li>
+                            <li><DxcLink href="/omnichannel/react/Training" underlined={false} text="Training pages" /></li>
                             <li><CreateButton /></li>
                         </ul>
                     </div>
