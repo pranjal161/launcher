@@ -7,7 +7,7 @@ import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
-import ContractSummary from "views/contractSummary/ContractSummary";
+import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import ExempleDesktopView from "views/Trainers/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
 import Help from 'views/Help/Help';
