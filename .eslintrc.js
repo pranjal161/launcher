@@ -1,21 +1,24 @@
 module.exports = {
     parser: "@typescript-eslint/parser", // Specifies the ESLint parser
     parserOptions: {
-      ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
-      sourceType: "module", // Allows for the use of imports
-      ecmaFeatures: {
-        jsx: true // Allows for the parsing of JSX
-      }
+        ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
+        sourceType: "module", // Allows for the use of imports
+        ecmaFeatures: {
+            jsx: true // Allows for the parsing of JSX
+        }
     },
     settings: {
-      react: {
-        version: "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
-      }
+        react: {
+            version: "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+        }
     },
     extends: [
         "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
         "plugin:react-hooks/recommended",
-        "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
+        "plugin:@typescript-eslint/recommended" // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    ],
+    plugins: [
+        "filenames"
     ],
     "rules": {
         "@typescript-eslint/ban-types": ["error",
@@ -71,6 +74,8 @@ module.exports = {
         "dot-notation": "off",
         "eol-last": "off",
         "eqeqeq": "off",
+        "filenames/match-regex": [2, "(^[A-Z]+)|^((?!index.ts).)*$", true],
+        "filenames/match-exported": [2, null, "^(index.js)$"],
         "func-call-spacing": "off",
         "func-name-matching": "error",
         "func-names": "off",
@@ -87,14 +92,14 @@ module.exports = {
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "indent-legacy": "off",
         "init-declarations": "off",
-        "jsx-quotes": "error",
+        "jsx-quotes": ["error", "prefer-double"],
         "key-spacing": "off",
         "keyword-spacing": "off",
         "line-comment-position": "off",
         "linebreak-style": "off",
-        "lines-around-comment": "off",
+        "lines-around-comment": ["error", { "beforeBlockComment": true }],
         "lines-around-directive": "error",
-        "lines-between-class-members": "error",
+        "lines-between-class-members": ["error", "always"],
         "max-classes-per-file": "error",
         "max-depth": "off",
         "max-len": "off",
@@ -157,7 +162,8 @@ module.exports = {
         "no-mixed-operators": "off",
         "no-mixed-requires": "error",
         "no-multi-assign": "error",
-        "no-multi-spaces": "off",
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 1 }],
+        "no-multi-spaces": "error",
         "no-multi-str": "error",
         "no-multiple-empty-lines": "off",
         "no-native-reassign": "error",

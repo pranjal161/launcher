@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react';
 import {applyRoutes} from "../../routes";
 
-const AuthLayout= (props: { route: { routes: any[]; }; }) =>  {
+const AuthLayout= (props: { route: { routes: any[]; }; }) => {
     console.log('props', props.route.routes)
     
     return (
