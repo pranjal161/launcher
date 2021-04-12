@@ -1,0 +1,23 @@
+.deadline-container {
+    svg {
+        width: 20px;  
+    }
+    .normal {
+      background-color: #F7F7F7;
+      width: fit-content;
+      color: gray;
+      svg { fill: gray }
+    }
+    .gentle {
+      background-color: rgba(255, 206, 86, 0.2);
+      width: fit-content;
+      color: goldenrod;
+      svg { fill: goldenrod; }
+    }
+    .high {
+      background-color: rgba(255, 99, 132, 0.2);
+      width: fit-content;
+      color: red;
+      svg { fill: red;}
+    }
+    }
