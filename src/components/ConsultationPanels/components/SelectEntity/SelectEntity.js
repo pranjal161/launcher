@@ -10,8 +10,7 @@ const SelectEntity = ({entities, value, onChange}) => {
     if (!value && entities.length) {
         //By default, we display the first item of entities
         currentValue = entities[0].id
-        if (value !== currentValue)
-            onChange(currentValue)
+        onChange(currentValue)
     } else
         currentValue = value
 
