@@ -12,23 +12,27 @@ const Title = styled.span`
   font-weight: bold;
 `;
 
-const SectionHeader = ({id, title, actions, children}) => (
-    <>
-        <div >
-            <Root sectionId={id}>
-                <Title>{title}</Title>
-                {actions}
-            </Root>
-            {children}
-        </div>
-    </>
-)
+const SectionHeader = (props: any) => {
+    const { id, title, actions, children } = props;
+
+    return (
+        <>
+            <div>
+                <Root {...id}>
+                    <Title>{title}</Title>
+                    {actions}
+                </Root>
+                {children}
+            </div>
+        </>
+    )
+}
 
 SectionHeader.propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
     actions: PropTypes.array,
-    children: PropTypes.string
+    children: PropTypes.any
 }
 
 export default SectionHeader;

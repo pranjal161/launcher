@@ -13,20 +13,23 @@ const Title = styled.span`
    font-size: larger;
  `;
 
-const SummaryHeader = ({title, actions, children}) => (
-    <>
-        <Root>
-            <Title>{title}</Title>
-            {actions}
-        </Root>
-        {children}
-    </>
-)
+const SummaryHeader = (props: any) => {
+    const { title, actions, children } = props;
+    return (
+        <>
+            <Root>
+                <Title>{title}</Title>
+                {actions}
+            </Root>
+            {children}
+        </>
+    );
+};
 
 SummaryHeader.propTypes = {
     title: PropTypes.string,
     actions: PropTypes.array,
-    children: PropTypes.string
+    children: PropTypes.any
 }
 
 export default SummaryHeader;
