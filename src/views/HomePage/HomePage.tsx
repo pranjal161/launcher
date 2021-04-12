@@ -3,7 +3,7 @@ import './HomePage.scss';
 import {DxcBox, DxcLink} from '@dxc-technology/halstack-react';
 import React, {useState} from 'react';
 
-import BasketList from 'components/BbasketList/BasketList';
+import BasketList from 'components/BasketList/BasketList';
 import Card from 'components/Card/Card';
 import CreateReminders from 'components/Reminders/CreateReminders/CreateReminders';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';

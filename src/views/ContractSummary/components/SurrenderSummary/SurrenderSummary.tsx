@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
-import Chart from 'components/Chart/Chart';
+import Chart from "components/Chart/Chart";
 import { DxcTable } from '@dxc-technology/halstack-react';
-import Label from 'components/Label/Label';
+import Label from "components/Label/Label";
 import axios from 'axios';
 import { formatValue } from 'util/functions';
 import { useTranslation } from 'react-i18next';

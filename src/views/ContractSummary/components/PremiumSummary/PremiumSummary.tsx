@@ -3,16 +3,16 @@ import { formatValue, getDescriptionValue } from 'util/functions';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
-import Chart from 'components/Chart/Chart';
+import Chart from "components/Chart/Chart";
 import { DxcTable } from '@dxc-technology/halstack-react';
-import Label from 'components/Label/Label';
+import Label from "components/Label/Label";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
 /**
- * Display premium summary in a table
+ * Display premium summary in a Table
  * @param {props} props Contains information related to the premium
- * @returns {*} Return information of the  in a table
+ * @returns {*} Return information of the  in a Table
  */
 export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
     const { t } = useTranslation();
@@ -51,7 +51,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
     /**
      * Split data of the investment
      * @param {data} data Contains information related to the investment
-     * @returns {void} Load and set information of the investment in a chart
+     * @returns {void} Load and set information of the investment in a Chart
      */
     function investmentSplitData(data: any) {
         const investmentFunds: any[] = [];

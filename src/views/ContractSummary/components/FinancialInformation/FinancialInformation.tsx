@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
-import Label from 'components/Label/Label';
+import Label from "components/Label/Label";
 import axios from 'axios';
 import { getLink } from 'util/functions';
 
