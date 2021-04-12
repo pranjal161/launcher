@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react';
 import {applyRoutes} from "../../routes";
 
-const  CanvasLayout = (props: { route: any }) =>  (
+const CanvasLayout = (props: { route: any }) => (
     <>
         {applyRoutes(props.route.routes)}
     </>
