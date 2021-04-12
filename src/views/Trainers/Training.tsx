@@ -1,6 +1,6 @@
 import {DxcButton} from "@dxc-technology/halstack-react";
 import React from "react";
-import {applyRoutes} from '../../routes';
+import {applyRoutes} from "routes";
 import {useHistory} from 'react-router-dom';
 
 const Training = (props: any): any => {
