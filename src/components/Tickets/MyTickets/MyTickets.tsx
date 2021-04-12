@@ -13,7 +13,7 @@ import useDeskTickets from "data/hooks/useDeskTickets";
 const MyTickets = (props: any) => {
 
     const sideNavItems: any[] = [
-        { title: 'All Tickets', status: 'all tickets', },
+        { title: 'All Tickets', status: 'all Tickets', },
         { title: 'In Progress', status: 'in progress' },
         { title: 'Pending', status: 'pending' },
         { title: 'OverDue', status: 'overdue' },
@@ -59,7 +59,7 @@ const MyTickets = (props: any) => {
     const setTicketCount = () => {
         let countArray: any = {};
         sideNavItems && sideNavItems.map((sideNavItem: any) => {
-            if (sideNavItem.status == 'all tickets') {
+            if (sideNavItem.status == 'all Tickets') {
                 countArray[sideNavItem.status] = tickets && tickets.length;
             }
             else {
@@ -83,7 +83,7 @@ const MyTickets = (props: any) => {
     }
 
     const getAllFilteredTickets = (status: string) => {
-        if (status == "all tickets" || status == undefined) {
+        if (status == "all Tickets" || status == undefined) {
             setFilteredTickets(tickets);
         }
         else {
@@ -94,8 +94,8 @@ const MyTickets = (props: any) => {
 
     useEffect(() => {
         setFilteredTickets(tickets);
-        ticketsAssignedToList({ status: 'all tickets' });
-        setItemDetails({ title: 'All Tickets', status: 'all tickets' })
+        ticketsAssignedToList({ status: 'all Tickets' });
+        setItemDetails({ title: 'All Tickets', status: 'all Tickets' })
         setSearchedStatus(sideNavItems);
         setTicketCount();
     }, []);

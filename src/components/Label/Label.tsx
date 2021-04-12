@@ -5,9 +5,9 @@ import { StyledLabel } from 'styles/global-style';
 import { useTranslation } from "react-i18next";
 
 /**
- * Display a label
- * @param {props} props Contains information related to the label
- * @returns {*} Return the label
+ * Display a Label
+ * @param {props} props Contains information related to the Label
+ * @returns {*} Return the Label
  */
 const Label = (props: { label?: string; propertyName: string; data: any; type?: string }) => {
     const { t } = useTranslation();

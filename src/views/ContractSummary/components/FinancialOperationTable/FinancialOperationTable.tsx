@@ -4,18 +4,18 @@ import { getDescriptionValue, getLink } from 'util/functions';
 
 import { ApplicationContext } from 'context/applicationContext';
 import { EyeIcon } from 'assets/svg';
-import Paginator from 'components/Paginator/Paginator';
-import { PremiumSummary } from '../PremiumSummary/PremiumSummary';
+import Paginator from "components/Paginator/Paginator";
+import { PremiumSummary} from "views/ContractSummary/components/PremiumSummary/PremiumSummary";
 import { StyledButton } from 'styles/global-style';
-import { SurrenderSummary } from '../SurrenderSummary/SurrenderSummary';
-import { SwitchSummary } from '../SwitchSummary/SwitchSummary';
+import { SurrenderSummary} from "views/ContractSummary/components/SurrenderSummary/SurrenderSummary";
+import { SwitchSummary} from "views/ContractSummary/components/SwitchSummary/SwitchSummary";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
 /**
- * Display financial operation in a table
+ * Display financial operation in a Table
  * @param {props} props Contains information related to the contract
- * @returns {*} Return information of the financial operation in a table
+ * @returns {*} Return information of the financial operation in a Table
  */
 const FinancialOperationTable = (props: { contractResponse: any }) => {
     const { t } = useTranslation();

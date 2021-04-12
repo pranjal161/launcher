@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 /** Subscribe to query on Firestore and connect it to the store
  *  To be use carefully !!!!!!!!!!!!!!!
  *  Once per query per application session.
- * @param params : { collection: 'tickets', storeAs, limit, where : [field, operation, value]}
+ * @param params : { collection: 'Tickets', storeAs, limit, where : [field, operation, value]}
  */
 
 const useDeskSubscribe = ({collection, ...rest}) => {

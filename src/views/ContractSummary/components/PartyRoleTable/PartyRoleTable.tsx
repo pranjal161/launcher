@@ -33,7 +33,7 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
                     })
                     .then((personResponse) => {
                         if (personResponse && personResponse.data['person:client_number'])
-                            history.push('/clientView/person/' + personResponse.data['person:client_number'], {
+                            history.push('/ClientView/person/' + personResponse.data['person:client_number'], {
                                 clientData: personResponse.data,
                             });
                     });
@@ -49,7 +49,7 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
                     })
                     .then((orgResponse) => {
                         if (orgResponse && orgResponse.data['organization:client_number'])
-                            history.push('/clientView/organization/' + orgResponse.data['organization:client_number'], {
+                            history.push('/ClientView/organization/' + orgResponse.data['organization:client_number'], {
                                 clientData: orgResponse.data,
                             });
                     });

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
-import Chart from 'components/Chart/Chart';
+import Chart from "components/Chart/Chart";
 import { DxcTable } from "@dxc-technology/halstack-react";
 import axios from 'axios';
 import { getDescriptionValue } from 'util/functions';

@@ -8,8 +8,8 @@ import TicketDetail from "../../../../../../components/Tickets/TicketDetail/Tick
 import useDeskAuth from "../../../../../../data/hooks/useDeskAuth";
 
 /**
- * Example of tickets view
- * @returns {*} Example of tickets view
+ * Example of Tickets view
+ * @returns {*} Example of Tickets view
  */
 function ExempleTicketsView() {
     const [clickedTickets, setClickedTickets] = useState({})

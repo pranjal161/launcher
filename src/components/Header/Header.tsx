@@ -47,7 +47,7 @@ const Header = () => {
     };
 
     const goToSearch = () => {
-        history.push("/contractSearch");
+        history.push("/ContractSearch");
     }
 
     return (
