@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
-import configureStore from "./store/store2";
+import configureStore from "./store/configureStore";
 import { createFirestoreInstance } from 'redux-firestore'
 import firebase from 'firebase/app'
 import reportWebVitals from './reportWebVitals';

@@ -17,7 +17,7 @@ const schema = yup.object().shape({
  * @param {props} props Information of the basket
  * @returns {*} Display available action for the basket
  */
-function BasketFormDialog(props: { basket: any, close: () => void, submit: ( basket: any ) => void  }) {
+function BasketFormDialog(props: { basket: any, close: () => void, submit: ( basket: any ) => void }) {
     const {currentUserId} = useDeskAuth()
     const {basket} = props
 
