@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
-import ContractTable from 'components/ContractTable/ContractTable';
+import ContractTable from "components/ContractTable/ContractTable";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 

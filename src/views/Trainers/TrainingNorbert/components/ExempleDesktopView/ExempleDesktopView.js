@@ -5,8 +5,8 @@ import ExempleTicketsView from "./ExempleTicketsView/ExempleTicketsView";
 import React from 'react';
 
 /**
- * Example of tickets view on desktop
- * @returns {*} Example of tickets view on desktop
+ * Example of Tickets view on desktop
+ * @returns {*} Example of Tickets view on desktop
  */
 function ExempleDesktopView() {
     const [value, setValue] = React.useState(0);
