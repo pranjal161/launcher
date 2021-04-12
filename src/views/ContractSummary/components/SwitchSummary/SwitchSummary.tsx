@@ -1,9 +1,9 @@
+import { DxcHeading, DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
-import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from 'components/Label/Label';
 import axios from 'axios';
 import { formatValue } from 'util/functions';
@@ -28,10 +28,10 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
 
             const investmentSplitListItems: any = res.data && res.data['investment_split'] && Array.isArray(res.data['investment_split']) ? res.data['investment_split'] :
                 [res['investment_split']];
-            
+
             if (investmentSplitListItems) {
                 let investmentSplitElement: any[] = [];
-                
+
                 investmentSplitListItems.forEach((element: any) => {
                     if (element && element['allocation:coverage_fund']) {
                         investmentSplit.push(element);
@@ -41,11 +41,11 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                 Promise.all(investmentSplitElement).then((investmentRes: any) => {
                     if (investmentSplitListItems && investmentRes) {
                         let _list: any[] = [];
-                        
+
                         investmentRes.forEach((res: any) => {
                             const resHref = res.data['_links']['self'].href;
                             const currentItem = investmentSplit.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
-                            
+
                             if (currentItem) {
                                 let _result = {
                                     'coverage_fund:label': res.data['coverage_fund:label'],
@@ -54,7 +54,7 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                                     'allocation:amount': currentItem['allocation:amount'],
                                     'allocation:rate': currentItem['allocation:rate']
                                 };
-                                
+
                                 _list.push(_result);
                             }
                         });
@@ -73,7 +73,7 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             unitFunds.forEach((res) => {
                 const resHref = res.data['_links']['self'].href;
                 const currentItem = investmentSplit.find((item: { [x: string]: any; }) => item['allocation:coverage_fund'] === resHref);
-                
+
                 if (currentItem) {
                     let _result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
@@ -94,10 +94,10 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
 
     return (
         <>
-            <h5>{t('_SWITCH_SUMMARY')}</h5>
+            <DxcHeading level={4} weight="light" text={t('_SWITCH_SUMMARY')} />
             {switchResponse && (
                 <>
-                    <h6>{t('_INITIAL_PREMIUM')}</h6>
+                    <DxcHeading level={5} weight="light" text={t('_INITIAL_PREMIUM')} />
                     <div className="row col-12">
                         <div className="col-6">
                             <Label propertyName="operation:identifier" label="_IDENTIFIER" data={switchResponse} />
@@ -129,7 +129,7 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             )}
             {investmentSplitList && (
                 <>
-                    <h5>{t('_DISINVESTED_FUNDS')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_DISINVESTED_FUNDS')} />
                     <DxcTable>
                         <tr >
                             <th>{t('_FUND_LABEL')}</th>
@@ -150,7 +150,7 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
             )}
             {investmentSplitList && (
                 <>
-                    <h5>{t('_BREAKDOWN_AFTER_SWITCH')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_BREAKDOWN_AFTER_SWITCH')} />
                     <DxcTable>
                         <tr>
                             <th>{t('_FUND_LABEL')}</th>
