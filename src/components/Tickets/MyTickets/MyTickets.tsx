@@ -3,10 +3,10 @@ import './MyTickets.scss'
 import { DxcInput, DxcSidenav } from "@dxc-technology/halstack-react";
 import React, { useEffect, useState } from 'react';
 
-import Card from 'components/card/card';
-import EntitySidebar from 'components/entitySidebar/entitySidebar';
+import Card from 'components/Card/Card';
+import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
 import TicketDetail from "components/Tickets/TicketDetail/TicketDetail";
-import TicketList from "components/Tickets/ticketsList/ticketsList";
+import TicketList from "components/Tickets/TicketsList/TicketsList";
 import TicketTitle from '../TicketTitle/TicketTitle';
 import useDeskTickets from "data/hooks/useDeskTickets";
 

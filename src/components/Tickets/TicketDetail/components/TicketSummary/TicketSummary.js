@@ -7,7 +7,7 @@ import {
 import React, {useCallback} from "react";
 import {StyledButton, StyledDivider} from 'styles/global-style';
 import DataLine from "./components/DataLine/DataLine";
-import Documents from './components/documents/documents';
+import Documents from './components/Documents/Documents';
 import EditableField from "../../../../EditableField/EditableField";
 import Label from "./components/Label/Label";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
