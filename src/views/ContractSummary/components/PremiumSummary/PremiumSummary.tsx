@@ -1,10 +1,10 @@
+import { DxcHeading, DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { formatValue, getDescriptionValue } from 'util/functions';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
-import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from 'components/Label/Label';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -69,7 +69,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                 const currentItem = data.find(
                     (item: { [x: string]: any }) => item['allocation:coverage_fund'] === resHref,
                 );
-                
+
                 if (currentItem) {
                     let result = {
                         _FUND_LABEL: res.data['coverage_fund:label'],
@@ -79,21 +79,21 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
                         allocation_fund: currentItem['allocation:coverage_fund'],
                         value: res.data['interest_fund:net_cash_value'] ? res.data['interest_fund:net_cash_value'] : res.data['unit_linked_fund:net_cash_value']
                     };
-                    
+
                     investmentFundsPayload.push(result);
                 }
             });
-            
+
             setChartData(investmentFundsPayload);
         });
     }
 
     return (
         <>
-            <h5>{t('_PREMIUM_SUMMARY')}</h5>
+            <DxcHeading level={4} weight="light" text={t('_PREMIUM_SUMMARY')} />
             {premiumResponse && (
                 <>
-                    <h6>{t('_INITIAL_PREMIUM')}</h6>
+                    <DxcHeading level={5} weight="light" text={t('_INITIAL_PREMIUM')} />
                     <div className="row col-12">
                         <div className="col-6">
                             <Label propertyName="operation:identifier" label="_IDENTIFIER" data={premiumResponse} />
@@ -133,7 +133,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
             )}
             {distributionList && distributionList.length > 0 && (
                 <>
-                    <h5>{t('_PREMIUM_DISTRIBUTION_LIST')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_PREMIUM_DISTRIBUTION_LIST')} />
                     <DxcTable>
                         <tr>
                             <th>{t('_PREMIUM_FUND_LABEL')}</th>
@@ -152,7 +152,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
             )}
             {investmentFundsResItems && investmentFundsResItems.length > 0 && (
                 <>
-                    <h5>{t('_PREMIUM_FUND_LIST')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_PREMIUM_FUND_LIST')} />
                     <DxcTable>
                         <tr>
                             <th>{t('_FUND_LABEL')}</th>
