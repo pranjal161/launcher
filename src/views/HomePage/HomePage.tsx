@@ -95,7 +95,7 @@ const HomePage = () => {
                                         </div>
                                         <EntitySidebar
                                             open={openSidebar}
-                                            width={500}
+                                            width={434}
                                             content={
                                                 <TicketSavingConsultationPanels ticketId={clickedTicket.id}
                                                     onRemove={handleRemove}

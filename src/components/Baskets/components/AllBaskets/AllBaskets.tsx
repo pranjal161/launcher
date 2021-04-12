@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import BasketTitle from "../BasketTitle/BasketTitle";
 import Card from 'components/Card/Card';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
-import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
+import TicketDetail from "components/Tickets/TicketDetail/TicketDetail";
 import TicketList from 'components/Tickets/TicketsList/TicketsList'
 import useDeskBaskets from "data/hooks/useDeskBaskets";
 import useDeskTickets from 'data/hooks/useDeskTickets';
@@ -76,7 +76,7 @@ const AllBaskets= (props: any) => {
         setSearchedBaskets(baskets);
         setTicketCount();
     }, [baskets]);
-
+    
     return (
         <>
             <div className="d-flex align-items-start">
@@ -125,8 +125,7 @@ const AllBaskets= (props: any) => {
                                             id={clickedTicket.id}
                                             key={clickedTicket.id}
                                             onRemove={handleRemove} 
-                                            onClose={handleClose} 
-                                            sectionId="ticket-details" />
+                                            onClose={handleClose} />
                                     } />
                             </div>
                         </div>

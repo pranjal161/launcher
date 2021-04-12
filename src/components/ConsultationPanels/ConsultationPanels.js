@@ -54,6 +54,7 @@ const Toolbar = styled.div`
 `;
 const Content = styled.div`
   flex: 1 0 auto;
+  width: 100%;
   margin-left: 20px ;
   margin-top: 20px ;
   

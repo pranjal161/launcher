@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {DxcBox} from "@dxc-technology/halstack-react";
-import NewWindowPortal from "../../NewWindowPortal/NewWindowPortal";
-import TicketSummary from "./components/TicketSummary/TicketSummary";
-import useDeskAuth from "../../../data/hooks/useDeskAuth";
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
+import NewWindowPortal from "components/NewWindowPortal/NewWindowPortal";
+import TicketSummary from "components/Tickets/TicketDetail/components/TicketSummary/TicketSummary";
+import useDeskAuth from "data/hooks/useDeskAuth";
+import useDeskTickets from "data/hooks/useDeskTickets";
+
 
 // eslint-disable-next-line valid-jsdoc
 /**
@@ -11,8 +12,8 @@ import useDeskTickets from "../../../data/hooks/useDeskTickets";
  * @param {id, sectionId, onRemove, onClose} Information that will be used for the ticket detail
  * @returns {*} Display of ticket in detail
  */
-function TicketDetail(props:any) {
-    const {id, sectionId, onRemove, onClose} = props;
+function TicketDetail(props: any) {
+    const {id, onRemove, onClose} = props;
     const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
     let ticket = id ? getOne(id) : undefined
@@ -42,8 +43,7 @@ function TicketDetail(props:any) {
                     actions={Actions}
                     onClose={closeHandle}
                     onPopupWindow={popupHandle}
-                    showPopupIcon={true}
-                    {...sectionId}/>
+                    showPopupIcon={true}/>
 
                 {openPopup &&
                 <NewWindowPortal onCloseCallback={closeHandle}>
@@ -51,15 +51,13 @@ function TicketDetail(props:any) {
                         <TicketSummary
                             ticket={ticket}
                             actions={Actions}
-                            onClose={closeHandle}
-                            sectionId={sectionId}/>
+                            onClose={closeHandle}/>
                     </DxcBox>
                 </NewWindowPortal>}
-            </>
-        )
+            </DxcBox>
+            </>)
     } else
-        return (<div className="container center">Loading ticket ...</div>)
+        return null
 }
 
 export default TicketDetail;
-

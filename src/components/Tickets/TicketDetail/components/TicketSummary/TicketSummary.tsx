@@ -1,31 +1,34 @@
-import { AddIcon, CloseIcon, NewWindowIcon } from "../../../../../assets/svg";
+import { AddIcon, CloseIcon, NewWindowIcon} from "assets/svg";
 import {
-    DxcBox,
     DxcChip,
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
 import React, { useCallback } from "react";
+import {StyledButton, StyledDivider} from 'styles/global-style';
 
 import DataLine from "./components/DataLine/DataLine";
 import Documents from './components/Documents/Documents';
-import EditableField from "../../../../EditableField/EditableField";
+import EditableField from "components/EditableField/EditableField";
 import Label from "./components/Label/Label";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
 import PropTypes from "prop-types";
 import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
-import { StyledButton } from '../../../../../styles/global-style';
 import { TextField } from "@material-ui/core";
 import Upload from "../Upload/Upload";
 import UserSelection from "./components/UserSelection/UserSelection";
 import { formatValue } from "util/functions";
 import moment from "moment";
+import styled from "styled-components";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
 
-const Divider = () => <hr className="solid" />;
+export const Root = styled.div`
+  height: 100%;
+  width: 100%;
+`;
 
 const TicketSummary = (props:any) => {
     const { ticket, onClose, onPopupWindow, showPopupIcon = false, actions } = props;
@@ -130,12 +133,13 @@ const TicketSummary = (props:any) => {
     }, [createdBy, ticket.id])
 
     return (
-        <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
-            <Sections title={"Ticket detail"} actions={closePopupAction}>
-                <Section id="actions" title="Actions">
+        <Root>
+            <Sections >
+                {false && closePopupAction}
+                {actions && <Section id="actions" title="Actions">
                     {actions}
-                </Section>
-                <Divider />
+                    <StyledDivider/>
+                </Section>}
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
                         <EditableField
@@ -190,7 +194,7 @@ const TicketSummary = (props:any) => {
                             <UserSelection />
                         </EditableField>
                     </DataLine>
-                    <Divider />
+                    <StyledDivider />
                 </Section>
                 <Section id="description" title="Description">
                     <EditableField
@@ -202,7 +206,7 @@ const TicketSummary = (props:any) => {
                         <DxcTextarea />
                     </EditableField>
                 </Section>
-                <Divider />
+                <StyledDivider />
                 <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>}>
                     <DataLine label={<Label>Client</Label>}>
                         {/* <LinkedClient client={{displayName: ticket.relatedClients}} url={"jkjk"} /> */}
@@ -210,7 +214,7 @@ const TicketSummary = (props:any) => {
                     </DataLine>
                 </Section>
 
-                <Divider />
+                <StyledDivider />
                 <Section id="relatedContracts" title="Related Contracts">
                     <DataLine label={<Label> Contract </Label>}>
                         <LinkedContract
@@ -237,24 +241,24 @@ const TicketSummary = (props:any) => {
                         />
                     </DataLine>
                 </Section>
-                <Divider />
+                <StyledDivider />
                 <Section id="suggestedActivities" title="Suggested activities">
                     <SuggestedActivities activities={ticket.suggestedActivities} />
                 </Section>
-                <Divider />
+                <StyledDivider />
                 <Section id="notes" title="Notes">
                     <ul className={"list-group"}>
                         <li className="list-group-item"> Note 1</li>
                         <li className="list-group-item"> Note 2</li>
                     </ul>
                 </Section>
-                <Divider />
+                <StyledDivider />
                 <Section id="documents" title="Documents">
                     <Documents documents={ticket.documents} />
                     <Upload ticketId={ticket.id} />
                 </Section>
             </Sections>
-        </DxcBox>
+        </Root>
     );
 };
 
