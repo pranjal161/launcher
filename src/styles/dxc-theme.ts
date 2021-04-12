@@ -13,19 +13,6 @@ export const Colors = {
         background: "black",
         color: "white"
     },
-    button: {
-        color: "#6F2C91",
-        hoverColor: "#000000",
-
-        primaryFontColor: "#FFFFFF",
-        primaryHoverFontColor: "#FFFFFF",
-
-        secondaryFontColor: "#FFFFFF",
-        secondaryHoverFontColor: "#FFFFFF",
-
-        textFontColor: "#FFFFFF",
-        textHoverFontColor: "#000000"
-    },
     slider: {
         color: "#000000"
     },

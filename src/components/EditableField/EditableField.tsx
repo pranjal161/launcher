@@ -1,43 +1,44 @@
 import "./EditableField.scss";
 
-import {CloseIconMinimize, DoneIconMinimize} from "assets/svg";
-import React, {useCallback, useState} from "react";
+import { CloseIconMinimize, DoneIconMinimize } from "assets/svg";
+import React, { useCallback, useState } from "react";
 
-const EditableField = ({value, displayValue, field, mode = "updateOnHover", type, onChange, children}) => {
-    const [newValue, setNewValue ] = useState(value)
-    const handleEditChange =(value) => {console.log('Change handleEditChange', value) ; setNewValue(value)}
-    const mapChangeEvent = {
-        input: {onBlur:useCallback ((value) => handleEditChange(value),[]), placeholder:newValue},
-        textarea: {onBlur:useCallback ((value) => handleEditChange(value),[]), placeholder:newValue},
-        date: {onBlur:useCallback ((event) => handleEditChange(event.target.value),[])},
-        select: {onChange:useCallback ((value) => handleEditChange(value),[]), value:newValue}
+const EditableField = (props: { value: any, displayValue: any, field: any, mode: string, type: any, onChange: any, children: any }) => {
+    const { value, displayValue, field, mode = "updateOnHover", type, onChange, children } = props;
+    const [newValue, setNewValue] = useState(value)
+    const handleEditChange = (value: any) => { console.log('Change handleEditChange', value); setNewValue(value) }
+    const mapChangeEvent: any = {
+        input: { onBlur: useCallback((value) => handleEditChange(value), []), placeholder: newValue },
+        textarea: { onBlur: useCallback((value) => handleEditChange(value), []), placeholder: newValue },
+        date: { onBlur: useCallback((event) => handleEditChange(event.target.value), []) },
+        select: { onChange: useCallback((value) => handleEditChange(value), []), value: newValue }
     }
 
-    const updateComponent = children && <children.type {...children.props} {...mapChangeEvent[type]}/>
+    const updateComponent = children && <children.type {...children.props} {...mapChangeEvent[type]} />
     const elementId = field
     const [isEditable, setIsEditable] = React.useState(false);
 
 
-    const validateChange = useCallback (() => {
+    const validateChange = useCallback(() => {
         onChange && onChange(field, newValue)
         setIsEditable(false);
 
-    },[onChange, field, newValue])
+    }, [onChange, field, newValue])
 
     // WIP work on previous version of the component 
-    const cancelChange = useCallback (() => {
+    const cancelChange = useCallback(() => {
         setNewValue(value)
         setIsEditable(false);
-    },[])
+    }, [])
 
-    const modifyValue = useCallback (() => {
+    const modifyValue = useCallback(() => {
         setIsEditable(true);
-    },[])
+    }, [])
 
     React.useEffect(() => {
         if (isEditable) {
             // ref to force focus on the input doesn't work with CDK so i have to do this 
-            const element = document.querySelector(`#EditableField${elementId}`);
+            const element: Element | any = document.querySelector(`#EditableField${elementId}`);
             const domElt = element.querySelector(".MuiInput-input")
             if (domElt)
                 domElt.focus();
@@ -48,7 +49,7 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
         return (
             <div className="editable-field" data-test="editable-input-ro">
                 <div className="value-uneditable-container">
-                    <span className="value-uneditable">  { displayValue }</span>
+                    <span className="value-uneditable">  {displayValue}</span>
                 </div>
             </div>
         )
@@ -91,10 +92,10 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
                                     (type === "date" ? "icon-container icon-container-date" : "") ||
                                     (type === "select" ? "icon-container icon-container-select" : "")}>
                                     <span onClick={validateChange}>
-                                        <DoneIconMinimize/>
+                                        <DoneIconMinimize />
                                     </span>
                                     <span onClick={cancelChange}>
-                                        <CloseIconMinimize/>
+                                        <CloseIconMinimize />
                                     </span>
                                 </div>
                             </div>
@@ -103,7 +104,7 @@ const EditableField = ({value, displayValue, field, mode = "updateOnHover", type
                         (
                             <div className="value-uneditable-container">
                                 <span className="value-uneditable edit-onHover" data-test="editable-input-uh2"
-                                    onClick={() => modifyValue()}> { displayValue }</span>
+                                    onClick={() => modifyValue()}> {displayValue}</span>
                             </div>
                         )
                 }
