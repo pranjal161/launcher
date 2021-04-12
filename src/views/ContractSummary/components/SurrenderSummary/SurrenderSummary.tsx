@@ -1,9 +1,9 @@
+import { DxcHeading, DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
-import { DxcTable } from '@dxc-technology/halstack-react';
 import Label from 'components/Label/Label';
 import axios from 'axios';
 import { formatValue } from 'util/functions';
@@ -94,7 +94,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
 
     return (
         <>
-            <h5>{t('_SURRENDER_SUMMARY')}</h5>
+            <DxcHeading level={4} weight="light" text={t('_SURRENDER_SUMMARY')} />
             {surrenderResponse && (
                 <>
                     <div className="row col-12">
@@ -128,7 +128,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             )}
             {disinvestmentSplitList && (
                 <>
-                    <h5>{t('_DISINVESTED_FUNDS')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_DISINVESTED_FUNDS')} />
                     <DxcTable>
                         <tr >
                             <th>{t('_FUND_LABEL')}</th>
@@ -149,7 +149,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
             )}
             {disinvestmentSplitList && (
                 <>
-                    <h5>{t('_BREAKDOWN_AFTER_SURRENDER')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_BREAKDOWN_AFTER_SURRENDER')} />
                     <DxcTable>
                         <tr>
                             <th>{t('_FUND_LABEL')}</th>
