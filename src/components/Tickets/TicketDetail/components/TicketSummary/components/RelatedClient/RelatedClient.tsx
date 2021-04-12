@@ -5,17 +5,17 @@ import React from 'react'
 import { StyledButton } from '../../../../../../../styles/global-style';
 import useDeskTickets from "../../../../../../../data/hooks/useDeskTickets";
 
-const RelatedClient = (props) => {
+const RelatedClient = (props:any) => {
     const { removeRelatedClients } = useDeskTickets();
     const { relatedClient, onClick } = props;
-    const handleClick = (relatedClient) => { onClick && onClick(relatedClient) };
+    const handleClick = (relatedClient:any) => { onClick && onClick(relatedClient) };
 
     const handleRemoveRelatedClient = () => {
         removeRelatedClients('y270CCciTszudNrTtK6g', 'Pet')
     }
     const Display = () => (
         <>
-            {relatedClient && Object.values(relatedClient).map((client, index) => <tr key={index}>
+            {relatedClient && Object.values(relatedClient).map((client:any, index) => <tr key={index}>
                 <td>{client}</td>
                 <td> <StyledButton onClick={handleRemoveRelatedClient}><DotsIcon /></StyledButton></td>
             </tr>
@@ -26,15 +26,15 @@ const RelatedClient = (props) => {
     return (
         <>
             <ul className={"list-group"} >
-                <LinkedClient display={<Display/>} urj={"jkjk"} onClick={handleClick} />
+                <LinkedClient display={<Display/>} url={"jkjk"} client={handleClick} />
             </ul>
         </>
     )
 }
 
 RelatedClient.propTypes = {
-    onClick: PropTypes.func,
-    relatedClient: PropTypes.string
+    onClick: PropTypes.any,
+    relatedClient: PropTypes.any
 }
 
 export default RelatedClient

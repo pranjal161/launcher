@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
-import { StyledButton } from '../../../../../../src/styles/global-style';
+import { StyledButton } from '../../../../../styles/global-style';
 import { TextField } from "@material-ui/core";
 import Upload from "../Upload/Upload";
 import UserSelection from "./components/UserSelection/UserSelection";
@@ -27,19 +27,27 @@ import useDeskUsers from "data/hooks/useDeskUsers";
 
 const Divider = () => <hr className="solid" />;
 
-const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, actions }) => {
+const TicketSummary = (props:any) => {
+    const { ticket, onClose, onPopupWindow, showPopupIcon = false, actions } = props;
     const { update, assignTo, createdBy } = useDeskTickets()
-    const TitleValue = () => (<>{ticket.title}</>)
-    const DateValue = ({ date }) => (<>{formatValue(date, 'date')}</>)
-    const PersonValue = ({ personId }) => {
+    const TitleValue:any = () => (<>{ticket.title}</>)
+    const DateValue = ( data:any ) => {
+        const { date } = data;
+        return(<>{formatValue(date, 'date')}</>)
+    }
+    const PersonValue = (personid:any) => {
+        const { personId } = personid;
         const { getOne } = useDeskUsers()
-        const person = useCallback(getOne(personId), [personId])
+        const person:any = useCallback (() => {
+            getOne(personId);
+        },[personid]);
         return (<> {person && person.displayName}  </>)
     }
 
-    const SuggestedActivity = ({ activity }) => {
+    const SuggestedActivity = (act:any) => {
+        const { activity } = act;
         const { executeActivity } = useDeskTickets()
-        const handleClick = (e) => {
+        const handleClick = (e:any) => {
             e.preventDefault()
             executeActivity(ticket.id, activity)
         }
@@ -54,27 +62,38 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
         )
     }
 
-    const SuggestedActivities = ({ activities }) => (
-        < > {activities && Object.keys(activities).map((activity, index) => (
-            <SuggestedActivity key={index} activity={activity} />))
-        }</>
-    )
+    const SuggestedActivities = (activity:any) => {
+        const { activities } = activity;
+        return (
+            < > {activities && Object.keys(activities).map((activity, index) => (
+                <SuggestedActivity key={index} activity={activity} />))
+            }</>
+        )
+    }
 
     const { addRelatedClients } = useDeskTickets();
     const handleAddRelatedClient = () => {
         addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
     }
 
-    const Description = ({ description }) => (<p style={{ maxHeight: '200px' }}>{description}</p>)
-    const DxcDate2 = ({ date, id, ...rest }) => (<TextField
-        id={id}
-        type="date"
-        defaultValue={moment(date).format("YYYY-MM-D")}
-        InputLabelProps={{
-            shrink: true,
-        }}
-        {...rest}
-    />)
+    const Description = (des:any) => {
+        const { description } = des;
+        return(<p style={{ maxHeight: '200px' }}>{description}</p>)
+    }
+    const DxcDate2 = (data: any) => {
+        const { date, id, ...rest } = data;
+        return (
+            <TextField
+                id={id}
+                type="date"
+                defaultValue={moment(date).format("YYYY-MM-D")}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                {...rest}
+            />
+        );
+    };
 
     DxcDate2.propTypes = {
         date: PropTypes.string,
@@ -100,15 +119,15 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
     const handleEditChange = useCallback((field, newValue) => {
         //console.log('handleEditChange',field, newValue)
         update({ ...ticket, [field]: newValue })
-    }, [ticket])
+    }, [ticket, update])
 
     const handleAssignTo = useCallback((field, newValue) => {
         assignTo(ticket.id, newValue)
-    }, [ticket])
+    }, [assignTo, ticket.id])
 
     const handleCreatedBy = useCallback((field, newValue) => {
         createdBy(ticket.id, newValue)
-    }, [ticket])
+    }, [createdBy, ticket.id])
 
     return (
         <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
@@ -186,7 +205,7 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
                 <Divider />
                 <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>}>
                     <DataLine label={<Label>Client</Label>}>
-                        {/* <LinkedClient client={{displayName: ticket.relatedClients}} urj={"jkjk"} /> */}
+                        {/* <LinkedClient client={{displayName: ticket.relatedClients}} url={"jkjk"} /> */}
                         <RelatedClient relatedClient={ticket.relatedClients} onClick={onclick} />
                     </DataLine>
                 </Section>
@@ -198,7 +217,7 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
                             client={{
                                 displayName: "UI01929821",
                             }}
-                            urj={"jkjk"}
+                            url={"jkjk"}
                         />
                     </DataLine>
                     <DataLine label={<Label> Contract </Label>}>
@@ -206,7 +225,7 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
                             client={{
                                 displayName: "UI07292093",
                             }}
-                            urj={"jkjk"}
+                            url={"jkjk"}
                         />
                     </DataLine>
                     <DataLine label={<Label> Contract </Label>}>
@@ -214,7 +233,7 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
                             client={{
                                 displayName: "MP27293032",
                             }}
-                            urj={"jkjk"}
+                            url={"jkjk"}
                         />
                     </DataLine>
                 </Section>
@@ -224,10 +243,10 @@ const TicketSummary = ({ ticket, onClose, onPopupWindow, showPopupIcon = false, 
                 </Section>
                 <Divider />
                 <Section id="notes" title="Notes">
-                    <lu className={"list-group"}>
+                    <ul className={"list-group"}>
                         <li className="list-group-item"> Note 1</li>
                         <li className="list-group-item"> Note 2</li>
-                    </lu>
+                    </ul>
                 </Section>
                 <Divider />
                 <Section id="documents" title="Documents">
