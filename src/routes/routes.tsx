@@ -2,20 +2,20 @@
 
 import React, {lazy} from "react";
 
+import AllBaskets from 'components/Baskets/components/AllBaskets/AllBaskets';
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
-import ClientView from "views/clientView/clientView";
-import ContractSearch from "views/contractSearch/contractSearch";
-import ContractSummary from "views/contractSummary/contractSummary";
+import ClientView from "views/ClientView/ClientView";
+import ContractSearch from "views/ContractSearch/ContractSearch";
+import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
-import ExempleDesktopView from "views/training/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
-import Help from 'views/help/help';
+import ExempleDesktopView from "views/Trainers/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
+import Help from 'views/Help/Help';
 import HomePage from "views/HomePage/HomePage";
-import MyTickets from 'views/tickets/myTickets';
-import NewTicket from 'views/tickets/newTicket';
+import MyTickets from "components/Tickets/MyTickets/MyTickets";
+import NewTicket from 'views/Tickets/NewTicket';
 import {Redirect} from "react-router-dom";
-import Trainers from "views/training";
-import ViewBaskets from 'views/baskets/viewBaskets';
+import Trainers from "views/Trainers";
 
 const routes = [
     {
@@ -54,7 +54,7 @@ const routes = [
             {
                 path: '/errors/error-404',
                 exact: true,
-                component: lazy(() => import('views/errors/Error404/Error404'))
+                component: lazy(() => import('views/Errors/Error404/Error404'))
             },
             {
                 component: () => <Redirect to="/errors/error-404"/>
@@ -106,7 +106,7 @@ const routes = [
                 path: '/baskets/all',
                 name: 'viewBaskets',
                 exact: true,
-                component: ViewBaskets
+                component: AllBaskets
             },
             {
                 path: '/tickets/myTickets',

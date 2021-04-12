@@ -16,12 +16,12 @@ const useGetOne = (id) => useSelector((state) => (state.firestore.data.tickets?{
 
 const useGetState = () => useSelector((state) => (state.tickets))
 
-const useGetAllDocuments  = (ticketId) => {
+const useGetAllDocuments = (ticketId) => {
     const ticket = useGetOne(ticketId)
     return ticket && ticket.documents
 }
 
-const useGetDocumentUrl  = (ticketId, documentId) => {
+const useGetDocumentUrl = (ticketId, documentId) => {
     const ticket = useGetOne(ticketId)
     return ticket && ticket.documents && ticket.documents[documentId] && ticket.documents[documentId].url
 }
