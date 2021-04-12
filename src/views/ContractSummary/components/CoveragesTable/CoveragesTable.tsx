@@ -10,7 +10,7 @@ const CoveragesTable = (props: { mainRiskUrl: string }) => {
     const applicationContext = useContext(ApplicationContext);
     const [coverageUrl, setCoverageUrl] = useState('');
     const coverageListColumns = [
-        { label: '_LABEL', property: 'coverage:Label' },
+        { label: '_LABEL', property: 'coverage:label' },
         { label: '_TYPE', property: 'coverage:type' },
         { label: '_START_DATE', property: 'coverage:start_date', type: 'date' },
         { label: '_END_DATE', property: 'coverage:end_date', type: 'date' },
