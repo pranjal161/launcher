@@ -3,7 +3,9 @@ import "./EditableField.scss";
 import { CloseIconMinimize, DoneIconMinimize } from "assets/svg";
 import React, { useCallback, useState } from "react";
 
-const EditableField = (props: { value: any, displayValue: any, field: any, mode: string, type: any, onChange: any, children: any }) => {
+import PropTypes from 'prop-types';
+
+const EditableField:any = (props: { value: any, displayValue: any, field: any, mode: string, type: any, onChange: any, children: any }) => {
     const { value, displayValue, field, mode = "updateOnHover", type, onChange, children } = props;
     const [newValue, setNewValue] = useState(value)
     const handleEditChange = (value: any) => { console.log('Change handleEditChange', value); setNewValue(value) }
@@ -112,5 +114,15 @@ const EditableField = (props: { value: any, displayValue: any, field: any, mode:
         )
     }
 };
+
+EditableField.propTypes = {
+    value: PropTypes.any,
+    displayValue: PropTypes.any,
+    field: PropTypes.any,
+    mode: PropTypes.any,
+    type: PropTypes.any,
+    onChange: PropTypes.any,
+    children: PropTypes.any
+}
 
 export default EditableField
