@@ -23,7 +23,7 @@ const AppLayout = (props: { route: any }) => {
 }
 
 AppLayout.propTypes = {
-    route: PropTypes.string
+    route: PropTypes.object
 }
 
 export default AppLayout;
