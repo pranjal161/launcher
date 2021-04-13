@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { ApplicationContext } from "context/applicationContext";
 import { DxcTable } from "@dxc-technology/halstack-react";
-import Paginator from '../Paginator/Paginator';
+import Paginator from "components/Paginator/Paginator";
 import { StyledHoverRow } from 'styles/global-style';
 import axios from "axios";
 import { getDescriptionValue } from "util/functions";

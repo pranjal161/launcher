@@ -2,7 +2,7 @@ import './Reminders.scss';
 
 import React, { useState } from 'react';
 
-import CreateReminders from './CreateReminders/CreateReminders';
+import CreateReminders from './components/CreateReminders/CreateReminders';
 import Deadline from 'components/Deadline/Deadline';
 import { DxcCheckbox } from '@dxc-technology/halstack-react';
 import { InfoIcon } from 'assets/svg';

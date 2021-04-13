@@ -168,7 +168,7 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
             {/*   TODO
             {isDialogVisible && (
                 <DxcDialog padding="medium">
-                    <label className="col-md-12 labelPDF" id="label-doc"> selectedDoclabel</label>
+                    <Label className="col-md-12 labelPDF" id="Label-doc"> selectedDoclabel</Label>
                     {printmode === 'xml' && (<pre className="preXML" id="xml-doc">content</pre>)}
                     {/* {printmode === 'pdf' && (<iframe [src]="content" type="application/pdf" id="pdf-doc" class="framePDF"></iframe>)} 
 
