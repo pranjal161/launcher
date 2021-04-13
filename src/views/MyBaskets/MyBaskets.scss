@@ -1,0 +1,19 @@
+.baskets-ticket {
+  position: absolute;
+  right: 0;
+  overflow: visible !important;
+}
+  
+.basket-title {
+  & > div > div {
+    padding: 0 1rem;
+  }
+  span {
+    width: 100%;
+  }
+}
+
+.search-input > div {
+  margin: 0 !important;
+  padding: 10px;
+}
