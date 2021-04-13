@@ -24,9 +24,9 @@ const ActionsIconContainer = styled.div`
 /*
     Parameter numActions is the number of actions that the ActionsContainer has.
     Parameter index is the index of the current ticket in the Table [0 to length - 1].
-    Parameter length is the length of the Tickets array.
+    Parameter length is the length of the NewTicket array.
     They are used to style the positioning of the container, so that it doesn't cause issues - 
-    like appearing out of the Tickets Table container.
+    like appearing out of the NewTicket Table container.
     The actions are displayed to the right of the action icon (three dots), and are centered, if possible.
     The height of a ticket Table row is 58px, the height of an action is 22px,
     and the padding of the ActionsContainer is 6px.
@@ -35,7 +35,7 @@ const ActionsIconContainer = styled.div`
     However, if there are more actions, they need to be offset in this way - 
     minus 29px for the half of the Table row and minus actions height times numActions minus than 2.
     This adjustment is done only for the last row, as this is where a breaking change occurs and 
-    the Tickets Table moves on ActionsContainer render.
+    the NewTicket Table moves on ActionsContainer render.
     Of course, breaking changes can occur in other situations if the numActions is high enough, 
     but this arises for unrealistically high numbers.
 */

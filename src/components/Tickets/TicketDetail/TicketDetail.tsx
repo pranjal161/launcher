@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {DxcBox} from "@dxc-technology/halstack-react";
 import NewWindowPortal from "components/NewWindowPortal/NewWindowPortal";
-import TicketSummary from "components/Tickets/TicketDetail/components/TicketSummary/TicketSummary";
+import TicketSummary from "./components/TicketSummary/TicketSummary";
 import useDeskAuth from "data/hooks/useDeskAuth";
 import useDeskTickets from "data/hooks/useDeskTickets";
 

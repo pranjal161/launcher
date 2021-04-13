@@ -1,4 +1,4 @@
-import './MyTickets.scss'
+import 'views/MyTickets/MyTickets.scss'
 
 import { DxcInput, DxcSidenav } from "@dxc-technology/halstack-react";
 import React, { useEffect, useState } from 'react';
@@ -7,13 +7,13 @@ import Card from 'components/Card/Card';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
 import TicketDetail from "components/Tickets/TicketDetail/TicketDetail";
 import TicketList from "components/Tickets/TicketsList/TicketsList";
-import TicketTitle from '../TicketTitle/TicketTitle';
+import TicketTitle from "./components/TicketTitle/TicketTitle";
 import useDeskTickets from "data/hooks/useDeskTickets";
 
 const MyTickets = (props: any) => {
 
     const sideNavItems: any[] = [
-        { title: 'All Tickets', status: 'all Tickets', },
+        { title: 'All NewTicket', status: 'all NewTicket', },
         { title: 'In Progress', status: 'in progress' },
         { title: 'Pending', status: 'pending' },
         { title: 'OverDue', status: 'overdue' },
@@ -59,7 +59,7 @@ const MyTickets = (props: any) => {
     const setTicketCount = () => {
         let countArray: any = {};
         sideNavItems && sideNavItems.map((sideNavItem: any) => {
-            if (sideNavItem.status == 'all Tickets') {
+            if (sideNavItem.status == 'all NewTicket') {
                 countArray[sideNavItem.status] = tickets && tickets.length;
             }
             else {
@@ -83,7 +83,7 @@ const MyTickets = (props: any) => {
     }
 
     const getAllFilteredTickets = (status: string) => {
-        if (status == "all Tickets" || status == undefined) {
+        if (status == "all NewTicket" || status == undefined) {
             setFilteredTickets(tickets);
         }
         else {
@@ -94,8 +94,8 @@ const MyTickets = (props: any) => {
 
     useEffect(() => {
         setFilteredTickets(tickets);
-        ticketsAssignedToList({ status: 'all Tickets' });
-        setItemDetails({ title: 'All Tickets', status: 'all Tickets' })
+        ticketsAssignedToList({ status: 'all NewTicket' });
+        setItemDetails({ title: 'All NewTicket', status: 'all NewTicket' })
         setSearchedStatus(sideNavItems);
         setTicketCount();
     }, []);

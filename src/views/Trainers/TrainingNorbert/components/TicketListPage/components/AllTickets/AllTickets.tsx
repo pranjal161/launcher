@@ -1,6 +1,6 @@
 import React from 'react';
-import TicketList from "../TicketList/TicketList";
-import useDeskTickets from "../../../data/hooks/useDeskTickets";
+import TicketList from "./components/TicketList/TicketList";
+import useDeskTickets from "data/hooks/useDeskTickets";
 
 const AllTickets = (props:any) => {
     const {getAll} = useDeskTickets()

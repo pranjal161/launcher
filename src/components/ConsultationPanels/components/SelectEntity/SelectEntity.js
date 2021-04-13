@@ -1,9 +1,7 @@
 import {DxcSelect} from "@dxc-technology/halstack-react";
 import PropTypes from "prop-types";
 import React from 'react';
-import SectionHeader
-    from "components/Tickets/TicketDetail/components/TicketSummary/components/SectionHeader/SectionHeader";
-
+import SectionHeader from "components/SectionHeader/SectionHeader";
 
 const SelectEntity = ({entities, value, onChange}) => {
     let currentValue

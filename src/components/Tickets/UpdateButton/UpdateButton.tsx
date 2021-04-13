@@ -1,8 +1,8 @@
 import { DxcButton, DxcDialog } from "@dxc-technology/halstack-react";
 
 import React from 'react';
-import TicketFormDialog from "../../../TicketFormDialog/TicketFormDialog";
-import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
+import TicketFormDialog from "components/Tickets/TicketFormDialog/TicketFormDialog";
+import useDeskTickets from "data/hooks/useDeskTickets";
 
 /**
  * Display of update button for a ticket

@@ -1,9 +1,9 @@
-import './AllBaskets.scss'
+import 'views/MyBaskets/MyBaskets.scss'
 
 import { DxcInput, DxcSidenav } from '@dxc-technology/halstack-react';
 import React, { useEffect, useState } from 'react';
 
-import BasketTitle from "../BasketTitle/BasketTitle";
+import BasketTitle from "views/MyBaskets/components/BasketTitle/BasketTitle";
 import Card from 'components/Card/Card';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
 import TicketDetail from "components/Tickets/TicketDetail/TicketDetail";
@@ -11,7 +11,7 @@ import TicketList from 'components/Tickets/TicketsList/TicketsList'
 import useDeskBaskets from "data/hooks/useDeskBaskets";
 import useDeskTickets from 'data/hooks/useDeskTickets';
 
-const AllBaskets= (props: any) => {
+const MyBaskets= (props: any) => {
     const {getAll} = useDeskBaskets()
     const baskets = getAll();
     const ticketDesk = useDeskTickets()
@@ -137,5 +137,5 @@ const AllBaskets= (props: any) => {
     );
 }
 
-export default AllBaskets
+export default MyBaskets
 

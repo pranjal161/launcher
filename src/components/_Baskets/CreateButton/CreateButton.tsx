@@ -1,4 +1,4 @@
-import BasketFormDialog from "../BasketFormDialog/BasketFormDialog";
+import BasketFormDialog from "components/_Baskets/BasketFormDialog/BasketFormDialog";
 import {Button,} from "@material-ui/core";
 import React from 'react';
 import useDeskBaskets from "data/hooks/useDeskBaskets";

@@ -2,18 +2,17 @@
 
 import React, {lazy} from "react";
 
-import AllBaskets from 'components/Baskets/components/AllBaskets/AllBaskets';
+import AllBaskets from 'views/MyBaskets/MyBaskets';
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
 import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
-import ExempleDesktopView from "views/Trainers/TrainingNorbert/components/ExempleDesktopView/ExempleDesktopView";
 import Help from 'views/Help/Help';
 import HomePage from "views/HomePage/HomePage";
-import MyTickets from "components/Tickets/MyTickets/MyTickets";
-import NewTicket from 'views/Tickets/NewTicket';
+import MyTickets from "views/MyTickets/MyTickets";
+import NewTicket from 'views/NewTicket/NewTicket';
 import {Redirect} from "react-router-dom";
 import Trainers from "views/Trainers";
 
@@ -95,27 +94,20 @@ const routes = [
                 exact: true,
                 component: ClientView
             },
-
             {
-                path: '/exemple/desktop',
-                name: 'exempleDesktop',
-                exact: true,
-                component: ExempleDesktopView
-            },
-            {
-                path: '/Baskets/all',
+                path: '/Baskets',
                 name: 'viewBaskets',
                 exact: true,
                 component: AllBaskets
             },
             {
-                path: '/Tickets/myTickets',
+                path: '/Tickets',
                 name: 'myTickets',
                 exact: true,
                 component: MyTickets
             },
             {
-                path: '/Tickets/create',
+                path: '/NewTicket/create',
                 name: 'newTicket',
                 exact: true,
                 component: NewTicket
