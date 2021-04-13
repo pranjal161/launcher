@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from 'react';
 import styled from "styled-components";
 
-const Item = styled.li`
+const Item = styled.div`
   display: flex;
   justify-content: center;
   padding: 10px;
@@ -24,10 +24,7 @@ const VerticalToolbar = ({items, value, onChange}) => (
 )
 
 VerticalToolbar.propTypes = {
-    items: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ]),
+    items: PropTypes.array,
     value: PropTypes.string,
     onChange: PropTypes.func,
 }

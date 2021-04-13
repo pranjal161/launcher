@@ -15,7 +15,10 @@ const SignedLinks = ( props: {logged: any}) => {
 }
 
 SignedLinks.propTypes = {
-    logged: PropTypes.string
+    logged: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool
+    ]),
 }
 
 const mapStateToProps = (state: { auth: { logged: any; }; }) => ({logged: state.auth.logged})
