@@ -3,6 +3,7 @@ import './styles.scss';
 import { componentsTabs, mainTabs } from './models/tabs';
 
 import { DxcTabs } from '@dxc-technology/halstack-react';
+import FieldDialog from './components/FieldDialog/FieldDialog';
 import GlobalSearchDXC from './components/GlobalSearchDXC/GlobalSearchDXC';
 import GlobalSearchMaterial from './components/GlobalSearchMaterial/GlobalSearchMaterial';
 import React from "react";
@@ -89,6 +90,25 @@ const TrainingQuentin = () => {
                                 </div>
                             )
                         }
+
+                        {
+                            secondaryActiveTab === 2 && (
+                                <div className="q-secondaryTabContent">
+                                    <FieldDialog
+                                        dialogTitle="Test"
+                                        render={
+                                            <GlobalSearchMaterial
+                                                entitiesList={entities}
+                                                onSearch={(entity, property, search) => getData(entity, property, search)}
+                                                onSelect={handleSelect} />
+                                        }
+                                        onApply={(val: any) => console.log(val)}>
+                                        
+                                        <span>Test</span>
+                                    </FieldDialog>
+                                </div>
+                            )
+                        }
                     </>
                 )
             }
@@ -98,7 +118,6 @@ const TrainingQuentin = () => {
                     <div className="q-mainTabContent"></div>
                 )
             }
-
         </>
     );
 };
