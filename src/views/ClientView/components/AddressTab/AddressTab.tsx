@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { ApplicationContext } from "context/applicationContext";
+import {DxcHeading} from '@dxc-technology/halstack-react';
 import Table from "components/Table/Table";
 import { getLink } from 'util/functions';
 import { useTranslation } from "react-i18next";
@@ -67,7 +68,7 @@ const AddressTab = (props: { clientData: Array<Object> }) => {
                 {url && (
                     <div className="row">
                         <div className="col-12">
-                            <h5 className="pl-5">{t(heading)}</h5>
+                        <DxcHeading level={5} weight="light" text={t(heading)} />
                             <Table url={url} columnId={columns} showPaginator={true} />
                         </div>
                     </div>

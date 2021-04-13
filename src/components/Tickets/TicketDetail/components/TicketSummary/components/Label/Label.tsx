@@ -5,12 +5,15 @@ import styled from "styled-components";
 export const Root = styled.label`
   color: gray;
 `;
-const Label = ({children}) => (
-    <Root>{children}</Root>
-)
+const Label = (child:any) => {
+    const { children } = child;
+    return (
+        <Root>{children}</Root>
+    )
+}
 
 Label.propTypes = {
-    children: PropTypes.string
+    children: PropTypes.any
 }
 
 export default Label;

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { AppConfig } from "config/appConfig";
 import { ApplicationContext } from "context/applicationContext";
+import {DxcHeading} from '@dxc-technology/halstack-react';
 import Table from "components/Table/Table";
 import { useTranslation } from "react-i18next";
 
@@ -40,7 +41,7 @@ const ClaimList = (props: { clientUrl: string }) => {
         <>
             {claimUrl && (
                 <>
-                    <h5> {t('_CLAIMS')}</h5>
+                <DxcHeading level={5} weight="light" text={t('_CLAIMS')} />
                     <Table url={claimUrl} columnId={claimListColumns} showPaginator={true} />
                 </>
             )}

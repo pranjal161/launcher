@@ -1,6 +1,6 @@
 import './HomePage.scss';
 
-import {DxcBox, DxcLink} from '@dxc-technology/halstack-react';
+import {DxcBox, DxcHeading, DxcLink} from '@dxc-technology/halstack-react';
 import React, {useState} from 'react';
 
 import BasketList from 'components/BasketList/BasketList';
@@ -50,7 +50,7 @@ const HomePage = () => {
         <span className="home-container">
             <div className="welcome-banner">
                 <DxcBox margin="small" padding="medium" size="fillParent">
-                    Welcome! {profile.firstName} {profile.lastName}
+                    <DxcHeading level={5} weight="light" text={'Welcome! ' + profile.firstName + ' ' + profile.lastName} />
                 </DxcBox>
             </div>
             <div className="main-container">

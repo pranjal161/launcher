@@ -6,13 +6,16 @@ const Root = styled.a`
    color: blue;
   display: block;
  `;
-const LinkedContract = ({client, url}) => (
-    <Root href={url}>{client.displayName}</Root>
-)
+const LinkedContract:any = (props:any) => {
+    const {client, url} = props;
+    return (
+        <Root href={url}>{client.displayName}</Root>
+    )
+}
 
 LinkedContract.propTypes = {
-    client: PropTypes.string,
-    url: PropTypes.string
+    client: PropTypes.any,
+    url: PropTypes.any
 }
 
 export default LinkedContract;

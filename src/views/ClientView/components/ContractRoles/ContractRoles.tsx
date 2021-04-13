@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppConfig } from "config/appConfig";
 import { ApplicationContext } from "context/applicationContext";
 import ContractTable from "components/ContractTable/ContractTable";
+import {DxcHeading} from '@dxc-technology/halstack-react';
 import Table from "components/Table/Table";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
@@ -103,28 +104,27 @@ const ContractRoles = (props: { clientUrl: string }) => {
 
     return (
         <>
-            {' '}
             {contractUrl && (
                 <>
-                    <h5> {t('_CONTRACT_LIST')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_CONTRACT_LIST')} />
                     <ContractTable contractData={contractData} getData={(href: string) => fetchContractData(href)} />
                 </>
             )}
             {offerUrl && (
                 <>
-                    <h5> {t('_OFFERS')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_OFFERS')} />
                     <Table url={offerUrl} columnId={offerListColumns} showPaginator={true} />
                 </>
             )}
             {propositionUrl && (
                 <>
-                    <h5>{t('_PROPOSITION')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_PROPOSITION')} />
                     <Table url={propositionUrl} columnId={propositionListColumns} showPaginator={true} />
                 </>
             )}
             {quoteUrl && (
                 <>
-                    <h5>{t('_QUOTES')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_QUOTES')} />
                     <Table url={quoteUrl} columnId={quoteListColumns} showPaginator={true} />
                 </>
             )}
