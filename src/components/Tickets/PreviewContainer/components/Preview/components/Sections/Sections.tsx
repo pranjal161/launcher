@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react';
-import SectionHeader from "../../../../../../SectionHeader/SectionHeader";
+import SectionHeader from "components/SectionHeader/SectionHeader";
 import WithScroll from "components/WithScroll/WithScroll";
 import styled from "styled-components";
 

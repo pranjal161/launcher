@@ -3,13 +3,13 @@ import './HomePage.scss';
 import {DxcBox, DxcHeading, DxcLink} from '@dxc-technology/halstack-react';
 import React, {useState} from 'react';
 
-import BasketList from 'components/_Baskets/BasketList/BasketList';
+import BasketList from 'components/Baskets/BasketList/BasketList';
 import Card from 'components/Card/Card';
-import CreateReminders from 'components/Reminders/CreateReminders/CreateReminders';
+import CreateReminders from 'components/Reminders/components/CreateReminders/CreateReminders';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
 import Reminders from 'components/Reminders/Reminders';
+import SavingPanels from "components/Tickets/Panels/SavingPanels/SavingPanels";
 import TicketList from 'components/Tickets/TicketsList/TicketsList';
-import TicketSavingConsultationPanels from "components/TicketSavingConsultationPanels/TicketSavingConsultationPanels";
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from 'data/hooks/useDeskTickets';
@@ -97,7 +97,7 @@ const HomePage = () => {
                                             open={openSidebar}
                                             width={434}
                                             content={
-                                                <TicketSavingConsultationPanels ticketId={clickedTicket.id}
+                                                <SavingPanels ticketId={clickedTicket.id}
                                                     onRemove={handleRemove}
                                                     onClose={handleClose}/>
                                             }/>

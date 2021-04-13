@@ -1,7 +1,7 @@
-import {ContractIcon, PersonSmallIcon, TicketIcon} from "../../../../assets/svg";
+import {ContractIcon, PersonSmallIcon, TicketIcon} from "../../../../../../assets/svg";
 import PropTypes from "prop-types";
 import React from 'react';
-import VerticalToolbar from "../../../VerticalToolBar/VerticalToolbar";
+import VerticalToolbar from "../../../../../VerticalToolBar/VerticalToolbar";
 
 
 const items = [

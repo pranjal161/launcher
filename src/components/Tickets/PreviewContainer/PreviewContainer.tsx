@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {DxcBox} from "@dxc-technology/halstack-react";
 import NewWindowPortal from "components/NewWindowPortal/NewWindowPortal";
-import TicketSummary from "./components/TicketSummary/TicketSummary";
+import Preview from "components/Tickets/PreviewContainer/components/Preview/Preview";
 import useDeskAuth from "data/hooks/useDeskAuth";
 import useDeskTickets from "data/hooks/useDeskTickets";
 
 
 // eslint-disable-next-line valid-jsdoc
 /**
- * Display of ticket in detail
+ * Display of the ticket preview data
  * @param {id, sectionId, onRemove, onClose} Information that will be used for the ticket detail
  * @returns {*} Display of ticket in detail
  */
-function TicketDetail(props: any) {
+function PreviewContainer(props: any) {
     const {id, onRemove, onClose} = props;
     const {getOne, assignTo, remove} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
@@ -38,7 +38,7 @@ function TicketDetail(props: any) {
     if (ticket) {
         return (
             <><DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
-                <TicketSummary
+                <Preview
                     ticket={ticket}
                     actions={Actions}
                     onClose={closeHandle}
@@ -48,7 +48,7 @@ function TicketDetail(props: any) {
                 {openPopup &&
                 <NewWindowPortal onCloseCallback={closeHandle}>
                     <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
-                        <TicketSummary
+                        <Preview
                             ticket={ticket}
                             actions={Actions}
                             onClose={closeHandle}/>
@@ -60,4 +60,4 @@ function TicketDetail(props: any) {
         return null
 }
 
-export default TicketDetail;
+export default PreviewContainer;

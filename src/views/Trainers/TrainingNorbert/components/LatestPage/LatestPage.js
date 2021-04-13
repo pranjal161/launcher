@@ -2,9 +2,9 @@ import {DxcButton, DxcInput} from "@dxc-technology/halstack-react"
 import React, {useState} from 'react';
 
 import Documents from "./components/Documents/Documents";
-import MyTickets from "../../../../MyTickets/MyTickets";
-import Upload from "../../../../../components/Tickets/TicketDetail/components/Upload/Upload";
-import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
+import MyTickets from "views/MyTickets/MyTickets";
+import Upload from "components/Tickets/PreviewContainer/components/Preview/components/Upload/Upload";
+import useDeskTickets from "data/hooks/useDeskTickets";
 
 //import moment from "moment/moment";
 

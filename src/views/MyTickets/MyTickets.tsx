@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 import Card from 'components/Card/Card';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
-import TicketDetail from "components/Tickets/TicketDetail/TicketDetail";
+import PreviewContainer from "components/Tickets/PreviewContainer/PreviewContainer";
 import TicketList from "components/Tickets/TicketsList/TicketsList";
 import TicketTitle from "./components/TicketTitle/TicketTitle";
 import useDeskTickets from "data/hooks/useDeskTickets";
@@ -143,7 +143,7 @@ const MyTickets = (props: any) => {
                                         width={483}
                                         open={openSidebar}
                                         content={
-                                            <TicketDetail
+                                            <PreviewContainer
                                                 id={clickedTicket.id}
                                                 key={clickedTicket.id}
                                                 onRemove={handleRemove}

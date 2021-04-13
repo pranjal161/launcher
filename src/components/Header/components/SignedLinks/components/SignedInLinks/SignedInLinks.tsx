@@ -1,6 +1,6 @@
 import { DxcLink } from '@dxc-technology/halstack-react';
 import React from 'react';
-import useDeskAuth from "../../../../../data/hooks/useDeskAuth";
+import useDeskAuth from "data/hooks/useDeskAuth";
 import {useHistory} from "react-router-dom";
 
 /**

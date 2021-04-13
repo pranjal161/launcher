@@ -1,6 +1,6 @@
 import React from 'react';
-import TicketSavingConsultationPanels
-    from "../../../../../components/TicketSavingConsultationPanels/TicketSavingConsultationPanels";
+import SavingPanels
+    from "../../../../../components/Tickets/Panels/SavingPanels/SavingPanels";
 import styled from "styled-components";
 
 const Root = styled.div`
@@ -22,7 +22,7 @@ const Test = styled.div`
 const TrainingConsultationPanel = () => (
     <Root>
         <Test>
-            <TicketSavingConsultationPanels/>
+            <SavingPanels/>
         </Test>
     </Root>
 )

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import ConsultationPanels from "../ConsultationPanels/ConsultationPanels";
+import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
+import Preview from "../../PreviewContainer/components/Preview/Preview";
 import PropTypes from "prop-types";
-import SavingToolbar from "../ConsultationPanels/components/SavingToolbar/SavingToolbar";
-import SelectEntity from "../ConsultationPanels/components/SelectEntity/SelectEntity";
-import TicketSummary from "../Tickets/TicketDetail/components/TicketSummary/TicketSummary";
+import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
+import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
 import styled from "styled-components";
-import useDeskTickets from "../../data/hooks/useDeskTickets";
+import useDeskTickets from "data/hooks/useDeskTickets";
 
 const Root = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const Root = styled.div`
 `;
 
 
-const TicketSavingConsultationPanels = ({ticketId,onClose}) => {
+const SavingPanels = ({ticketId,onClose}) => {
     const entities = {
         ticket: [{display: "Ticket", id: ticketId}],
         contract:
@@ -38,7 +38,7 @@ const TicketSavingConsultationPanels = ({ticketId,onClose}) => {
     const Content = () => {
         if (entityType === 'ticket') {
             const ticket = getOne(ticketId)
-            return (<TicketSummary ticket={ticket}/>)
+            return (<Preview ticket={ticket}/>)
         }
         else
             return (<div> Content of id : {currentEntity[entityType]} </div>)
@@ -50,10 +50,10 @@ const TicketSavingConsultationPanels = ({ticketId,onClose}) => {
     )
 }
 
-TicketSavingConsultationPanels.propTypes = {
+SavingPanels.propTypes = {
     ticketId: PropTypes.string,
     onRemove: PropTypes.func,
     onClose: PropTypes.func,
 }
 
-export default TicketSavingConsultationPanels;
+export default SavingPanels;

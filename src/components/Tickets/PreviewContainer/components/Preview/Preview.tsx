@@ -17,7 +17,7 @@ import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "./components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import { TextField } from "@material-ui/core";
-import Upload from "../Upload/Upload";
+import Upload from "./components/Upload/Upload";
 import UserSelection from "./components/UserSelection/UserSelection";
 import { formatValue } from "util/functions";
 import moment from "moment";
@@ -30,7 +30,7 @@ export const Root = styled.div`
   width: 100%;
 `;
 
-const TicketSummary = (props:any) => {
+const Preview = (props:any) => {
     const { ticket, onClose, onPopupWindow, showPopupIcon = false, actions } = props;
     const { update, assignTo, createdBy } = useDeskTickets()
     const TitleValue:any = () => (<>{ticket.title}</>)
@@ -262,7 +262,7 @@ const TicketSummary = (props:any) => {
     );
 };
 
-TicketSummary.propTypes = {
+Preview.propTypes = {
     ticket: PropTypes.string,
     personId: PropTypes.string,
     showPopupIcon: PropTypes.bool,
@@ -278,4 +278,4 @@ TicketSummary.propTypes = {
     receivedDate: PropTypes.instanceOf(Date),
 };
 
-export default TicketSummary;
+export default Preview;

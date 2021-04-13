@@ -2,7 +2,6 @@
 
 import React, {lazy} from "react";
 
-import AllBaskets from 'views/MyBaskets/MyBaskets';
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/ClientView/ClientView";
@@ -11,6 +10,7 @@ import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import Help from 'views/Help/Help';
 import HomePage from "views/HomePage/HomePage";
+import MyBaskets from 'views/MyBaskets/MyBaskets';
 import MyTickets from "views/MyTickets/MyTickets";
 import NewTicket from 'views/NewTicket/NewTicket';
 import {Redirect} from "react-router-dom";
@@ -96,9 +96,9 @@ const routes = [
             },
             {
                 path: '/Baskets',
-                name: 'viewBaskets',
+                name: 'myBaskets',
                 exact: true,
-                component: AllBaskets
+                component: MyBaskets
             },
             {
                 path: '/Tickets',
