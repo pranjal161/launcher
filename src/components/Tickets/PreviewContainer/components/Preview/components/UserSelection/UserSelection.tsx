@@ -13,7 +13,7 @@ const UserSelection = (props:any) => {
         <DxcSelect
             options={usersOptions}
             {...props}
-        ></DxcSelect>
+        />
     );
 }
 

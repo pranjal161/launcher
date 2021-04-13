@@ -23,7 +23,7 @@ const Upload = (props: {ticketId: string}) => {
 
     }
     return (
-        <div>{false && <DxcUpload margin="xxsmall" callbackUpload={callbackFunc} />}</div>
+        <div><DxcUpload margin="xxsmall" callbackUpload={callbackFunc} /></div>
     );
 }
 
