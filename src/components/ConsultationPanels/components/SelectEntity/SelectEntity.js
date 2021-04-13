@@ -19,8 +19,8 @@ const SelectEntity = ({entities, value, onChange}) => {
         {options.length === 1 && <SectionHeader title={options[0].label}/>}
         {options.length > 1 && <DxcSelect
             options={options}
-            value={<SectionHeader title={currentValue}/>}
-            onSelectOption={onChange}
+            value={currentValue}
+            onChange={onChange}
             padding={{left: 0, bottom: 0, top: 0, right: 0}}
             margin={{left: 0, bottom: 0, top: 0, right: 0}}
         />}
