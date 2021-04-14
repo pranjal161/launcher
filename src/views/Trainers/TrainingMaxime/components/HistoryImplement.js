@@ -66,8 +66,8 @@ const HistoryImplement = () => {
     });
 
     return (
-        <div>
-            <Timeline title="Ticket summary" ticket={ticket} />
+        <div className="history-container-maxime">
+            <Timeline title="Ticket history" ticket={ticket} />
         </div>
          
     )

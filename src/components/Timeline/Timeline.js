@@ -20,7 +20,7 @@ const Timeline = ({ticket, title}) => {
             currentElement = element[Object.keys(element)[0]];
             currentElement.metadata["momentDate"] = moment(new Date(currentElement.metadata.timestamp)).format("DD/MM/YYYY");
 
-            finalArr = {...finalArr, [currentElement.metadata.momentDate]: []}
+            finalArr = {...finalArr, [currentElement.metadata.momentDate]: []};
         });
         
         sortedArr.map((data) => {
@@ -30,8 +30,8 @@ const Timeline = ({ticket, title}) => {
         });
 
         Object.keys(finalArr).map((data) => {
-            console.log(finalArr[data])
-        })
+            console.log(finalArr[data]);
+        });
 
         setSortTicket(finalArr);
     }, []);
@@ -46,15 +46,33 @@ const Timeline = ({ticket, title}) => {
                     (
                         Object.keys(sortTicket).map((data, i) => (
                             <div className="timeline-item-container" key={i}>
-                                <p>{moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow()}</p>
-                                <Item ticket={sortTicket[data]} />
+                                <p className="title-date">{
+                                    moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow().includes("hours") ||
+                                    moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow().includes("minutes") ?
+                                        "Today" : moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow('d')}</p>
+                                <div>
+                                    {
+                                        sortTicket[data].length > 1 ? 
+                                        (
+                                            sortTicket[data].map((dataelement) => (
+                                                <Item ticket = {dataelement[Object.keys(dataelement)[0]]} />
+                                            ))
+                                        ) 
+                                        : 
+                                        (
+                                            <Item ticket={sortTicket[data][0][Object.keys(sortTicket[data][0])]} />
+                                        )  
+                                    }
+                                    
+                                </div>
                                 <hr/>
                             </div>
                             )
                         )
                     ) 
                     :
-                    (           
+                    (   
+                                
                         <p>It looks empty</p>
                     )
             }

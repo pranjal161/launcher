@@ -1,4 +1,43 @@
 .timeline-item-container {
     width: 100%;
-    color: blue;
-}
+
+        .item-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            // background: red;
+        
+            .draft-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                box-sizing: border-box;
+                // height: 100%;
+                // background: violet;
+
+                .circle-timeline {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    background: #CDD5DE;
+                }
+                
+                .line-timeline {
+                    width: 2px;
+                    height: calc(100% - 35px);
+                    background: #CDD5DE;
+                }
+            }
+            .info-container {
+                // background: blue;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                
+            }
+        }
+
+        
+    }

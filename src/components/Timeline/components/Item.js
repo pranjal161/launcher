@@ -7,16 +7,23 @@ const Item = ({ ticket }) => {
 
     return (
         <div className="timeline-item-container">
-            {
-                Object.keys(ticket).length > 1 ?
-                    (<p>coucou</p>)
-                    :
-                    (<>
-                        <p>{ticket[0][Object.keys(ticket[0])].action}</p>
-                        <p>{ticket[0][Object.keys(ticket[0])].metadata.updatedBy}</p>
-                        <p>{ticket[0][Object.keys(ticket[0])].metadata.momentDate}</p>
-                    </>)
-            }
+            <div className="item-container">
+                <div className="draft-container">
+                    <div className="circle-timeline"></div>
+                    <div className="line-timeline"></div>
+                </div>
+                <div className="info-container">
+
+                    <p>{ticket.metadata.updatedBy}</p>
+
+                    <p>{ticket.action}</p>
+
+                    <p>{ticket.metadata.momentDate}</p>
+                </div>
+            </div>
+
+
+            <div className="circle"></div>
         </div>
     )
 };
