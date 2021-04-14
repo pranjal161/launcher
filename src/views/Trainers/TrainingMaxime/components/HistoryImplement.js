@@ -7,17 +7,6 @@ const HistoryImplement = () => {
     const [ticket, setTicket] = React.useState({
         history: [
             {
-                1618303635000: {
-                    action: "test",
-                    metadata: {
-                        timestamp: 1618303635000,
-                        updatedBy: "Henry",
-                        updatedByDisplay: "CB2",
-                        updatedISODate: "2021-04-13T15:30:46+02:00"
-                    }
-                }
-            },
-            {
                 1617888646700: {
                     action: "assignedTo",
                     metadata: {
@@ -29,13 +18,13 @@ const HistoryImplement = () => {
                 }
             },
             {
-                1617888649700: {
+                1618399270000: {
                     action: "assignedTo",
                     metadata: {
-                        timestamp: 1617888649700,
+                        timestamp: 1618379370000,
                         updatedBy: "Jacques",
                         updatedByDisplay: "CB2",
-                        updatedISODate: "2021-04-08T14:50:50+02:00"
+                        updatedISODate: "2021-04-14T02:50:50+02:00"
                     }
                 }
             },
@@ -61,6 +50,17 @@ const HistoryImplement = () => {
                     }
                 }
             },
+            {
+                1618303635000: {
+                    action: "test",
+                    metadata: {
+                        timestamp: 1618303635000,
+                        updatedBy: "Henry",
+                        updatedByDisplay: "CB2",
+                        updatedISODate: "2021-04-13T15:30:46+02:00"
+                    }
+                }
+            }
            
         ]
     });

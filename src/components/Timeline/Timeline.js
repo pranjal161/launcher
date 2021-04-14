@@ -1,39 +1,40 @@
 import React from 'react';
 import Item from './components/Item';
-
 import moment from 'moment';
-
 
 import "./Timeline.scss";
 
 const Timeline = ({ticket, title}) => {
 
-    const [sortTicket, setSortedTicket] = React.useState();
+    const [sortTicket, setSortTicket] = React.useState();
 
     // Here we sort the ticket in DESC
     React.useEffect(() => {
-        const newArr = [...ticket.history];
-
-        newArr.sort((a, b) => (b[Object.keys(b)[0]].metadata.timestamp)-(a[Object.keys(a)[0]].metadata.timestamp));
-
-        setSortedTicket(newArr);
+        const sortedArr = [...ticket.history];
+        sortedArr.sort((a, b) => (b[Object.keys(b)[0]].metadata.timestamp)-(a[Object.keys(a)[0]].metadata.timestamp));
 
         let finalArr = [];
+        let currentElement;
 
-        newArr.forEach(element => {
-            element[Object.keys(element)[0]].metadata.updatedISODate = element[Object.keys(element)[0]].metadata.updatedISODate.slice(0, 10);
-            // finalArr = {...finalArr, [element[Object.keys(element)[0]].metadata.updatedISODate]: {...finalArr[element[Object.keys(element)[0]].metadata.updatedISODate], element}} 
+        sortedArr.forEach(element => {
+            currentElement = element[Object.keys(element)[0]];
+            currentElement.metadata["momentDate"] = moment(new Date(currentElement.metadata.timestamp)).format("DD/MM/YYYY");
 
-            finalArr = {...finalArr, [element[Object.keys(element)[0]].metadata.updatedISODate]: []}
-        }); 
+            finalArr = {...finalArr, [currentElement.metadata.momentDate]: []}
+        });
+        
+        sortedArr.map((data) => {
+            currentElement = data[Object.keys(data)[0]];
 
-        console.log(newArr);
-        console.log(finalArr)
+            finalArr[currentElement.metadata.momentDate].push(data);
+        });
 
+        Object.keys(finalArr).map((data) => {
+            console.log(finalArr[data])
+        })
+
+        setSortTicket(finalArr);
     }, []);
-
-
-
 
     return(
         <div className="timeline-container">
@@ -41,19 +42,22 @@ const Timeline = ({ticket, title}) => {
                 {title}
             </h4>
             {
-                sortTicket && sortTicket.length >= 1 ? 
-                (
-                    sortTicket.map((date, i) => (
-                        <>
-                            <p key={i}>{moment(date[Object.keys(date)[0]].metadata.timestamp).fromNow()}</p>
-                        </>
-                    ))
-                ) :
-                (           
-                    <p>It looks empty</p>
-                )
+                sortTicket && Object.keys(sortTicket).length > 1 ? 
+                    (
+                        Object.keys(sortTicket).map((data, i) => (
+                            <div className="timeline-item-container" key={i}>
+                                <p>{moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow()}</p>
+                                <Item ticket={sortTicket[data]} />
+                                <hr/>
+                            </div>
+                            )
+                        )
+                    ) 
+                    :
+                    (           
+                        <p>It looks empty</p>
+                    )
             }
-            <Item ticket={ticket}/>
         </div>
     )
 };
