@@ -111,6 +111,10 @@ min-width: 200px !important;
 .toolbar{
   display:inline-flex;
   margin-top: 19px;
+  // temp fix to avoid double underline below the link
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 .toolbar li{

@@ -76,7 +76,7 @@ const Header = () => {
                         </p>
                     </div>
                     <div className="col-2 p-0 flag-css">
-                        <ul className="toolbar m-0">
+                        <ul className="toolbar p-0 m-0">
                             <li>
                                 <DxcSelect
                                     options={langs}
