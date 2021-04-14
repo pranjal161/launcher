@@ -34,7 +34,7 @@ const Timeline = ({ ticket, title }) => {
 
     return (
         <div className="timeline-container">
-            <h4>
+            <h4 className="title-timeline">
                 {title}
             </h4>
             <hr />

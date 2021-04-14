@@ -6,8 +6,10 @@ $background-timeline-color: #F5F7FA;
     padding: 2px;
     background: $background-timeline-color;
 
+    .title-timeline {
+        margin: 5px 15px;
+    }
     
-
     .timeline-item-container {
         padding: 0px 5px;
 

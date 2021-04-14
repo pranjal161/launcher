@@ -27,7 +27,7 @@ const Item = ({ ticket }) => {
                                  moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") : moment(ticket.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                             </p>
 
-                            <p>{ticket.action} {ticket.newValue}</p>
+                            <p className="action-item">Assigned to {ticket.newValue}</p>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ const Item = ({ ticket }) => {
                                  moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") : moment(ticket.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                             </p>
 
-                            <p>{ticket.action}</p>
+                            <p className="action-item">{ticket.action}</p>
                         </div>
                     </div>
                 </div>
