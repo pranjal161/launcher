@@ -7,14 +7,15 @@ const HistoryImplement = () => {
     const [ticket, setTicket] = React.useState({
         history: [
             {
-                1617888646700: {
+                1617891945000: {
                     action: "assignedTo",
                     metadata: {
-                        timestamp: 1617888646700,
-                        updatedBy: "Henry",
-                        updatedByDisplay: "CB2",
-                        updatedISODate: "2021-04-08T14:06:41+02:00"
-                    }
+                        timestamp:  1617891945000,
+                        updatedBy: "Pierre",
+                        updatedByDisplay: "Pierre Dumoulin",
+                        updatedISODate: "2021-04-08T16:25:45+02:00"
+                    },
+                    newValue: "Jacques Dupont"
                 }
             },
             {
@@ -23,42 +24,46 @@ const HistoryImplement = () => {
                     metadata: {
                         timestamp: 1618379370000,
                         updatedBy: "Jacques",
-                        updatedByDisplay: "CB2",
+                        updatedByDisplay: "Jacques Dupont",
                         updatedISODate: "2021-04-14T02:50:50+02:00"
-                    }
+                    },
+                    newValue: "Paul Boulanger"
                 }
             },
             {
-                1617888749700: {
+                1617888646700: {
                     action: "ticketUpdated",
                     metadata: {
-                        timestamp: 1617998749700,
+                        timestamp: 1617888646700,
                         updatedBy: "Paul",
-                        updatedByDisplay: "CB2",
-                        updatedISODate: "2021-04-09T07:40:12+02:00"
-                    }
+                        updatedByDisplay: "Paul Boulanger",
+                        updatedISODate: "2021-04-08T07:40:12+02:00"
+                    },
+                    newValue: {}
                 }
             },
             {
-                1617888769700: {
+                1618050345000: {
                     action: "assignedTo",
                     metadata: {
-                        timestamp: 1617998769700,
+                        timestamp: 1618050345000,
                         updatedBy: "Henry",
-                        updatedByDisplay: "CB2",
-                        updatedISODate: "2021-04-08T15:30:46+02:00"
-                    }
+                        updatedByDisplay: "Henry Lephare",
+                        updatedISODate: "2021-04-10T12:25:45+02:00"
+                    },
+                    newValue: "Jacques Dupont"
                 }
             },
             {
                 1618303635000: {
-                    action: "test",
+                    action: "assignedTo",
                     metadata: {
                         timestamp: 1618303635000,
-                        updatedBy: "Henry",
-                        updatedByDisplay: "CB2",
+                        updatedBy: "Bob",
+                        updatedByDisplay: "Bob Brown",
                         updatedISODate: "2021-04-13T15:30:46+02:00"
-                    }
+                    },
+                    newValue: "Jacques Dupont"
                 }
             }
            

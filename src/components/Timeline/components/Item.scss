@@ -1,4 +1,5 @@
 $text-timeline-color: #CDD5DE;
+$secondary-text-timeline-color: #BDC8D2;
 
 .timeline-item-container {
     width: 100%;
@@ -37,6 +38,22 @@ $text-timeline-color: #CDD5DE;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+
+                .username-item {
+                    text-align: left;
+                    width: 100%;
+                    margin: 0;
+                    margin-left: 25px;
+                    font-weight: bold;
+                }
+
+                .time-item {
+                    text-align: left;
+                    width: 100%;
+                    margin: 0;
+                    margin-left: 25px;
+                    color: $secondary-text-timeline-color;
+                }
                 
             }
         }

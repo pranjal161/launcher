@@ -5,31 +5,118 @@ import "./Item.scss";
 
 const Item = ({ ticket }) => {
 
-    return (
-        <div className="timeline-item-container">
-            <div className="item-container">
-                <div className="draft-container">
-                    <div className="circle-timeline"></div>
-                    <div className="line-timeline"></div>
+    
+    switch(ticket.action) {
+
+    
+        case "assignedTo":
+            return (
+                <div className="timeline-item-container">
+                    <div className="item-container">
+                        <div className="draft-container">
+                            <div className="circle-timeline"></div>
+                            <div className="line-timeline"></div>
+                        </div>
+                        <div className="info-container">
+
+                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
+
+                            <p className="time-item">
+                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") : moment(ticket.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                            </p>
+
+                            <p>{ticket.action} {ticket.newValue}</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="info-container">
+            )
+        
 
-                    <p style={{textAlign: "left", width: "100%", margin: 0, marginLeft: 25, fontWeight: "bold"}}>{ticket.metadata.updatedBy}</p>
+        case "ticketUpdated":
+            return (
+                <div className="timeline-item-container">
+                    <div className="item-container">
+                        <div className="draft-container">
+                            <div className="circle-timeline"></div>
+                            <div className="line-timeline"></div>
+                        </div>
+                        <div className="info-container">
 
-                    <p style={{textAlign: "left", width: "100%", margin: 0, marginLeft: 25, color: "#BDC8D2" }}> 
-                        {  moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") } 
-                    </p>
+                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
 
-                    <p>{ticket.action}</p>
+                            <p className="time-item">
+                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") : moment(ticket.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                            </p>
 
-                    <p style={{marginBottom: 25}}>{ticket.metadata.momentDate}</p>
+                            <p>{ticket.action}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            )
+        
+
+        case "createdBy":
+            return (
+                <div className="timeline-item-container">
+                    <div className="item-container">
+                        <div className="draft-container">
+                            <div className="circle-timeline"></div>
+                            <div className="line-timeline"></div>
+                        </div>
+                        <div className="info-container">
+
+                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
+
+                            <p className="time-item">
+                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss")}
+                            </p>
+
+                            <p>{ticket.action}</p>
+
+                            <p style={{ marginBottom: 25 }}>{ticket.metadata.momentDate}</p>
+                        </div>
+                    </div>
+                </div>
+            )
+        
+
+        case "addedDocument":
+            return (
+                <div className="timeline-item-container">
+                    <div className="item-container">
+                        <div className="draft-container">
+                            <div className="circle-timeline"></div>
+                            <div className="line-timeline"></div>
+                        </div>
+                        <div className="info-container">
+
+                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
+
+                            <p className="time-item">
+                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss")}
+                            </p>
+
+                            <p>{ticket.action}</p>
+
+                            <p style={{ marginBottom: 25 }}>{ticket.metadata.momentDate}</p>
+                        </div>
+                    </div>
+                </div>
+            )
+        default:
+            return(
+                <div>
+                    <p>Please insert the required props</p>
+                </div>
+            )
+    }
 
 
-            <div className="circle"></div>
-        </div>
-    )
+
 };
 
 export default Item;
