@@ -1,8 +1,8 @@
+import { DxcHeading, DxcTable } from "@dxc-technology/halstack-react";
 import React, { useContext, useEffect, useState } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
-import { DxcTable } from "@dxc-technology/halstack-react";
 import axios from 'axios';
 import { getDescriptionValue } from 'util/functions';
 import { useTranslation } from 'react-i18next';
@@ -128,9 +128,8 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
 
     return (
         <>
-            <h5>{t('_INVESTMENT_SUMMARY')}</h5>
-            <h6>{t('_INTEREST_BASED')}</h6>
-
+            <DxcHeading level={4} weight="light" text={t('_INVESTMENT_SUMMARY')} />
+            <DxcHeading level={5} weight="light" text={t('_INTEREST_BASED')} />
             {/*to do refactoring*/}
             {interestBasedFund.length > 0 && (
                 <>
@@ -157,7 +156,7 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                     </DxcTable>
                 </>
             )}
-            <h6>{t('_UNIT_LINKED')}</h6>
+            <DxcHeading level={5} weight="light" text={t('_UNIT_LINKED')} />
             {unitBasedFund.length > 0 && (
                 <>
                     <DxcTable>

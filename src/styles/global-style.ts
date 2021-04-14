@@ -80,3 +80,34 @@ export const StyledMessageContainer = styled.div`
         align-items: center;
     }
 `;
+
+export const StyledToolbarList = styled.ul`
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
+`;
+
+interface ListItemProps {
+    readonly active: boolean;
+}
+export const StyledToolbarItem = styled.li<ListItemProps>`
+  display: block;
+  color: #000;
+  text-decoration: none;
+  background-color: ${(props:any) => (props.active ? '#EAE2F8':'#ffffff')};
+`;
+
+
+export const StyledDivider = styled.div`
+  flex: 1 1 auto;
+  border: 1px solid #D9E2EC;
+  margin-block: 20px;
+`;
+
+
+export const StyledMainDivider = styled.div`
+  flex: 1 1 auto;
+  border: 1px solid #D9E2EC;
+  margin-block: 1px;
+`;
