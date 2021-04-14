@@ -1,3 +1,5 @@
+$text-timeline-color: #CDD5DE;
+
 .timeline-item-container {
     width: 100%;
 
@@ -20,13 +22,13 @@
                     height: 35px;
                     border-radius: 50%;
                     display: inline-block;
-                    background: #CDD5DE;
+                    background: $text-timeline-color;
                 }
                 
                 .line-timeline {
                     width: 2px;
                     height: calc(100% - 35px);
-                    background: #CDD5DE;
+                    background: $text-timeline-color;
                 }
             }
             .info-container {

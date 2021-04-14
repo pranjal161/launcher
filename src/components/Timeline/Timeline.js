@@ -41,6 +41,7 @@ const Timeline = ({ticket, title}) => {
             <h4>
                 {title}
             </h4>
+            <hr/>
             {
                 sortTicket && Object.keys(sortTicket).length > 1 ? 
                     (
@@ -65,7 +66,7 @@ const Timeline = ({ticket, title}) => {
                                     }
                                     
                                 </div>
-                                <hr/>
+                               
                             </div>
                             )
                         )
