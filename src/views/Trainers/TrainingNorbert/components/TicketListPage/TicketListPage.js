@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
 import {initialState, reducer, selectTicket, setCurrentSection} from "../../../../../store/contextualStore/store";
 
-import AllTickets from "../../../../../components/Tickets/AllTickets/AllTickets";
+import AllTickets from "./components/AllTickets/AllTickets";
 import Context from "../../../../../store/contextualStore/Context";
 import {Grid} from "@material-ui/core";
 import TicketSide from "./components/TicketSide/TicketSide";

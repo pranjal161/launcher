@@ -1,9 +1,9 @@
 import {Drawer, Grid} from "@material-ui/core";
 
+import PreviewContainer from "../../../../../../../components/Tickets/PreviewContainer/PreviewContainer";
 import PropTypes from 'prop-types'
 import React from 'react';
 import SectionsBar from "./components/SectionsBar/SectionsBar";
-import TicketDetail from "../../../../../../../components/Tickets/TicketDetail/TicketDetail";
 
 /**
  * Information on the ticket
@@ -20,7 +20,7 @@ function TicketSide({id, sectionId, onSectionChange, onClose}) {
                     <SectionsBar value={sectionId} onChange={onSectionChange}/>
                 </Grid>
                 <Grid item>
-                    <TicketDetail id={id} sectionId={sectionId} onClose={onClose}/>
+                    <PreviewContainer id={id} sectionId={sectionId} onClose={onClose}/>
                 </Grid>
             </Grid>
         </Drawer>
