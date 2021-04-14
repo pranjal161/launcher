@@ -23,19 +23,19 @@ const ActionsIconContainer = styled.div`
 
 /*
     Parameter numActions is the number of actions that the ActionsContainer has.
-    Parameter index is the index of the current ticket in the table [0 to length - 1].
-    Parameter length is the length of the tickets array.
+    Parameter index is the index of the current ticket in the Table [0 to length - 1].
+    Parameter length is the length of the NewTicket array.
     They are used to style the positioning of the container, so that it doesn't cause issues - 
-    like appearing out of the tickets table container.
+    like appearing out of the NewTicket Table container.
     The actions are displayed to the right of the action icon (three dots), and are centered, if possible.
-    The height of a ticket table row is 58px, the height of an action is 22px, 
+    The height of a ticket Table row is 58px, the height of an action is 22px,
     and the padding of the ActionsContainer is 6px.
-    If the ActionsContainer has below 3 actions, it has a height below the ticket table row - 
+    If the ActionsContainer has below 3 actions, it has a height below the ticket Table row -
     2 * 22 for the rows + 2 * 6 for the padding = 56px. It needs only to be centered with translateY(-50%)
     However, if there are more actions, they need to be offset in this way - 
-    minus 29px for the half of the table row and minus actions height times numActions minus than 2. 
+    minus 29px for the half of the Table row and minus actions height times numActions minus than 2.
     This adjustment is done only for the last row, as this is where a breaking change occurs and 
-    the tickets table moves on ActionsContainer render.
+    the NewTicket Table moves on ActionsContainer render.
     Of course, breaking changes can occur in other situations if the numActions is high enough, 
     but this arises for unrealistically high numbers.
 */
@@ -69,13 +69,13 @@ const ActionContainer = styled.div`
 
 
 /*
-    The overall width of the progress bar is decreased, because it wouldn't fit in the table, 
+    The overall width of the progress bar is decreased, because it wouldn't fit in the Table,
     as the default value for min-width in DxcProgressBar was 685px.
 
     The class progressbar is used to fix an issue with DXC react component DxcProgressBar.
     The width of the property value is too small for the progress bar width we are giving the component.
-    The width percentages for progress bar originally were 5% for value and 90% for label,
-    now they are changed to 15% for value and 90% for label.
+    The width percentages for progress bar originally were 5% for value and 90% for Label,
+    now they are changed to 15% for value and 90% for Label.
 */
 const ProgressBarContainer = styled.div`
 
@@ -153,7 +153,7 @@ const TicketsList = (props: any) => {
                         <th>{t('_DEADLINE')}</th>
                         <th/>
                     </tr>
-                    {allBaskets && tickets.map((ticket: any, i: number) => (
+                    {allBaskets && tickets && tickets.map((ticket: any, i: number) => (
                         <tr key={i} onClick={() => handleTicketClick(ticket)}>
                             <td>{getStatusIcon(ticket.status)}</td>
                             <td>{ticket.title}</td>

@@ -1,14 +1,14 @@
 import './HomePage.scss';
 
-import {DxcBox, DxcLink} from '@dxc-technology/halstack-react';
+import {DxcBox, DxcHeading, DxcLink} from '@dxc-technology/halstack-react';
 import React, {useState} from 'react';
 
-import BasketList from 'components/BbasketList/BasketList';
+import BasketList from 'components/Baskets/BasketList/BasketList';
 import Card from 'components/Card/Card';
-import CreateReminders from 'components/Reminders/CreateReminders/CreateReminders';
+import CreateReminders from 'components/Reminders/components/CreateReminders/CreateReminders';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
 import Reminders from 'components/Reminders/Reminders';
-import TicketDetail from 'components/Tickets/TicketDetail/TicketDetail';
+import SavingPanels from "components/Tickets/Panels/SavingPanels/SavingPanels";
 import TicketList from 'components/Tickets/TicketsList/TicketsList';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
@@ -27,7 +27,7 @@ const HomePage = () => {
     const reminders = profile ? profile.reminders : undefined;
 
     const handleTicketClick = (ticket: { id: any; }) => {
-        setClickedTicket({ id: ticket.id})
+        setClickedTicket({id: ticket.id})
         setOpenSidebar(true)
     }
 
@@ -50,13 +50,13 @@ const HomePage = () => {
         <span className="home-container">
             <div className="welcome-banner">
                 <DxcBox margin="small" padding="medium" size="fillParent">
-                    Welcome! {profile.firstName} {profile.lastName}
+                    <DxcHeading level={5} weight="light" text={'Welcome! ' + profile.firstName + ' ' + profile.lastName} />
                 </DxcBox>
             </div>
             <div className="main-container">
                 <div className="grid-container col-12 pr-0">
                     <div className="col-8">
-                        <Card 
+                        <Card
                             title="All Baskets">
                             {baskets &&
                             <BasketList baskets={baskets}/>
@@ -64,7 +64,7 @@ const HomePage = () => {
                         </Card>
                     </div>
                     <div className="col-4">
-                        <Card 
+                        <Card
                             title="Today&apos;s Reminder"
                             actions={
                                 <DxcLink onClick={() => {
@@ -73,37 +73,34 @@ const HomePage = () => {
                                 text="Create Reminders">
                                 </DxcLink>
                             }>
-                            {openReminder && 
-                            <CreateReminders onClickDialog={onClickDialog} />
+                            {openReminder &&
+                            <CreateReminders onClickDialog={onClickDialog}/>
                             }
-                            {reminders && 
-                            <Reminders reminders={reminders} />
+                            {reminders &&
+                            <Reminders reminders={reminders}/>
                             }  
                         </Card>
                     </div>
                     <div className="col-12">
-                        <Card 
+                        <Card
                             title="All Tickets">
                             {tickets &&
                             <div className="main-container col-12">
                                 <div className="col-12">
                                     <div className="d-flex flex-nowrap">
                                         <div className="flex-grow-1">
-                                            <TicketList 
-                                                handleTicketClick={handleTicketClick} 
-                                                tickets={tickets} />
+                                            <TicketList
+                                                handleTicketClick={handleTicketClick}
+                                                tickets={tickets}/>
                                         </div>
-                                        <EntitySidebar 
-                                            open={openSidebar} 
-                                            width={500}
+                                        <EntitySidebar
+                                            open={openSidebar}
+                                            width={434}
                                             content={
-                                                <TicketDetail 
-                                                    id={clickedTicket.id}
-                                                    key={clickedTicket.id}
-                                                    onRemove={handleRemove} 
-                                                    onClose={handleClose} 
-                                                    sectionId="ticket-details" />
-                                            } />
+                                                <SavingPanels ticketId={clickedTicket.id}
+                                                    onRemove={handleRemove}
+                                                    onClose={handleClose}/>
+                                            }/>
                                     </div>
                                 </div>
                             </div>

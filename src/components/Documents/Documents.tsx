@@ -1,8 +1,8 @@
+import { DxcCard, DxcHeading } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from "react";
 
 import { ApplicationContext } from "context/applicationContext";
 import Document from 'assets/description.png';
-import { DxcCard } from '@dxc-technology/halstack-react';
 import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 import { getDescriptionValue } from "util/functions";
@@ -42,7 +42,7 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
     };
     return (
         <>
-            <h4>{t('_SENT_DOCUMENTS')}</h4>
+            <DxcHeading level={5} weight="light" text={t('_SENT_DOCUMENTS')} />
             <div className="row">
                 {outputDocData &&
                     outputDocData['_links'] &&
@@ -93,7 +93,7 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
                     ))}
             </div>
 
-            <h4>{t('_RECEIVED_DOCUMENTS')}</h4>
+            <DxcHeading level={5} weight="light" text={t('_RECEIVED_DOCUMENTS')} />
             <div className="row">
                 {receivedDocData &&
                     receivedDocData['_links'] &&
@@ -168,7 +168,7 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
             {/*   TODO
             {isDialogVisible && (
                 <DxcDialog padding="medium">
-                    <label className="col-md-12 labelPDF" id="label-doc"> selectedDoclabel</label>
+                    <Label className="col-md-12 labelPDF" id="Label-doc"> selectedDoclabel</Label>
                     {printmode === 'xml' && (<pre className="preXML" id="xml-doc">content</pre>)}
                     {/* {printmode === 'pdf' && (<iframe [src]="content" type="application/pdf" id="pdf-doc" class="framePDF"></iframe>)} 
 

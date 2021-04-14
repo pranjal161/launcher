@@ -1,21 +1,21 @@
-import { DxcDialog, DxcTable } from '@dxc-technology/halstack-react';
+import { DxcDialog, DxcHeading, DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { getDescriptionValue, getLink } from 'util/functions';
 
 import { ApplicationContext } from 'context/applicationContext';
 import { EyeIcon } from 'assets/svg';
-import Paginator from 'components/Paginator/Paginator';
-import { PremiumSummary } from '../PremiumSummary/PremiumSummary';
+import Paginator from "components/Paginator/Paginator";
+import { PremiumSummary} from "views/ContractSummary/components/PremiumSummary/PremiumSummary";
 import { StyledButton } from 'styles/global-style';
-import { SurrenderSummary } from '../SurrenderSummary/SurrenderSummary';
-import { SwitchSummary } from '../SwitchSummary/SwitchSummary';
+import { SurrenderSummary} from "views/ContractSummary/components/SurrenderSummary/SurrenderSummary";
+import { SwitchSummary} from "views/ContractSummary/components/SwitchSummary/SwitchSummary";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
 /**
- * Display financial operation in a table
+ * Display financial operation in a Table
  * @param {props} props Contains information related to the contract
- * @returns {*} Return information of the financial operation in a table
+ * @returns {*} Return information of the financial operation in a Table
  */
 const FinancialOperationTable = (props: { contractResponse: any }) => {
     const { t } = useTranslation();
@@ -71,7 +71,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             const premiumUrl = getLink(props.contractResponse, 'contract:operation_list-premium');
             const surrenderUrl = getLink(props.contractResponse, 'contract:operation_list-surrender');
             const switchUrl = getLink(props.contractResponse, 'contract:operation_list-switch');
-           
+
             getOperationItems(premiumUrl, 'premiumList');
             getOperationItems(surrenderUrl, 'surrenderList');
             getOperationItems(switchUrl, 'switchList');
@@ -94,17 +94,17 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
                     }
                     const response = getResponse.data['_links']['item'];
                     const count = getResponse && getResponse.data && getResponse.data._count;
-                    
+
                     if (id === 'premiumList') {
                         setPremiumData(getResponse.data);
                         setPremiumCount(count === '500+' ? 500 : count);
                         setPremiumList(response);
-                    } 
+                    }
                     else if (id === 'surrenderList') {
                         setSurrenderData(getResponse.data);
                         setSurrenderList(response);
                         setSurrenderCount(count === '500+' ? 500 : count);
-                    } 
+                    }
                     else if (id === 'switchList') {
                         setSwitchData(getResponse.data);
                         setSwitchList(response);
@@ -159,7 +159,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
         <>
             {premiumList.length > 0 && (
                 <>
-                    <h5>{t('_PREMIUM_LIST')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_PREMIUM_LIST')} />
                     <DxcTable>
                         <tr>
                             {premiumListColumns.map((item) => (
@@ -200,7 +200,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             )}
             {surrenderList.length > 0 && (
                 <>
-                    <h5>{t('_SURRENDER_LIST')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_SURRENDER_LIST')} />
                     <DxcTable>
                         <tr>
                             {surrenderListColumns.map((item) => (
@@ -241,7 +241,7 @@ const FinancialOperationTable = (props: { contractResponse: any }) => {
             )}
             {switchList.length > 0 && (
                 <>
-                    <h5>{t('_SWITCH_LIST')}</h5>
+                    <DxcHeading level={5} weight="light" text={t('_SWITCH_LIST')} />
                     <DxcTable>
                         <tr>
                             {switchListColumns.map((item) => (
