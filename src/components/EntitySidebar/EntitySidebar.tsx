@@ -13,7 +13,7 @@ const StyledSidebar = styled.div<EntitySidebarProps>`
     display: flex;
     justify-content: flex-start;
     transition: width 0.2s ease-in;
-    width: ${(props) => (props.open ? (props) => props.width : 0)}px;
+  width: ${(props) => (props.open ? (props) => props.width : 0)}px;
 ` as any;
 
 const EntitySidebar = (props: {open: boolean, width?: number, content: any, className?: any}) => {

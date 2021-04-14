@@ -26,18 +26,18 @@ const CardFooter = styled(CardHeaderFooter)`
 `;
 
 /* 
-    card-height-wrapper is a div class helper that allows us to fill the DxcBox component to height.
+    Card-height-wrapper is a div class helper that allows us to fill the DxcBox component to height.
     The size="fillParent" property only works on width, not height.
     Maybe later add option to enable/disable.
     Couldn't be done with styled-components
 */
 const Card = (props: { title: any; actions: any; children: any; footer: any; contentFullWidth?: boolean, className?: string }) => {
     const { title, actions, children, footer, contentFullWidth = true, className = '' } = props;
-
+    const padding = contentFullWidth?{}:{padding :"xsmall"}
     return (
         <div className={`card-height-wrapper ${className}`}>
             <DxcBox
-                padding={contentFullWidth ? "" : "xsmall"}
+                {...padding}
                 size="fillParent"
                 display="block">
                 <CardHeader>
