@@ -71,7 +71,7 @@ const HistoryImplement = () => {
     });
 
     return (
-        <div className="history-container-maxime">
+        <div className="history-container-maxime" style={{width: "100%", height: 400}}>
             <Timeline title="Ticket history" ticket={ticket} />
         </div>
          
