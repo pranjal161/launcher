@@ -73,7 +73,7 @@ export const assign = (id, userId) => {
     return (dispatch, getState, {getFirebase}) => {
         dispatch({type: 'ASSIGN_BASKET_PENDING'})
         const firestore = getFirebase().firestore()
-        return firestore.collection('baskets').doc(id).update(
+        return firestore.collection('Baskets').doc(id).update(
             {
                 assignedToList: firestore.FieldValue.arrayUnion(userId)
             }

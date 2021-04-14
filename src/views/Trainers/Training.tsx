@@ -1,11 +1,11 @@
 import {DxcButton} from "@dxc-technology/halstack-react";
 import React from "react";
-import {applyRoutes} from '../../routes';
+import {applyRoutes} from "routes";
 import {useHistory} from 'react-router-dom';
 
 const Training = (props: any): any => {
     const history = useHistory();
-    const displayButton = props.location.pathname === '/training';
+    const displayButton = props.location.pathname === '/Training';
 
     const jumpToTraining = (path: string) => {
         history.push(path);

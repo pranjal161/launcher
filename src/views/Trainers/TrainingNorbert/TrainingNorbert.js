@@ -3,8 +3,9 @@ import React, {useState} from 'react';
 import CommunicateAcrossBrowser from "./components/CommunicateAcrossBrowser/CommunicateAcrossBrowser";
 import {DxcTabs} from "@dxc-technology/halstack-react"
 import LatestPage from "./components/LatestPage/LatestPage";
+import Preview from "../../../components/Tickets/PreviewContainer/components/Preview/Preview";
 import TicketListPage from "./components/TicketListPage/TicketListPage";
-import TicketSummary from "../../../components/Tickets/TicketDetail/components/TicketSummary/TicketSummary";
+import TrainingConsultationPanel from "./components/TrainingConsultationPanel/TrainingConsultationPanel";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
 /**
@@ -28,7 +29,10 @@ function TrainingNorbert() {
                 onTabClick={onTabClick}
                 tabs={[
                     {
-                        label: "TicketSummary"
+                        label : "TrainingConsultationPanel"
+                    },
+                    {
+                        label: "Preview"
                     },
                     {
                         label: "Latest"
@@ -42,16 +46,19 @@ function TrainingNorbert() {
                 ]}
             />
             {activeTab === 0 && (
-                ticket && <TicketSummary ticket={ticket}/>
-            )}
+                ticket && <TrainingConsultationPanel />
+            )},
             {activeTab === 1 && (
-                <LatestPage/>
+                ticket && <Preview ticket={ticket}/>
             )}
             {activeTab === 2 && (
+                <LatestPage/>
+            )}
+            {activeTab === 3 && (
                 <CommunicateAcrossBrowser/>
             )}
 
-            {activeTab === 3 && (
+            {activeTab === 4 && (
                 <TicketListPage/>
             )}
         </>
