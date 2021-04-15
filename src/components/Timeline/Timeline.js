@@ -8,6 +8,8 @@ const Timeline = ({ ticket, title }) => {
 
     const [sortTicket, setSortTicket] = React.useState();
 
+
+
     // Here we sort the ticket in DESC
     React.useEffect(() => {
         const sortedArr = [...ticket.history];
@@ -45,8 +47,8 @@ const Timeline = ({ ticket, title }) => {
                             <div className="timeline-item-container" key={i}>
                                 <p className="title-date">{
                                     moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow().includes("hours") ||
-                                        moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow().includes("minutes") ?
-                                        "Today" : moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow('d')}</p>
+                                    moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow().includes("minutes") ?
+                                    "Today" : moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow('d')}</p>
                                 <div>
                                     {
                                         sortTicket[data].length > 1 ?

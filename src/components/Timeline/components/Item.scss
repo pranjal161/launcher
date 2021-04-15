@@ -54,9 +54,13 @@ $secondary-text-timeline-color: #BDC8D2;
                     margin-left: 25px;
                     color: $secondary-text-timeline-color;
                 }
-                .action-item {
+                .action-item, .picture-name {
                     margin: 0px 0px 15px 0px;;
-                    font-weight: bold;
+                    font-weight: 600;
+                }
+                .picture-item {
+                    width: 65px;
+                    border-radius: 5px;
                 }
                 
             }

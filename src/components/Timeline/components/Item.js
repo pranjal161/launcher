@@ -100,9 +100,9 @@ const Item = ({ ticket }) => {
                                 {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss")}
                             </p>
 
-                            <p>{ticket.action}</p>
-
-                            <p style={{ marginBottom: 25 }}>{ticket.metadata.momentDate}</p>
+                            <p className="action-item">{ticket.action}</p>
+                            <img className="picture-item" src={ticket.newValue.url} alt={ticket.newValue.name}/>
+                            <p className="picture-name">{ticket.newValue.name}</p>
                         </div>
                     </div>
                 </div>

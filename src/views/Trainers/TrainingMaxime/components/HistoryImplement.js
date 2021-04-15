@@ -65,6 +65,23 @@ const HistoryImplement = () => {
                     },
                     newValue: "Jacques Dupont"
                 }
+            },
+            {
+                1618303645000: {
+                    action: "addedDocument",
+                    metadata: {
+                        timestamp: 1618303645000,
+                        updatedBy: "Bob",
+                        updatedByDisplay: "Bob Brown",
+                        updatedISODate: "2021-04-13T15:30:46+02:00"
+                    },
+                    newValue: {
+                        url: "https://firebasestorage.googleapis.com/v0/b/react-poc2.appspot.com/o/tickets%2FZzqrxnCrourEWF0YIZ3a%2Fpexels-pixabay-256431.jpg?alt=media&token=c35c7886-18cd-4165-932a-01722cd023d2",
+                        receivedDate: 123456789,
+                        name: "pexels-pixabay-256431.jpg",
+                        type: "image/jpeg"
+                    }
+                }
             }
            
         ]
