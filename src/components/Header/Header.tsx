@@ -59,11 +59,11 @@ const Header = () => {
                 <>
                     <div className="col-8 p-0">
                         <ul className="toolbar m-0">
-                            <li><DxcLink href="/omnichannel/react/home" underlined={false} text="Home" /></li>
-                            <li><DxcLink href="/omnichannel/react/Baskets" underlined={false} text="Baskets" /></li>
-                            <li><DxcLink href="/omnichannel/react/Tickets" underlined={false} text="My Tickets" /></li>
-                            <li><DxcLink href="/omnichannel/react/help" underlined={false} text="Help" /></li>
-                            <li><DxcLink href="/omnichannel/react/Training" underlined={false} text="Training pages" /></li>
+                            <li><DxcLink onClick={() => { history.push('/home')}} underlined={false} text="Home" /></li>
+                            <li><DxcLink onClick={() => { history.push('/Baskets')}} underlined={false} text="Baskets" /></li>
+                            <li><DxcLink onClick={() => { history.push('/Tickets')}} underlined={false} text="My Tickets" /></li>
+                            <li><DxcLink onClick={() => { history.push('/help')}} underlined={false} text="Help" /></li>
+                            <li><DxcLink onClick={() => { history.push('/Training')}} underlined={false} text="Training pages" /></li>
                             <li><CreateButton /></li>
                         </ul>
                     </div>
@@ -76,7 +76,7 @@ const Header = () => {
                         </p>
                     </div>
                     <div className="col-2 p-0 flag-css">
-                        <ul className="toolbar m-0">
+                        <ul className="toolbar p-0 m-0">
                             <li>
                                 <DxcSelect
                                     options={langs}
