@@ -1,4 +1,4 @@
-import { DxcHeader, DxcLink, DxcSelect } from '@dxc-technology/halstack-react';
+import { DxcHeader, DxcLink } from '@dxc-technology/halstack-react';
 import React, { useContext, useState } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
@@ -15,7 +15,6 @@ const Header = () => {
     const history = useHistory();
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
-
     const langs = [
         {
             value: 'fr',
@@ -33,10 +32,14 @@ const Header = () => {
             iconSrc: nl,
         },
     ];
+    const currentLang: any = langs.find(item => item.value === lang)
+    const [langIcon, setLangIcon] = useState<any>(currentLang.iconSrc);
 
     const changeLang = (value: string) => {
         // to check refresh
         setLang(value);
+        const currentLang: any = langs.find(item => item.value === value);
+        setLangIcon(currentLang.iconSrc)
         if (value !== applicationContext.language) {
             applicationContext.changeLang(value);
         }
@@ -75,13 +78,14 @@ const Header = () => {
                             <SearchIcon />
                         </p>
                     </div>
-                    <div className="col-2 p-0 flag-css">
+                    <div className="col-3 p-0">
                         <ul className="toolbar p-0 m-0">
                             <li>
-                                <DxcSelect
+                                <DxcHeader.Dropdown
                                     options={langs}
-                                    onChange={changeLang}
+                                    onSelectOption={changeLang}
                                     value={lang}
+                                    iconSrc={langIcon}
                                     margin="xxsmall"
                                     padding="xxsmall"
                                 />
