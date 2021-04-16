@@ -54,7 +54,7 @@ const HomePage = () => {
                 </DxcBox>
             </div>
             <div className="main-container">
-                <div className="grid-container col-12 pr-0">
+                <div className="grid-container col-12">
                     <div className="col-8">
                         <Card
                             title="All Baskets">
