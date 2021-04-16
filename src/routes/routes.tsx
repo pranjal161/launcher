@@ -4,7 +4,7 @@ import React, {lazy} from "react";
 
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
-import ClientView from "views/clientView/ClientView";
+import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
 import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
