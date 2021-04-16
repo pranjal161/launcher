@@ -1,13 +1,13 @@
 import { CallIcon, CreditCardIcon, EmailIcon, HomeIcon, LanguageIcon, PersonIcon } from 'assets/svg';
 import React, { useContext, useEffect, useState } from "react";
 
-import AddressTab from "views/ClientView/components/AddressTab/AddressTab";
+import AddressTab from "views/clientView/components/AddressTab/AddressTab";
 import { ApplicationContext } from "context/applicationContext";
-import ClaimList from "views/ClientView/components/ClaimList/ClaimList";
-import ContractRoles from "views/ClientView/components/ContractRoles/ContractRoles";
+import ClaimList from "views/clientView/components/ClaimList/ClaimList";
+import ContractRoles from "views/clientView/components/ContractRoles/ContractRoles";
 import Documents from "components/Documents/Documents";
 import { DxcSidenav } from "@dxc-technology/halstack-react";
-import FinancialTable from "views/ClientView/components/FinancialTable/FinancialTable";
+import FinancialTable from "views/clientView/components/FinancialTable/FinancialTable";
 import Label from "components/Label/Label";
 import { StyledBanner } from 'styles/global-style';
 import axios from 'axios';

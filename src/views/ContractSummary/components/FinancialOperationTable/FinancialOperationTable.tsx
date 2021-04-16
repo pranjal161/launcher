@@ -5,10 +5,10 @@ import { getDescriptionValue, getLink } from 'util/functions';
 import { ApplicationContext } from 'context/applicationContext';
 import { EyeIcon } from 'assets/svg';
 import Paginator from "components/Paginator/Paginator";
-import { PremiumSummary} from "views/ContractSummary/components/PremiumSummary/PremiumSummary";
+import { PremiumSummary} from "views/contractSummary/components/PremiumSummary/PremiumSummary";
 import { StyledButton } from 'styles/global-style';
-import { SurrenderSummary} from "views/ContractSummary/components/SurrenderSummary/SurrenderSummary";
-import { SwitchSummary} from "views/ContractSummary/components/SwitchSummary/SwitchSummary";
+import { SurrenderSummary} from "views/contractSummary/components/SurrenderSummary/SurrenderSummary";
+import { SwitchSummary} from "views/contractSummary/components/SwitchSummary/SwitchSummary";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 

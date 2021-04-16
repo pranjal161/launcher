@@ -4,9 +4,9 @@ import React, {lazy} from "react";
 
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
-import ClientView from "views/ClientView/ClientView";
+import ClientView from "views/clientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
-import ContractSummary from "views/ContractSummary/ContractSummary";
+import ContractSummary from "views/contractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import Help from 'views/Help/Help';
 import HomePage from "views/HomePage/HomePage";
@@ -53,7 +53,7 @@ const routes = [
             {
                 path: '/errors/error-404',
                 exact: true,
-                component: lazy(() => import('views/Errors/Error404/Error404'))
+                component: lazy(() => import('views/errors/Error404/Error404'))
             },
             {
                 component: () => <Redirect to="/errors/error-404"/>

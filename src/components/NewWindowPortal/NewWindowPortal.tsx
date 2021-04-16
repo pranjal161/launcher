@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import ReactDOM from 'react-dom';
 
@@ -38,14 +38,50 @@ function copyStyles(sourceDoc: Document, targetDoc: Document) {
     });
 }
 
-const NewWindowPortal = ( props : {children: any, onCloseCallback: any}) => {
-    const { children , onCloseCallback=null } = props;
+const NewWindowPortal = ( props : {
+                                        children: any, 
+                                        onCloseCallback: Function, 
+                                        windowFullScreen?: boolean,
+                                        passSetFocus?: boolean,
+                                        windowWidth?: number,
+                                        windowHeight?: number,
+                                        windowLeft?: number,
+                                        windowTop?: number
+                                    }) => {
+    const { 
+            onCloseCallback = null,
+            windowFullScreen = false,
+            passSetFocus = false, 
+            windowWidth = 620,
+            windowHeight = 600,
+            windowLeft = 200,
+            windowTop = 200
+    } = props;
+    let { children } = props;
     const container = document.createElement('div');
     let windowRef = useRef<any>(null);
     let externalWindow: any;
 
+    const setFocus = () => {
+        if(windowRef.current &&
+           !windowRef.current.document.hasFocus()) {
+            windowRef.current.focus();
+        }
+    }
+
+    // When passing the NewWindowPortal setFocus function to its children, 
+    // the NewWindowPortal must have only one child element and it must have a 
+    // props property named setWindowFocus.
+    if(passSetFocus) {
+        children = React.cloneElement(children, {setWindowFocus: setFocus});
+    }
+
+    let windowNotFullScreenSpecs = '';
+    if(!windowFullScreen)
+        windowNotFullScreenSpecs = `,width=${windowWidth},height=${windowHeight},left=${windowLeft},top=${windowTop}`;
+
     useEffect(() => {
-        externalWindow = window.open('', '', 'width=620,height=600,left=200,top=200');
+        externalWindow = window.open('', '', `fullscreen=${windowFullScreen}${windowNotFullScreenSpecs}`);
         externalWindow.document.body.appendChild(container);
         copyStyles(document, externalWindow.document);
 
@@ -54,13 +90,14 @@ const NewWindowPortal = ( props : {children: any, onCloseCallback: any}) => {
 
         windowRef.current = externalWindow;
         return () => {
+            windowRef.current = null;
             externalWindow.close();
         }
     }, []);
 
     useEffect(() => {
         windowRef['current'].document.body.appendChild(container);
-    }, [children])
+    }, [children]);
 
     return (
         ReactDOM.createPortal(children, container)
