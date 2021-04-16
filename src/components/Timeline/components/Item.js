@@ -3,7 +3,7 @@ import moment from "moment";
 
 import "./Item.scss";
 
-const Item = ({ ticket }) => {
+const Item = ({ ticket, users}) => {
 
     
     switch(ticket.action) {
@@ -28,7 +28,7 @@ const Item = ({ ticket }) => {
                                  moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") : moment(ticket.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                             </p>
 
-                            <p className="action-item">Assigned to {ticket.newValue}</p>
+                            <p className="action-item">Assigned to {users[ticket.newValue].displayName}</p>
                         </div>
                     </div>
                 </div>

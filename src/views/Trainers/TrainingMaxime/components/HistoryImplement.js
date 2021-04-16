@@ -2,7 +2,11 @@ import React from "react";
 
 import Timeline from './../../../../components/Timeline/Timeline';
 
-const HistoryImplement = ({ticket}) => {
+const HistoryImplement = ({ticket, users}) => {
+
+    React.useEffect(() => {
+        console.log(users)
+    }, [users])
 
     // const [ticket, setTicket] = React.useState({
     //     history: [
@@ -94,8 +98,8 @@ const HistoryImplement = ({ticket}) => {
     return (
         <div className="history-container-maxime" style={{width: "100%", height: 400}}>
             {
-                ticket?.history &&
-                    <Timeline title="Ticket history" ticket={ticket} />
+                ticket?.history && users &&
+                    <Timeline title="Ticket history" ticket={ticket} users={users}/>
             }
             
         </div>

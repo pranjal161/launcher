@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import "./Timeline.scss";
 
-const Timeline = ({ ticket, title }) => {
+const Timeline = ({ ticket, title, users }) => {
 
     const [sortTicket, setSortTicket] = React.useState();
 
@@ -58,12 +58,12 @@ const Timeline = ({ ticket, title }) => {
                                         sortTicket[data].length > 1 ?
                                             (
                                                 sortTicket[data].map((dataelement, i) => (
-                                                    <Item key={i} ticket={dataelement} />
+                                                    <Item key={i} ticket={dataelement} users={users}/>
                                                 ))
                                             )
                                             :
                                             (
-                                                <Item ticket={sortTicket[data][0][Object.keys(sortTicket[data][0])]} />
+                                                <Item ticket={sortTicket[data][0][Object.keys(sortTicket[data][0])]} users={users} />
                                             )
                                     }
                                 </div>
