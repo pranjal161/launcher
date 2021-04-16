@@ -53,7 +53,7 @@ const routes = [
             {
                 path: '/errors/error-404',
                 exact: true,
-                component: lazy(() => import('views/errors/Error404/Error404'))
+                component: lazy(() => import('views/Errors/Error404/Error404'))
             },
             {
                 component: () => <Redirect to="/errors/error-404"/>
