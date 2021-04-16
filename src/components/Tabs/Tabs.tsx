@@ -4,7 +4,7 @@ import * as popupWindowActions from "../../store/actions/popupWindowTabsActions"
 
 import React, {useEffect, useState} from 'react';
 
-import TabsButton from './components/TabButton/TabButton';
+import TabButton from './components/TabButton/TabButton';
 import {useDispatch} from "react-redux";
 
 
@@ -44,7 +44,7 @@ const Tabs = (props: {children: any, activeTabId: string}) => {
                         if(child.props.tabId === activeTab) 
                             tabContent = child.props.children;
                         return (
-                            <TabsButton
+                            <TabButton
                                 key={child.props.tabId}
                                 isActive={child.props.tabId === activeTab}
                                 tabId={child.props.tabId}

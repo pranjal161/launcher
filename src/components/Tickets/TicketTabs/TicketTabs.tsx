@@ -3,9 +3,10 @@ import * as popupWindowActions from "../../../store/actions/popupWindowTabsActio
 import {useDispatch, useSelector} from "react-redux";
 
 import React from "react";
+import SavingPanels from "../Panels/SavingPanels/SavingPanels";
 import Tab from '../../Tabs/components/Tab/Tab';
 import Tabs from '../../Tabs/Tabs';
-import SavingPanels from "../Panels/SavingPanels/SavingPanels";
+
 
 const TicketTabs = (props: {setWindowFocus?: Function}) => {
 

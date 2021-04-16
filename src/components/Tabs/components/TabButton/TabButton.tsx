@@ -4,7 +4,7 @@ import {CloseIcon} from "../../../../assets/svg";
 import React from 'react';
 
 
-const TabsButton = ( props : {
+const TabButton = ( props : {
                                 isActive: boolean,
                                 tabId: string,
                                 label: string,
@@ -12,11 +12,11 @@ const TabsButton = ( props : {
                                 onTabCloseClick: Function}) => {
 
     const { 
-            isActive = false,
-            tabId,
-            label = "Loading",
-            onTabClick,
-            onTabCloseClick
+        isActive = false,
+        tabId,
+        label = "Loading",
+        onTabClick,
+        onTabCloseClick
     } = props;
 
     let tabDivClass = "tabs__tab";
@@ -41,4 +41,4 @@ const TabsButton = ( props : {
     );
 }
 
-export default TabsButton;
+export default TabButton;

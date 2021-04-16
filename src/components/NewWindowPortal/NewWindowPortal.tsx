@@ -49,13 +49,13 @@ const NewWindowPortal = ( props : {
                                         windowTop?: number
                                     }) => {
     const { 
-            onCloseCallback = null,
-            windowFullScreen = false,
-            passSetFocus = false, 
-            windowWidth = 620,
-            windowHeight = 600,
-            windowLeft = 200,
-            windowTop = 200
+        onCloseCallback = null,
+        windowFullScreen = false,
+        passSetFocus = false,
+        windowWidth = 620,
+        windowHeight = 600,
+        windowLeft = 200,
+        windowTop = 200
     } = props;
     let { children } = props;
     const container = document.createElement('div');

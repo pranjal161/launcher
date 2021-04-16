@@ -10,7 +10,7 @@ import DXCLogo from 'assets/dxc_logo.jpg';
 import NewWindowPortal from "../../components/NewWindowPortal/NewWindowPortal";
 import { SearchIcon } from 'assets/svg';
 import SignedLinks from './components/SignedLinks/SignedLinks';
-import TicketsTabs from "../../components/Tickets/TicketsTabs/TicketsTabs";
+import TicketsTabs from "../Tickets/TicketTabs/TicketTabs";
 import en from 'assets/gb.jpg';
 import fr from 'assets/fr.jpg';
 import nl from 'assets/nl.jpg';
