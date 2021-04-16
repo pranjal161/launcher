@@ -12,26 +12,30 @@ const Timeline = ({ ticket, title }) => {
 
     // Here we sort the ticket in DESC
     React.useEffect(() => {
-        const sortedArr = [...ticket.history];
-        sortedArr.sort((a, b) => (b[Object.keys(b)[0]].metadata.timestamp) - (a[Object.keys(a)[0]].metadata.timestamp));
+        if(ticket){
+            const history = {...ticket.history};
+            let sortedArr = [];
 
-        let finalArr = [];
-        let currentElement;
+            Object.keys(history).map((data) => {
+                sortedArr = [...sortedArr, history[data]]
+            });
 
-        sortedArr.forEach(element => {
-            currentElement = element[Object.keys(element)[0]];
-            currentElement.metadata["momentDate"] = moment(new Date(currentElement.metadata.timestamp)).format("DD/MM/YYYY");
+            sortedArr.sort((a, b) => (b.metadata.timestamp) - (a.metadata.timestamp));
 
-            finalArr = { ...finalArr, [currentElement.metadata.momentDate]: [] };
-        });
+            let arrByDate = [];
 
-        sortedArr.map((data) => {
-            currentElement = data[Object.keys(data)[0]];
+            sortedArr.map((data) => {
+                 const date = moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY");
 
-            finalArr[currentElement.metadata.momentDate].push(data);
-        });
+                //  console.log(date);
+                if (!arrByDate[date]){
+                    arrByDate = { ...arrByDate, [date]: [] };
+                }
+                 arrByDate[date] = [...arrByDate[date], data]
+            });
 
-        setSortTicket(finalArr);
+            setSortTicket(arrByDate);
+    }
     }, []);
 
     return (
@@ -41,20 +45,20 @@ const Timeline = ({ ticket, title }) => {
             </h4>
             <hr />
             {
-                sortTicket && Object.keys(sortTicket).length > 1 ?
+                sortTicket ?
                     (
                         Object.keys(sortTicket).map((data, i) => (
                             <div className="timeline-item-container" key={i}>
                                 <p className="title-date">{
-                                    moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow().includes("hours") ||
-                                    moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow().includes("minutes") ?
-                                    "Today" : moment(sortTicket[data][0][Object.keys(sortTicket[data][0])].metadata.timestamp).fromNow('d')}</p>
+                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("hours") ||
+                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("minutes") ?
+                                    "Today" : moment(sortTicket[data][0].metadata.timestamp).fromNow('d')}</p>
                                 <div>
                                     {
                                         sortTicket[data].length > 1 ?
                                             (
                                                 sortTicket[data].map((dataelement, i) => (
-                                                    <Item key={i} ticket={dataelement[Object.keys(dataelement)[0]]} />
+                                                    <Item key={i} ticket={dataelement} />
                                                 ))
                                             )
                                             :

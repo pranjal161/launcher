@@ -11,6 +11,7 @@ const Item = ({ ticket }) => {
     
         case "assignedTo":
             return (
+                ticket &&
                 <div className="timeline-item-container">
                     <div className="item-container">
                         <div className="draft-container">
@@ -36,6 +37,7 @@ const Item = ({ ticket }) => {
 
         case "ticketUpdated":
             return (
+                ticket &&
                 <div className="timeline-item-container">
                     <div className="item-container">
                         <div className="draft-container">
@@ -61,6 +63,7 @@ const Item = ({ ticket }) => {
 
         case "createdBy":
             return (
+                ticket &&
                 <div className="timeline-item-container">
                     <div className="item-container">
                         <div className="draft-container">
@@ -86,6 +89,7 @@ const Item = ({ ticket }) => {
 
         case "addedDocument":
             return (
+                ticket &&
                 <div className="timeline-item-container">
                     <div className="item-container">
                         <div className="draft-container">
@@ -100,7 +104,7 @@ const Item = ({ ticket }) => {
                                 {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss")}
                             </p>
 
-                            <p className="action-item">{ticket.action}</p>
+                            <p className="action-item">Added new document</p>
                             <img className="picture-item" src={ticket.newValue.url} alt={ticket.newValue.name}/>
                             <p className="picture-name">{ticket.newValue.name}</p>
                         </div>
