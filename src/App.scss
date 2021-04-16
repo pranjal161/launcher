@@ -37,20 +37,6 @@
   }
 }
 
-.MuiAppBar-colorPrimary {
-  color: #fff;
-  background-color: white !important;
-}
-
-.loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  /* width: 300px;
-  height: 300px; */
-}
 /*----Normalizing CSS-----**/
 label {
   margin-bottom: 0 !important;
@@ -67,7 +53,7 @@ label {
   cursor: pointer;
 }
 
-/* temp fix as it is too big*/
+/* temp fix for table as it is too big, for now we need to scroll */
 table tbody tr td {
   padding: 5px 10px 5px 10px !important;
 }
@@ -85,22 +71,7 @@ table tbody tr th {
   text-align: center;
 }
 
-.flag-css .MuiInput-formControl {
-  margin-top: 0px !important;
-}
 
-.flag-css div {
-  width: unset !important;
-}
-
-.flag-css .MuiSelect-select {
-  color:white !important;
-}
-
-.header-svg svg{
-  fill: black !important;
-  cursor: pointer;
-}
 
 .progressbar > div {
 min-width: 200px !important;
