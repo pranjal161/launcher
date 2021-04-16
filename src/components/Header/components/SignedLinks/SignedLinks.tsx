@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react';
-import SignedInLinks from "components/header/components/SignedLinks/components/SignedInLinks/SignedInLinks";
-import SignedOutLinks from "components/header/components/SignedLinks/components/SignedOutLinks/SignedOutLinks";
+import SignedInLinks from "components/Header/components/SignedLinks/components/SignedInLinks/SignedInLinks";
+import SignedOutLinks from "components/Header/components/SignedLinks/components/SignedOutLinks/SignedOutLinks";
 import {connect} from "react-redux";
 
 const SignedLinks = ( props: {logged: any}) => {
