@@ -9,12 +9,10 @@ const Item = ({ item, users, basketName}) => {
     
     if(item != undefined){
         switch(item.action) {
-
-        
             case "assignedTo":
                 return (
-                    item &&
-                    <div className="timeline-item-container">
+                    item && item.newValue ?
+                    (<div className="timeline-item-container">
                         <div className="item-container">
                             <div className="draft-container">
                                 <div className="circle-timeline"></div>
@@ -32,12 +30,14 @@ const Item = ({ item, users, basketName}) => {
 
                                 <div className="text-icon-container">
                                     <DescriptionIcon />
-                                    <p className="action-item">Assigned to {users[item.newValue].displayName} in {basketName}</p>
+                                    <p className="action-item">{item.action.replace( /([A-Z])/g, " $1" )} {users[item.newValue].displayName} in {basketName}</p>
                                 </div>
                                 
                             </div>
                         </div>
-                    </div>
+                    </div>)
+                    :
+                    (null)
                 )
             
 
@@ -60,7 +60,7 @@ const Item = ({ item, users, basketName}) => {
                                     moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
-                                <p className="action-item">{item.action}</p>
+                                <p className="action-item">{item.action.replace( /([A-Z])/g, " $1" )} by {item.metadata.updatedByDisplay}</p>
                             </div>
                         </div>
                     </div>
@@ -81,12 +81,12 @@ const Item = ({ item, users, basketName}) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.timestamp).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
-                                <p>{item.action} {users[item.newValue].displayName}</p>
-
-                                <p style={{ marginBottom: 25 }}>{item.metadata.momentDate}</p>
+                                <p className="action-item">{item.action.replace( /([A-Z])/g, " $1" )} {users[item.newValue].displayName}</p>
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,9 @@ const Item = ({ item, users, basketName}) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
                                 <p className="action-item">Added new document in {basketName}</p>
@@ -131,7 +133,9 @@ const Item = ({ item, users, basketName}) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
                                         <p className="action-item">{item.action.replace( /([A-Z])/g, " $1" )} : {item.newValue}</p>
                                 
@@ -154,7 +158,9 @@ const Item = ({ item, users, basketName}) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
                                 <p className="action-item">Activity {item.newValue.replace( /([A-Z])/g, " $1" )} executed</p>
@@ -171,7 +177,7 @@ const Item = ({ item, users, basketName}) => {
         }
     }
     else{
-        return(<></>)
+        return(null)
     }
 
 
