@@ -45,7 +45,7 @@ const SavingPanels = ({ticketId,onClose}) => {
     }
     return (
         <Root>
-            <ConsultationPanels header={<SelectEntities/>} content={<Content/>} toolbar={<Toolbar/>} onToggle={onClose} />
+            <ConsultationPanels header={<SelectEntities/>} content={<Content/>} toolbar={<Toolbar/>} onToggle={onClose}/>
         </Root>
     )
 }
