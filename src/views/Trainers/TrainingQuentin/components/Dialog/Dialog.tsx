@@ -1,7 +1,6 @@
 import "./Dialog.scss";
 
 import { DxcButton, DxcDialog } from '@dxc-technology/halstack-react';
-
 import React from 'react';
 
 interface IDialog {
@@ -10,37 +9,31 @@ interface IDialog {
     onApply: Function,
     onCancel: Function,
     isOpen: boolean,
-    setIsOpen: Function,
-    crossIsVisible: boolean
+    closeIconIsVisible: boolean
 }
 
-const Dialog:React.FC<IDialog> = ({children, title, setIsOpen, isOpen, crossIsVisible = false, onApply, onCancel}: IDialog) => {
+const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible = false, onApply, onCancel}: IDialog) => {
 
     const [value, setValue] = React.useState<any>(null);
 
     const handleCloseClick = () => {
         onCancel();
         setValue(null);
-        setIsOpen(false);
     }
 
     const handleApply = () => {
         onApply(value);
         setValue(null);
-        setIsOpen(false);
     }
 
-    React.useEffect(() => {
-        
-        console.log({children});
-    }, [])
+    const Content = () => React.cloneElement(children, {onChange: setValue});
 
     return (
-        <>            
+        <>
             {
                 isOpen && 
                     <>
-                        <DxcDialog isCloseVisible={crossIsVisible}>
+                        <DxcDialog isCloseVisible={closeIconIsVisible} onCloseClick={() => onCancel()}>
                             <div className="dialog">
                                 <div className="header">
                                     <h5>{title}</h5>
@@ -49,7 +42,7 @@ const Dialog:React.FC<IDialog> = ({children, title, setIsOpen, isOpen, crossIsVi
                                 <div className="divider"></div>
                                 
                                 <div className="content">
-                                    { children(setValue) }
+                                    <Content />
                                 </div>
                                 
                                 <div className="divider"></div>
