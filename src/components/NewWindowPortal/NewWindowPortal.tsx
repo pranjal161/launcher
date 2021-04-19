@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
-import { StyleSheetManager } from 'styled-components';
 import ReactDOM from 'react-dom';
+import { StyleSheetManager } from 'styled-components';
 
 /*eslint "require-jsdoc": [2, {
     "require": {

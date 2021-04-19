@@ -2,8 +2,8 @@ import * as popupWindowActions from "../../store/actions/popupWindowTabsActions"
 
 import React, {useEffect, useState} from 'react';
 
-import styled from 'styled-components';
 import TabButton from './components/TabButton/TabButton';
+import styled from 'styled-components';
 import {useDispatch} from "react-redux";
 
 const TabsMainContainer = styled.div`
