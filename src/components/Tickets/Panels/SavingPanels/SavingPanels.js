@@ -26,7 +26,7 @@ const SavingPanels = ({ticketId,onClose}) => {
             {display: "Person 2", id: 'person2'}],
     }
     const {getOne} = useDeskTickets()
-    const [entityType, setEntityType] = useState('contract')
+    const [entityType, setEntityType] = useState('ticket')
     const [currentEntity, setCurrentEntity] = useState({})
 
     const handleEntitySelection = (selection) => setCurrentEntity((prev) => ({...prev, [entityType]: selection}))
