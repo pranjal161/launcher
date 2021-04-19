@@ -38,6 +38,17 @@ $secondary-text-timeline-color: #BDC8D2;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                margin-top: 5px;
+
+                .text-icon-container {
+                    display: flex;
+                    margin-top: 5px;
+
+                    svg {
+                        width: 18px;
+                        margin-right: 5px;
+                    }
+                }
 
                 .username-item {
                     text-align: left;

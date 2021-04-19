@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from "moment";
+import {DescriptionIcon} from './../../../assets/svg';
 
 import "./Item.scss";
 
@@ -29,7 +30,11 @@ const Item = ({ item, users, basketName}) => {
                                     moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
-                                <p className="action-item">Assigned to {users[item.newValue].displayName} in {basketName}</p>
+                                <div className="text-icon-container">
+                                    <DescriptionIcon />
+                                    <p className="action-item">Assigned to {users[item.newValue].displayName} in {basketName}</p>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -105,7 +110,7 @@ const Item = ({ item, users, basketName}) => {
                                     {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
                                 </p>
 
-                                <p className="action-item">Added new document</p>
+                                <p className="action-item">Added new document in {basketName}</p>
                                 <img className="picture-item" src={item.newValue.url} alt={item.newValue.name}/>
                                 <p className="picture-name">{item.newValue.name}</p>
                             </div>
