@@ -1,5 +1,6 @@
 $text-timeline-color: #CDD5DE;
 $secondary-text-timeline-color: #BDC8D2;
+$timeline-username-color: #3572b0;
 
 .timeline-item-container {
     width: 100%;
@@ -43,6 +44,10 @@ $secondary-text-timeline-color: #BDC8D2;
                 .text-icon-container {
                     display: flex;
                     margin-top: 5px;
+                    width: 100%;
+                    text-align: left;
+                    margin-left: 25px;
+                    margin-bottom: 5px;
 
                     svg {
                         width: 18px;
@@ -50,10 +55,25 @@ $secondary-text-timeline-color: #BDC8D2;
                     }
                 }
 
+                .img-container {
+                    width: 100%;
+                    display: flex;
+                    justify-content: left;
+
+                    margin-left: 75px;
+                    margin-bottom: 5px;
+                    align-items: center;
+
+                    p {
+                        margin: 0;
+                        margin-left: 5px;
+                    }
+                }
+
                 .username-item {
                     text-align: left;
                     width: 100%;
-                    margin: 0;
+                    margin: 0px;
                     margin-left: 25px;
                     font-weight: bold;
                 }
@@ -68,6 +88,10 @@ $secondary-text-timeline-color: #BDC8D2;
                 .action-item, .picture-name {
                     margin: 0px 0px 15px 0px;;
                     font-weight: 600;
+
+                    span {
+                        color: $timeline-username-color;
+                    }
                 }
                 .picture-item {
                     width: 65px;
