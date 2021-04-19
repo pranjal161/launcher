@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-
+import { StyleSheetManager } from 'styled-components';
 import ReactDOM from 'react-dom';
 
 /*eslint "require-jsdoc": [2, {
@@ -100,7 +100,7 @@ const NewWindowPortal = ( props : {
     }, [children]);
 
     return (
-        ReactDOM.createPortal(children, container)
+        ReactDOM.createPortal(<StyleSheetManager target={container}>{children}</StyleSheetManager>, container)
     )
 }
 
