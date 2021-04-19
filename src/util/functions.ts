@@ -1,7 +1,6 @@
 import { AppConfig } from '../config/appConfig';
 import axios from 'axios';
 
-
 export const aia = {
     get:(url : string) => axios.get(url, { headers: AppConfig.headers })
 }
@@ -180,4 +179,58 @@ export function searchPerson(value: string) {
     }
     
     return ''
+}
+
+/**
+ * Schema Search
+ * @param {obj} obj that will be used for the search
+ * @returns {*} Parameters for the search - for eg. persons, tickets, contracts
+ */
+export function search(obj: any) {
+    const { search, name, value } = obj;
+    let url = `${AppConfig.hostUrl.defaultHostUrl}${search}?`;
+    let params;
+    const nameSelected = value;
+    
+    if (nameSelected && nameSelected !== '') {
+        
+        if (nameSelected !== undefined) {
+            params = name + '=' + nameSelected;
+        }
+        if (params !== undefined || params !== null) {
+            params = params + '&_num=' + 30;
+        }
+
+        if (url !== undefined && (params !== undefined && params !== null)) {
+            return (url + params);
+        }
+    }
+    
+    return ''
+}
+
+// Search and filter values as per passed parameter
+export const getValues = (array: Array<any>, filterBy: string, matchingValue: string, returnValue?: string) => {
+    const filter: any = array && array.filter((array: any) => array[filterBy] === matchingValue);
+    return returnValue ? filter && filter[0] && filter[0][returnValue] : filter && filter[0];
+}
+
+// Get Field related schema from API response passed
+export const getSearchableSchema = (response: any, rel: string) => {
+    if (response && response._options && response._options.links) {
+        const links = response._options.links;
+        const schema = getValues(links, 'rel', rel, 'schema');
+        return schema && schema.properties;
+    }
+}
+
+// Call a get on DB, filter and return rel based fields data - EX: Find in Global Search
+export const getSearchableFields = (schema: string, rel: string) => {
+    const url = `${AppConfig.hostUrl.defaultHostUrl}${schema}`;
+    const getResp = Promise.resolve(aia.get(url));
+    const searchableFields = getResp.then((result) => {
+        const searchableSchema = getSearchableSchema(result.data, rel);
+        return searchableSchema;
+    });
+    return searchableFields;
 }
