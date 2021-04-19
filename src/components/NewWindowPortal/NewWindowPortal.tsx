@@ -1,3 +1,4 @@
+import {DxcBox} from '@dxc-technology/halstack-react'
 import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import { StyleSheetManager } from 'styled-components';
@@ -100,7 +101,16 @@ const NewWindowPortal = ( props : {
     }, [children]);
 
     return (
-        ReactDOM.createPortal(<StyleSheetManager target={container}>{children}</StyleSheetManager>, container)
+        ReactDOM.createPortal(<DxcBox
+                                margin="xxsmall"
+                                
+                                size="fillParent"
+                                shadowDepth={0}>
+                                <StyleSheetManager 
+                                    target={container}>
+                                        {children}
+                                </StyleSheetManager>
+                            </DxcBox>, container)
     )
 }
 

@@ -4,10 +4,10 @@ import styled from 'styled-components';
 
 interface TabButtonComponentProps{
     isActive: boolean
-};
+}
 
 const TabButtonComponent = styled.div`
-    padding: 0px 5px;
+    
     border-bottom: unset;
     opacity: ${(props: TabButtonComponentProps) => (props.isActive ? 1 : 0.5)};
     color: ${(props: TabButtonComponentProps) => (props.isActive ? '#000000' : '#000000A3')};
@@ -30,14 +30,19 @@ const TabButtonComponent = styled.div`
         justify-content: space-between;
         align-items: center;
         height: 2.5rem;
-        min-width: 120px;
+        min-width: 220px;
+        padding: 0px 5px;
+    }
+
+    & > div > span {
+        padding-left: 5px;
     }
 
     & > div > span:first-child {
         flex-grow: 1;
-        text-align: center;
-        padding: 0px 5px;
-    } 
+        text-align: left;
+        padding-left: 5px;
+    }
 `;
 
 
