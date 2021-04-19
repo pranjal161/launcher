@@ -3,120 +3,170 @@ import moment from "moment";
 
 import "./Item.scss";
 
-const Item = ({ ticket, users}) => {
+const Item = ({ item, users, basketName}) => {
 
     
-    switch(ticket.action) {
+    if(item != undefined){
+        switch(item.action) {
 
-    
-        case "assignedTo":
-            return (
-                ticket &&
-                <div className="timeline-item-container">
-                    <div className="item-container">
-                        <div className="draft-container">
-                            <div className="circle-timeline"></div>
-                            <div className="line-timeline"></div>
-                        </div>
-                        <div className="info-container">
-
-                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
-
-                            <p className="time-item">
-                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
-                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") : moment(ticket.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
-                            </p>
-
-                            <p className="action-item">Assigned to {users[ticket.newValue].displayName}</p>
-                        </div>
-                    </div>
-                </div>
-            )
         
+            case "assignedTo":
+                return (
+                    item &&
+                    <div className="timeline-item-container">
+                        <div className="item-container">
+                            <div className="draft-container">
+                                <div className="circle-timeline"></div>
+                                <div className="line-timeline"></div>
+                            </div>
+                            <div className="info-container">
 
-        case "ticketUpdated":
-            return (
-                ticket &&
-                <div className="timeline-item-container">
-                    <div className="item-container">
-                        <div className="draft-container">
-                            <div className="circle-timeline"></div>
-                            <div className="line-timeline"></div>
-                        </div>
-                        <div className="info-container">
+                                <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
-                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
+                                <p className="time-item">
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                </p>
 
-                            <p className="time-item">
-                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
-                                 moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss") : moment(ticket.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
-                            </p>
-
-                            <p className="action-item">{ticket.action}</p>
-                        </div>
-                    </div>
-                </div>
-            )
-        
-
-        case "createdBy":
-            return (
-                ticket &&
-                <div className="timeline-item-container">
-                    <div className="item-container">
-                        <div className="draft-container">
-                            <div className="circle-timeline"></div>
-                            <div className="line-timeline"></div>
-                        </div>
-                        <div className="info-container">
-
-                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
-
-                            <p className="time-item">
-                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss")}
-                            </p>
-
-                            <p>{ticket.action}</p>
-
-                            <p style={{ marginBottom: 25 }}>{ticket.metadata.momentDate}</p>
+                                <p className="action-item">Assigned to {users[item.newValue].displayName} in {basketName}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
-        
+                )
+            
 
-        case "addedDocument":
-            return (
-                ticket &&
-                <div className="timeline-item-container">
-                    <div className="item-container">
-                        <div className="draft-container">
-                            <div className="circle-timeline"></div>
-                            <div className="line-timeline"></div>
-                        </div>
-                        <div className="info-container">
+            case "ticketUpdated":
+                return (
+                    item &&
+                    <div className="timeline-item-container">
+                        <div className="item-container">
+                            <div className="draft-container">
+                                <div className="circle-timeline"></div>
+                                <div className="line-timeline"></div>
+                            </div>
+                            <div className="info-container">
 
-                            <p className="username-item">{ticket.metadata.updatedByDisplay}</p>
+                                <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
-                            <p className="time-item">
-                                {moment(new Date(ticket.metadata.updatedISODate)).fromNow("ss")}
-                            </p>
+                                <p className="time-item">
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ? 
+                                    moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                </p>
 
-                            <p className="action-item">Added new document</p>
-                            <img className="picture-item" src={ticket.newValue.url} alt={ticket.newValue.name}/>
-                            <p className="picture-name">{ticket.newValue.name}</p>
+                                <p className="action-item">{item.action}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
-        default:
-            return(
-                <div>
-                    <p>Please insert the required props</p>
-                </div>
-            )
+                )
+            
+
+            case "createdBy":
+                return (
+                    item &&
+                    <div className="timeline-item-container">
+                        <div className="item-container">
+                            <div className="draft-container">
+                                <div className="circle-timeline"></div>
+                                <div className="line-timeline"></div>
+                            </div>
+                            <div className="info-container">
+
+                                <p className="username-item">{item.metadata.updatedByDisplay}</p>
+
+                                <p className="time-item">
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                </p>
+
+                                <p>{item.action} {users[item.newValue].displayName}</p>
+
+                                <p style={{ marginBottom: 25 }}>{item.metadata.momentDate}</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            
+
+            case "addedDocument":
+                return (
+                    item &&
+                    <div className="timeline-item-container">
+                        <div className="item-container">
+                            <div className="draft-container">
+                                <div className="circle-timeline"></div>
+                                <div className="line-timeline"></div>
+                            </div>
+                            <div className="info-container">
+
+                                <p className="username-item">{item.metadata.updatedByDisplay}</p>
+
+                                <p className="time-item">
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                </p>
+
+                                <p className="action-item">Added new document</p>
+                                <img className="picture-item" src={item.newValue.url} alt={item.newValue.name}/>
+                                <p className="picture-name">{item.newValue.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            case "removeRelatedClient" || "addedRelatedClient":
+                return (
+                    item &&
+                    <div className="timeline-item-container">
+                        <div className="item-container">
+                            <div className="draft-container">
+                                <div className="circle-timeline"></div>
+                                <div className="line-timeline"></div>
+                            </div>
+                            <div className="info-container">
+
+                                <p className="username-item">{item.metadata.updatedByDisplay}</p>
+
+                                <p className="time-item">
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                </p>
+                                        <p className="action-item">{item.action.replace( /([A-Z])/g, " $1" )} : {item.newValue}</p>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                )
+            case "executedActivity":
+                return(
+                    item &&
+                    <div className="timeline-item-container">
+                        <div className="item-container">
+                            <div className="draft-container">
+                                <div className="circle-timeline"></div>
+                                <div className="line-timeline"></div>
+                            </div>
+                            <div className="info-container">
+
+                                <p className="username-item">{item.metadata.updatedByDisplay}</p>
+
+                                <p className="time-item">
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss")}
+                                </p>
+
+                                <p className="action-item">Activity {item.newValue.replace( /([A-Z])/g, " $1" )} executed</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            default:
+                return(
+                    <div>
+                        <p>Please insert the required props</p>
+                    </div>
+                )
+        }
+    }
+    else{
+        return(<></>)
     }
 
 

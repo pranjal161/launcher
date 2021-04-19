@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import "./Timeline.scss";
 
-const Timeline = ({ ticket, title, users }) => {
+const Timeline = ({ ticket, title, users, basketName }) => {
 
     const [sortTicket, setSortTicket] = React.useState();
 
@@ -26,8 +26,6 @@ const Timeline = ({ ticket, title, users }) => {
 
             sortedArr.map((data) => {
                  const date = moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY");
-
-                //  console.log(date);
                 if (!arrByDate[date]){
                     arrByDate = { ...arrByDate, [date]: [] };
                 }
@@ -58,12 +56,12 @@ const Timeline = ({ ticket, title, users }) => {
                                         sortTicket[data].length > 1 ?
                                             (
                                                 sortTicket[data].map((dataelement, i) => (
-                                                    <Item key={i} ticket={dataelement} users={users}/>
+                                                    <Item key={i} item={dataelement} users={users} basketName={basketName}/>
                                                 ))
                                             )
                                             :
                                             (
-                                                <Item ticket={sortTicket[data][0][Object.keys(sortTicket[data][0])]} users={users} />
+                                                <Item item={sortTicket[data][0][Object.keys(sortTicket[data][0])]} users={users} basketName={basketName}/>
                                             )
                                     }
                                 </div>
