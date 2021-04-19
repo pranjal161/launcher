@@ -7,11 +7,11 @@ import axios from "axios";
 import { getStatusReport } from "util/functions";
 import { useTranslation } from "react-i18next";
 
-const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void }) => {
-    const url = props.response._links.self.href;
+const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) => {
+    const url = props.url;
     const applicationContext = useContext(ApplicationContext);
     const [fundData, setFundData] = useState<any>([]);
-    const [amount, setOperationAmount] = useState(props.response['operation:amount']);
+    const [amount, setOperationAmount] = useState<Number>();
     const [total, setTotal] = useState(0);
     const [investmentSplitPayload, setInvestmentSplitPayload] = useState<any>([]);
     const { t } = useTranslation();
@@ -19,51 +19,57 @@ const UnsolicitedPayment = (props: { response: any; onClickDialog: () => void })
 
     useEffect(() => {
         investmentSplitData();
-    }, [applicationContext, props.response]);
+    }, [applicationContext, props.url]);
 
     const investmentSplitData = () => {
         const requestArray: any[] = [];
-
-        let data = props.response['investment_split'];
-        data.forEach((element: { [x: string]: any }) => {
-            if (element['allocation:coverage_fund']) {
-                requestArray.push(
-                    axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }),
-                );
+        axios.post(url, {}, { headers: applicationContext.headers }).then((res) => {
+            if (res && res.data) {
+                let data = res.data['investment_split'];
+                setOperationAmount(res.data['operation:amount']);
+                data.forEach((element: { [x: string]: any }) => {
+                    if (element['allocation:coverage_fund']) {
+                        requestArray.push(
+                            axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }),
+                        );
+                    }
+                });
+                
+                Promise.all(requestArray).then((response: any[]) => {
+                    response.forEach((res) => { // Use forEach instead of map (no extra memory used)
+                        const resHref = res.data['_links']['self'].href;
+                        const currentItem = data.find(
+                            (item: { [x: string]: any }) => item['allocation:coverage_fund'] === resHref,
+                        );
+        
+                        if (currentItem) {
+                            let result: any = {
+                                allocation_fund: currentItem['allocation:coverage_fund'],
+                                fund_label: res.data['coverage_fund:label'],
+                                value: res.data['interest_fund:net_cash_value']
+                                    ? res.data['interest_fund:net_cash_value']
+                                    : res.data['unit_linked_fund:net_cash_value'],
+                                distribution: currentItem['allocation:rate'],
+                            };
+        
+                            let payload = {
+                                'allocation:coverage_fund': currentItem['allocation:coverage_fund'],
+                                'allocation:rate': currentItem['allocation:rate'],
+                            };
+        
+                            investmentSplitPayload.push(payload);
+                            fundData.push(result);
+                        }
+                    });
+                    
+                    setFundData(fundData);
+                    setInvestmentSplitPayload(investmentSplitPayload);
+                    calculateTotal(investmentSplitPayload);
+                });   
             }
         });
+
         
-        Promise.all(requestArray).then((response: any[]) => {
-            response.forEach((res) => { // Use forEach instead of map (no extra memory used)
-                const resHref = res.data['_links']['self'].href;
-                const currentItem = data.find(
-                    (item: { [x: string]: any }) => item['allocation:coverage_fund'] === resHref,
-                );
-
-                if (currentItem) {
-                    let result: any = {
-                        allocation_fund: currentItem['allocation:coverage_fund'],
-                        fund_label: res.data['coverage_fund:label'],
-                        value: res.data['interest_fund:net_cash_value']
-                            ? res.data['interest_fund:net_cash_value']
-                            : res.data['unit_linked_fund:net_cash_value'],
-                        distribution: currentItem['allocation:rate'],
-                    };
-
-                    let payload = {
-                        'allocation:coverage_fund': currentItem['allocation:coverage_fund'],
-                        'allocation:rate': currentItem['allocation:rate'],
-                    };
-
-                    investmentSplitPayload.push(payload);
-                    fundData.push(result);
-                }
-            });
-            
-            setFundData(fundData);
-            setInvestmentSplitPayload(investmentSplitPayload);
-            calculateTotal(investmentSplitPayload);
-        });
     };
 
     const calculateTotal = (investmentSplitPayload: { [x: string]: number }[]) => {
