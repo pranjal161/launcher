@@ -5,7 +5,7 @@ import React from 'react';
 
 interface IDialog {
     children: any,
-    title: string,
+    title: any,
     onApply: Function,
     onCancel: Function,
     isOpen: boolean,
@@ -32,7 +32,7 @@ const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible =
         <>
             {
                 isOpen && 
-                    <>
+                    <div data-test="component-dialog">
                         <DxcDialog isCloseVisible={closeIconIsVisible} onCloseClick={() => onCancel()}>
                             <div className="dialog">
                                 <div className="header">
@@ -42,7 +42,7 @@ const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible =
                                 <div className="divider"></div>
                                 
                                 <div className="content">
-                                    <Content />
+                                    <Content data-test="component-content" />
                                 </div>
                                 
                                 <div className="divider"></div>
@@ -67,7 +67,7 @@ const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible =
                             </div>
                             
                         </DxcDialog>
-                    </>
+                    </div>
             }
         </>
     )

@@ -10,7 +10,7 @@ import axios from 'axios';
 import {entities} from './models/data.js';
 
 interface Test {
-    onChange?: (value: any) => null
+    onChange?: Function
 }
 
 const TrainingQuentin = () => {
@@ -113,7 +113,7 @@ const TrainingQuentin = () => {
 
     const Content:React.FC<Test> = ({onChange = () => null}: Test) => {
         const handleClick = (value: any) => {
-            onChange(value);
+            onChange && onChange(value);
         }
 
         return (
@@ -199,7 +199,7 @@ const TrainingQuentin = () => {
                                             isOpen={isOpen}
                                             onCancel={handleDialogCancel}
                                             onApply={handleDialogApply}
-                                            title="Title">
+                                            title={<h2>Title</h2>}>
                                             <Content/>
                                         </Dialog>
                                     </div> 
