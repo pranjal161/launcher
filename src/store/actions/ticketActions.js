@@ -186,13 +186,9 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
     const firebase = getFirebase()
 
     const filesPath = `/tickets/${id}`
-    console.log('ICIIII', filesPath, blob, filesPath, {name})
     const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
 
-    console.log('fin de upload 0', uploadPromise)
     uploadPromise.then((uploadResult) => {
-        console.log('fin de upload', )
-        console.log('fin de upload 2', uploadResult.downloadURL)
         addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now(), type})(dispatch, getState, {getFirebase})
     })
 
@@ -201,18 +197,15 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
 }
 
 export const addDocument = (id, document) => (dispatch, getState, {getFirebase}) => {
-    console.log('Début addDocument', document)
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'addedDocument', {newValue: document})
     const documentId = `documents.${document.receivedDate}`
-    console.log('avant addDocument', document)
     return firestore.collection('tickets').doc(id).update(
         {
             [documentId]: document,
             ...history
         }
     ).then((result) => {
-        console.log('history', history)
         addToDailyUpdates(id, history)(dispatch, getState, {getFirebase})
         dispatch({type: 'ADD_DOCUMENT_TICKET_SUCCESS', result})
     }).catch((error) => {
@@ -221,7 +214,7 @@ export const addDocument = (id, document) => (dispatch, getState, {getFirebase})
     })
 }
 
-export const currentDailyUpdatesId = moment().format("DD-MM-Y");
+export const currentDailyUpdatesId = moment().format("DD-MM-Y");lo
 
 const addToDailyUpdates = (id, change) => (dispatch, getState, {getFirebase}) => {
     const firestore = getFirebase().firestore()
