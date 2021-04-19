@@ -1,12 +1,12 @@
 import './styles.scss';
 
 import { DxcInput, DxcTabs } from '@dxc-technology/halstack-react';
-import axios, { AxiosRequestConfig } from 'axios';
 import { componentsTabs, mainTabs } from './models/tabs';
 
 import Dialog from './components/Dialog/Dialog';
 import GlobalSearchMaterial from './components/GlobalSearchMaterial/GlobalSearchMaterial';
 import React from "react";
+import axios from 'axios';
 import {entities} from './models/data.js';
 
 const TrainingQuentin = () => {
