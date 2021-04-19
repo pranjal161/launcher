@@ -9,6 +9,10 @@ import React from "react";
 import axios from 'axios';
 import {entities} from './models/data.js';
 
+interface Test {
+    onChange?: (value: any) => null
+}
+
 const TrainingQuentin = () => {
     
     const [mainActiveTab, setMainActiveTab] = React.useState(0);
@@ -26,6 +30,15 @@ const TrainingQuentin = () => {
     const onSecondaryTabClick = (i: number) => {
         setSecondaryActiveTab(i);
     };
+
+    const handleDialogApply = (newValue: any) => {
+        setVal(newValue);
+        setIsOpen(false);
+    }
+
+    const handleDialogCancel = () => {
+        setIsOpen(false);
+    }
 
     const getData = async (entity: string, property: string, searchValue: string) => {
         const entityGroup = `${entity.toLowerCase()}s`;
@@ -98,6 +111,42 @@ const TrainingQuentin = () => {
         }, 5000)
     }
 
+    const Content:React.FC<Test> = ({onChange = () => null}: Test) => {
+        const handleClick = (value: any) => {
+            onChange(value);
+        }
+
+        return (
+            <>
+                <div className="search-fields">
+                    <DxcInput
+                        onChange={handleSearchChange}
+                        value={searchValue}
+                        placeholder="Ex: Chris"
+                        margin="xsmall"
+                        label="Search a Person"/>
+                </div>
+                
+                <div className="results">
+                    {
+                        resultList.length > 0 &&
+                            resultList.map((result: any, index: number) => (
+                                <div key={index} className="result-row" onClick={() => handleClick(result)}>
+                                    { result}
+                                </div>
+                            ))
+                    }
+
+                    {
+                        resultList.length === 0 &&
+                            <span>No results...</span>
+                    }
+                </div>
+            </>
+        )
+        
+    }
+
     return (
         <>
             <DxcTabs
@@ -142,46 +191,16 @@ const TrainingQuentin = () => {
                                     <div className="q-secondaryTabContent centered">
                                         <div className="row">
                                             <input value={val} type="text" onChange={(e) => setVal(e.target.value)}/>
-                                            <button onClick={() => setIsOpen(!isOpen)}>Open dialog</button>
-                                        </div>                                       
+                                            <button onClick={() => setIsOpen(true)}>Open dialog</button>
+                                        </div>
 
                                         <Dialog
-                                            crossIsVisible={false}
+                                            closeIconIsVisible={false}
                                             isOpen={isOpen}
-                                            setIsOpen={setIsOpen}
-                                            onCancel={() => console.log("closed")}
-                                            onApply={(value: string) => setVal(value)}
+                                            onCancel={handleDialogCancel}
+                                            onApply={handleDialogApply}
                                             title="Title">
-                                            {
-                                                (setValue: Function) => (
-                                                    <>
-                                                        <div className="search-fields">
-                                                            <DxcInput
-                                                                onChange={handleSearchChange}
-                                                                value={searchValue}
-                                                                placeholder="Ex: Chris"
-                                                                margin="xsmall"
-                                                                label="Search a Person"/>
-                                                        </div>
-                                                        
-                                                        <div className="results">
-                                                            {
-                                                                resultList.length > 0 &&
-                                                                    resultList.map((result: any, index: number) => (
-                                                                        <div key={index} className="result-row" onClick={() => setValue(result)}>
-                                                                            { result}
-                                                                        </div>
-                                                                    ))
-                                                            }
-
-                                                            {
-                                                                resultList.length === 0 &&
-                                                                    <span>No results...</span>
-                                                            }
-                                                        </div>
-                                                    </>
-                                                )
-                                            }
+                                            <Content/>
                                         </Dialog>
                                     </div> 
                                 </>
