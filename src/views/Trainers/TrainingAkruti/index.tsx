@@ -1,7 +1,7 @@
 import GlobalSearch from './components/GlobalSearch/GlobalSearch';
 import React from "react";
-import { searchInputsArray } from './components/GlobalSearch/constant';
 import { getSearchableFields } from "util/functions";
+import { searchInputsArray } from './components/GlobalSearch/constant';
 
 const TrainingAkruti = () => {
 

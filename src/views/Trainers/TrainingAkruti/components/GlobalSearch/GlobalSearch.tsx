@@ -1,12 +1,12 @@
 import './GlobalSearch.scss'
 
 import { DxcDate, DxcInput, DxcSelect } from '@dxc-technology/halstack-react';
-import { aia, search, getValues, getSearchableFields } from "util/functions";
+import { aia, getValues, search } from "util/functions";
 
 import React from 'react';
 import moment from "moment";
 
-const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: string, rel: string) => Promise<any> }) =>  {
+const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: string, rel: string) => Promise<any> }) => {
 
     const { config, getAvailableFilter } = props;
     const inputArray = config;
@@ -63,8 +63,6 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
 
     const propertyChange = (newValue: string) => {
         setSelectedProperty(newValue);
-        // const title: Array<{label: string}> = propertyOptions && propertyOptions.filter((array: { value: string }) => array.value === newValue);
-        // setSelectedPropertyTitle(title && title[0].label);
         setSearchedValue('');
         const fieldType: {format: string, oneOf: Array<{enum: Array<[]>, title: string}>} = searchFieldSchema[newValue];
         if (fieldType && fieldType.oneOf) {
@@ -74,6 +72,11 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
             setSearchFieldType(fieldType && fieldType.format ? fieldType.format : '');
         }
     }
+
+    React.useEffect(() => {
+        const selectedTitle = getValues(propertyOptions, 'value', property, 'label');
+        setSelectedPropertyTitle(selectedTitle);
+    }, [property]);
 
     const typeSearchParameter = (value: string) => {
         const updatedValue = searchFieldType ? value : value.toUpperCase();
@@ -85,7 +88,7 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
             getResp.then((response) => {
                 if (response && response.data && response.data['_links'] && response.data['_links']['item']) {
                     const items = response.data['_links']['item'];
-                    const results = items && items.map((data: {title: string}) => {return data.title});
+                    const results = items && items.map((data: {title: string}) => data.title);
                     setSearchOptions(results);
                 }
             });
@@ -129,7 +132,7 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
                     <div className="col-6">
                         <div className="w-100" onClick={() => setShowFields(true)}>
                             {!searchFieldType && <DxcInput
-                                label={`Search ${propertyTitle}`}
+                                label={`Search ${propertyTitle ? propertyTitle : ''}`}
                                 onChange={typeSearchParameter}
                                 autocompleteOptions={searchOptions}
                                 margin="medium"
@@ -138,14 +141,14 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
                             {searchFieldType && searchFieldType === 'oneOf' && 
                                 <DxcSelect options={selectBoxOptions}
                                     onChange={typeSearchParameter}
-                                    label={`Select ${propertyTitle}`}
+                                    label={`Select ${propertyTitle ? propertyTitle : ''}`}
                                     margin="medium"
                                     padding={{top: "xxsmall", left: "medium", right: "medium", bottom:"xxsmall"}}
                                 />
                             }
                             {searchFieldType && searchFieldType === 'date' && 
                                 <DxcDate
-                                    label={`Select ${propertyTitle}`}
+                                    label={`Select ${propertyTitle ? propertyTitle : ''}`}
                                     placeholder
                                     value={searchDateValue}
                                     format="yyyy-dd-MM"

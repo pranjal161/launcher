@@ -181,6 +181,11 @@ export function searchPerson(value: string) {
     return ''
 }
 
+/**
+ * Schema Search
+ * @param {obj} obj that will be used for the search
+ * @returns {*} Parameters for the search - for eg. persons, tickets, contracts
+ */
 export function search(obj: any) {
     const { search, name, value } = obj;
     let url = `${AppConfig.hostUrl.defaultHostUrl}${search}?`;
