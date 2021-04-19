@@ -52,7 +52,7 @@ const ContractSummary = () => {
     const [historySelect, changeHistory] = useState('');
     const [historySelectOptions, setHistoryOptions] = useState([]);
     const [isDialogVisible, setDialogVisible] = useState(false);
-    const [unsolicitedPaymentRes, setunsolicitedPaymentRes] = useState<undefined | string>();
+    const [unsolicitedPaymentUrl, setunsolicitedPaymentUrl] = useState<undefined | string>();
     const [outputDoc, setOutputDoc] = useState('');
     const [receivedDoc, setReceivedDoc] = useState('');
     const actionOptions = [
@@ -201,12 +201,8 @@ const ContractSummary = () => {
                 const payment = operationItem.find((item: { name: string }) => item.name === 'unsolicited_payment');
                 
                 if (payment && payment.href) {
-                    axios.post(payment.href, {}, { headers: applicationContext.headers }).then((res) => {
-                        if (res && res.data) {
-                            setunsolicitedPaymentRes(res.data);
-                            setDialogVisible(true);
-                        }
-                    });
+                    setunsolicitedPaymentUrl(payment.href);
+                    setDialogVisible(true);
                 }
             }
         });
@@ -380,9 +376,9 @@ const ContractSummary = () => {
                     </div>
                 )}
             </div>
-            {isDialogVisible && unsolicitedPaymentRes && (
+            {isDialogVisible && unsolicitedPaymentUrl && (
                 <DxcDialog onCloseClick={onClickDialog} padding="medium">
-                    <UnsolicitedPayment onClickDialog={onClickDialog} response={unsolicitedPaymentRes} />
+                    <UnsolicitedPayment onClickDialog={onClickDialog} url={unsolicitedPaymentUrl} />
                 </DxcDialog>
             )}
         </>
