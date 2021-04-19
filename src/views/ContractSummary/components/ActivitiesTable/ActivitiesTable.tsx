@@ -9,7 +9,7 @@ const ActivitiesTable = (props: { contractResponse: any }) => {
     const applicationContext = useContext(ApplicationContext);
     const activityListColumns = [
         { label: '_USER', property: 'w_m_activity:user' },
-        { label: '_TYPE', property: 'w_m_activity:Label' },
+        { label: '_TYPE', property: 'w_m_activity:label' },
         { label: '_DATE', property: 'w_m_activity:effective_date', type: 'date' },
         { label: '_STATUS', property: 'w_m_activity:status' },
     ];

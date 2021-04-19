@@ -43,12 +43,12 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
     return (
         <>
             <DxcHeading level={5} weight="light" text={t('_SENT_DOCUMENTS')} />
-            <div className="row">
+            <div className="d-inline-flex">
                 {outputDocData &&
                     outputDocData['_links'] &&
                     outputDocData['_links']['item'] &&
                     outputDocData['_links']['item'].map((item: any, index: number) => (
-                        <div key={index} className="col-4 document-tile">
+                        <div key={index} className="document-tile">
                             <DxcCard
                                 // onClick={openDocument(item)}
                                 imageSrc={Document}
@@ -94,12 +94,12 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
             </div>
 
             <DxcHeading level={5} weight="light" text={t('_RECEIVED_DOCUMENTS')} />
-            <div className="row">
+            <div className="d-inline-flex">
                 {receivedDocData &&
                     receivedDocData['_links'] &&
                     receivedDocData['_links']['item'] &&
                     receivedDocData['_links']['item'].map((item: any, index: number) => (
-                        <div key={index} className="col-4 document-tile">
+                        <div key={index} className="document-tile">
                             <DxcCard
                                 // onClick={openDocument(item)}
                                 imageSrc={Document}
@@ -168,7 +168,7 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
             {/*   TODO
             {isDialogVisible && (
                 <DxcDialog padding="medium">
-                    <Label className="col-md-12 labelPDF" id="Label-doc"> selectedDoclabel</Label>
+                    <label className="col-md-12 labelPDF" id="label-doc"> selectedDoclabel</label>
                     {printmode === 'xml' && (<pre className="preXML" id="xml-doc">content</pre>)}
                     {/* {printmode === 'pdf' && (<iframe [src]="content" type="application/pdf" id="pdf-doc" class="framePDF"></iframe>)} 
 
