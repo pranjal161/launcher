@@ -1,10 +1,16 @@
 import React from 'react';
 import moment from "moment";
-import { DescriptionIcon } from './../../../assets/svg';
+import { DescriptionIcon } from '../../../assets/svg';
 
 import "./Item.scss";
 
-const Item = ({ item, users, basketName }) => {
+interface IItem {
+    item: any,
+    users: any,
+    basketName: string
+}
+
+const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
 
 
     if (item != undefined) {
@@ -23,9 +29,9 @@ const Item = ({ item, users, basketName }) => {
                                     <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                     <p className="time-item">
-                                        {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                            moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ?
-                                            moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                        {moment(new Date(item.metadata.updatedISODate)).fromNow().includes("hours") ||
+                                            moment(new Date(item.metadata.updatedISODate)).fromNow().includes("minutes") ?
+                                            moment(new Date(item.metadata.updatedISODate)).fromNow() : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                     </p>
 
                                     <div className="text-icon-container">
@@ -55,9 +61,9 @@ const Item = ({ item, users, basketName }) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ?
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow().includes("hours") ||
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow().includes("minutes") ?
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow() : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
 
@@ -85,9 +91,9 @@ const Item = ({ item, users, basketName }) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ?
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.timestamp).format('DD/MM/YYYY - HH:MM')}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow().includes("hours") ||
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow().includes("minutes") ?
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow() : moment(item.metadata.timestamp).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
                                 <div className="text-icon-container">
@@ -116,9 +122,9 @@ const Item = ({ item, users, basketName }) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ?
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow().includes("hours") ||
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow().includes("minutes") ?
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow() : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
                                 <div className="text-icon-container">
@@ -148,9 +154,9 @@ const Item = ({ item, users, basketName }) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ?
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow().includes("hours") ||
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow().includes("minutes") ?
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow() : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
 
@@ -177,9 +183,9 @@ const Item = ({ item, users, basketName }) => {
                                 <p className="username-item">{item.metadata.updatedByDisplay}</p>
 
                                 <p className="time-item">
-                                    {moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("hours") ||
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss").includes("minutes") ?
-                                        moment(new Date(item.metadata.updatedISODate)).fromNow("ss") : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow().includes("hours") ||
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow().includes("minutes") ?
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow() : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
                                 </p>
 
                                 <div className="text-icon-container">
