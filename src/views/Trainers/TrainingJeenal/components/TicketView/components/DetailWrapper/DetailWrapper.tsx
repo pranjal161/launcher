@@ -1,7 +1,8 @@
+import './DetailWrapper.scss';
+
+import MiddleBar from '../MiddleBar/MiddleBar';
 import React from 'react';
 import ViewDetails from '../ViewDetails/ViewDetails';
-import MiddleBar from '../MiddleBar/MiddleBar';
-import './DetailWrapper.scss';
 
 const DetailWrapper = (props: { ticket: any }) => {
 

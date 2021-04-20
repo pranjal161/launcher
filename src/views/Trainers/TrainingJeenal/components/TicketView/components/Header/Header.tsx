@@ -1,24 +1,27 @@
-import { AddReminder, EyeIcon } from "assets/svg";
-import React from "react";
-import { DxcButton } from "@dxc-technology/halstack-react";
-import styled from "styled-components";
-import { StyledButton } from 'styles/global-style';
 import "./Header.scss";
 
+import { AddReminder, EyeIcon } from "assets/svg";
+
+import { DxcButton } from "@dxc-technology/halstack-react";
+import React from "react";
+import { StyledButton } from 'styles/global-style';
+import styled from "styled-components";
 
 const Header = (props: { ticket: any }) => {
     const { ticket } = props;
 
     const onLaunchActivity = () => {
+        //write functionality on click of launch activity
 
     }
 
     const viewHistory = () => {
+        // write functionality on the click of view history icon
 
     }
 
     const addReminder = () => {
-
+        // write functionality on the click of add remider icon
     }
 
     const Root = styled.div`
