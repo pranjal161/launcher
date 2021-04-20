@@ -1,6 +1,7 @@
 import "./Dialog.scss";
 
 import { DxcButton, DxcDialog } from '@dxc-technology/halstack-react';
+
 import React from 'react';
 
 interface IDialog {
@@ -27,6 +28,7 @@ const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible =
     }
 
     const Content = () => React.cloneElement(children, {onChange: setValue});
+    const Title = () => title;
 
     return (
         <>
@@ -36,7 +38,7 @@ const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible =
                         <DxcDialog isCloseVisible={closeIconIsVisible} onCloseClick={() => onCancel()}>
                             <div className="dialog">
                                 <div className="header">
-                                    <h5>{title}</h5>
+                                    <Title data-test="component-title"/>
                                 </div>
                                 
                                 <div className="divider"></div>
@@ -51,6 +53,7 @@ const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible =
                                     <div className="buttons">
                                         
                                         <DxcButton
+                                            data-test="component-button-apply"
                                             disabled={value === null}
                                             mode="primary"
                                             label="Apply"
@@ -58,6 +61,7 @@ const Dialog:React.FC<IDialog> = ({children, title, isOpen, closeIconIsVisible =
                                             margin="xsmall" />
 
                                         <DxcButton
+                                            data-test="component-button-cancel"
                                             mode="secondary"
                                             label="Close"
                                             onClick={handleCloseClick}
