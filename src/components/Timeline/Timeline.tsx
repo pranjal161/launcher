@@ -24,7 +24,7 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
             let sortedArr:any[] = [];
 
             Object.keys(history).map((data) => {
-                sortedArr = [...sortedArr, history[data]]
+                return sortedArr = [...sortedArr, history[data]]
             });
 
             sortedArr.sort((a:any, b:any) => (b.metadata?.timestamp) - (a.metadata?.timestamp));
@@ -36,12 +36,12 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
                 if (!arrByDate[date]) {
                     arrByDate = { ...arrByDate, [date]: [] };
                 }
-                arrByDate[date] = [...arrByDate[date], data]
+               return arrByDate[date] = [...arrByDate[date], data]
             });
 
             setSortTicket(arrByDate);
         }
-    }, []);
+    }, [ticket]);
 
     return (
         <div className="timeline-container" data-test="timeline-component">
@@ -60,10 +60,10 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
                                     <p className="title-date">Today</p>
                                 }
                                 {
-                                    moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY") != moment(new Date()).format("DD/MM/YYYY") &&
-                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("seconds") ||
+                                    moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY") !== moment(new Date()).format("DD/MM/YYYY") &&
+                                    (moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("seconds") ||
                                     moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("hours") ||
-                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("minutes") ?
+                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("minutes")) ?
                                         <p className="title-date">A day</p> 
                                         : 
                                         <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
