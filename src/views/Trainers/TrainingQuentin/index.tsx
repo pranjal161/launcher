@@ -199,7 +199,7 @@ const TrainingQuentin = () => {
                                             isOpen={isOpen}
                                             onCancel={handleDialogCancel}
                                             onApply={handleDialogApply}
-                                            title={<h2>Title</h2>}>
+                                            title={<h4>Title</h4>}>
                                             <Content/>
                                         </Dialog>
                                     </div> 
