@@ -1,10 +1,10 @@
-import useDeskTickets from "data/hooks/useDeskTickets";
-import React from "react";
+import "./styles.scss";
+
 import DetailWrapper from "./components/TicketView/components/DetailWrapper/DetailWrapper";
 import Header from "./components/TicketView/components/Header/Header";
+import React from "react";
 import SideBar from "./components/TicketView/components/Sidebar/SideBar";
-
-import "./styles.scss";
+import useDeskTickets from "data/hooks/useDeskTickets";
 
 const TrainingJeenal = () => {
     const ticketDesk = useDeskTickets()

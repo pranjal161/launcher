@@ -1,25 +1,24 @@
-import Card from "components/Card/Card";
-import EditableField from "components/EditableField/EditableField";
-import DataLine from "components/Tickets/PreviewContainer/components/Preview/components/DataLine/DataLine";
-import UserSelection from "components/Tickets/PreviewContainer/components/Preview/components/UserSelection/UserSelection";
 import React, { useCallback } from "react";
-import useDeskUsers from "data/hooks/useDeskUsers";
-import useDeskTickets from "data/hooks/useDeskTickets";
-import Label from "components/Tickets/PreviewContainer/components/Preview/components/Label/Label";
-import { formatValue } from "util/functions";
-import TextField from "@material-ui/core/TextField/TextField";
-import moment from "moment";
-import Deadline from "components/Deadline/Deadline";
-import Section from "components/Section/Section";
 
+import DataLine from "components/Tickets/PreviewContainer/components/Preview/components/DataLine/DataLine";
+import Deadline from "components/Deadline/Deadline";
+import EditableField from "components/EditableField/EditableField";
+import Label from "components/Tickets/PreviewContainer/components/Preview/components/Label/Label";
+import Section from "components/Section/Section";
 import StatusSelection from "components/StatusSelection/StatusSelection";
 import { StyledDivider } from "styles/global-style";
+import TextField from "@material-ui/core/TextField/TextField";
+import UserSelection from "components/Tickets/PreviewContainer/components/Preview/components/UserSelection/UserSelection";
+import { formatValue } from "util/functions";
+import moment from "moment";
 import useDeskBaskets from "data/hooks/useDeskBaskets";
+import useDeskTickets from "data/hooks/useDeskTickets";
+import useDeskUsers from "data/hooks/useDeskUsers";
+
 const TicketViewDetails = (props: { ticket: any }) => {
     const { ticket } = props;
     const { assignTo, update } = useDeskTickets();
     const basketDesk = useDeskBaskets();
-
     const allBaskets = basketDesk.getAll();
 
 
@@ -92,7 +91,16 @@ const TicketViewDetails = (props: { ticket: any }) => {
                         <DataLine label={<Label>Basket</Label>}>{getBasketTitle(ticket.basketId)}</DataLine>
                     </div>
                     <div id="ticket_details" className="col-6">
-                        <DataLine label={<Label>Status</Label>}>New</DataLine>
+                        <DataLine label={<Label>Status</Label>}>
+                            <EditableField
+                                field="status"
+                                type="select"
+                                value={ticket.status}
+                                displayValue={ticket.status}
+                                onChange={handleAssignTo}>
+                                <StatusSelection />
+                            </EditableField>
+                        </DataLine>
 
                         <DataLine label={<Label>Priority</Label>}>Critical</DataLine>
                         <DataLine label={<Label>Person in charge</Label>}>
