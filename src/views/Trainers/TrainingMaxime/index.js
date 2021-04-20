@@ -1,181 +1,28 @@
-import "./index.scss";
-import {DxcDate, DxcInput, DxcSelect} from "@dxc-technology/halstack-react";
-import EditableField from "components/EditableField/EditableField";
 import React from 'react';
 
+import {useSelector} from "react-redux";
+
+import HistoryImplement from "./components/HistoryImplement";
+import "./index.scss"
+
 const TrainingMaxime = () => {
-    const [data, setData] = React.useState({
-        name: "Mary",
-        firstname: "Maxime",
-        age: "25",
-        date: "01-01-1995",
-        gender: 1
-    });
+    // const id = "ZWbCidiMasEx9ZHbe11W";
+    // const id = "bUibfxQIoJDlbMjGpZB0";
+    // const id = "e1CPnld1KNGX2lHodyRR";
+    const id = "Edi1dN60i2O2eFm9zJ0f";
+    const ticket = useSelector((state) => (state.firestore.data.tickets?{id, ...state.firestore.data.tickets[id]}:undefined));
+    const users = useSelector((state) => (state.firestore.data.users?{...state.firestore.data.users}:undefined));
+    const baskets = useSelector((state) => (state.firestore.data.baskets?{...state.firestore.data.baskets}:undefined));
 
-    const [isInvalid, changeIsInvalid] = React.useState(false);
-    const onChangeSelect = (newValue) => {
-        setData({
-            ...data, "gender": newValue
-        });
-    };
-
-    const {name, firstname, age, date, gender} = data;
-
-    const genderChoice = [
-        {
-            value: 1,
-            label: "Woman"
-        },
-        {
-            value: 2,
-            label: "Man"
-        },
-        {
-            value: 3,
-            label: "Other"
-        }
-    ];
-
-
-    const suggestionsName = [
-        "Dupont", "Dumoulin", "Nicolas"
-    ]
-
-
-    const onChangeTestforReset = (newValue, fieldName) => {
-        setData({
-            ...data, [fieldName]: newValue
-        });
-    }
-
-    const onChangeDate = ({stringValue, dateValue}) => {
-        setData({
-            ...data, "date": stringValue
-        });
-        changeIsInvalid(!dateValue);
-    };
-
-    const onChange = (fieldName) => (newValue) => {
-        setData({
-            ...data, [fieldName]: newValue
-        });
-    }
-
-    return (
-        <div className="training-maxime-container">
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Name</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="input"
-                        value={name}
-                        mode="update"
-                        fieldName="name"
-                        onChange={onChangeTestforReset}>
-                        <DxcInput
-                            value={name}
-                            onChange={onChange("name")}
-                            margin="xsmall"
-                            size="fillParent"
-                            autocompleteOptions={suggestionsName}/>
-                    </EditableField>
-
-                </div>
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Firstname</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="input"
-                        value={firstname}
-                        mode="updateOnHover"
-                        fieldName="firstname"
-                        onChange={onChangeTestforReset}>
-                        <DxcInput
-                            value={firstname}
-                            onChange={onChange("firstname")}
-                            margin="xsmall"
-                            size="fillParent"/>
-                    </EditableField>
-                </div>
-
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Age</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        value={age}
-                        mode="readOnly"
-                        fieldName="age"
-                    />
-                </div>
-
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Date</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="date"
-                        value={date}
-                        mode="updateOnHover"
-                        fieldName="date">
-                        <DxcDate
-                            value={date}
-                            invalid={isInvalid}
-                            format="MM-dd-yyyy"
-                            onChange={onChangeDate}
-                        />
-                    </EditableField>
-                </div>
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Gender</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="select"
-                        value={gender}
-                        mode="updateOnHover"
-                        fieldName="gender">
-                        <DxcSelect
-                            options={genderChoice}
-                            onChange={onChangeSelect}
-                            value={gender}
-                            margin="medium"
-                        />
-                    </EditableField>
-                </div>
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Gender</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="select"
-                        value={gender}
-                        mode="update"
-                        fieldName="gender2">
-                        <DxcSelect
-                            options={genderChoice}
-                            onChange={onChangeSelect}
-                            value={gender}
-                            margin="medium"
-                        />
-                    </EditableField>
-                </div>
-            </div>
-        </div>
-    );
+   return (
+       <div className="training-maxime-container">
+           {
+               ticket && baskets && 
+                 <HistoryImplement ticket={ticket} users={users} basketName={baskets[ticket.basketId].title}/>
+           }
+           
+       </div>
+   )
 };
 export default TrainingMaxime;
 
