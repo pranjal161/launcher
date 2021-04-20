@@ -13,7 +13,7 @@ interface IItem {
 const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
 
 
-    if (item != undefined) {
+    if (item !== undefined) {
         switch (item.action) {
             case "assignedTo":
                 return (
