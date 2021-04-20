@@ -19,12 +19,12 @@ const TrainingJeenal = () => {
         <>
             <h1>Jeenal</h1>
             <Header ticket={currentTicket} />
-            <div className='row overflow-hidden'>
-                <div className='col-9 min-vh-100 divider'>
+            <div className="row overflow-hidden">
+                <div className="col-9 min-vh-100 divider">
                     <DetailWrapper ticket={currentTicket} />
                 </div>
-                <div className='col-3 min-vh-100'>
-                    <SideBar ticket={currentTicket} />
+                <div className="col-3 min-vh-100">
+                    <SideBar />
                 </div>
             </div>
 

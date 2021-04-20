@@ -1,4 +1,4 @@
-import { EyeIcon, AddReminder } from "assets/svg";
+import { AddReminder, EyeIcon } from "assets/svg";
 import React from "react";
 import { DxcButton } from "@dxc-technology/halstack-react";
 import styled from "styled-components";
@@ -33,13 +33,13 @@ align-items:center;
         ticket && ticket.title
         && (
             <Root>
-                <div className='col-9'>
+                <div className="col-9">
                     <h3>
                         {ticket.title}
                         {/* ticketTitle */}
                     </h3>
                 </div>
-                <div className='col-3 display-contents'>
+                <div className="col-3 display-contents">
                     <StyledButton onClick={viewHistory}>
                         <EyeIcon />
                     </StyledButton>

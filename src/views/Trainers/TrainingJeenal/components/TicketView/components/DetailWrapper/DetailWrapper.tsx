@@ -8,13 +8,13 @@ const DetailWrapper = (props: { ticket: any }) => {
     const { ticket } = props;
     return (
         <>
-            <div className='row'>
-                <div className='col-9 min-vh-100 divider'>
+            <div className="row">
+                <div className="col-9 min-vh-100 divider">
                     <div className="ml-2">
                         <ViewDetails ticket={ticket} />
                     </div>
                 </div>
-                <div className='col-3 min-vh-100'>
+                <div className="col-3 min-vh-100">
                     <MiddleBar />
                 </div>
 

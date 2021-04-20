@@ -15,7 +15,7 @@ import useDeskBaskets from "data/hooks/useDeskBaskets";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
 
-const TicketViewDetails = (props: { ticket: any }) => {
+const ViewDetails = (props: { ticket: any }) => {
     const { ticket } = props;
     const { assignTo, update } = useDeskTickets();
     const basketDesk = useDeskBaskets();
@@ -30,9 +30,7 @@ const TicketViewDetails = (props: { ticket: any }) => {
     const PersonValue = (personid: any) => {
         const { personId } = personid;
         const { getOne } = useDeskUsers();
-        const person: any = useCallback(() => {
-            return getOne(personId);
-        }, [personid]);
+        const person: any = useCallback(() => getOne(personId), [personid]);
         return <> {person && person.displayName} </>;
     };
 
@@ -149,4 +147,4 @@ const TicketViewDetails = (props: { ticket: any }) => {
     );
 };
 
-export default TicketViewDetails;
+export default ViewDetails;

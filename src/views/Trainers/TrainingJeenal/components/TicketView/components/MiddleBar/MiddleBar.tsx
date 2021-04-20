@@ -1,9 +1,7 @@
 import React from 'react';
-const MiddleBar = () => {
-    return (
-        <>middlebar
-        </>
-    )
-}
+const MiddleBar = () => (
+    <>middlebar
+    </>
+)
 
 export default MiddleBar;
