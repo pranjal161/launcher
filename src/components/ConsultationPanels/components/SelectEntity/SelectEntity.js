@@ -6,7 +6,7 @@ import SectionHeader from "components/SectionHeader/SectionHeader";
 const SelectEntity = ({entities, value, onChange}) => {
     let currentValue = value
     useEffect(() => {
-        if (!value && entities.length) {
+        if (!value && entities.length > 1) {
             //By default, we display the first item of entities
             currentValue = entities[0].id
             onChange(currentValue)

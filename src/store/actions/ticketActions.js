@@ -5,7 +5,7 @@ const addHistory = (state, action, values = {}) => {
     const timestamp = Date.now()
     const historyField = 'history.' + timestamp
     const updatedBy = state.auth.id
-    const updatedByDisplay= state.firebase.profile.displayName
+    const updatedByDisplay = state.firebase.profile.displayName
     const updatedISODate = moment(timestamp).format()
     return {
         [historyField]: {action, ...values, metadata: {updatedBy, updatedByDisplay, updatedISODate, timestamp}}
@@ -70,7 +70,7 @@ export const assignTo = (id, userId) => (dispatch, getState, {getFirebase}) => {
     dispatch({type: 'ASSIGN_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'assignedTo', {newValue: userId})
-    const assignedToDisplay = userId?getState().firestore.data.users[userId].displayName:''
+    const assignedToDisplay = userId ? getState().firestore.data.users[userId].displayName : ''
 
     return firestore.collection('tickets').doc(id).update(
         {
@@ -187,9 +187,11 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
 
     const filesPath = `/tickets/${id}`
     const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
+
     uploadPromise.then((uploadResult) => {
         addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now(), type})(dispatch, getState, {getFirebase})
     })
+
 
     return uploadPromise
 }
@@ -204,7 +206,6 @@ export const addDocument = (id, document) => (dispatch, getState, {getFirebase})
             ...history
         }
     ).then((result) => {
-        console.log('history', history)
         addToDailyUpdates(id, history)(dispatch, getState, {getFirebase})
         dispatch({type: 'ADD_DOCUMENT_TICKET_SUCCESS', result})
     }).catch((error) => {
@@ -223,7 +224,7 @@ const addToDailyUpdates = (id, change) => (dispatch, getState, {getFirebase}) =>
 
     //the format of the nested object is different using set and update !!!
     if (!dailyUpdatesExist)
-    //Create the document empty
+        //Create the document empty
         firestore.collection('dailyUpdates').doc(dailyUpdateId).set({})
 
     return firestore.collection('dailyUpdates').doc(dailyUpdateId).update({

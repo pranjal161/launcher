@@ -43,7 +43,7 @@ function copyStyles(sourceDoc: Document, targetDoc: Document) {
 const NewWindowPortal = ( props : {
                                         children: any, 
                                         onCloseCallback: Function, 
-                                        windowFullScreen?: boolean,
+                                        windowMaximized?: boolean,
                                         passSetFocus?: boolean,
                                         windowWidth?: number,
                                         windowHeight?: number,
@@ -52,7 +52,7 @@ const NewWindowPortal = ( props : {
                                     }) => {
     const { 
         onCloseCallback = null,
-        windowFullScreen = false,
+        windowMaximized = false,
         passSetFocus = false,
         windowWidth = 620,
         windowHeight = 600,
@@ -79,11 +79,13 @@ const NewWindowPortal = ( props : {
     }
 
     let windowNotFullScreenSpecs = '';
-    if(!windowFullScreen)
+    if(!windowMaximized)
         windowNotFullScreenSpecs = `,width=${windowWidth},height=${windowHeight},left=${windowLeft},top=${windowTop}`;
+    else
+    windowNotFullScreenSpecs = `,width=${window.screen.availWidth},height=${window.screen.availHeight},left=0,top=0`;
 
     useEffect(() => {
-        externalWindow = window.open('', '', `fullscreen=${windowFullScreen}${windowNotFullScreenSpecs}`);
+        externalWindow = window.open('', '', windowNotFullScreenSpecs);
         externalWindow.document.body.appendChild(container);
         copyStyles(document, externalWindow.document);
 
