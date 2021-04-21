@@ -13,6 +13,6 @@ export const componentsTabs = [
         label: "(WIP) Global Search - Material"
     },
     {
-        label: "(WIP) Global Search - DXC"
-    },
+        label: "(Search) Field Dialog"
+    }
 ]
