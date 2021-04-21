@@ -1,4 +1,4 @@
-import { checkProps, findByTestAttr } from '../../../../../test/testUtils';
+import { checkProps, findByTestAttr } from "../../test/testUtils";
 
 import Dialog from "./Dialog";
 import React from "react";
@@ -20,13 +20,14 @@ const Title = (props: {value: string}) => (
     </div>
 );
 
-const setup = (props: {isOpen: boolean, title?: any, onApply?: Function, onCancel?: Function, closeIconIsVisible?: boolean}) => {
+const setup = (props: {isOpen: boolean, title?: any, onApply?: Function, onCancel?: Function, closeIconIsVisible?: boolean, actionsAreVisible?: boolean}) => {
 
     props.isOpen = props.isOpen || false;
     props.title = props.title || "Test";
     props.onApply = props.onApply || jest.fn();
     props.onCancel = props.onCancel || jest.fn();
     props.closeIconIsVisible = props.closeIconIsVisible || false;
+    props.actionsAreVisible = props.actionsAreVisible || true;
 
     return shallow(
         <Dialog
@@ -34,7 +35,8 @@ const setup = (props: {isOpen: boolean, title?: any, onApply?: Function, onCance
             onCancel={props.onCancel}
             onApply={props.onApply}
             title={props.title}
-            isOpen={props.isOpen}>
+            isOpen={props.isOpen}
+            actionsAreVisible={props.actionsAreVisible}>
             <Content />
         </Dialog>
     )
@@ -49,17 +51,14 @@ test("Dialog renders without crashing", () => {
 
 test("Does not throw warning with expected props", () => {
     const mockFunc = jest.fn();
-    checkProps(Dialog, {isOpen: true, title: "Test", onApply: mockFunc, onCancel: mockFunc, closeIconIsVisible: false});
+    checkProps(Dialog, {isOpen: true, title: "Test", onApply: mockFunc, onCancel: mockFunc, closeIconIsVisible: false, actionsAreVisible: true});
 });
 
 describe("Dialog component is displayed", () => {
     let wrapper: any;
-    let mockSetSelectedValue = jest.fn();
 
     beforeEach(() => {
-        mockSetSelectedValue.mockClear();
-        React.useState = jest.fn(() => ["", mockSetSelectedValue]);
-        wrapper = setup({isOpen: true, title: Title});
+        wrapper = setup({isOpen: true, title: Title, actionsAreVisible: true});
     });
 
     test("Children component renders without crashing", () => {
@@ -72,18 +71,33 @@ describe("Dialog component is displayed", () => {
         expect(titleComponent.length).toBe(1);
     });
 
-    test("onApply event send selected value", () => {
-        const buttonApply = findByTestAttr(wrapper, "component-button-apply");
-        buttonApply.simulate('click', {target: {value:"test"}});
-        expect(mockSetSelectedValue).toHaveBeenCalledTimes(1);
-    });
+    describe("actionsAreVisible props is true", () => {
+        let mockSetSelectedValue = jest.fn();
+    
+        beforeEach(() => {
+            mockSetSelectedValue.mockClear();
+            React.useState = jest.fn(() => ["", mockSetSelectedValue]);
+        });
+    
+        test("Actions are rendered", () => {
+            const actions = findByTestAttr(wrapper, "component-actions");
+            expect(actions.length).toBe(1);
+        });
 
-    test("state is cleared after onCancel event called", () => {
-        const buttonCancel = findByTestAttr(wrapper, "component-button-cancel");
-        buttonCancel.simulate('click', {preventDefault() {}});
-        expect(mockSetSelectedValue).toHaveBeenCalledTimes(1);
+        test("setValue function called when onApply event triggered", () => {
+            const buttonApply = findByTestAttr(wrapper, "component-button-apply");
+            buttonApply.simulate('click', {});
+            expect(mockSetSelectedValue).toHaveBeenCalledTimes(1);
+        });
+        
+        test("setValue function called when onCancel event triggered", () => {
+            const buttonApply = findByTestAttr(wrapper, "component-button-apply");
+            buttonApply.simulate('click', {});
+            expect(mockSetSelectedValue).toHaveBeenCalledTimes(1);
+        });
     });
 });
+
 
 test("Dialog component is not displayed", () => {
     const wrapper = setup({isOpen: false});
