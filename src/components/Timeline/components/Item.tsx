@@ -17,7 +17,7 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
     //     console.log(item)
     // }, [item]);
 
-    if (item !== undefined) {
+    if (item) {
         switch (item.action) {
             case "assignedTo":
                 return (
@@ -84,7 +84,7 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
             case "createdBy":
                 return (
                     item &&
-                    <div className="timeline-item-container">
+                    <div className="timeline-item-container" data-test="createdBy-item">
                         <div className="item-container">
                             <div className="draft-container">
                                 <div className="circle-timeline"></div>
@@ -204,7 +204,7 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
                 )
             default:
                 return (
-                    <div>
+                    <div data-test="error-item">
                         <p>Please insert the required props</p>
                     </div>
                 )
