@@ -42,7 +42,7 @@ align-items:center;
                         {/* ticketTitle */}
                     </h3>
                 </div>
-                <div className="col-3 display-contents">
+                <div className="col-3 left">
                     <StyledButton onClick={viewHistory}>
                         <EyeIcon />
                     </StyledButton>
