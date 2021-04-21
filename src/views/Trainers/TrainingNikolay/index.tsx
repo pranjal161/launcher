@@ -35,7 +35,7 @@ const TrainingNikolay = () => {
                     <th/>
                 </tr>
                 {
-                    tickets && tickets.map((ticket: any, i: number) => (
+                    tickets && tickets.map((ticket: any) => (
                         <tr key={ticket.id}>
                             <td>{ticket.id}</td>
                             <td>{ticket.status}</td>
