@@ -1,4 +1,5 @@
 import {DoubleArrowIcon, OpenInNewIcon, TabIcon} from "../../assets/svg";
+import IconButton from "../IconButton/IconButton";
 import PropTypes from "prop-types";
 import React from 'react';
 import {StyledMainDivider} from "styles/global-style";
@@ -70,19 +71,21 @@ const AdjustStyledDivider= styled(StyledMainDivider)`
 const ConsultationPanels = ({header, content, toolbar, onToggle, onOpenInNew, onNewTab}) => (
     <Root>
         <Row1>
-            <Toggle data-test="toggle" onClick={onToggle}>
-                <DoubleArrowIcon/>
+            <Toggle data-test="toggle" >
+                <IconButton onClick={onToggle}>
+                    <DoubleArrowIcon/>
+                </IconButton>
             </Toggle>
             <VerticalDivider/>
             <Header data-test="header">
                 {header}
                 <HeaderActions>
-                    <div onClick={onOpenInNew}>
+                    <IconButton onClick={onOpenInNew}>
                         <OpenInNewIcon/>
-                    </div>
-                    <div onClick={onNewTab}>
+                    </IconButton>
+                    <IconButton onClick={onNewTab}>
                         <TabIcon/>
-                    </div>
+                    </IconButton>
                 </HeaderActions>
             </Header>
         </Row1>

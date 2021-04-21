@@ -68,7 +68,7 @@ const AddressTab = (props: { clientData: Array<Object> }) => {
                 {url && (
                     <div className="row">
                         <div className="col-12">
-                        <DxcHeading level={5} weight="light" text={t(heading)} />
+                            <DxcHeading level={5} weight="light" text={t(heading)} />
                             <Table url={url} columnId={columns} showPaginator={true} />
                         </div>
                     </div>
