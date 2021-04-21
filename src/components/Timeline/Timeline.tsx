@@ -15,8 +15,6 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
 
     const [sortTicket, setSortTicket] = React.useState<any>(null);
 
-
-
     // Here we sort the ticket in DESC
     React.useEffect(() => {
         if (ticket) {
@@ -53,7 +51,7 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
                 sortTicket ?
                     (
                         Object.keys(sortTicket).map((data:any, i:number) => (
-                            <div className="timeline-item-container" key={i}>
+                            <div className="timeline-item-container" key={i} data-test="timeline-item-container">
 
                                 {
                                     moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY") === moment(new Date()).format("DD/MM/YYYY") &&
@@ -61,14 +59,13 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
                                 }
                                 {
                                     moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY") !== moment(new Date()).format("DD/MM/YYYY") &&
-                                    (moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("seconds") ||
-                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("hours") ||
-                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("minutes")) ?
+                                    (moment(sortTicket[data][0].metadata?.timestamp).fromNow().includes("seconds") ||
+                                    moment(sortTicket[data][0].metadata?.timestamp).fromNow().includes("hours") ||
+                                    moment(sortTicket[data][0].metadata?.timestamp).fromNow().includes("minutes")) ?
                                         <p className="title-date">A day</p> 
                                         : 
                                         <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
                                 }
-                                <div>
                                     {
                                         sortTicket[data].length > 1 ?
                                             (
@@ -81,14 +78,15 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
                                                 <Item item={sortTicket[data][0]} users={users} basketName={basketName} />
                                             )
                                     }
-                                </div>
                             </div>
                         )
                         )
                     )
                     :
                     (
-                        <p>It looks empty</p>
+                        <>
+                            <p>It looks empty</p>
+                        </>
                     )
             }
         </div>

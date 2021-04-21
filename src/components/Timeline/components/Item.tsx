@@ -13,12 +13,16 @@ interface IItem {
 const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
 
 
+    // React.useEffect(() => {
+    //     console.log(item)
+    // }, [item]);
+
     if (item !== undefined) {
         switch (item.action) {
             case "assignedTo":
                 return (
                     item && item.newValue ?
-                        (<div className="timeline-item-container">
+                        (<div className="timeline-item-container" data-test="assignedTo-item">
                             <div className="item-container">
                                 <div className="draft-container">
                                     <div className="circle-timeline"></div>
@@ -50,7 +54,7 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
             case "ticketUpdated":
                 return (
                     item &&
-                    <div className="timeline-item-container">
+                    <div className="timeline-item-container" data-test="ticketUpdated-item">
                         <div className="item-container">
                             <div className="draft-container">
                                 <div className="circle-timeline"></div>
@@ -111,7 +115,7 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
             case "addedDocument":
                 return (
                     item &&
-                    <div className="timeline-item-container">
+                    <div className="timeline-item-container" data-test="addedDocument-item">
                         <div className="item-container">
                             <div className="draft-container">
                                 <div className="circle-timeline"></div>
