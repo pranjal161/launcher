@@ -1,6 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 
+import {DxcBox} from '@dxc-technology/halstack-react'
 import ReactDOM from 'react-dom';
+import { StyleSheetManager } from 'styled-components';
 
 /*eslint "require-jsdoc": [2, {
     "require": {
@@ -41,7 +43,7 @@ function copyStyles(sourceDoc: Document, targetDoc: Document) {
 const NewWindowPortal = ( props : {
                                         children: any, 
                                         onCloseCallback: Function, 
-                                        windowFullScreen?: boolean,
+                                        windowMaximized?: boolean,
                                         passSetFocus?: boolean,
                                         windowWidth?: number,
                                         windowHeight?: number,
@@ -50,7 +52,7 @@ const NewWindowPortal = ( props : {
                                     }) => {
     const { 
         onCloseCallback = null,
-        windowFullScreen = false,
+        windowMaximized = false,
         passSetFocus = false,
         windowWidth = 620,
         windowHeight = 600,
@@ -77,11 +79,13 @@ const NewWindowPortal = ( props : {
     }
 
     let windowNotFullScreenSpecs = '';
-    if(!windowFullScreen)
+    if(!windowMaximized)
         windowNotFullScreenSpecs = `,width=${windowWidth},height=${windowHeight},left=${windowLeft},top=${windowTop}`;
+    else
+    windowNotFullScreenSpecs = `,width=${window.screen.availWidth},height=${window.screen.availHeight},left=0,top=0`;
 
     useEffect(() => {
-        externalWindow = window.open('', '', `fullscreen=${windowFullScreen}${windowNotFullScreenSpecs}`);
+        externalWindow = window.open('', '', windowNotFullScreenSpecs);
         externalWindow.document.body.appendChild(container);
         copyStyles(document, externalWindow.document);
 
@@ -100,7 +104,16 @@ const NewWindowPortal = ( props : {
     }, [children]);
 
     return (
-        ReactDOM.createPortal(children, container)
+        ReactDOM.createPortal(<DxcBox
+            margin="xxsmall"
+                                
+            size="fillParent"
+            shadowDepth={0}>
+            <StyleSheetManager 
+                target={container}>
+                {children}
+            </StyleSheetManager>
+        </DxcBox>, container)
     )
 }
 
