@@ -44,13 +44,13 @@ const Header = React.memo(() => {
             iconSrc: nl,
         },
     ];
-    const currentLang: any = langs.find(item => item.value === lang)
+    const currentLang: any = langs.find((item) => item.value === lang)
     const [langIcon, setLangIcon] = useState<any>(currentLang.iconSrc);
 
     const changeLang = (value: string) => {
         // to check refresh
         setLang(value);
-        const currentLang: any = langs.find(item => item.value === value);
+        const currentLang: any = langs.find((item) => item.value === value);
         setLangIcon(currentLang.iconSrc)
         if (value !== applicationContext.language) {
             applicationContext.changeLang(value);
@@ -112,7 +112,7 @@ const Header = React.memo(() => {
             {
                 isWindowOpen &&
                 <NewWindowPortal
-                    windowFullScreen={true}
+                    windowMaximized={true}
                     passSetFocus={true}
                     onCloseCallback={onCloseTicketNewWindow}>
                     <TicketsTabs></TicketsTabs>
