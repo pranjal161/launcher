@@ -214,7 +214,7 @@ export const addDocument = (id, document) => (dispatch, getState, {getFirebase})
     })
 }
 
-export const currentDailyUpdatesId = moment().format("DD-MM-Y");lo
+export const currentDailyUpdatesId = moment().format("DD-MM-Y");
 
 const addToDailyUpdates = (id, change) => (dispatch, getState, {getFirebase}) => {
     const firestore = getFirebase().firestore()
