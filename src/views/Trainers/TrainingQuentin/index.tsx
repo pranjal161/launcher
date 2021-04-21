@@ -195,11 +195,11 @@ const TrainingQuentin = () => {
                                         </div>
 
                                         <Dialog
+                                            title={<h2>Title</h2>}
                                             closeIconIsVisible={true}
                                             isOpen={isOpen}
                                             onCancel={handleDialogCancel}
-                                            onApply={handleDialogApply}
-                                            actionsAreVisible={false}>
+                                            onApply={handleDialogApply}>
                                             <Content/>
                                         </Dialog>
                                     </div> 
