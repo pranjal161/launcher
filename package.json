@@ -111,10 +111,7 @@
       "^.+\\.ts?$": "ts-jest",
       "^.+\\.tsx?$": "ts-jest",
       "^.+\\.jsx?$": "babel-jest"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
-    ]
+    }
   },
   "husky": {
     "hooks": {

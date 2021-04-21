@@ -1,0 +1,95 @@
+
+    .render {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .btn-dialog {
+            margin-left: 5px;
+            height: 28px;
+            width: 28px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.2s all ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgb(220,220,220);
+            }
+        }
+    }
+
+    .dialog {
+        position: relative;
+        width: 100%;
+
+        .header {
+            min-height: 75px;
+        }
+
+        .content {
+            min-height: 100px;
+            // min-width: 1015px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-self: center;
+            position: relative;
+
+            .results, .no-result {
+                min-height: 100px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .results {
+                position: relative;
+                padding-top: 20px;
+
+                div>.result-row {
+                    width: 100%;
+
+                    .result-row {
+                        height: 50px;
+                        width: 100%;
+                        background-color: beige;
+    
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .no-result {
+                justify-content: center;
+                color:rgba(50, 50, 50, 0.5);
+                user-select: none;
+            }
+        }
+        .footer {
+            min-height: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .header, .content {
+            padding: 25px;
+        }
+
+        .divider {
+            border: 1px solid rgba(50, 50, 50, 0.1);
+            width: calc(100% + 50px);
+        }
+    }

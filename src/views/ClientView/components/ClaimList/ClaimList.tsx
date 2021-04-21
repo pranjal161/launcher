@@ -41,7 +41,7 @@ const ClaimList = (props: { clientUrl: string }) => {
         <>
             {claimUrl && (
                 <>
-                <DxcHeading level={5} weight="light" text={t('_CLAIMS')} />
+                    <DxcHeading level={5} weight="light" text={t('_CLAIMS')} />
                     <Table url={claimUrl} columnId={claimListColumns} showPaginator={true} />
                 </>
             )}
