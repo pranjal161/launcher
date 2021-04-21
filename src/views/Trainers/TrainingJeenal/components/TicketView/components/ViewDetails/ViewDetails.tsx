@@ -6,7 +6,7 @@ import EditableField from "components/EditableField/EditableField";
 import Label from "components/Tickets/PreviewContainer/components/Preview/components/Label/Label";
 import Section from "components/Section/Section";
 import StatusSelection from "components/StatusSelection/StatusSelection";
-import { StyledDivider } from "styles/global-style";
+import { StyledMainDivider } from "styles/global-style";
 import TextField from "@material-ui/core/TextField/TextField";
 import UserSelection from "components/Tickets/PreviewContainer/components/Preview/components/UserSelection/UserSelection";
 import { formatValue } from "util/functions";
@@ -73,11 +73,11 @@ const ViewDetails = (props: { ticket: any }) => {
         <>
             <Deadline deadline={ticket.deadline} />
             <Section id="description" title="Description">
-                <StyledDivider />
+                <StyledMainDivider />
                 {ticket.description ? ticket.description : ""}
             </Section>
             <Section id="details" title="Details">
-                <StyledDivider />
+                <StyledMainDivider />
                 <div className="row">
                     <div id="ticket_details" className="col-6">
                         <DataLine label={<Label>Ticket Origin</Label>}>Email</DataLine>
@@ -116,7 +116,7 @@ const ViewDetails = (props: { ticket: any }) => {
 
             </Section>
             <Section id="dates" title="Dates">
-                <StyledDivider />
+                <StyledMainDivider />
                 <DataLine label={<Label>Received on</Label>}>
                     <EditableField
                         field="receivedDate"
@@ -139,7 +139,7 @@ const ViewDetails = (props: { ticket: any }) => {
                 </DataLine>
             </Section>
             <Section id="businessActivities" title="Business Activity(ies)">
-                <StyledDivider />
+                <StyledMainDivider />
                 {/* {ticket.description ? ticket.description : ""} */}
             </Section>
 
