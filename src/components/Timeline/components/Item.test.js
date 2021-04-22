@@ -1,6 +1,6 @@
+import Item from './Item';
 import React from 'react';
 import { mount } from 'enzyme';
-import Item from './Item';
 
 const defaultProps = {
     item: {
@@ -131,15 +131,6 @@ test('renders without error for executedActivity case', () => {
     }
     const wrapper = setup({ item: item });
     const component = wrapper.find(`[data-test="executed-activity-item"]`);
-    expect(component.length).toBe(1);
-});
-
-test("don't crash if no item props", () => {
-    const item = {
-
-    }
-    const wrapper = setup({ item: item });
-    const component = wrapper.find(`[data-test="error-item"]`);
     expect(component.length).toBe(1);
 });
 

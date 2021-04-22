@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Timeline from './Timeline';
+import { mount } from 'enzyme';
 
 const defaultProps = {
     ticket: {
@@ -116,7 +116,7 @@ test('useEffect call setSortTicket without error', () => {
     const mockSetSortTicket = jest.fn();
     React.useState = jest.fn(() => [null, mockSetSortTicket]);
 
-    const wrapper = setup();
+    setup();
     expect(mockSetSortTicket).toHaveBeenCalledTimes(1);
 });
 
