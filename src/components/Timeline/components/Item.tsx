@@ -51,7 +51,7 @@ const Item: React.FC<IItem> = ({ item = null, users, basketName }: IItem) => {
                                     }
                                     {
                                         item.action === "createdBy" &&
-                                        <p data-test="createdBy-item" className="action-item">{t('timeline_created')}<span>'{users[item.newValue].displayName}'</span></p>
+                                        <p data-test="createdBy-item" className="action-item">{t('timeline_created')}<span>{`'${users[item.newValue].displayName}'`}</span></p>
                                     }
                                     {
                                         item.action === "ticketUpdated" &&
