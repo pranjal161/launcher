@@ -189,8 +189,9 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
     const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
 
     uploadPromise.then((uploadResult) => {
+        console.log('réussi')
         addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now(), type})(dispatch, getState, {getFirebase})
-    })
+    })//.catch((e)=>console.log('Echec', e))
 
 
     return uploadPromise
