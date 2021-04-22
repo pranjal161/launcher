@@ -38,7 +38,6 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
                 }
                 return arrByDate[date] = [...arrByDate[date], data]
             });
-
             setSortTicket(arrByDate);
         }
     }, [ticket]);
@@ -57,12 +56,10 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
 
                                 {
                                     data === moment(new Date()).format("DD/MM/YYYY") ?
-                                    <p className="title-date">{t('timeline_today')}</p>
-                                    :
-                                    <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
+                                        <p className="title-date">{t('timeline_today')}</p>
+                                        :
+                                        <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
                                 }
-
-
                                 {
                                     sortTicket[data].length > 1 ?
                                         (
