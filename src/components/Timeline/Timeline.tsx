@@ -11,32 +11,30 @@ interface ITimeline {
     basketName: string
 }
 
-const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITimeline) => {
+const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, basketName = "Add basketName" }: ITimeline) => {
 
     const [sortTicket, setSortTicket] = React.useState<any>(null);
-
-
 
     // Here we sort the ticket in DESC
     React.useEffect(() => {
         if (ticket) {
             const history = { ...ticket.history };
-            let sortedArr:any[] = [];
+            let sortedArr: any[] = [];
 
             Object.keys(history).map((data) => {
                 return sortedArr = [...sortedArr, history[data]]
             });
 
-            sortedArr.sort((a:any, b:any) => (b.metadata?.timestamp) - (a.metadata?.timestamp));
+            sortedArr.sort((a: any, b: any) => (b.metadata?.timestamp) - (a.metadata?.timestamp));
 
-            let arrByDate:any = [];
+            let arrByDate: any = [];
 
             sortedArr.map((data) => {
                 const date = moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY");
                 if (!arrByDate[date]) {
                     arrByDate = { ...arrByDate, [date]: [] };
                 }
-               return arrByDate[date] = [...arrByDate[date], data]
+                return arrByDate[date] = [...arrByDate[date], data]
             });
 
             setSortTicket(arrByDate);
@@ -52,43 +50,38 @@ const Timeline:React.FC<ITimeline> = ({ ticket, title, users, basketName }: ITim
             {
                 sortTicket ?
                     (
-                        Object.keys(sortTicket).map((data:any, i:number) => (
-                            <div className="timeline-item-container" key={i}>
+                        Object.keys(sortTicket).map((data: any, i: number) => (
+                            <div className="timeline-item-container" key={i} data-test="timeline-item-container">
 
                                 {
-                                    moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY") === moment(new Date()).format("DD/MM/YYYY") &&
+                                    data === moment(new Date()).format("DD/MM/YYYY") ?
                                     <p className="title-date">Today</p>
+                                    :
+                                    <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
                                 }
+
+
                                 {
-                                    moment(new Date(data.metadata?.timestamp)).format("DD/MM/YYYY") !== moment(new Date()).format("DD/MM/YYYY") &&
-                                    (moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("seconds") ||
-                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("hours") ||
-                                    moment(sortTicket[data][0].metadata.timestamp).fromNow().includes("minutes")) ?
-                                        <p className="title-date">A day</p> 
-                                        : 
-                                        <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
+                                    sortTicket[data].length > 1 ?
+                                        (
+                                            sortTicket[data].map((dataElement: any, i: number) => (
+                                                <Item key={i} item={dataElement} users={users} basketName={basketName} />
+                                            ))
+                                        )
+                                        :
+                                        (
+                                            <Item item={sortTicket[data][0]} users={users} basketName={basketName} />
+                                        )
                                 }
-                                <div>
-                                    {
-                                        sortTicket[data].length > 1 ?
-                                            (
-                                                sortTicket[data].map((dataElement:any, i:number) => (
-                                                    <Item key={i} item={dataElement} users={users} basketName={basketName} />
-                                                ))
-                                            )
-                                            :
-                                            (
-                                                <Item item={sortTicket[data][0]} users={users} basketName={basketName} />
-                                            )
-                                    }
-                                </div>
                             </div>
                         )
                         )
                     )
                     :
                     (
-                        <p>It looks empty</p>
+                        <>
+                            <p>It looks empty</p>
+                        </>
                     )
             }
         </div>
