@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 
 import Documents from "./components/Documents/Documents";
 import MyTickets from "views/MyTickets/MyTickets";
-import Upload from "components/Tickets/PreviewContainer/components/Preview/components/Upload/Upload";
+import Upload from "components/Tickets/PreviewContainer/components/TicketPreview/components/Upload/Upload";
 import useDeskTickets from "data/hooks/useDeskTickets";
 
 //import moment from "moment/moment";

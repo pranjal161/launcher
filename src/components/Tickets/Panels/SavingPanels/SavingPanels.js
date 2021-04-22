@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
-import Preview from "../../PreviewContainer/components/Preview/Preview";
 import PropTypes from "prop-types";
 import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
 import styled from "styled-components";
+import TicketPreview from "../../TicketPreview/TicketPreview";
 import useDeskTickets from "data/hooks/useDeskTickets";
 
 const Root = styled.div`
@@ -38,7 +38,7 @@ const SavingPanels = ({ticketId,onClose}) => {
     const Content = () => {
         if (entityType === 'ticket') {
             const ticket = getOne(ticketId)
-            return (<Preview ticket={ticket}/>)
+            return (<TicketPreview ticket={ticket}/>)
         }
         else
             return (<div> Content of id : {currentEntity[entityType]} </div>)
