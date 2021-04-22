@@ -1,11 +1,11 @@
-import { AddIcon, CloseIcon, NewWindowIcon} from "assets/svg";
+import { AddIcon, CloseIcon, NewWindowIcon } from "assets/svg";
 import {
     DxcChip,
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
 import React, { useCallback } from "react";
-import {StyledButton, StyledDivider} from 'styles/global-style';
+import { StyledButton, StyledDivider } from 'styles/global-style';
 
 import DataLine from "./components/DataLine/DataLine";
 import Documents from './components/Documents/Documents';
@@ -14,7 +14,7 @@ import Label from "./components/Label/Label";
 import LinkedContract from "./components/LinkedContract/LinkedContract";
 import PropTypes from "prop-types";
 import RelatedClient from './components/RelatedClient/RelatedClient';
-import Section from "./components/Section/Section";
+import Section from "components/Section/Section";
 import Sections from "./components/Sections/Sections";
 import { TextField } from "@material-ui/core";
 import Upload from "./components/Upload/Upload";
@@ -30,27 +30,28 @@ export const Root = styled.div`
   width: 100%;
 `;
 
-const Preview = (props:any) => {
+const Preview = (props: any) => {
     const { ticket, onClose, onPopupWindow, showPopupIcon = false, actions } = props;
     const { update, assignTo, createdBy } = useDeskTickets()
-    const TitleValue:any = () => (<>{ticket.title}</>)
-    const DateValue = ( data:any ) => {
+    const TitleValue: any = () => (<>{ticket.title}</>)
+    const DateValue = (data: any) => {
         const { date } = data;
-        return(<>{formatValue(date, 'date')}</>)
+        return (<>{formatValue(date, 'date')}</>)
     }
-    const PersonValue = (personid:any) => {
+
+    const PersonValue = (personid: any) => {
         const { personId } = personid;
         const { getOne } = useDeskUsers()
-        const person:any = useCallback (() => {
+        const person: any = useCallback(() => {
             getOne(personId);
-        },[personid]);
+        }, [personid]);
         return (<> {person && person.displayName}  </>)
     }
 
-    const SuggestedActivity = (act:any) => {
+    const SuggestedActivity = (act: any) => {
         const { activity } = act;
         const { executeActivity } = useDeskTickets()
-        const handleClick = (e:any) => {
+        const handleClick = (e: any) => {
             e.preventDefault()
             executeActivity(ticket.id, activity)
         }
@@ -65,7 +66,7 @@ const Preview = (props:any) => {
         )
     }
 
-    const SuggestedActivities = (activity:any) => {
+    const SuggestedActivities = (activity: any) => {
         const { activities } = activity;
         return (
             < > {activities && Object.keys(activities).map((activity, index) => (
@@ -79,9 +80,9 @@ const Preview = (props:any) => {
         addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
     }
 
-    const Description = (des:any) => {
+    const Description = (des: any) => {
         const { description } = des;
-        return(<p style={{ maxHeight: '200px' }}>{description}</p>)
+        return (<p style={{ maxHeight: '200px' }}>{description}</p>)
     }
     const DxcDate2 = (data: any) => {
         const { date, id, ...rest } = data;
@@ -138,7 +139,7 @@ const Preview = (props:any) => {
                 {false && closePopupAction}
                 {actions && <Section id="actions" title="Actions">
                     {actions}
-                    <StyledDivider/>
+                    <StyledDivider />
                 </Section>}
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
