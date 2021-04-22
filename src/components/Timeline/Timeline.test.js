@@ -58,58 +58,58 @@ const defaultProps = {
     },
     basketName: "Life",
     title: "Ticket history"
-    
+
 };
 
 const sortedTicket =
-    {
-        "18/04/2021": [
-            {
-                "action": "ticketUpdated",
-                "metadata": {
-                    "updatedByDisplay": "Norbert Pointu",
-                    "timestamp": 1618735634734,
-                    "updatedISODate": "2021-04-18T10:47:14+02:00",
-                    "updatedBy": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
-                }
+{
+    "18/04/2021": [
+        {
+            "action": "ticketUpdated",
+            "metadata": {
+                "updatedByDisplay": "Norbert Pointu",
+                "timestamp": 1618735634734,
+                "updatedISODate": "2021-04-18T10:47:14+02:00",
+                "updatedBy": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
             }
-        ],
-        "16/04/2021": [
-            {
-                "action": "assignedTo",
-                "newValue": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1",
-                "metadata": {
-                    "updatedByDisplay": "Norbert Pointu",
-                    "timestamp": 1618585484695,
-                    "updatedISODate": "2021-04-16T17:04:44+02:00",
-                    "updatedBy": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
-                }
+        }
+    ],
+    "16/04/2021": [
+        {
+            "action": "assignedTo",
+            "newValue": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1",
+            "metadata": {
+                "updatedByDisplay": "Norbert Pointu",
+                "timestamp": 1618585484695,
+                "updatedISODate": "2021-04-16T17:04:44+02:00",
+                "updatedBy": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
             }
-        ],
-        "15/04/2021": [
-            {
-                "action": "assignedTo",
-                "newValue": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1",
-                "metadata": {
-                    "updatedByDisplay": "Norbert Pointu",
-                    "timestamp": 1618500344098,
-                    "updatedISODate": "2021-04-15T17:25:44+02:00",
-                    "updatedBy": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
-                }
+        }
+    ],
+    "15/04/2021": [
+        {
+            "action": "assignedTo",
+            "newValue": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1",
+            "metadata": {
+                "updatedByDisplay": "Norbert Pointu",
+                "timestamp": 1618500344098,
+                "updatedISODate": "2021-04-15T17:25:44+02:00",
+                "updatedBy": "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
             }
-        ]
-    }
+        }
+    ]
+}
 
 
-const setup = (props={}) => {
-  const setupProps = { ...defaultProps, ...props };
-  return mount(<Timeline {...setupProps} />)
+const setup = (props = {}) => {
+    const setupProps = { ...defaultProps, ...props };
+    return mount(<Timeline {...setupProps} />)
 }
 
 test('renders without error', () => {
-  const wrapper = setup();
-  const component = wrapper.find(`[data-test="timeline-component"]`);
-  expect(component.length).toBe(1);
+    const wrapper = setup();
+    const component = wrapper.find(`[data-test="timeline-component"]`);
+    expect(component.length).toBe(1);
 });
 
 test('useEffect call setSortTicket without error', () => {

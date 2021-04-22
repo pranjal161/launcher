@@ -10,12 +10,7 @@ interface IItem {
     basketName: string
 }
 
-const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
-
-
-    // React.useEffect(() => {
-    //     console.log(item)
-    // }, [item]);
+const Item: React.FC<IItem> = ({ item, users, basketName }: IItem) => {
 
     if (item) {
         switch (item.action) {
@@ -144,10 +139,39 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
                         </div>
                     </div>
                 )
-            case "removeRelatedClient" || "addedRelatedClient":
+            case "removedRelatedClient":
                 return (
                     item &&
-                    <div className="timeline-item-container">
+                    <div className="timeline-item-container" data-test="rm-related-client-item">
+                        <div className="item-container">
+                            <div className="draft-container">
+                                <div className="circle-timeline"></div>
+                                <div className="line-timeline"></div>
+                            </div>
+                            <div className="info-container">
+
+                                <p className="username-item">{item.metadata.updatedByDisplay}</p>
+
+                                <p className="time-item">
+                                    {moment(new Date(item.metadata.updatedISODate)).fromNow().includes("hours") ||
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow().includes("minutes") ?
+                                        moment(new Date(item.metadata.updatedISODate)).fromNow() : moment(item.metadata.updatedISODate).format('DD/MM/YYYY - HH:MM')}
+                                </p>
+
+
+                                <div className="text-icon-container">
+                                    <DescriptionIcon />
+                                    <p className="action-item">{item.action.replace(/([A-Z])/g, " $1")} : {item.newValue}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                )
+            case "addedRelatedClient":
+                return (
+                    item &&
+                    <div className="timeline-item-container" data-test="add-related-client-item">
                         <div className="item-container">
                             <div className="draft-container">
                                 <div className="circle-timeline"></div>
@@ -176,7 +200,7 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
             case "executedActivity":
                 return (
                     item &&
-                    <div className="timeline-item-container">
+                    <div className="timeline-item-container" data-test="executed-activity-item">
                         <div className="item-container">
                             <div className="draft-container">
                                 <div className="circle-timeline"></div>
@@ -205,7 +229,7 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
             default:
                 return (
                     <div data-test="error-item">
-                        <p>Please insert the required props</p>
+                        <p>Please insert the required data</p>
                     </div>
                 )
         }
@@ -213,9 +237,6 @@ const Item:React.FC<IItem> = ({ item, users, basketName }: IItem) => {
     else {
         return (null)
     }
-
-
-
 };
 
 export default Item;
