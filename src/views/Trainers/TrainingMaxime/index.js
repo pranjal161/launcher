@@ -2,7 +2,7 @@ import "./index.scss"
 
 import HistoryImplement from "./components/HistoryImplement";
 import React from 'react';
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const TrainingMaxime = () => {
     // const id = "ZWbCidiMasEx9ZHbe11W";
@@ -10,9 +10,9 @@ const TrainingMaxime = () => {
     // const id = "e1CPnld1KNGX2lHodyRR";
     // const id = "Edi1dN60i2O2eFm9zJ0f";
     const id = "y270CCciTszudNrTtK6g";
-    const ticket = useSelector((state) => (state.firestore.data.tickets?{id, ...state.firestore.data.tickets[id]}:undefined));
-    const users = useSelector((state) => (state.firestore.data.users?{...state.firestore.data.users}:undefined));
-    const baskets = useSelector((state) => (state.firestore.data.baskets?{...state.firestore.data.baskets}:undefined));
+    const ticket = useSelector((state) => (state.firestore.data.tickets ? { id, ...state.firestore.data.tickets[id] } : undefined));
+    const users = useSelector((state) => (state.firestore.data.users ? { ...state.firestore.data.users } : undefined));
+    const baskets = useSelector((state) => (state.firestore.data.baskets ? { ...state.firestore.data.baskets } : undefined));
 
     // const ticket =  {
     //     id: "Edi1dN60i2O2eFm9zJ0f",
@@ -62,15 +62,15 @@ const TrainingMaxime = () => {
 
     console.log(ticket?.history);
 
-   return (
-       <div className="training-maxime-container">
-           {
-               ticket && baskets && 
-                 <HistoryImplement ticket={ticket} users={users} basketName={baskets[ticket.basketId].title}/>
-           }
-           
-       </div>
-   )
+    return (
+        <div className="training-maxime-container">
+            {
+                ticket && baskets &&
+                <HistoryImplement ticket={ticket} users={users} basketName={baskets[ticket.basketId].title} />
+            }
+
+        </div>
+    )
 };
 export default TrainingMaxime;
 
