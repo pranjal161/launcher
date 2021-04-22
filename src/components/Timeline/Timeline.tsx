@@ -1,8 +1,9 @@
-import React from 'react';
-import Item from './components/Item';
-import moment from 'moment';
-
 import "./Timeline.scss";
+
+import Item from './components/Item';
+import React from 'react';
+import moment from 'moment';
+import { useTranslation } from "react-i18next";
 
 interface ITimeline {
     ticket: any,
@@ -14,6 +15,7 @@ interface ITimeline {
 const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, basketName = "Add basketName" }: ITimeline) => {
 
     const [sortTicket, setSortTicket] = React.useState<any>(null);
+    const { t } = useTranslation();
 
     // Here we sort the ticket in DESC
     React.useEffect(() => {
@@ -36,7 +38,6 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
                 }
                 return arrByDate[date] = [...arrByDate[date], data]
             });
-
             setSortTicket(arrByDate);
         }
     }, [ticket]);
@@ -55,12 +56,10 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
 
                                 {
                                     data === moment(new Date()).format("DD/MM/YYYY") ?
-                                    <p className="title-date">Today</p>
-                                    :
-                                    <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
+                                        <p className="title-date">{t('timeline_today')}</p>
+                                        :
+                                        <p className="title-date">{moment(sortTicket[data][0].metadata.timestamp).fromNow(true)}</p>
                                 }
-
-
                                 {
                                     sortTicket[data].length > 1 ?
                                         (
@@ -80,7 +79,7 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
                     :
                     (
                         <>
-                            <p>It looks empty</p>
+                            <p>{t('timeline_empty')}</p>
                         </>
                     )
             }
