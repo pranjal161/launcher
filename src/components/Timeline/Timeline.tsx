@@ -24,7 +24,8 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
             let sortedArr: any[] = [];
 
             Object.keys(history).map((data) => {
-                return sortedArr = [...sortedArr, history[data]]
+                sortedArr = [...sortedArr, history[data]];
+                return sortedArr;
             });
 
             sortedArr.sort((a: any, b: any) => (b.metadata?.timestamp) - (a.metadata?.timestamp));
@@ -36,7 +37,8 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
                 if (!arrByDate[date]) {
                     arrByDate = { ...arrByDate, [date]: [] };
                 }
-                return arrByDate[date] = [...arrByDate[date], data]
+                arrByDate[date] = [...arrByDate[date], data];
+                return arrByDate;
             });
             setSortTicket(arrByDate);
         }
