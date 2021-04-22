@@ -3,7 +3,7 @@ import './styles.scss';
 import { DxcInput, DxcTabs } from '@dxc-technology/halstack-react';
 import { componentsTabs, mainTabs } from './models/tabs';
 
-import Dialog from './components/Dialog/Dialog';
+import Dialog from '../../../components/Dialog/Dialog';
 import GlobalSearchMaterial from './components/GlobalSearchMaterial/GlobalSearchMaterial';
 import React from "react";
 import axios from 'axios';
@@ -195,11 +195,11 @@ const TrainingQuentin = () => {
                                         </div>
 
                                         <Dialog
-                                            closeIconIsVisible={false}
+                                            title={<h2>Title</h2>}
+                                            closeIconIsVisible={true}
                                             isOpen={isOpen}
                                             onCancel={handleDialogCancel}
-                                            onApply={handleDialogApply}
-                                            title={<h2>Title</h2>}>
+                                            onApply={handleDialogApply}>
                                             <Content/>
                                         </Dialog>
                                     </div> 
