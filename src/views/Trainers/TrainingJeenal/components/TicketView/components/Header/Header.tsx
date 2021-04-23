@@ -36,7 +36,7 @@ align-items:center;
         ticket && ticket.title
         && (
             <Root>
-                <div className="col-9">
+                <div className="col-9 ml-2">
                     <h3>
                         {ticket.title}
                         {/* ticketTitle */}
