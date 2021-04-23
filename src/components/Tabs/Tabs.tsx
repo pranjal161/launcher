@@ -1,10 +1,8 @@
-import * as popupWindowActions from "../../store/actions/popupWindowTabsActions";
 
 import React, {useEffect, useState} from 'react';
 
 import TabButton from './components/TabButton/TabButton';
 import styled from 'styled-components';
-import {useDispatch} from "react-redux";
 
 const TabsMainContainer = styled.div`
     width: 100%;
@@ -19,20 +17,21 @@ const TabsButtonsContainer = styled.div`
 `;
 
 
-const Tabs = (props: {children: any, activeTabId: string}) => {
+const Tabs = (props: {children: any, activeTabId?: string, onClick?: Function}) => {
 
-    const {children, activeTabId} = props;
+    const {children, activeTabId = null, onClick = null} = props;
     const [activeTab, setActiveTab] = useState(children[0].props.tabId);
     let tabContent = null;
-    let dispatch = useDispatch();
+
     useEffect(() => {
-        setActiveTab(activeTabId);
+        if(activeTabId)
+            setActiveTab(activeTabId);
     }, [activeTabId]);
 
 
     const changeTab = (tabId: string) => {
-        if(activeTabId)
-            dispatch(popupWindowActions.setSelectedTicketTabByID(tabId));
+        if(activeTabId && onClick)
+            onClick(tabId);
         else
             setActiveTab(tabId);
     }

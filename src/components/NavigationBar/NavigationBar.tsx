@@ -8,6 +8,7 @@ import DXCLogo from 'assets/dxc_logo.jpg';
 import { DxcHeader } from '@dxc-technology/halstack-react';
 import IconButton from "../IconButton/IconButton";
 import PrimaryTabs from "../PrimaryTabs/PrimaryTabs";
+import SecondaryTabs from "../SecondaryTabs/SecondaryTabs";
 import SignedLinks from '../Header/components/SignedLinks/SignedLinks';
 import { TabbedLinksArray } from "../PrimaryTabs/PrimaryTabsConstants";
 import en from 'assets/gb.jpg';
@@ -129,14 +130,6 @@ const NavigationBar = () => {
         }
     }, [location.pathname]);
 
-    /*const actionButtonMargins = {
-        right: 'xxsmall'
-    }
-
-    const ticketChipMargins = {
-        right: 'xxsmall',
-        bottom: 'xxsmall'
-    }*/
 
     return (
         <MainNavContainer>
@@ -171,6 +164,7 @@ const NavigationBar = () => {
                         onChange={handlePrimaryTabClick} />
                 </PrimaryViewAccessContainer>
                 <TicketManagementAccessContainer>
+                    <SecondaryTabs></SecondaryTabs>
                 </TicketManagementAccessContainer>
             </NavRow>
         </MainNavContainer>
