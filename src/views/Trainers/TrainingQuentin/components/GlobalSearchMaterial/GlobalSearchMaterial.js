@@ -51,8 +51,6 @@ const GlobalSearchMaterial = ({entitiesList, onSearch, onSelect}) => {
                 } else {
                     onSelect(reqData);
                 }
-                // setResultsList(resultsList.concat(reqData));
-                // setResultsList(reqData);
             }
         } else {
             setIsSearching(false);

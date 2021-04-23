@@ -112,7 +112,7 @@ const Header = React.memo(() => {
             {
                 isWindowOpen &&
                 <NewWindowPortal
-                    windowFullScreen={true}
+                    windowMaximized={true}
                     passSetFocus={true}
                     onCloseCallback={onCloseTicketNewWindow}>
                     <TicketsTabs></TicketsTabs>
