@@ -1,6 +1,6 @@
 import "./Item.scss";
 
-import { DescriptionIcon } from '../../../assets/svg';
+import { DescriptionIcon } from 'assets/svg';
 import React from 'react';
 import moment from "moment";
 import { useTranslation } from "react-i18next";
@@ -20,8 +20,8 @@ const Item: React.FC<IItem> = ({ item = null, users, basketName }: IItem) => {
             <div className="timeline-item-container">
                 <div className="item-container">
                     <div className="draft-container">
-                        <div className="circle-timeline"></div>
-                        <div className="line-timeline"></div>
+                        <div className="circle-timeline"/>
+                        <div className="line-timeline"/>
                     </div>
                     <div className="info-container">
                         <p className="username-item">{item.metadata.updatedByDisplay}</p>
@@ -45,6 +45,7 @@ const Item: React.FC<IItem> = ({ item = null, users, basketName }: IItem) => {
                                 :
                                 (<div className="text-icon-container">
                                     <DescriptionIcon />
+                                    {console.log('item', item)}
                                     {
                                         item.action === "assignedTo" && item.newValue &&
                                         <p data-test="assignedTo-item" className="action-item">{t('timeline_assigned')}<br /><span>{`'${item.metadata.updatedByDisplay}'`}</span> to <span>{`'${users[item.newValue].displayName}'`}</span></p>
