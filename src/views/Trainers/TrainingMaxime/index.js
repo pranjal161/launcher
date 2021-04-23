@@ -1,181 +1,76 @@
-import "./index.scss";
-import {DxcDate, DxcInput, DxcSelect} from "@dxc-technology/halstack-react";
-import EditableField from "components/EditableField/EditableField";
+import "./index.scss"
+
+import HistoryImplement from "./components/HistoryImplement";
 import React from 'react';
+import { useSelector } from "react-redux";
 
 const TrainingMaxime = () => {
-    const [data, setData] = React.useState({
-        name: "Mary",
-        firstname: "Maxime",
-        age: "25",
-        date: "01-01-1995",
-        gender: 1
-    });
+    // const id = "ZWbCidiMasEx9ZHbe11W";
+    // const id = "bUibfxQIoJDlbMjGpZB0";
+    // const id = "e1CPnld1KNGX2lHodyRR";
+    // const id = "Edi1dN60i2O2eFm9zJ0f";
+    const id = "y270CCciTszudNrTtK6g";
+    const ticket = useSelector((state) => (state.firestore.data.tickets ? { id, ...state.firestore.data.tickets[id] } : undefined));
+    const users = useSelector((state) => (state.firestore.data.users ? { ...state.firestore.data.users } : undefined));
+    const baskets = useSelector((state) => (state.firestore.data.baskets ? { ...state.firestore.data.baskets } : undefined));
 
-    const [isInvalid, changeIsInvalid] = React.useState(false);
-    const onChangeSelect = (newValue) => {
-        setData({
-            ...data, "gender": newValue
-        });
-    };
+    // const ticket =  {
+    //     id: "Edi1dN60i2O2eFm9zJ0f",
+    //     deadlineDate: 1618378463911,
+    //     requestBy: "y0skmr2bb4O9keSoLfwqOM1VMNp1",
+    //     assignedToDisplay: "",
+    //     description: "Test pour jeenal",
+    //     receivedDate: 1618378463911,
+    //     assignedTo: null,
+    //     createdByDisplay: "Pranjal Shinde",
+    //     title: "Test 2",
+    //     basketId: "GMYM4alLq2VgrAs8EwtJ",
+    //     createdBy: "y0skmr2bb4O9keSoLfwqOM1VMNp1",
+    //     status: "pending",
+    //     history: {
+    //         1619078682000: {
+    //             action: "assignedTo",
+    //             newValue: "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1",
+    //             metadata: {
+    //                 updatedByDisplay: "Norbert Pointu",
+    //                 timestamp: 1619078682000,
+    //                 updatedISODate: "2021-04-22T10:04:44+02:00",
+    //                 updatedBy: "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
+    //             }
+    //         },
+    //         1618986180000: {
+    //             action: "ticketUpdated",
+    //             metadata: {
+    //                 updatedByDisplay: "Norbert Pointu",
+    //                 timestamp: 1618986180000,
+    //                 updatedISODate: "2021-04-21T08:23:14+02:00",
+    //                 updatedBy: "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
+    //             }
+    //         },
+    //         1618500344098: {
+    //             action: "assignedTo",
+    //             newValue: "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1",
+    //             metadata: {
+    //                 updatedByDisplay: "Norbert Pointu",
+    //                 timestamp: 1618500344098,
+    //                 updatedISODate: "2021-04-15T17:25:44+02:00",
+    //                 updatedBy: "TtmUj7hHOQbpqxkS9Xj7Nk1azpx1"
+    //             }
+    //         }
+    //     }
+    // }
 
-    const {name, firstname, age, date, gender} = data;
-
-    const genderChoice = [
-        {
-            value: 1,
-            label: "Woman"
-        },
-        {
-            value: 2,
-            label: "Man"
-        },
-        {
-            value: 3,
-            label: "Other"
-        }
-    ];
-
-
-    const suggestionsName = [
-        "Dupont", "Dumoulin", "Nicolas"
-    ]
-
-
-    const onChangeTestforReset = (newValue, fieldName) => {
-        setData({
-            ...data, [fieldName]: newValue
-        });
-    }
-
-    const onChangeDate = ({stringValue, dateValue}) => {
-        setData({
-            ...data, "date": stringValue
-        });
-        changeIsInvalid(!dateValue);
-    };
-
-    const onChange = (fieldName) => (newValue) => {
-        setData({
-            ...data, [fieldName]: newValue
-        });
-    }
+    console.log(ticket?.history);
 
     return (
         <div className="training-maxime-container">
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Name</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="input"
-                        value={name}
-                        mode="update"
-                        fieldName="name"
-                        onChange={onChangeTestforReset}>
-                        <DxcInput
-                            value={name}
-                            onChange={onChange("name")}
-                            margin="xsmall"
-                            size="fillParent"
-                            autocompleteOptions={suggestionsName}/>
-                    </EditableField>
+            {
+                ticket && baskets &&
+                <HistoryImplement ticket={ticket} users={users} basketName={baskets[ticket.basketId].title} />
+            }
 
-                </div>
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Firstname</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="input"
-                        value={firstname}
-                        mode="updateOnHover"
-                        fieldName="firstname"
-                        onChange={onChangeTestforReset}>
-                        <DxcInput
-                            value={firstname}
-                            onChange={onChange("firstname")}
-                            margin="xsmall"
-                            size="fillParent"/>
-                    </EditableField>
-                </div>
-
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Age</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        value={age}
-                        mode="readOnly"
-                        fieldName="age"
-                    />
-                </div>
-
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Date</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="date"
-                        value={date}
-                        mode="updateOnHover"
-                        fieldName="date">
-                        <DxcDate
-                            value={date}
-                            invalid={isInvalid}
-                            format="MM-dd-yyyy"
-                            onChange={onChangeDate}
-                        />
-                    </EditableField>
-                </div>
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Gender</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="select"
-                        value={gender}
-                        mode="updateOnHover"
-                        fieldName="gender">
-                        <DxcSelect
-                            options={genderChoice}
-                            onChange={onChangeSelect}
-                            value={gender}
-                            margin="medium"
-                        />
-                    </EditableField>
-                </div>
-            </div>
-            <div className="dataline-container">
-                <div className="label">
-                    <span>Gender</span>
-                </div>
-                <div className="data">
-                    <EditableField
-                        type="select"
-                        value={gender}
-                        mode="update"
-                        fieldName="gender2">
-                        <DxcSelect
-                            options={genderChoice}
-                            onChange={onChangeSelect}
-                            value={gender}
-                            margin="medium"
-                        />
-                    </EditableField>
-                </div>
-            </div>
         </div>
-    );
+    )
 };
 export default TrainingMaxime;
 

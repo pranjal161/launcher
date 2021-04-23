@@ -14,6 +14,7 @@ import MyBaskets from 'views/MyBaskets/MyBaskets';
 import MyTickets from "views/MyTickets/MyTickets";
 import NewTicket from 'views/NewTicket/NewTicket';
 import {Redirect} from "react-router-dom";
+import TicketTabsDetail from 'views/TicketTabsDetail/TicketTabsDetail';
 import Trainers from "views/Trainers";
 
 const routes = [
@@ -105,6 +106,12 @@ const routes = [
                 name: 'myTickets',
                 exact: true,
                 component: MyTickets
+            },
+            {
+                path: '/viewTab',
+                name: 'viewTab',
+                exact: true,
+                component: TicketTabsDetail
             },
             {
                 path: '/NewTicket/create',

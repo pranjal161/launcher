@@ -89,7 +89,7 @@ const HomePage = () => {
                                 <div className="col-12">
                                     <div className="d-flex flex-nowrap">
                                         <div className="flex-grow-1">
-                                            <TicketList
+                                            <TicketList height={800}
                                                 handleTicketClick={handleTicketClick}
                                                 tickets={tickets}/>
                                         </div>
