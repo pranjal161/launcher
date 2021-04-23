@@ -7,12 +7,11 @@ import { useTranslation } from "react-i18next";
 
 interface ITimeline {
     ticket: any,
-    title: string,
     users: any,
     basketName: string
 }
 
-const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, basketName = "Add basketName" }: ITimeline) => {
+const Timeline: React.FC<ITimeline> = ({ ticket, users, basketName = "Add basketName" }: ITimeline) => {
 
     const [sortTicket, setSortTicket] = React.useState<any>(null);
     const { t } = useTranslation();
@@ -46,10 +45,6 @@ const Timeline: React.FC<ITimeline> = ({ ticket, title = "Add title", users, bas
 
     return (
         <div className="timeline-container" data-test="timeline-component">
-            <h4 className="title-timeline">
-                {title}
-            </h4>
-            <hr />
             {
                 sortTicket ?
                     (
