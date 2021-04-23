@@ -30,12 +30,12 @@ function copyStyles(sourceDoc: Document, targetDoc: Document) {
     for(let i = 0; i < sourceStyles.length; i++) {
         if(sourceStyles[i].dataset &&
            sourceStyles[i].dataset.styled == "active") {
-           indexStyledComponents = i;
-           break;
+            indexStyledComponents = i;
+            break;
         }
     }
 
-    for(let i:number = 0; i < sourceDoc.styleSheets.length; i++) {
+    for(let i = 0; i < sourceDoc.styleSheets.length; i++) {
 
         if (sourceDoc.styleSheets[i].cssRules &&
             indexStyledComponents !== undefined &&
