@@ -1,5 +1,14 @@
 import {aia} from "../../util/functions";
 
+
+export const startOfBusinessActivity = (baId) => {
+    dispatch('START_BUSINESS_ACTIVITY', baId)
+}
+
+export const endOfBusinessActivity = (baId) => {
+    dispatch('END_BUSINESS_ACTIVITY', baId)
+}
+
 export const fetch = (hRef, callType='get') => (dispatch, getState) => {
     //Search if we have already fetch this hRef
     const hRefs = getState().aia.hRefs

@@ -19,6 +19,7 @@ import { StyledBanner } from 'styles/global-style';
 import UnsolicitedPayment from 'views/ContractSummary/components/UnsolicitedPayment/UnsolicitedPayment';
 import axios from "axios";
 import { getLink } from 'util/functions';
+import useActivity from "hooks/useActivity";
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -27,6 +28,7 @@ import { useTranslation } from 'react-i18next';
  * @returns {*} Display the summary of a contract
  */
 const ContractSummary = () => {
+    useActivity('start')
     const location: any = useLocation();
     const { t } = useTranslation();
     const sections = [
