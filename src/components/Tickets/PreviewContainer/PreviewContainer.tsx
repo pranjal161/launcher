@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
+
 import {DxcBox} from "@dxc-technology/halstack-react";
 import NewWindowPortal from "components/NewWindowPortal/NewWindowPortal";
-import Preview from "components/Tickets/PreviewContainer/components/Preview/Preview";
+import TicketPreview from "components/Tickets/TicketPreview/TicketPreview";
 import useDeskAuth from "data/hooks/useDeskAuth";
 import useDeskTickets from "data/hooks/useDeskTickets";
-
 
 // eslint-disable-next-line valid-jsdoc
 /**
@@ -37,8 +37,8 @@ function PreviewContainer(props: any) {
 
     if (ticket) {
         return (
-            <><DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
-                <Preview
+            <><DxcBox padding={"xxsmall"} shadowDepth={2}>
+                <TicketPreview
                     ticket={ticket}
                     actions={Actions}
                     onClose={closeHandle}
@@ -48,7 +48,7 @@ function PreviewContainer(props: any) {
                 {openPopup &&
                 <NewWindowPortal onCloseCallback={closeHandle}>
                     <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
-                        <Preview
+                        <TicketPreview
                             ticket={ticket}
                             actions={Actions}
                             onClose={closeHandle}/>
