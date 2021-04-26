@@ -1,238 +1,263 @@
 .editable-field {
+  position: relative;
+  width: 100%;
+
+  .value-uneditable-container {
+    display: flex;
+    align-items: center;
+    min-width: 80%;
+    padding: 1px;
+
+
+  }
+
+  .value-uneditable {
+    padding: 1px 1px 1px 1px;
+    height: 100%;
+    min-width: 30%;
+    min-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid rgba(102, 102, 102, 0);
+
+  }
+
+  .edit-onHover_______2:hover {
+    left: -1;
+    height: 100%;
+    box-shadow: 0 0 0 1px #4e555b;
+  }
+
+  .edit-onHover {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: box-shadow 150ms ease-in 0ms;
+    transition: box-shadow 150ms ease-in 0ms;
+    border-radius: 2.01px;
+    cursor: text;
+    display: inline-block;
+    max-width: 100%;
+    box-shadow: 0 0 0 0 transparent;
+    padding: 2px 5px 2px 5px;
     position: relative;
+    vertical-align: top;
+    word-break: break-word;
+  }
+
+  .edit-onHover:hover {
+    box-shadow: 0 0 0 1px #ebecf0
+  }
+
+  .editable-input-container {
+    height: 35px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    // All following css is to overwrite css from CDK to avoid offset in the render
+    > div {
+      margin: 0px;
+      width: 100%;
 
-    .value-uneditable-container {
-        display: flex;
-        align-items: center;
-        min-width: 80%;
-        padding: 1px;
+      .MuiFormControl-root {
 
+        > div {
+          margin-top: 0px;
 
+          input {
+            padding: 0px 0 5px 0px;
+          }
+        }
+      }
     }
+  }
 
-    .value-uneditable {
-        padding: 1px 1px 1px 1px;
-        height: 100%;
-        min-width: 30%;
-        min-height: 30px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        border: 1px solid rgba(102, 102, 102, 0);
+  .editable-textarea-container {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    // All following css is to overwrite css from CDK to avoid offset in the render
+    > div {
+      margin: 0px;
+      width: 100%;
 
+      .MuiFormControl-root {
+
+        > div {
+          margin-top: 0px;
+
+          input {
+            padding: 0px 0px 5px 0px;
+          }
+        }
+      }
     }
-    .edit-onHover:hover {
-        left:-1;
-        height: 100%;
-        box-shadow: 0 0 0 1px #4e555b;
-    }
+  }
 
-    .editable-input-container {
-        height: 35px;
+  .editable-date-container {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    // All following css is to overwrite css from CDK to avoid offset in the render
+    > div {
+      margin: 0px;
+      width: 100%;
+
+      > div {
+        margin: 0;
         width: 100%;
-        display: flex;
-        align-items: center;
-        // All following css is to overwrite css from CDK to avoid offset in the render
-        > div {
-            margin: 0px;
-            width: 100%;
+      }
 
-            .MuiFormControl-root {
-                
-                > div {
-                    margin-top: 0px;
+      // .MuiFormControl-root {
 
-                    input {
-                        padding: 0px 0 5px 0px;
-                    }
-                }
-            }
-        }
+      //     > div {
+      //         margin-top: 0px;
+
+      //         input {
+      //             padding: 0px 0px 5px 0px;
+      //         }
+      //     }
+      // }
     }
-    .editable-textarea-container {
-        height: 100px;
+  }
+
+  .editable-select-container {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    // All following css is to overwrite css from CDK to avoid offset in the render
+    > div {
+      margin: 0px;
+      width: 100%;
+
+      > div {
+        margin: 0;
         width: 100%;
-        display: flex;
-        align-items: center;
-        // All following css is to overwrite css from CDK to avoid offset in the render
+      }
+
+      .MuiFormControl-root {
+
         > div {
-            margin: 0px;
-            width: 100%;
+          margin-top: 0px;
 
-            .MuiFormControl-root {
-
-                > div {
-                    margin-top: 0px;
-
-                    input {
-                        padding: 0px 0px 5px 0px;
-                    }
-                }
-            }
+          .MuiSelect-select {
+            padding: 0px;
+            padding-bottom: 5px;
+          }
         }
+      }
     }
-    .editable-date-container {
-        height: 35px;
-        display: flex;
-        align-items: center;
-        // All following css is to overwrite css from CDK to avoid offset in the render
-        > div {
-            margin: 0px;
-            width: 100%;
+  }
 
-            > div {
-                margin: 0;
-                width: 100%;
-            }
+  .icon-container {
+    z-index: 10;
+    background-color: white;
+  }
 
-            // .MuiFormControl-root {
-                
-            //     > div {
-            //         margin-top: 0px;
+  .icon-container-input {
+    position: absolute;
+    bottom: -18px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0px 0px 3px 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 45px !important;
 
-            //         input {
-            //             padding: 0px 0px 5px 0px;
-            //         }
-            //     }
-            // }
-        }
+    span {
+      display: flex;
+      align-items: center;
     }
 
-    .editable-select-container {
-        height: 35px;
-        display: flex;
-        align-items: center;
-        // All following css is to overwrite css from CDK to avoid offset in the render
-        > div {
-            margin: 0px;
-            width: 100%;
+    span:hover {
+      background-color: rgb(226, 226, 226);
+      border-radius: 3px;
+      cursor: pointer;
 
-            > div {
-                margin: 0;
-                width: 100%;
-            }
+    }
+  }
 
-            .MuiFormControl-root {
-                
-                > div  {
-                    margin-top: 0px;
+  .icon-container-textarea {
+    position: absolute;
+    bottom: -18px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0px 0px 3px 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 45px !important;
 
-                    .MuiSelect-select {
-                        padding: 0px;
-                        padding-bottom: 5px;
-                    }
-                }
-            }
-        }
+    span {
+      display: flex;
+      align-items: center;
     }
 
-    .icon-container {
-        z-index: 10;
-        background-color: white;
+    span:hover {
+      background-color: rgb(226, 226, 226);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+
+  .icon-container-date {
+    position: absolute;
+    bottom: -22px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0px 0px 3px 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 45px !important;
+
+    span {
+      display: flex;
+      align-items: center;
     }
 
-    .icon-container-input {
-        position: absolute;
-        bottom: -18px;
-        right: 0px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 0px 0px 3px 3px;
-        padding: 2px;
-        box-sizing: border-box;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        width: 45px !important;
-
-        span {
-            display: flex;
-            align-items: center;
-        }
-
-        span:hover {
-            background-color: rgb(226, 226, 226);
-            border-radius: 3px;
-            cursor: pointer;
-
-        }
+    span:hover {
+      background-color: rgb(226, 226, 226);
+      border-radius: 3px;
+      cursor: pointer;
     }
-    .icon-container-textarea {
-        position: absolute;
-        bottom: -18px;
-        right: 0px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 0px 0px 3px 3px;
-        padding: 2px;
-        box-sizing: border-box;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        width: 45px !important;
+  }
 
-        span {
-            display: flex;
-            align-items: center;
-        }
+  .icon-container-select {
+    position: absolute;
+    bottom: -18px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0px 0px 3px 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 45px !important;
 
-        span:hover {
-            background-color: rgb(226, 226, 226);
-            border-radius: 3px;
-            cursor: pointer;
-        }
+    span {
+      display: flex;
+      align-items: center;
     }
 
-    .icon-container-date {
-        position: absolute;
-        bottom: -22px;
-        right: 0px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 0px 0px 3px 3px;
-        padding: 2px;
-        box-sizing: border-box;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        width: 45px !important;
-
-        span {
-            display: flex;
-            align-items: center;
-        }
-
-        span:hover {
-            background-color: rgb(226, 226, 226);
-            border-radius: 3px;
-            cursor: pointer;
-        }
+    span:hover {
+      background-color: rgb(226, 226, 226);
+      border-radius: 3px;
+      cursor: pointer;
     }
+  }
 
-    .icon-container-select {
-        position: absolute;
-        bottom: -18px;
-        right: 0px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 0px 0px 3px 3px;
-        padding: 2px;
-        box-sizing: border-box;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        width: 45px !important;
-
-        span {
-            display: flex;
-            align-items: center;
-        }
-
-        span:hover {
-            background-color: rgb(226, 226, 226);
-            border-radius: 3px;
-            cursor: pointer;
-        }
-    }
-
-    // Modify value from DxcInput to minimize the size of suffixIcone
-    // .MuiInputAdornment-root img {
-    //     width: 12px;
-    // }
+  // Modify value from DxcInput to minimize the size of suffixIcone
+  // .MuiInputAdornment-root img {
+  //     width: 12px;
+  // }
 }
