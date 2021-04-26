@@ -119,6 +119,7 @@ const MyBaskets = () => {
                                         <TicketList 
                                             height={'600px'}
                                             handleTicketClick={handleTicketClick} 
+                                            selected={clickedTicket.id}
                                             tickets={ticketsFromBasket} />
                                     </div>
                                 </div>
