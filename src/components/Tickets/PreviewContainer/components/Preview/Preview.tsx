@@ -5,7 +5,6 @@ import {
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
 import React, { useCallback } from "react";
-import { StyledButton, StyledDivider } from 'styles/global-style';
 
 import DataLine from "./components/DataLine/DataLine";
 import Documents from './components/Documents/Documents';
@@ -16,6 +15,7 @@ import PropTypes from "prop-types";
 import RelatedClient from './components/RelatedClient/RelatedClient';
 import Section from "components/Section/Section";
 import Sections from "./components/Sections/Sections";
+import { StyledButton } from 'styles/global-style';
 import { TextField } from "@material-ui/core";
 import Upload from "./components/Upload/Upload";
 import UserSelection from "./components/UserSelection/UserSelection";
@@ -28,6 +28,12 @@ import useDeskUsers from "data/hooks/useDeskUsers";
 export const Root = styled.div`
   height: 100%;
   width: 100%;
+`;
+
+export const Data = styled.div`
+    font-size: 13px;
+    color: #2b4358;
+    max-height: 200px;
 `;
 
 const Preview = (props: any) => {
@@ -82,7 +88,7 @@ const Preview = (props: any) => {
 
     const Description = (des: any) => {
         const { description } = des;
-        return (<p style={{ maxHeight: '200px' }}>{description}</p>)
+        return (<Data>{description}</Data>)
     }
     const DxcDate2 = (data: any) => {
         const { date, id, ...rest } = data;
@@ -135,11 +141,10 @@ const Preview = (props: any) => {
 
     return (
         <Root>
-            <Sections >
+            <Sections>
                 {false && closePopupAction}
                 {actions && <Section id="actions" title="Actions">
                     {actions}
-                    <StyledDivider />
                 </Section>}
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
@@ -195,7 +200,7 @@ const Preview = (props: any) => {
                             <UserSelection />
                         </EditableField>
                     </DataLine>
-                    <StyledDivider />
+                    {/* <StyledDivider /> */}
                 </Section>
                 <Section id="description" title="Description">
                     <EditableField
@@ -207,7 +212,7 @@ const Preview = (props: any) => {
                         <DxcTextarea />
                     </EditableField>
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>}>
                     <DataLine label={<Label>Client</Label>}>
                         {/* <LinkedClient client={{displayName: ticket.relatedClients}} url={"jkjk"} /> */}
@@ -215,7 +220,7 @@ const Preview = (props: any) => {
                     </DataLine>
                 </Section>
 
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
                     <DataLine label={<Label> Contract </Label>}>
                         <LinkedContract
@@ -242,18 +247,18 @@ const Preview = (props: any) => {
                         />
                     </DataLine>
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="suggestedActivities" title="Suggested activities">
                     <SuggestedActivities activities={ticket.suggestedActivities} />
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="notes" title="Notes">
                     <ul className={"list-group"}>
                         <li className="list-group-item"> Note 1</li>
                         <li className="list-group-item"> Note 2</li>
                     </ul>
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="documents" title="Documents">
                     <Documents documents={ticket.documents} />
                     <Upload ticketId={ticket.id} />
