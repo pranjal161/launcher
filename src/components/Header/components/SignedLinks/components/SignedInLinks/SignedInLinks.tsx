@@ -9,11 +9,13 @@ import { useHistory } from "react-router-dom";
  * @returns {*} Sign in link
  */
 const SignedInLinks = () => {
-    const {signOut} = useDeskAuth();
+    const { signOut } = useDeskAuth();
     const history = useHistory();
-    const handleLogout = (e:any) => {
+    const handleLogout = async (e:any) => {
         e.preventDefault();
-        signOut().then(() => history.push('/auth/signin'));
+        await signOut();
+
+        history.push('/auth/signin');
     }
     
     return (
