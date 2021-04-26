@@ -1,0 +1,105 @@
+$text-timeline-color: #CDD5DE;
+$secondary-text-timeline-color: #BDC8D2;
+$timeline-username-color: #3572b0;
+
+.timeline-item-container {
+    width: 100%;
+
+        .item-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            // background: red;
+        
+            .draft-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                box-sizing: border-box;
+                // height: 100%;
+                // background: violet;
+
+                .circle-timeline {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    background: $text-timeline-color;
+                }
+                
+                .line-timeline {
+                    width: 2px;
+                    height: calc(100% - 35px);
+                    background: $text-timeline-color;
+                }
+            }
+            .info-container {
+                // background: blue;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 5px;
+
+                .text-icon-container {
+                    display: flex;
+                    margin-top: 5px;
+                    width: 100%;
+                    text-align: left;
+                    margin-left: 25px;
+                    margin-bottom: 5px;
+
+                    svg {
+                        width: 18px;
+                        margin-right: 5px;
+                    }
+                }
+
+                .img-container {
+                    width: 100%;
+                    display: flex;
+                    justify-content: left;
+
+                    margin-left: 75px;
+                    margin-bottom: 5px;
+                    align-items: center;
+
+                    p {
+                        margin: 0;
+                        margin-left: 5px;
+                    }
+                }
+
+                .username-item {
+                    text-align: left;
+                    width: 100%;
+                    margin: 0px;
+                    margin-left: 25px;
+                    font-weight: bold;
+                }
+
+                .time-item {
+                    text-align: left;
+                    width: 100%;
+                    margin: 0;
+                    margin-left: 25px;
+                    color: $secondary-text-timeline-color;
+                }
+                .action-item, .picture-name {
+                    margin: 0px 0px 15px 0px;;
+                    font-weight: 600;
+
+                    span {
+                        color: $timeline-username-color;
+                    }
+                }
+                .picture-item {
+                    width: 65px;
+                    border-radius: 5px;
+                }
+                
+            }
+        }
+
+        
+    }

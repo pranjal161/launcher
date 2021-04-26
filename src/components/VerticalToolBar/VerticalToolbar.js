@@ -6,6 +6,7 @@ import styled from "styled-components";
 const Item = styled.div`
   display: flex;
   justify-content: center;
+  align-content: center;
   padding: 10px;
   margin-bottom: 6px;
   max-width: 44px;
