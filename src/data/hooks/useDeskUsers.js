@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useCallback } from "react";
 
-const useAllUsers = () => useSelector((state) => state.firestore.ordered['users'])
+const useAllUsers = (type='ordered') => useSelector((state) => state.firestore[type]['users'])
 
 const useGetOne = (id) => useSelector((state) => (state.firestore.data.users ? { id, ...state.firestore.data.users[id] } : undefined))
 
