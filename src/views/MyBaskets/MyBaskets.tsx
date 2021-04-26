@@ -113,9 +113,9 @@ const MyBaskets = () => {
                         }>
                         {tickets &&
                         <div className="main-container col-12">
-                            <div className="col-12">
+                            <div className="col-12 p-0">
                                 <div className="row position-relative">
-                                    <div className="col">
+                                    <div className="col p-0">
                                         <TicketList 
                                             height={'600px'}
                                             handleTicketClick={handleTicketClick} 
