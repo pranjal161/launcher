@@ -1,22 +1,25 @@
-import { DxcLink } from '@dxc-technology/halstack-react';
+import { LockCloseIcon } from 'assets/svg';
 import React from 'react';
 import useDeskAuth from "data/hooks/useDeskAuth";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 
 /**
  * Display for the sign in
  * @returns {*} Sign in link
  */
-function SignedInLinks() {
-    const {signOut} = useDeskAuth()
-    const history = useHistory()
+const SignedInLinks = () => {
+    const {signOut} = useDeskAuth();
+    const history = useHistory();
     const handleLogout = (e:any) => {
-        e.preventDefault()
-        signOut().then(() => history.push('/auth/signin'))
+        e.preventDefault();
+        signOut().then(() => history.push('/auth/signin'));
     }
     
     return (
-        <li><DxcLink text="Log Out" onClick={handleLogout} /></li>
+        <li title="Log Out" onClick={handleLogout}>
+            <LockCloseIcon />
+        </li>
     );
 }
 
