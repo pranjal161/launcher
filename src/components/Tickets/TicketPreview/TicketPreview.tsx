@@ -6,19 +6,19 @@ import {
 } from "@dxc-technology/halstack-react";
 import React, { useCallback } from "react";
 
-import DataLine from "./components/DataLine/DataLine";
-import Documents from './components/Documents/Documents';
+import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
+import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
-import Label from "./components/Label/Label";
-import LinkedContract from "./components/LinkedContract/LinkedContract";
+import Label from "components/Tickets/TicketPreview/components/Label/Label";
+import LinkedContract from "components/Tickets/TicketPreview/components/LinkedContract/LinkedContract";
 import PropTypes from "prop-types";
-import RelatedClient from './components/RelatedClient/RelatedClient';
+import RelatedClient from 'components/Tickets/TicketPreview/components/RelatedClient/RelatedClient';
 import Section from "components/Section/Section";
-import Sections from "./components/Sections/Sections";
+import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
 import { StyledButton } from 'styles/global-style';
 import { TextField } from "@material-ui/core";
-import Upload from "./components/Upload/Upload";
-import UserSelection from "./components/UserSelection/UserSelection";
+import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
+import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import { formatValue } from "util/functions";
 import moment from "moment";
 import styled from "styled-components";
@@ -36,7 +36,7 @@ export const Data = styled.div`
     max-height: 200px;
 `;
 
-const Preview = (props: any) => {
+const TicketPreview = (props: any) => {
     const { ticket, onClose, onPopupWindow, showPopupIcon = false, actions } = props;
     const { update, assignTo, createdBy } = useDeskTickets()
     const TitleValue: any = () => (<>{ticket.title}</>)
@@ -268,7 +268,7 @@ const Preview = (props: any) => {
     );
 };
 
-Preview.propTypes = {
+TicketPreview.propTypes = {
     ticket: PropTypes.string,
     personId: PropTypes.string,
     showPopupIcon: PropTypes.bool,
@@ -284,4 +284,4 @@ Preview.propTypes = {
     receivedDate: PropTypes.instanceOf(Date),
 };
 
-export default Preview;
+export default TicketPreview;

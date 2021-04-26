@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 
-import DataLine from "components/Tickets/PreviewContainer/components/Preview/components/DataLine/DataLine";
+import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Deadline from "components/Deadline/Deadline";
 import EditableField from "components/EditableField/EditableField";
-import Label from "components/Tickets/PreviewContainer/components/Preview/components/Label/Label";
+import Label from "components/Tickets/TicketPreview/components/Label/Label";
 import Section from "components/Section/Section";
 import StatusSelection from "components/StatusSelection/StatusSelection";
 import { StyledDivider } from "styles/global-style";
 import TextField from "@material-ui/core/TextField/TextField";
-import UserSelection from "components/Tickets/PreviewContainer/components/Preview/components/UserSelection/UserSelection";
+import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import { formatValue } from "util/functions";
 import moment from "moment";
 import useDeskBaskets from "data/hooks/useDeskBaskets";
