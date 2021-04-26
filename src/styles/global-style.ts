@@ -44,6 +44,17 @@ export const StyledButton = styled.button`
     }
 `;
 
+export const StyledButtonWhiteSVG = styled.button`
+    border: unset;
+    border-radius: 4px;
+    background: transparent;
+    svg {
+        fill: #FFFFFF;
+        max-width: 25px;
+        max-height: 25px;
+    }
+`;
+
 export const StyledLabel = styled.label`
   margin-right: 7px;
   font-weight: 600;
@@ -95,7 +106,7 @@ export const StyledToolbarItem = styled.li<ListItemProps>`
   display: block;
   color: #000;
   text-decoration: none;
-  background-color: ${(props:any) => (props.active ? '#EAE2F8':'#ffffff')};
+  background-color: ${(props: any) => (props.active ? '#EAE2F8' : '#ffffff')};
 `;
 
 
