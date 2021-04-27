@@ -61,8 +61,8 @@ const ContractSummary = (props: any) => {
     const [partyUrl,setPartyUrl] = useState<undefined | string>(undefined)
 
 
-    const contractResponse = useSelector((state: any) => state.aia.ba[contractUrl] && state.aia.ba[contractUrl].data.ready && state.aia.ba[contractUrl].data)
-    const partyResponse= useSelector((state: any) => contractResponse && partyUrl && state.aia.ba[contractUrl] && state.aia.ba[contractUrl].children[partyUrl])
+    const contractResponse = useSelector((state: any) => state.aia.ba[contractUrl] && state.aia.ba[contractUrl][contractUrl])
+    const partyResponse= useSelector((state: any) => contractResponse && partyUrl && state.aia.ba[contractUrl] && state.aia.ba[contractUrl][partyUrl])
 
 
     const actionOptions = [
