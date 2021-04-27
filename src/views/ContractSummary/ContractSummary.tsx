@@ -98,12 +98,13 @@ const ContractSummary = (props: any) => {
 
     const getData = (contractUrl: string) => {
         //await axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {
-        fetch(contractUrl, 'get')
+        const res = fetch(contractUrl, 'get')
+        res.then((result) => console.log('result', result))
+
     }
 
     useEffect(() => {
         if (contractResponse ) {
-            console.log('contractResponse',contractResponse)
             const result = contractResponse
             setContractData(result.data);
             getRiskData(result.data._links);

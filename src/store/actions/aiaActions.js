@@ -1,17 +1,15 @@
 import {aia} from "../../util/functions";
 
 
-export const startOfBusinessActivity = (baId) => (dispatch) =>
-{
+export const startOfBusinessActivity = (baId) => (dispatch) => {
     dispatch({type: 'START_BA', baId})
 }
 
-export const endOfBusinessActivity = (baId) => (dispatch) =>
-{
+export const endOfBusinessActivity = (baId) => (dispatch) => {
     dispatch({type: 'END_BA', baId})
 }
 
-export const fetch = (hRef, callType = 'get', baId=null) => (dispatch, getState) => {
+export const fetch = (hRef, callType = 'get', baId = null) => (dispatch, getState) => {
     //Search if we have already fetch this hRef
     const hRefs = getState().aia.hRefs
     const timestamp = Date.now()
@@ -20,22 +18,22 @@ export const fetch = (hRef, callType = 'get', baId=null) => (dispatch, getState)
 
     dispatch({type: `${actionPrefix}_START`, hRef, timestamp})
 
-    aia[callType](hRef)
-        .then(
-            (response) => {
-                dispatch({
-                    type: `${actionPrefix}_SUCCESS`,
-                    data: response.data,
-                    hRef,
-                    timestamp
-                })
-                dispatch({
-                    type: 'BA_API_FETCH',
-                    data: response.data,
-                    hRef,
-                    baId
-                })
+    const promise = aia[callType](hRef)
+    promise.then(
+        (response) => {
+            dispatch({
+                type: `${actionPrefix}_SUCCESS`,
+                data: response.data,
+                hRef,
+                timestamp
             })
+            dispatch({
+                type: 'BA_API_FETCH',
+                data: response.data,
+                hRef,
+                baId
+            })
+        })
         .catch((error) => {
             dispatch({
                 type: `${actionPrefix}_ERROR`,
@@ -44,4 +42,5 @@ export const fetch = (hRef, callType = 'get', baId=null) => (dispatch, getState)
                 timestamp
             })
         })
+    return promise
 }
