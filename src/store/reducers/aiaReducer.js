@@ -1,7 +1,5 @@
 const initialState = {
     ba: {},
-    hRefs: {},
-    subscriptions: {}
 }
 
 const aiaReducer = (state = initialState, action) => {
