@@ -1,15 +1,17 @@
 import {aia} from "../../util/functions";
 
 
-export const startOfBusinessActivity = (baId) => {
-    dispatch('START_BUSINESS_ACTIVITY', baId)
+export const startOfBusinessActivity = (baId) => (dispatch) =>
+{
+    dispatch({type: 'START_BA', baId})
 }
 
-export const endOfBusinessActivity = (baId) => {
-    dispatch('END_BUSINESS_ACTIVITY', baId)
+export const endOfBusinessActivity = (baId) => (dispatch) =>
+{
+    dispatch({type: 'END_BA', baId})
 }
 
-export const fetch = (hRef, callType='get') => (dispatch, getState) => {
+export const fetch = (hRef, callType = 'get', baId=null) => (dispatch, getState) => {
     //Search if we have already fetch this hRef
     const hRefs = getState().aia.hRefs
     const timestamp = Date.now()
@@ -23,9 +25,15 @@ export const fetch = (hRef, callType='get') => (dispatch, getState) => {
             (response) => {
                 dispatch({
                     type: `${actionPrefix}_SUCCESS`,
-                    data : response.data,
+                    data: response.data,
                     hRef,
                     timestamp
+                })
+                dispatch({
+                    type: 'BA_API_FETCH',
+                    data: response.data,
+                    hRef,
+                    baId
                 })
             })
         .catch((error) => {

@@ -11,22 +11,23 @@ const aiaReducer = (state = initialState, action) => {
 
 
     switch (action.type) {
-        case 'BA_START':
-            newBa = {...state.ba, [action.baId]: {data: {}, children: {}}}
-            return {...state, ba: newBa}
-        case 'BA_END':
+        case 'START_BA':
+            newBa = {...state.ba, [action.baId]: {data: {ready:false}, children: {}}}
+            newState.ba = newBa
+            return newState
+        case 'END_BA':
             newBa = state.delete(action.baId)
-            return {...newState, ba: newBa}
+            newState.ba = newBa
+            return newState
         case 'BA_API_FETCH':
-            const newData = hRef === action.baId ? data : state.data
-            let children
-            if (hRef !== action.baId)
-                children = {...children, [action.baId]: data}
-            else
-                children = state.ba[action.baId].children
-            newBa = {...state.ba, [action.baId]: {data: newData, children: children}}
+            if (hRef === action.baId) {
+                newState.ba[action.baId].data = {data:{...action.data}, ready:true}
 
-            return {...newState, ba: newBa}
+            }else {
+                newState.ba[action.baId].children[action.hRef] = action.data
+            }
+
+            return newState
 
         case 'FETCH_HREF_START':
             //If hRef not exist, we add it

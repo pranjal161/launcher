@@ -6,7 +6,7 @@ import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
-import ContractSummary from "views/ContractSummary/ContractSummary";
+import ContractView from "views/Activities/ContractView/ContractView";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import Help from 'views/Help/Help';
 import HomePage from "views/HomePage/HomePage";
@@ -81,7 +81,7 @@ const routes = [
                 path: '/contracts/:contractId',
                 name: 'contract',
                 exact: true,
-                component: ContractSummary
+                component: ContractView
             },
             {
                 path: '/ClientView/person/:personId',
