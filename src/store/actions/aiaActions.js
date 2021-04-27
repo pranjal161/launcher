@@ -2,44 +2,53 @@ import {aia} from "../../util/functions";
 
 
 export const startOfBusinessActivity = (baId) => (dispatch) => {
-    dispatch({type: 'START_BA', baId})
+    dispatch({type: 'BA_START', baId})
 }
 
 export const endOfBusinessActivity = (baId) => (dispatch) => {
-    dispatch({type: 'END_BA', baId})
+    dispatch({type: 'BA_END', baId})
 }
 
 export const fetch = (hRef, callType = 'get', baId = null) => (dispatch, getState) => {
     //Search if we have already fetch this hRef
-    const hRefs = getState().aia.hRefs
+    //const hRefs = getState().aia.hRefs
     const timestamp = Date.now()
-    const alreadyFetched = hRefs[hRef] && hRefs[hRef].status === "succeeded"
-    const actionPrefix = alreadyFetched ? 'UPDATE_FETCH_HREF' : 'FETCH_HREF'
+    //const alreadyFetched = hRefs[hRef] && hRefs[hRef].status === "succeeded"
+    const actionPrefix = `BA_${callType.toUpperCase()}`
 
-    dispatch({type: `${actionPrefix}_START`, hRef, timestamp})
+    //dispatch({type: `${actionPrefix}_START`, hRef, timestamp})
+    dispatch({type: `${actionPrefix}_PENDING`, hRef, timestamp})
 
     const promise = aia[callType](hRef)
     promise.then(
         (response) => {
-            dispatch({
+
+            /*dispatch({
                 type: `${actionPrefix}_SUCCESS`,
                 data: response.data,
                 hRef,
                 timestamp
-            })
+            })*/
             dispatch({
-                type: 'BA_API_FETCH',
+                type: `${actionPrefix}_SUCCESS`,
                 data: response.data,
                 hRef,
                 baId
             })
         })
         .catch((error) => {
-            dispatch({
+
+            /* dispatch({
                 type: `${actionPrefix}_ERROR`,
                 error,
                 hRef,
                 timestamp
+            })*/
+            dispatch({
+                type: `${actionPrefix}_ERROR`,
+                error,
+                hRef,
+                baId
             })
         })
     return promise

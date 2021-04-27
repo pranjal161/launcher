@@ -11,18 +11,28 @@ const aiaReducer = (state = initialState, action) => {
 
 
     switch (action.type) {
-        case 'START_BA':
+        case 'BA_START':
             newState.ba[action.baId] = {}
             return newState
 
-        case 'END_BA':
+        case 'BA_END':
             newBa = newState.ba.delete(action.baId)
             newState.ba = newBa
             return newState
 
-        case 'BA_API_FETCH':
+        case 'BA_GET_PENDING':
+            return newState
+
+        case 'BA_GET_SUCCESS':
             newState.ba[action.baId][action.hRef] = {data:{...action.data}}
             return newState
+
+        case 'BA_GET_ERROR':
+            console.log('Error in BA_GET', action)
+            return newState
+
+
+        /*
 
         case 'FETCH_HREF_START':
             //If hRef not exist, we add it
@@ -60,7 +70,7 @@ const aiaReducer = (state = initialState, action) => {
             arr = newState.subscriptions[action.hRef] ? newState.subscriptions[action.hRef] : []
             newState.subscriptions[action.hRef] = arr.filter((id) => id != action.id)
             return newState
-
+*/
         default:
             return state
     }
