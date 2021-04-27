@@ -3,7 +3,9 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
+import ContractPreview from "views/Trainers/TrainingPranjal/ContractPreview/ContractPreview";
 import ContractTable from "components/ContractTable/ContractTable";
+import EntitySidebar from "components/EntitySidebar/EntitySidebar";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +15,7 @@ const ContractSearch = () => {
     const [url, setURL] = useState(initialURL);
     const [contractNumber, setContractNumber] = useState('');
     const [contractData, setContractData] = useState({});
+    const [selectedContract, setSelectedContract] = useState<string>();
     const applicationContext = useContext(ApplicationContext);
     // const [totalItems, changeTotalItems] = useState(0);
 
@@ -47,35 +50,47 @@ const ContractSearch = () => {
         setContractNumber('');
     };
 
+    const selectContract = (href: string) => {
+        setSelectedContract(href);
+    };
+
     return (
         <>
-            <div className="align-center">
-                <DxcInput
-                    label={t('_CONTRACT')}
-                    value={contractNumber}
-                    onChange={onContractNumberChange}
-                    margin="medium"
-                />
-                <div className="d-flex justify-content-center"></div>
-                <DxcButton
-                    mode="primary"
-                    label={t('_CONTRACT_SEARCH')}
-                    onClick={searchContract}
-                    margin="medium"
-                    size="large"
-                />
-                <DxcButton mode="primary" label={t('_RESET')} onClick={resetTable} margin="medium" size="large" />
-            </div>
-            <div className="align-center">
-                <DxcAlert
-                    type="info"
-                    mode="inline"
-                    inlineText={t('_PAGINATOR_WARNING')}
-                    margin="xxsmall"
-                />
-            </div>
-            <div className="p-2">
-                <ContractTable contractData={contractData} getData={(href: string) => getData(href)} />
+            <div className="d-flex flex-nowrap">
+                <div className="flex-grow-1 col-8 p-0">
+                    <div className="align-center">
+                        <DxcInput
+                            label={t('_CONTRACT')}
+                            value={contractNumber}
+                            onChange={onContractNumberChange}
+                            margin="medium"
+                        />
+                        <div className="d-flex justify-content-center"></div>
+                        <DxcButton
+                            mode="primary"
+                            label={t('_CONTRACT_SEARCH')}
+                            onClick={searchContract}
+                            margin="medium"
+                            size="large"
+                        />
+                        <DxcButton mode="primary" label={t('_RESET')} onClick={resetTable} margin="medium" size="large" />
+                    </div>
+                    <div className="align-center">
+                        <DxcAlert
+                            type="info"
+                            mode="inline"
+                            inlineText={t('_PAGINATOR_WARNING')}
+                            margin="xxsmall"
+                        />
+                    </div>
+                    <ContractTable contractData={contractData} getData={(href: string) => getData(href)} showPreview={true} selectContract={selectContract} />
+                </div>
+                <EntitySidebar
+                    open={true}
+                    width={434}
+                    content={
+                        <ContractPreview contractUrl={selectedContract} />
+                    } />
             </div>
         </>
     );

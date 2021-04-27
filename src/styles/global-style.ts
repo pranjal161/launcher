@@ -57,7 +57,8 @@ export const StyledButtonWhiteSVG = styled.button`
 
 export const StyledLabel = styled.label`
   margin-right: 7px;
-  font-weight: 600;
+  color: gray;
+  width: ${(props : { width: number}) => (props.width ? props.width : 'unset')}px;
 `;
 
 export const StyledPaginator = styled.div`

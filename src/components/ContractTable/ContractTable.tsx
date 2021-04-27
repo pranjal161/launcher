@@ -1,21 +1,23 @@
-import {DxcTable} from '@dxc-technology/halstack-react';
+import { EyeIcon, OpenInNewIcon } from 'assets/svg';
+import { StyledButton, StyledHoverRow } from 'styles/global-style';
+
+import { DxcTable } from '@dxc-technology/halstack-react';
 import Paginator from "components/Paginator/Paginator";
 import React from 'react';
-import {StyledHoverRow} from 'styles/global-style';
-import {getDescriptionValue} from 'util/functions';
+import { getDescriptionValue } from 'util/functions';
 import useAia from "data/hooks/useAia";
-import {useHistory} from 'react-router-dom';
-import {useTranslation} from "react-i18next";
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 /**
  * Display contract information in a Table
  * @param {props} props Contains information related to the contract
  * @returns {*} Return information of the contract in a Table
  */
-const ContractTable = (props: { contractData: any; getData: (href: string) => void }) => {
-    const {t} = useTranslation();
+const ContractTable = (props: any) => {
+    const { t } = useTranslation();
     const history = useHistory();
-    const {fetch} = useAia()
+    const { fetch } = useAia()
 
     /**
      * Redirection to a contract
@@ -27,7 +29,7 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
 
         fetch(item.href, 'get')
 
-        history.push('/contracts/' + contractNumber, {contractUrl: item.href});
+        history.push('/contracts/' + contractNumber, { contractUrl: item.href });
     }
 
     return (
@@ -40,9 +42,10 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
                             <th>{t('_CONTRACT_STATUS')}</th>
                             <th>{t('_OWNER_NAME')}</th>
                             <th>{t('_RISK_DATA')}</th>
+                            <th>{t('_ACTIONS')}</th>
                         </tr>
                         {props.contractData._links.item.map((row: { [x: string]: { [x: string]: any } }, i: number) => (
-                            <StyledHoverRow key={i} onClick={() => goToContract(row)}>
+                            <StyledHoverRow key={i}>
                                 <td>{row['summary']['contract:number']}</td>
                                 <td>
                                     {getDescriptionValue(
@@ -57,6 +60,18 @@ const ContractTable = (props: { contractData: any; getData: (href: string) => vo
                                         : row['summary']['organization:display_id']}
                                 </td>
                                 <td>{row['summary']['membership:display_id']}</td>
+                                <td>
+                                    <StyledButton aria-label="add an alarm" onClick={() => goToContract(row)}>
+                                        <OpenInNewIcon />
+                                    </StyledButton>
+                                </td>
+                                {props.showPreview &&
+                                    <td>
+                                        <StyledButton aria-label="add an alarm" onClick={() => props.selectContract(row.href)}>
+                                            <EyeIcon />
+                                        </StyledButton>
+                                    </td>
+                                }
                             </StyledHoverRow>
                         ))}
                     </DxcTable>
