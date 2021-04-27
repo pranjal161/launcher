@@ -27,9 +27,14 @@ const TicketTabs = (props: {setWindowFocus?: Function}) => {
         setWindowFocus();
     }
 
+    const handleTabSelect = (tabId: string) => {
+        dispatch(popupWindowActions.setSelectedTicketTabByID(tabId));
+    }
+
     return (
         <Tabs
-            activeTabId = {selectedTicketID}>
+            activeTabId = {selectedTicketID}
+            onClick={handleTabSelect}>
             {
                 ticketIDsArray.map((ticketId) => (
                     <Tab

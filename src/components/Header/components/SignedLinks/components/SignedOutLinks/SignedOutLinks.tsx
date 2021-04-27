@@ -1,15 +1,22 @@
-import {NavLink} from "react-router-dom";
+import { LockOpenIcon } from 'assets/svg';
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 /**
  * Display for the sign out
  * @returns {*} Sign out link
  */
-function SignedOutLinks() {
+const SignedOutLinks = () => {
+    const history = useHistory();
+    const handleLogin = (e:any) => {
+        e.preventDefault();
+        history.push('/auth/signin');
+    }
+
     return (
-        <>
-            <li><NavLink to="/auth/signin">Log In</NavLink></li>
-        </>
+        <li title="Log In" onClick={handleLogin}>
+            <LockOpenIcon />
+        </li>
     );
 }
 

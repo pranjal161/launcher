@@ -16,10 +16,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 
     width: 100%;
     height: calc(100vh - 285px);
 
     padding: 20px 0;
+}
+
+.row {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    min-width: 250px;
+}
+
+.spaced {
+    justify-content: space-between;
+}
+
+.centered {
+    justify-content: center;
+}
+
+.q-results {
+    min-height: 300px;
 }

@@ -3,8 +3,8 @@ import React, {useState} from 'react';
 import CommunicateAcrossBrowser from "./components/CommunicateAcrossBrowser/CommunicateAcrossBrowser";
 import {DxcTabs} from "@dxc-technology/halstack-react"
 import LatestPage from "./components/LatestPage/LatestPage";
-import Preview from "../../../components/Tickets/PreviewContainer/components/Preview/Preview";
 import TicketListPage from "./components/TicketListPage/TicketListPage";
+import TicketPreview from "../../../components/Tickets/TicketPreview/TicketPreview";
 import TrainingConsultationPanel from "./components/TrainingConsultationPanel/TrainingConsultationPanel";
 import useDeskTickets from "../../../data/hooks/useDeskTickets";
 
@@ -32,7 +32,7 @@ function TrainingNorbert() {
                         label : "TrainingConsultationPanel"
                     },
                     {
-                        label: "Preview"
+                        label: "TicketPreview"
                     },
                     {
                         label: "Latest"
@@ -49,7 +49,7 @@ function TrainingNorbert() {
                 ticket && <TrainingConsultationPanel />
             )},
             {activeTab === 1 && (
-                ticket && <Preview ticket={ticket}/>
+                ticket && <TicketPreview ticket={ticket}/>
             )}
             {activeTab === 2 && (
                 <LatestPage/>

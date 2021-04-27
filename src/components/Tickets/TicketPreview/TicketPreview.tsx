@@ -1,24 +1,24 @@
-import { AddIcon, CloseIcon, NewWindowIcon} from "assets/svg";
+import { AddIcon, CloseIcon, NewWindowIcon } from "assets/svg";
 import {
     DxcChip,
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
 import React, { useCallback } from "react";
-import {StyledButton, StyledDivider} from 'styles/global-style';
 
-import DataLine from "./components/DataLine/DataLine";
-import Documents from './components/Documents/Documents';
+import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
+import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
-import Label from "./components/Label/Label";
-import LinkedContract from "./components/LinkedContract/LinkedContract";
+import Label from "components/Tickets/TicketPreview/components/Label/Label";
+import LinkedContract from "components/Tickets/TicketPreview/components/LinkedContract/LinkedContract";
 import PropTypes from "prop-types";
-import RelatedClient from './components/RelatedClient/RelatedClient';
-import Section from "./components/Section/Section";
-import Sections from "./components/Sections/Sections";
+import RelatedClient from 'components/Tickets/TicketPreview/components/RelatedClient/RelatedClient';
+import Section from "components/Section/Section";
+import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
+import { StyledButton } from 'styles/global-style';
 import { TextField } from "@material-ui/core";
-import Upload from "./components/Upload/Upload";
-import UserSelection from "./components/UserSelection/UserSelection";
+import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
+import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import { formatValue } from "util/functions";
 import moment from "moment";
 import styled from "styled-components";
@@ -30,27 +30,34 @@ export const Root = styled.div`
   width: 100%;
 `;
 
-const Preview = (props:any) => {
+export const Data = styled.div`
+    font-size: 13px;
+    color: #2b4358;
+    max-height: 200px;
+`;
+
+const TicketPreview = (props: any) => {
     const { ticket, onClose, onPopupWindow, showPopupIcon = false, actions } = props;
     const { update, assignTo, createdBy } = useDeskTickets()
-    const TitleValue:any = () => (<>{ticket.title}</>)
-    const DateValue = ( data:any ) => {
+    const TitleValue: any = () => (<>{ticket.title}</>)
+    const DateValue = (data: any) => {
         const { date } = data;
-        return(<>{formatValue(date, 'date')}</>)
+        return (<>{formatValue(date, 'date')}</>)
     }
-    const PersonValue = (personid:any) => {
+
+    const PersonValue = (personid: any) => {
         const { personId } = personid;
         const { getOne } = useDeskUsers()
-        const person:any = useCallback (() => {
+        const person: any = useCallback(() => {
             getOne(personId);
-        },[personid]);
+        }, [personid]);
         return (<> {person && person.displayName}  </>)
     }
 
-    const SuggestedActivity = (act:any) => {
+    const SuggestedActivity = (act: any) => {
         const { activity } = act;
         const { executeActivity } = useDeskTickets()
-        const handleClick = (e:any) => {
+        const handleClick = (e: any) => {
             e.preventDefault()
             executeActivity(ticket.id, activity)
         }
@@ -65,7 +72,7 @@ const Preview = (props:any) => {
         )
     }
 
-    const SuggestedActivities = (activity:any) => {
+    const SuggestedActivities = (activity: any) => {
         const { activities } = activity;
         return (
             < > {activities && Object.keys(activities).map((activity, index) => (
@@ -79,9 +86,9 @@ const Preview = (props:any) => {
         addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
     }
 
-    const Description = (des:any) => {
+    const Description = (des: any) => {
         const { description } = des;
-        return(<p style={{ maxHeight: '200px' }}>{description}</p>)
+        return (<Data>{description}</Data>)
     }
     const DxcDate2 = (data: any) => {
         const { date, id, ...rest } = data;
@@ -134,11 +141,10 @@ const Preview = (props:any) => {
 
     return (
         <Root>
-            <Sections >
+            <Sections>
                 {false && closePopupAction}
                 {actions && <Section id="actions" title="Actions">
                     {actions}
-                    <StyledDivider/>
                 </Section>}
                 <Section id="information" title="Information">
                     <DataLine label={<Label>Title</Label>}>
@@ -194,7 +200,7 @@ const Preview = (props:any) => {
                             <UserSelection />
                         </EditableField>
                     </DataLine>
-                    <StyledDivider />
+                    {/* <StyledDivider /> */}
                 </Section>
                 <Section id="description" title="Description">
                     <EditableField
@@ -206,7 +212,7 @@ const Preview = (props:any) => {
                         <DxcTextarea />
                     </EditableField>
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>}>
                     <DataLine label={<Label>Client</Label>}>
                         {/* <LinkedClient client={{displayName: ticket.relatedClients}} url={"jkjk"} /> */}
@@ -214,7 +220,7 @@ const Preview = (props:any) => {
                     </DataLine>
                 </Section>
 
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
                     <DataLine label={<Label> Contract </Label>}>
                         <LinkedContract
@@ -241,18 +247,18 @@ const Preview = (props:any) => {
                         />
                     </DataLine>
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="suggestedActivities" title="Suggested activities">
                     <SuggestedActivities activities={ticket.suggestedActivities} />
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="notes" title="Notes">
                     <ul className={"list-group"}>
                         <li className="list-group-item"> Note 1</li>
                         <li className="list-group-item"> Note 2</li>
                     </ul>
                 </Section>
-                <StyledDivider />
+                {/* <StyledDivider /> */}
                 <Section id="documents" title="Documents">
                     <Documents documents={ticket.documents} />
                     <Upload ticketId={ticket.id} />
@@ -262,7 +268,7 @@ const Preview = (props:any) => {
     );
 };
 
-Preview.propTypes = {
+TicketPreview.propTypes = {
     ticket: PropTypes.string,
     personId: PropTypes.string,
     showPopupIcon: PropTypes.bool,
@@ -278,4 +284,4 @@ Preview.propTypes = {
     receivedDate: PropTypes.instanceOf(Date),
 };
 
-export default Preview;
+export default TicketPreview;

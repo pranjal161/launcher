@@ -1,5 +1,5 @@
 import { DotsIcon } from 'assets/svg';
-import LinkedClient from 'components/Tickets/PreviewContainer/components/Preview/components/LinkedClient/LinkedClient';
+import LinkedClient from 'components/Tickets/TicketPreview/components/LinkedClient/LinkedClient';
 import PropTypes from 'prop-types'
 import React from 'react'
 import { StyledButton } from 'styles/global-style';
