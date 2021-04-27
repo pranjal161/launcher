@@ -12,7 +12,7 @@ const aiaReducer = (state = initialState, action) => {
             return newState
 
         case 'BA_END':
-            newBa = newState.ba.delete(action.baId)
+            newBa = delete newState.ba[action.baId]
             newState.ba = newBa
             return newState
 

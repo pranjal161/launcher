@@ -1,27 +1,18 @@
 import {useContext, useEffect} from 'react';
 import baContext from "context/baContext";
 import {fetch} from "../store/actions/aiaActions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {array} from "yup";
 
-
-const useActivity = (action?: string, givenBaId?: string) => {
+const useActivity = () => {
     const dispatch = useDispatch()
     const context = useContext(baContext)
-    const baId = givenBaId ? givenBaId : context.baId
-    useEffect(() => {
-        switch (action) {
-            case 'start':
-                dispatch({type: 'BA_START', baId})
-                return
-            case 'end':
-                dispatch({type: 'BA_END', baId})
-                return
-            default:
-                return
-        }
+    const baId:any = context.baId
 
-    }, [action, baId])
-    return {fetch: (...param:any) => dispatch(fetch(...param, baId))}
+    return {
+        startActivity: (...param:any) => dispatch({type: 'BA_START', baId}),
+        stopActivity: (...param:any) => dispatch({type: 'BA_END', baId}),
+    }
 }
 
 export default useActivity;

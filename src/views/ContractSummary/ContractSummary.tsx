@@ -1,11 +1,12 @@
 import './ContractSummary.css';
 
-import {DxcDialog, DxcSelect, DxcSidenav} from '@dxc-technology/halstack-react';
-import React, {useContext, useEffect, useState} from 'react';
+import { DxcDialog, DxcSelect, DxcSidenav } from '@dxc-technology/halstack-react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import ActivitiesTable from 'views/ContractSummary/components/ActivitiesTable/ActivitiesTable';
-import {ApplicationContext} from 'context/applicationContext';
+import { ApplicationContext } from 'context/applicationContext';
 import ClausesTable from 'views/ContractSummary/components/ClausesTable/ClausesTable';
+import ContractStates from './components/ContractStates/ContractStates';
 import CoverageTable from 'views/ContractSummary/components/CoveragesTable/CoveragesTable';
 import Documents from 'components/Documents/Documents';
 import FinancialInformation from 'views/ContractSummary/components/FinancialInformation/FinancialInformation';
@@ -13,15 +14,16 @@ import FinancialOperationTable from 'views/ContractSummary/components/FinancialO
 import InvestmentTab from 'views/ContractSummary/components/InvestmentTab/InvestmentTab';
 import Label from 'components/Label/Label';
 import PartyRoleTable from 'views/ContractSummary/components/PartyRoleTable/PartyRoleTable';
-import {PersonIcon} from 'assets/svg';
+import { PersonIcon } from 'assets/svg';
 import RiskTable from 'views/ContractSummary/components/RiskTable/RiskTable';
-import {StyledBanner} from 'styles/global-style';
+import { StyledBanner } from 'styles/global-style';
 import UnsolicitedPayment from 'views/ContractSummary/components/UnsolicitedPayment/UnsolicitedPayment';
 import axios from "axios";
-import {getLink} from 'util/functions';
+import { getLink } from 'util/functions';
 import useActivity from "hooks/useActivity";
-import {useSelector} from "react-redux";
-import {useTranslation} from 'react-i18next';
+import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
+import useActivityApi from "hooks/useActivityApi";
 
 /**
  * Retrieve information and return the summary of a contract
@@ -29,19 +31,21 @@ import {useTranslation} from 'react-i18next';
  */
 const ContractSummary = (props: any) => {
 
-    const {fetch} = useActivity('start')
-
-    const {t} = useTranslation();
+    const {startActivity, stopActivity} = useActivity()
+    useEffect(()=> {
+        startActivity()
+    },[])
+    const { t } = useTranslation();
     const sections = [
-        {label: t('_INVESTMENT'), id: 'investment'},
-        {label: t('_INTERESTED_PARTIES'), id: 'parties'},
-        {label: t('_RISKS'), id: 'risks'},
-        {label: t('_COVERAGES'), id: 'coverages'},
-        {label: t('_CLAUSES'), id: 'clauses'},
-        {label: t('_DOCUMENTS'), id: 'documents'},
-        {label: t('_FINANCIAL_OPERATIONS'), id: 'financial_op'},
-        {label: t('_FINANCIAL_INFORMATION'), id: 'financial_info'},
-        {label: t('_ACTIVITIES'), id: 'activities'},
+        { label: t('_INVESTMENT'), id: 'investment' },
+        { label: t('_INTERESTED_PARTIES'), id: 'parties' },
+        { label: t('_RISKS'), id: 'risks' },
+        { label: t('_COVERAGES'), id: 'coverages' },
+        { label: t('_CLAUSES'), id: 'clauses' },
+        { label: t('_DOCUMENTS'), id: 'documents' },
+        { label: t('_FINANCIAL_OPERATIONS'), id: 'financial_op' },
+        { label: t('_FINANCIAL_INFORMATION'), id: 'financial_info' },
+        { label: t('_ACTIVITIES'), id: 'activities' },
     ];
     const [visibleSections, setSections] = useState([]);
     const [currentSection, setCurrentSection] = useState<string>();
@@ -52,17 +56,17 @@ const ContractSummary = (props: any) => {
     const [mainRisk, setMainRisk] = useState<undefined | string>();
     const applicationContext = useContext(ApplicationContext);
     const [action, changeAction] = useState('');
-    const [historySelect, changeHistory] = useState('');
-    const [historySelectOptions, setHistoryOptions] = useState([]);
+    const [stateUrl, setStateUrl] = useState<undefined | string>();
+
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [unsolicitedPaymentUrl, setunsolicitedPaymentUrl] = useState<undefined | string>();
     const [outputDoc, setOutputDoc] = useState('');
     const [receivedDoc, setReceivedDoc] = useState('');
-    const [partyUrl,setPartyUrl] = useState<undefined | string>(undefined)
+    const [partyUrl, setPartyUrl] = useState<undefined | string>(undefined)
 
-
-    const contractResponse = useSelector((state: any) => state.aia.ba[contractUrl] && state.aia.ba[contractUrl][contractUrl])
-    const partyResponse= useSelector((state: any) => contractResponse && partyUrl && state.aia.ba[contractUrl] && state.aia.ba[contractUrl][partyUrl])
+    const { response:contractResponse } = useActivityApi(contractUrl)
+    console.log('contractResponse', contractResponse)
+    const { response:partyResponse } = useActivityApi(partyUrl)
 
 
     const actionOptions = [
@@ -88,35 +92,27 @@ const ContractSummary = (props: any) => {
     };
 
     const onHistoryChange = (newValue: string) => {
-        changeHistory(newValue);
+
         setContractUrl(newValue);
     };
 
-    useEffect(() => {
-        getData(contractUrl);
-    }, [applicationContext, contractUrl]);
 
-    const getData = (contractUrl: string) => {
-        //await axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {
-        const res = fetch(contractUrl, 'get')
-        res.then((result:any) => console.log('result', result))
 
-    }
+
+    console.log('Contract Summary')
 
     useEffect(() => {
-        if (contractResponse ) {
+        if (contractResponse) {
             const result = contractResponse
             setContractData(result.data);
             getRiskData(result.data._links);
             manageSectionVisibility(result.data);
-            populateHistorySelect(result.data);
+
 
             if (result.data._links && result.data._links['contract:role_list']) {
                 const partyUrlLocal: string =
                     result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
                 setPartyUrl(partyUrlLocal)
-                fetch(partyUrlLocal, 'get')
-
             }
 
             if (getLink(result.data, 'cscaia:output_documents')) {
@@ -126,13 +122,20 @@ const ContractSummary = (props: any) => {
             if (getLink(result.data, 'cscaia:information_receipts')) {
                 setReceivedDoc(getLink(result.data, 'cscaia:information_receipts'));
             }
+
+            if (getLink(result.data, 'cscaia:states')) {
+                setStateUrl(getLink(result.data, 'cscaia:states'))
+            } else if (contractUrl.indexOf('/states') >= 0) {
+                const stateUrl: string = contractUrl.substring(0, contractUrl.lastIndexOf('/'));
+                setStateUrl(stateUrl);
+            }
         }
     }, [contractResponse])
 
 
     useEffect(() => {
         if (partyResponse) {
-            const partyRoleRes =partyResponse
+            const partyRoleRes = partyResponse
             if (partyRoleRes && partyRoleRes.data._links && partyRoleRes.data._links.item) {
                 setPartyRoleData(partyRoleRes.data._links.item);
             }
@@ -171,46 +174,10 @@ const ContractSummary = (props: any) => {
 
     * */
 
-    const populateHistorySelect = (contractResponse: any) => {
-        let stateUrl;
-        if (contractResponse && contractResponse['_links'] && contractResponse['_links']['cscaia:states']) {
-            stateUrl = contractResponse._links['cscaia:states'].href;
-        } else if (contractUrl.indexOf('/states') >= 0) {
-            stateUrl = contractUrl.substring(0, contractUrl.lastIndexOf('/'));
-        }
-        if (stateUrl) {
-            axios.get(stateUrl, {headers: applicationContext.headers}).then((res: any) => {
-                const response: any = res && res['data'];
-
-                if (response && response['_links'] && response['_links']['item']) {
-                    const items = Array.isArray(response['_links']['item'])
-                        ? response['_links']['item']
-                        : [response['_links']['item']];
-                    const historyOptions: any = [];
-                    const version = t('_STATE_VERSION');
-                    const fromLabel = t('_FROM_VERSION');
-                    const toLabel = t('_TO_VERSION');
-
-                    items.forEach((element) => {
-                        const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
-                        const value = element.href;
-                        const data = {
-                            value: value,
-                            label: label,
-                        };
-
-                        historyOptions.push(data);
-                    });
-
-                    setHistoryOptions(historyOptions);
-                }
-            });
-        }
-    };
     const getRiskData = (data: { [x: string]: any }) => {
         if (data && data['contract:membership_list']) {
             const risks: string = data['contract:membership_list'].href;
-            axios.get(risks, {headers: applicationContext.headers}).then((riskResponse) => {
+            axios.get(risks, { headers: applicationContext.headers }).then((riskResponse) => {
                 if (riskResponse && riskResponse.data && riskResponse.data._links && riskResponse.data._links.item) {
                     if (!Array.isArray(riskResponse.data._links.item)) {
                         riskResponse.data._links.item = [riskResponse.data._links.item];
@@ -252,7 +219,7 @@ const ContractSummary = (props: any) => {
 
     const createunsollicitedPayment = () => {
         const operationUrl = contractUrl + '/operations';
-        axios.get(operationUrl, {headers: applicationContext.headers}).then((operationRes) => {
+        axios.get(operationUrl, { headers: applicationContext.headers }).then((operationRes) => {
             if (operationRes && operationRes.data._links && operationRes.data._links['item']) {
                 const operationItem = operationRes.data._links['item'];
                 const payment = operationItem.find((item: { name: string }) => item.name === 'unsolicited_payment');
@@ -284,23 +251,24 @@ const ContractSummary = (props: any) => {
      * Display the contract in a banner
      * @returns {*} Display main information of a contract in a banner
      */
-    function ContractBanner() {
+    const ContractBanner = () => {
+        console.log('ContractBanner')
         return (
             <StyledBanner>
                 <div className="row">
                     <div className="col-2 align-center">
-                        <PersonIcon/>
-                        <OwnerName/>
+                        <PersonIcon />
+                        <OwnerName />
                     </div>
                     <div className="col-4">
                         <div className="col-12">
-                            <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData}/>
+                            <Label propertyName="contract:number" label="_CONTRACT_NUMBER" data={contractData} />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData}/>
+                            <Label propertyName="contract:product_label" label="_PRODUCT" data={contractData} />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData}/>
+                            <Label propertyName="contract:status_motive" label="_STATUS_REASON" data={contractData} />
                         </div>
                         <div className="col-12">
                             <Label
@@ -321,16 +289,16 @@ const ContractSummary = (props: any) => {
                     </div>
                     <div className="col-4">
                         <div className="col-12">
-                            <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData}/>
+                            <Label propertyName="contract:status" label="_CONTRACT_STATUS" data={contractData} />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData}/>
+                            <Label propertyName="contract:product_type" label="_PRODUCT_TYPE" data={contractData} />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="contract:currency_code" label="_CURRENCY" data={contractData}/>
+                            <Label propertyName="contract:currency_code" label="_CURRENCY" data={contractData} />
                         </div>
                         <div className="col-12">
-                            <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData}/>
+                            <Label propertyName="duration:value" label="_CONTRACT_DURATION" data={contractData} />
                         </div>
                         <div className="col-12">
                             <Label
@@ -351,12 +319,7 @@ const ContractSummary = (props: any) => {
                             ></DxcSelect>
                         </div>
                         <div className="select-box">
-                            <DxcSelect
-                                options={historySelectOptions}
-                                onChange={onHistoryChange}
-                                label={t('_HISTORY')}
-                                value={historySelect}
-                            ></DxcSelect>
+
                         </div>
                     </div>
                 </div>
@@ -368,7 +331,7 @@ const ContractSummary = (props: any) => {
         <>
             {contractData && visibleSections.length > 0 && (
                 <>
-                    <ContractBanner/>
+                    <ContractBanner />
                     <div className="contract-sidenav">
                         <DxcSidenav>
                             {visibleSections.map((item, index) => (
@@ -387,53 +350,53 @@ const ContractSummary = (props: any) => {
             <div className="contract-details">
                 {currentSection === 'investment' && mainRisk && (
                     <div>
-                        <InvestmentTab mainRiskUrl={mainRisk}/>
+                        <InvestmentTab mainRiskUrl={mainRisk} />
                     </div>
                 )}
                 {currentSection === 'parties' && (
                     <div>
-                        <PartyRoleTable roles={partyRole}/>
+                        <PartyRoleTable roles={partyRole} />
                     </div>
                 )}
                 {currentSection === 'risks' && (
                     <div>
-                        <RiskTable risks={risk}/>
+                        <RiskTable risks={risk} />
                     </div>
                 )}
                 {currentSection === 'coverages' && mainRisk && (
                     <div>
-                        <CoverageTable mainRiskUrl={mainRisk}/>
+                        <CoverageTable mainRiskUrl={mainRisk} />
                     </div>
                 )}
                 {currentSection === 'clauses' && (
                     <div>
-                        <ClausesTable contractResponse={contractData}/>
+                        <ClausesTable contractResponse={contractData} />
                     </div>
                 )}
                 {currentSection === 'documents' && (
                     <div>
-                        <Documents outputDoc={outputDoc} receivedDoc={receivedDoc}/>
+                        <Documents outputDoc={outputDoc} receivedDoc={receivedDoc} />
                     </div>
                 )}
                 {currentSection === 'financial_op' && (
                     <div>
-                        <FinancialOperationTable contractResponse={contractData}/>
+                        <FinancialOperationTable contractResponse={contractData} />
                     </div>
                 )}
                 {currentSection === 'financial_info' && (
                     <div>
-                        <FinancialInformation contractResponse={contractData}/>
+                        <FinancialInformation contractResponse={contractData} />
                     </div>
                 )}
                 {currentSection === 'activities' && (
                     <div>
-                        <ActivitiesTable contractResponse={contractData}/>
+                        <ActivitiesTable contractResponse={contractData} />
                     </div>
                 )}
             </div>
             {isDialogVisible && unsolicitedPaymentUrl && (
                 <DxcDialog onCloseClick={onClickDialog} padding="medium">
-                    <UnsolicitedPayment onClickDialog={onClickDialog} url={unsolicitedPaymentUrl}/>
+                    <UnsolicitedPayment onClickDialog={onClickDialog} url={unsolicitedPaymentUrl} />
                 </DxcDialog>
             )}
         </>

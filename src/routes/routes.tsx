@@ -4,6 +4,7 @@ import React, {lazy} from "react";
 
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
+import ClientViewActivity from "views/ClientViewActivity/ClientViewActivity";
 import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
 import ContractView from "views/Activities/ContractView/ContractView";
@@ -87,7 +88,7 @@ const routes = [
                 path: '/ClientView/person/:personId',
                 name: 'personView',
                 exact: true,
-                component: ClientView
+                component: ClientViewActivity
             },
             {
                 path: '/ClientView/organization/:organizationId',
