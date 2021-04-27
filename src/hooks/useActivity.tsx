@@ -1,6 +1,5 @@
+import {useContext, useEffect} from 'react';
 import baContext from "context/baContext";
-import React, {useContext, useEffect} from 'react';
-import {endOfBusinessActivity, startOfBusinessActivity} from "../store/actions/aiaActions";
 import {fetch} from "../store/actions/aiaActions";
 import {useDispatch} from "react-redux";
 
@@ -12,10 +11,10 @@ const useActivity = (action: string, givenBaId?: string) => {
     useEffect(() => {
         switch (action) {
             case 'start':
-                dispatch(startOfBusinessActivity(baId))
+                dispatch({type: 'BA_START', baId})
                 return
             case 'end':
-                dispatch(endOfBusinessActivity(baId))
+                dispatch({type: 'BA_END', baId})
                 return
         }
 
