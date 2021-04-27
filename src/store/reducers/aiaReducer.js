@@ -5,10 +5,8 @@ const initialState = {
 }
 
 const aiaReducer = (state = initialState, action) => {
-    const {hRef, data, error, timestamp} = action
     const newState = {...state}
-    let arr = [], newBa
-
+    let newBa
 
     switch (action.type) {
         case 'BA_START':
