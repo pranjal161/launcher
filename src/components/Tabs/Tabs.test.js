@@ -1,7 +1,7 @@
 import React from 'react';
-import Tabs from './Tabs';
 import Tab from './components/Tab/Tab';
 import TabButton from './components/TabButton/TabButton';
+import Tabs from './Tabs';
 
 import { findByTestAttr } from "../../test/testUtils";
 import { mount } from 'enzyme';
@@ -19,7 +19,7 @@ const defaultCloseTabsClick = (tabId) => {
 };
 
 const defaultProps = {
-        activeTabId: defaultActiveTab
+    activeTabId: defaultActiveTab
 };
 const tabIDObject = {
     "tabId-1": "Tab Label 1",
@@ -31,22 +31,22 @@ const tabIDObject = {
 const setup = (props = {}) => {
     const setupProps = { ...defaultProps, ...props };
     return mount(
-    <Tabs {...setupProps} >
-        {
-            defaultTabs.map((tabId) => (
-                <Tab
-                    key={tabId}
-                    tabId={tabId}
-                    tabLabel={tabIDObject[tabId]}
-                    isActiveTab = {defaultActiveTab === tabId}
-                    onTabCloseClick = {defaultCloseTabsClick}>
-                    <div id={tabId}>
-                        {tabIDObject[tabId]}
-                    </div>
-                </Tab>
-            ))
-        }
-    </Tabs>)
+        <Tabs {...setupProps} >
+            {
+                defaultTabs.map((tabId) => (
+                    <Tab
+                        key={tabId}
+                        tabId={tabId}
+                        tabLabel={tabIDObject[tabId]}
+                        isActiveTab = {defaultActiveTab === tabId}
+                        onTabCloseClick = {defaultCloseTabsClick}>
+                        <div id={tabId}>
+                            {tabIDObject[tabId]}
+                        </div>
+                    </Tab>
+                ))
+            }
+        </Tabs>)
 }
 
 test('renders Tabs component', () => {
