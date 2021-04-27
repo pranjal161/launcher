@@ -92,6 +92,12 @@ const ProgressBarContainer = styled.div`
     }
 `;
 
+const StyledTableRow = styled.tr`
+    &.active {
+        background: #f2f5f7;
+    }
+`;
+
 
 const TicketsList = (props: any) => {
     const {
@@ -105,6 +111,7 @@ const TicketsList = (props: any) => {
     let [openActionsTicket, setOpenActionsTicket] = useState('');
     const {currentUserId} = useDeskAuth();
     const {assignTo, remove} = useDeskTickets()
+    const selectedTicket = (id: string) => props.selected === id;
 
     const getBasketTitle = (basketId: any) => {
         const basket = allBaskets.filter((basket: { id: any; }) => basket.id === basketId);
@@ -154,7 +161,7 @@ const TicketsList = (props: any) => {
                         <th/>
                     </tr>
                     {allBaskets && tickets && tickets.map((ticket: any, i: number) => (
-                        <tr key={i} onClick={() => handleTicketClick(ticket)}>
+                        <StyledTableRow key={i} className={`${selectedTicket(ticket.id) ? 'active' : ''}`} onClick={() => handleTicketClick(ticket)}>
                             <td>{getStatusIcon(ticket.status)}</td>
                             <td>{ticket.title}</td>
                             <td>{getBasketTitle(ticket.basketId)}</td>
@@ -198,7 +205,7 @@ const TicketsList = (props: any) => {
                                 </ActionsIconContainer>
                                 
                             </td>
-                        </tr>
+                        </StyledTableRow>
 
                     ))}
                 </DxcTable>

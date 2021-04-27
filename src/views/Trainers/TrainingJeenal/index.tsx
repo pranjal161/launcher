@@ -14,11 +14,12 @@ const TrainingJeenal = () => {
         return;
     }
 
-
     return (
         <>
             <h1>Jeenal</h1>
-            <Header ticket={currentTicket} />
+            <div className="w-100">
+                <Header ticket={currentTicket} />
+            </div>
             <div className="row overflow-hidden">
                 <div className="col-9 min-vh-100 divider">
                     <DetailWrapper ticket={currentTicket} />

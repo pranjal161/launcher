@@ -4,7 +4,7 @@ import { AddReminder, EyeIcon } from "assets/svg";
 
 import { DxcButton } from "@dxc-technology/halstack-react";
 import React from "react";
-import { StyledButton } from 'styles/global-style';
+import { StyledButtonWhiteSVG } from 'styles/global-style';
 import styled from "styled-components";
 
 const Header = (props: { ticket: any }) => {
@@ -36,19 +36,19 @@ align-items:center;
         ticket && ticket.title
         && (
             <Root>
-                <div className="col-9">
+                <div className="col-9 ml-2 white">
                     <h3>
                         {ticket.title}
                         {/* ticketTitle */}
                     </h3>
                 </div>
-                <div className="col-3 display-contents">
-                    <StyledButton onClick={viewHistory}>
+                <div className="col-3 left">
+                    <StyledButtonWhiteSVG onClick={viewHistory}>
                         <EyeIcon />
-                    </StyledButton>
-                    <StyledButton onClick={addReminder}>
+                    </StyledButtonWhiteSVG>
+                    <StyledButtonWhiteSVG onClick={addReminder}>
                         <AddReminder />
-                    </StyledButton>
+                    </StyledButtonWhiteSVG>
                     <DxcButton
                         mode="primary"
                         label="Launch Activity"

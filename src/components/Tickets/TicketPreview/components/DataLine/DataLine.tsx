@@ -5,17 +5,23 @@ import styled from "styled-components";
 const Root = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
   height: 30px;
 `;
 
 const Label = styled.div`
   width: 40%;
   justify-self: left;
+  font-size: 13px;
+
+  label {
+    color: #abbbcb;
+  }
 `;
 const Data = styled.div`
   width: 60%;
   justify-self: left;
+  font-size: 13px;
+  color: #2b4358;
 `;
 
 const DataLine = (props: any) => {
@@ -23,7 +29,7 @@ const DataLine = (props: any) => {
 
     return (
         <Root>
-            <Label>{label}</Label>
+            <Label className="mt-1">{label}</Label>
             <Data>{children}</Data>
         </Root>
     )
