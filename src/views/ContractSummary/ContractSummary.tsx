@@ -61,8 +61,8 @@ const ContractSummary = (props: any) => {
     const [partyUrl,setPartyUrl] = useState<undefined | string>(undefined)
 
 
-    const contractResponse = useSelector((state: any) => state.aia.ba[contractUrl] && state.aia.ba[contractUrl].data)
-    const partyResponse= useSelector((state: any) => contractUrl && partyUrl && state.aia.ba[contractUrl] && state.aia.ba[contractUrl].children[partyUrl])
+    const contractResponse = useSelector((state: any) => state.aia.ba[contractUrl] && state.aia.ba[contractUrl].data.ready && state.aia.ba[contractUrl].data)
+    const partyResponse= useSelector((state: any) => contractResponse && partyUrl && state.aia.ba[contractUrl] && state.aia.ba[contractUrl].children[partyUrl])
 
 
     const actionOptions = [
@@ -103,7 +103,7 @@ const ContractSummary = (props: any) => {
 
     useEffect(() => {
         if (contractResponse ) {
-            console.log('contractResponse?.',contractResponse)
+            console.log('contractResponse',contractResponse)
             const result = contractResponse
             setContractData(result.data);
             getRiskData(result.data._links);
@@ -114,7 +114,6 @@ const ContractSummary = (props: any) => {
                 const partyUrlLocal: string =
                     result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
                 setPartyUrl(partyUrlLocal)
-                console.log('ERTYUION?.')
                 fetch(partyUrlLocal, 'get')
 
             }
@@ -132,7 +131,7 @@ const ContractSummary = (props: any) => {
 
     useEffect(() => {
         if (partyResponse) {
-            const partyRoleRes = partyResponse
+            const partyRoleRes =partyResponse
             if (partyRoleRes && partyRoleRes.data._links && partyRoleRes.data._links.item) {
                 setPartyRoleData(partyRoleRes.data._links.item);
             }

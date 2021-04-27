@@ -24,7 +24,7 @@ const aiaReducer = (state = initialState, action) => {
                 newState.ba[action.baId].data = {data:{...action.data}, ready:true}
 
             }else {
-                newState.ba[action.baId].children[action.hRef] = action.data
+                newState.ba[action.baId].children[action.hRef] = {data:action.data}
             }
 
             return newState
