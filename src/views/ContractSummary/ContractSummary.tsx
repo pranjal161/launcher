@@ -99,7 +99,7 @@ const ContractSummary = (props: any) => {
     const getData = (contractUrl: string) => {
         //await axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {
         const res = fetch(contractUrl, 'get')
-        res.then((result) => console.log('result', result))
+        res.then((result:any) => console.log('result', result))
 
     }
 
