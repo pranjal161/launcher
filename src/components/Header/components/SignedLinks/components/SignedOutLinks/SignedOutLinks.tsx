@@ -1,4 +1,5 @@
-import { LockOpenIcon } from 'assets/svg';
+import IconButton from "components/IconButton/IconButton";
+import { LoginIcon } from 'assets/svg';
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
@@ -14,9 +15,11 @@ const SignedOutLinks = () => {
     }
 
     return (
-        <li title="Log In" onClick={handleLogin}>
-            <LockOpenIcon />
-        </li>
+        <div title="Log In">
+            <IconButton onClick={handleLogin}>
+                <LoginIcon />
+            </IconButton>
+        </div>
     );
 }
 

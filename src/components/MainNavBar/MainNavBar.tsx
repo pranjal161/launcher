@@ -1,8 +1,8 @@
+import { ExtensionsIcon, HelpIcon } from 'assets/svg';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { ApplicationContext } from 'context/applicationContext';
-import { BuildIcon } from 'assets/svg';
 import CreateButton from '../Tickets/CreateButton/CreateButton';
 import DXCLogo from 'assets/dxc_logo.jpg';
 import { DxcHeader } from '@dxc-technology/halstack-react';
@@ -24,7 +24,17 @@ interface NavRowProps {
 
 const MainNavContainer = styled.div`
     width: 100%;
-    margin-top: 10px;
+    background-color: white;
+
+    &::after {
+        content: '';
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: #D9D9D9;
+        position: absolute;
+        bottom: 0px;
+    }
 `;
 
 const NavRow = styled.div`
@@ -38,16 +48,19 @@ const NavRow = styled.div`
 
 const LogoImg = styled.img.attrs((props) => ({
     src: props.src,
-    alt: props.alt
+    alt: props.alt,
+    title: props.title
 }))`
     max-height: 32px;
     margin-left: 2rem;
+    cursor: pointer;
 `;
 
 const ActionButtonsContainer = styled.div`
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
+    align-items: center;
 `;
 
 const SignedLinksContainer = styled.div`
@@ -67,6 +80,11 @@ const SecondaryViewButtonsContainer = styled.div`
 
 const PrimaryViewAccessContainer = styled.div`
     margin-right: 1rem;
+    // done to hide the bottom purple border from DxcTabs active tab,
+    // because if the route changes from a page with a scrollbar to one without and no DxcTabs tab is active, 
+    // sometimes a purple point can remain on the far left bottom border.
+    overflow-x: hidden;
+    margin-left: -2px;
 `;
 
 const TicketManagementAccessContainer = styled.div`
@@ -75,7 +93,7 @@ const TicketManagementAccessContainer = styled.div`
 `;
 
 
-const NavigationBar = () => {
+const MainNavBar = () => {
 
     const history = useHistory();
     const location = useLocation();
@@ -119,6 +137,14 @@ const NavigationBar = () => {
         setPrimaryTabSelected(index);
     };
 
+    const goToHelp = () => {
+        history.push('/help');
+    }
+
+    const goToHome = () => {
+        history.push('/home');
+    }
+
     const goToTraining = () => {
         history.push('/Training');
     }
@@ -136,7 +162,11 @@ const NavigationBar = () => {
             <NavRow
                 align="center"
                 height="3.5rem">
-                <LogoImg src={DXCLogo} alt="DXC Logo" />
+                <LogoImg 
+                    src={DXCLogo} 
+                    alt="DXC Logo"
+                    title="Home"
+                    onClick={goToHome} />
                 <ActionButtonsContainer>
                     <CreateButton />
                     <DxcHeader.Dropdown
@@ -146,15 +176,23 @@ const NavigationBar = () => {
                         iconSrc={langIcon}
                         margin="xxsmall"
                         padding="xxsmall" />
+                </ActionButtonsContainer>
+                <SecondaryViewButtonsContainer>
+                    <div title="Help">
+                        <IconButton
+                            onClick={goToHelp}>
+                            <HelpIcon />
+                        </IconButton>
+                    </div>
+                    <div title="Training">
+                        <IconButton
+                            onClick={goToTraining}>
+                            <ExtensionsIcon />
+                        </IconButton>
+                    </div>
                     <SignedLinksContainer>
                         <SignedLinks />
                     </SignedLinksContainer>
-                </ActionButtonsContainer>
-                <SecondaryViewButtonsContainer>
-                    <IconButton
-                        onClick={goToTraining}>
-                        <BuildIcon />
-                    </IconButton>
                 </SecondaryViewButtonsContainer>
             </NavRow>
             <NavRow justify="left" align="flex-end">
@@ -171,4 +209,4 @@ const NavigationBar = () => {
     )
 }
 
-export default NavigationBar;
+export default MainNavBar;
