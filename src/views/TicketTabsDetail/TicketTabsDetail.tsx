@@ -8,11 +8,10 @@ const MainTabbedDetailsContainer = styled.div`
     margin-top: 1rem;
 `;
 
-const TicketTabsDetail = (/*props: {ticketId: number}*/) => {
-    const { getOne } = useDeskTickets();
+const TicketTabsDetail = () => {
     const selectedTicketObject:any = useSelector((state:any) => state.navBarTabs.selectedTab);
     let isWrongTabType = false;
-    if(selectedTicketObject.type === 'ticket') {
+    if(selectedTicketObject.type !== 'ticket') {
         isWrongTabType = true;
     }
 
@@ -22,6 +21,7 @@ const TicketTabsDetail = (/*props: {ticketId: number}*/) => {
     }
 
     let ticket = null;
+    const { getOne } = useDeskTickets();
     if(!isNoTabIdPresent && !isWrongTabType) {
         ticket = getOne(selectedTicketObject.id);
     }
