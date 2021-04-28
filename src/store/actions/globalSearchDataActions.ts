@@ -19,11 +19,13 @@ export const loadData = (params: {collection: string, rel: string, schema: strin
         const options = getValues(responseOptions, 'rel', rel, 'schema');
         const properties = options && options['properties'];
         const values = search && search.map((array: {value: string}) => { 
+            let final;
             if (Object.keys(properties).includes(array.value)) {
                 const propValues = properties[array.value];
                 const option = {...array, ...propValues};
-                return option;
+                final = option;
             }
+            return final;
         }).filter((array: {value: string}) => array);
         dispatch({type: 'DATA_FETCH_HREF_SUCCESS', id, href, values, timestamp})
     });
