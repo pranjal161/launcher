@@ -2,6 +2,7 @@ import aiaReducer from "./aiaReducer";
 import authReducer from "./authReducer";
 import basketReducer from "./basketReducer";
 import {combineReducers} from "redux";
+import dataFetchReducer from "./dataFetchReducer";
 import {firebaseReducer} from "react-redux-firebase";
 import {firestoreReducer} from "redux-firestore";
 import navigationBarTabsReducer from "./navigationBarTabsReducer"
@@ -19,7 +20,8 @@ const reducers = combineReducers(
         users: userReducer,
         aia: aiaReducer,
         popupWindow: popupWindowTabsReducer,
-        navBarTabs: navigationBarTabsReducer
+        navBarTabs: navigationBarTabsReducer,
+        dataFetch: dataFetchReducer
     }
 )
 

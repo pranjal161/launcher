@@ -1,18 +1,23 @@
 import GlobalSearch from './components/GlobalSearch/GlobalSearch';
 import React from "react";
-import { getSearchableFields } from "util/functions";
-import { searchInputsArray } from './components/GlobalSearch/constant';
+import useGlobalSearchData from "data/hooks/useGlobalSearchData";
+import {useSelector} from "react-redux";
 
 const TrainingAkruti = () => {
+    const {loadData} = useGlobalSearchData();
+    const searchData = useSelector((state: any) => state.dataFetch.data);
 
-    const getSchema = async (schema: string, rel: string) => {
-        const schemaFields: Promise<any> = await getSearchableFields(schema, rel);
-        return schemaFields;
+    const getSchema = (selected: string) => {
+        return searchData && searchData[selected];
     }
+    
+    //Load Global Search Data
+    // loadData({collection: 'person'});
+    // loadData({collection: 'contract'});
 
     return (<>
         <h1>Akruti</h1>
-        <GlobalSearch config={searchInputsArray} getAvailableFilter={getSchema} />
+        <GlobalSearch getAvailableOptions={getSchema} />
     </>);
 }
 
