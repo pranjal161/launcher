@@ -80,8 +80,8 @@ const navigationBarTabsReducer = (state = initialState, action) => {
             return {
                 ...state, 
                 selectedTab: {
-                    id: action.payload,
-                    type: action.type
+                    id: action.payload.tabId,
+                    type: action.payload.type
                 }
             };
 
