@@ -1,5 +1,8 @@
+import * as popupWindowActions from "../../store/actions/popupWindowTabsActions";
+
 import { ExtensionsIcon, HelpIcon } from 'assets/svg';
 import React, { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { ApplicationContext } from 'context/applicationContext';
@@ -7,10 +10,12 @@ import CreateButton from '../Tickets/CreateButton/CreateButton';
 import DXCLogo from 'assets/dxc_logo.jpg';
 import { DxcHeader } from '@dxc-technology/halstack-react';
 import IconButton from "../IconButton/IconButton";
+import NewWindowPortal from "../../components/NewWindowPortal/NewWindowPortal";
 import PrimaryTabs from "../PrimaryTabs/PrimaryTabs";
 import SecondaryTabs from "../SecondaryTabs/SecondaryTabs";
 import SignedLinks from '../Header/components/SignedLinks/SignedLinks';
 import { TabbedLinksArray } from "../PrimaryTabs/PrimaryTabsConstants";
+import TicketsTabs from "../Tickets/TicketTabs/TicketTabs";
 import en from 'assets/gb.jpg';
 import fr from 'assets/fr.jpg';
 import nl from 'assets/nl.jpg';
@@ -100,6 +105,12 @@ const MainNavBar = () => {
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
     const [primaryTabSelected, setPrimaryTabSelected] = useState<number>(-1);
+    let isWindowOpen = useSelector((state:any) => state.popupWindow.isPopupWindowWithTabsOpened);
+    let dispatch = useDispatch();
+
+    const onCloseTicketNewWindow = () => {
+        dispatch(popupWindowActions.closeWindowTabs());
+    }
 
     const langs = [
         {
@@ -158,54 +169,65 @@ const MainNavBar = () => {
 
 
     return (
-        <MainNavContainer>
-            <NavRow
-                align="center"
-                height="3.5rem">
-                <LogoImg 
-                    src={DXCLogo} 
-                    alt="DXC Logo"
-                    title="Home"
-                    onClick={goToHome} />
-                <ActionButtonsContainer>
-                    <CreateButton />
-                    <DxcHeader.Dropdown
-                        options={langs}
-                        onSelectOption={changeLang}
-                        value={lang}
-                        iconSrc={langIcon}
-                        margin="xxsmall"
-                        padding="xxsmall" />
-                </ActionButtonsContainer>
-                <SecondaryViewButtonsContainer>
-                    <div title="Help">
-                        <IconButton
-                            onClick={goToHelp}>
-                            <HelpIcon />
-                        </IconButton>
-                    </div>
-                    <div title="Training">
-                        <IconButton
-                            onClick={goToTraining}>
-                            <ExtensionsIcon />
-                        </IconButton>
-                    </div>
-                    <SignedLinksContainer>
-                        <SignedLinks />
-                    </SignedLinksContainer>
-                </SecondaryViewButtonsContainer>
-            </NavRow>
-            <NavRow justify="left" align="flex-end">
-                <PrimaryViewAccessContainer>
-                    <PrimaryTabs
-                        value={primaryTabSelected}
-                        onChange={handlePrimaryTabClick} />
-                </PrimaryViewAccessContainer>
-                <TicketManagementAccessContainer>
-                    <SecondaryTabs></SecondaryTabs>
-                </TicketManagementAccessContainer>
-            </NavRow>
-        </MainNavContainer>
+        <>
+            <MainNavContainer>
+                <NavRow
+                    align="center"
+                    height="3.5rem">
+                    <LogoImg 
+                        src={DXCLogo} 
+                        alt="DXC Logo"
+                        title="Home"
+                        onClick={goToHome} />
+                    <ActionButtonsContainer>
+                        <CreateButton />
+                        <DxcHeader.Dropdown
+                            options={langs}
+                            onSelectOption={changeLang}
+                            value={lang}
+                            iconSrc={langIcon}
+                            margin="xxsmall"
+                            padding="xxsmall" />
+                    </ActionButtonsContainer>
+                    <SecondaryViewButtonsContainer>
+                        <div title="Help">
+                            <IconButton
+                                onClick={goToHelp}>
+                                <HelpIcon />
+                            </IconButton>
+                        </div>
+                        <div title="Training">
+                            <IconButton
+                                onClick={goToTraining}>
+                                <ExtensionsIcon />
+                            </IconButton>
+                        </div>
+                        <SignedLinksContainer>
+                            <SignedLinks />
+                        </SignedLinksContainer>
+                    </SecondaryViewButtonsContainer>
+                </NavRow>
+                <NavRow justify="left" align="flex-end">
+                    <PrimaryViewAccessContainer>
+                        <PrimaryTabs
+                            value={primaryTabSelected}
+                            onChange={handlePrimaryTabClick} />
+                    </PrimaryViewAccessContainer>
+                    <TicketManagementAccessContainer>
+                        <SecondaryTabs></SecondaryTabs>
+                    </TicketManagementAccessContainer>
+                </NavRow>
+            </MainNavContainer>
+            {
+                isWindowOpen &&
+                <NewWindowPortal
+                    windowMaximized={true}
+                    passSetFocus={true}
+                    onCloseCallback={onCloseTicketNewWindow}>
+                    <TicketsTabs></TicketsTabs>
+                </NewWindowPortal>
+            }
+        </>
     )
 }
 
