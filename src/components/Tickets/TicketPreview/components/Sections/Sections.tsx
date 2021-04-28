@@ -16,7 +16,7 @@ const Sections = (props: any) => {
     return (
         <>
             <Root>
-                <SectionHeader title={title} actions={actions} />
+                {title && <SectionHeader title={title} actions={actions} />}
                 <Content>
                     <WithScroll visibleHeight={"650px"}>{children}</WithScroll>
                 </Content>

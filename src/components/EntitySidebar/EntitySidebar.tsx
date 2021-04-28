@@ -20,7 +20,7 @@ const EntitySidebar = (props: {open: boolean, width?: number, content: any, clas
     const {open, width = 240, content, className=''} = props;
     return (
         <StyledSidebar open={open} width={width} className={className}>
-            <div>
+            <div className="d-flex">
                 {content}
             </div>
         </StyledSidebar>

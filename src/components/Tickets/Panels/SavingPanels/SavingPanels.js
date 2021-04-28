@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
-import Preview from "../../PreviewContainer/components/Preview/Preview";
 import PropTypes from "prop-types";
 import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
+import TicketPreview from "../../TicketPreview/TicketPreview";
 import Timeline from "components/Timeline/Timeline";
 import WithScroll from "../../../WithScroll/WithScroll";
 import styled from "styled-components";
@@ -47,7 +47,7 @@ const SavingPanels = ({ticketId,onClose}) => {
     const Content = () => {
         if (entityType === 'ticket') {
             const ticket = getOne(ticketId)
-            return (<Preview ticket={ticket}/>)
+            return (<TicketPreview ticket={ticket}/>)
         }
         else if(entityType === 'history'){
             const ticket = getOne(ticketId)
