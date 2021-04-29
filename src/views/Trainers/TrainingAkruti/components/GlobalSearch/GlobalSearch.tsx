@@ -5,12 +5,17 @@ import { aia, getValues, search } from "util/functions";
 
 import React from 'react';
 import moment from "moment";
+import { useTranslation } from 'react-i18next';
 
-const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: string, rel: string) => Promise<any> }) => {
+const GlobalSearch = (props: { getAvailableOptions: (value: string) => { href: string, options: Array<{ label: string, value: string }> } }) => {
 
-    const { config, getAvailableFilter } = props;
-    const inputArray = config;
-    const [entityOptions, setEntityOptions] = React.useState([{}]);
+    const { t } = useTranslation();
+    const { getAvailableOptions } = props;
+    const entityOptions = [
+        { label: t('_PERSON'), value: 'person' },
+        { label: t('_CONTRACT'), value: 'contract' },
+        { label: t('_TICKET'), value: 'ticket' },
+    ];
     const [entity, setSelectedEntity] = React.useState('');
     const [isFieldsVisible, setShowFields] = React.useState(false);
     const [propertyOptions, setPropertyOptions] = React.useState([{}]);
@@ -18,53 +23,29 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
     const [propertyTitle, setSelectedPropertyTitle] = React.useState('');
     const [searchOptions, setSearchOptions] = React.useState([]);
     const [searchedValue, setSearchedValue] = React.useState('');
-    const [searchFieldSchema, setSearchFieldSchema]: Array<any> = React.useState([]);
     const [searchFieldType, setSearchFieldType] = React.useState('');
     const [selectBoxOptions, setSelectBoxOptions] = React.useState([{}]);
     const [searchDateValue, changeDateValue] = React.useState("01-01-1995");
-    const [globalFieldData, setGlobalFieldData] = React.useState([{}]);
+    const [storeData, setStoreData] = React.useState({ options: {}, href: '' });
 
-    const filterEntityArray = (filterBy: string) => {
-        const filter: Array<{label: string, value: string}> = inputArray && inputArray.map((array: any) => ({'label': array[filterBy], 'value': array[filterBy]}));
-        setEntityOptions(filter);
+    const getRequiredData = (selectedVal: string, data: string) => {
+        const value: any = getAvailableOptions(selectedVal);
+        setStoreData(value);
+        return value && value[data];
     }
 
-    React.useEffect(() => {
-        filterEntityArray('entity');
-    }, [inputArray]);
-
-    const entityChange = async (newValue: string) => {
+    const entityChange = (newValue: string) => {
         setSelectedEntity(newValue);
         setSearchedValue('');
-        const searchFields = getValues(globalFieldData, 'fieldsFor', newValue, 'fields');
-        if (!searchFields) {
-            const selectedArray = getValues(inputArray, 'entity', newValue);
-            const schema = selectedArray['schema'];
-            const rel = selectedArray['rel'];
-            const searchBy = selectedArray['searchBy'];
-            const searchFieldSchema = await getAvailableFilter(schema, rel);
-            setSearchFieldSchema(searchFieldSchema);
-            const convertIntoSelectValues: Array<{label: string, value: string}> = searchBy && searchBy.filter((array: any) => Object.keys(searchFieldSchema).includes(array.value) && array);
-            setGlobalFieldData([...globalFieldData, {fieldsFor: newValue, fields: convertIntoSelectValues}]);
-        } else {
-            setPropertyOptions(searchFields);
-        }
-    }
-
-    React.useEffect(() => {
-        const searchFields = getValues(globalFieldData, 'fieldsFor', entity, 'fields');
+        const searchFields: Array<{ label: string, value: string }> = getRequiredData(newValue, 'options');
         setPropertyOptions(searchFields);
-    }, [globalFieldData]);
-
-    const populateSelectBoxOptions = (oneOfValues: Array<{enum: Array<[]>, title: string}>) => {
-        const selectBoxValues = oneOfValues.map((array) => ({'label': array.title, 'value': array.enum[0]}));
-        setSelectBoxOptions(selectBoxValues);
     }
 
     const propertyChange = (newValue: string) => {
         setSelectedProperty(newValue);
         setSearchedValue('');
-        const fieldType: {format: string, oneOf: Array<{enum: Array<[]>, title: string}>} = searchFieldSchema[newValue];
+        const searchFields: any = storeData['options'];
+        const fieldType: { format: string, oneOf: Array<{ enum: Array<[]>, title: string }> } = searchFields[newValue];
         if (fieldType && fieldType.oneOf) {
             setSearchFieldType('oneOf');
             populateSelectBoxOptions(fieldType.oneOf);
@@ -78,28 +59,33 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
         setSelectedPropertyTitle(selectedTitle);
     }, [property]);
 
+    const populateSelectBoxOptions = (oneOfValues: Array<{ enum: Array<[]>, title: string }>) => {
+        const selectBoxValues = oneOfValues.map((array) => ({ 'label': array.title, 'value': array.enum[0] }));
+        setSelectBoxOptions(selectBoxValues);
+    }
+
     const typeSearchParameter = (value: string) => {
         const updatedValue = searchFieldType ? value : value.toUpperCase();
         setSearchedValue(updatedValue);
         if (entity && property && value !== '' && value.length > 3) {
-            const schema = getValues(inputArray, 'entity', entity, 'schema');
-            const searchUrl = search({ 'search': schema, 'name': property, 'value': updatedValue });
+            const url = storeData['href'];
+            const searchUrl = search({ 'searchUrl': url, 'name': property, 'value': updatedValue });
             const getResp = Promise.resolve(aia.get(searchUrl));
             getResp.then((response) => {
                 if (response && response.data && response.data['_links'] && response.data['_links']['item']) {
                     const items = response.data['_links']['item'];
-                    const results = items && items.map((data: {title: string}) => data.title);
+                    const results = items && items.map((data: { title: string }) => data.title);
                     setSearchOptions(results);
                 }
             });
         }
     }
 
-    const onDateChange = ( value: any ) => {
+    const onDateChange = (value: any) => {
         changeDateValue(value.stringValue);
     }
 
-    const onDateBlur = ( value: any ) => {
+    const onDateBlur = (value: any) => {
         const formattedDate = moment(value).format("YYYY-MM-DD");
         typeSearchParameter(formattedDate);
     }
@@ -116,7 +102,7 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
                                 label="Select Entity"
                                 margin="medium"
                                 value={entity}
-                                padding={{top: "xxsmall", left: "medium", right: "medium", bottom:"xxsmall"}}
+                                padding={{ top: "xxsmall", left: "medium", right: "medium", bottom: "xxsmall" }}
                             ></DxcSelect>
                         </div>
                         <div className="col-3">
@@ -125,7 +111,7 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
                                 onChange={propertyChange}
                                 label="Select Field (Property)"
                                 margin="medium"
-                                padding={{top: "xxsmall", left: "medium", right: "medium", bottom:"xxsmall"}}
+                                padding={{ top: "xxsmall", left: "medium", right: "medium", bottom: "xxsmall" }}
                             ></DxcSelect>
                         </div>
                     </>}
@@ -138,15 +124,15 @@ const GlobalSearch = (props: {config: Array<any>, getAvailableFilter: (schema: s
                                 margin="medium"
                                 value={searchedValue}
                             />}
-                            {searchFieldType && searchFieldType === 'oneOf' && 
+                            {searchFieldType && searchFieldType === 'oneOf' &&
                                 <DxcSelect options={selectBoxOptions}
                                     onChange={typeSearchParameter}
                                     label={`Select ${propertyTitle ? propertyTitle : ''}`}
                                     margin="medium"
-                                    padding={{top: "xxsmall", left: "medium", right: "medium", bottom:"xxsmall"}}
+                                    padding={{ top: "xxsmall", left: "medium", right: "medium", bottom: "xxsmall" }}
                                 />
                             }
-                            {searchFieldType && searchFieldType === 'date' && 
+                            {searchFieldType && searchFieldType === 'date' &&
                                 <DxcDate
                                     label={`Select ${propertyTitle ? propertyTitle : ''}`}
                                     placeholder
