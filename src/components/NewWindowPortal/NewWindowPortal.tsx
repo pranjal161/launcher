@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import {DxcBox} from '@dxc-technology/halstack-react'
+import { DxcBox } from '@dxc-technology/halstack-react'
 import ReactDOM from 'react-dom';
 import { StyleSheetManager } from 'styled-components';
 
