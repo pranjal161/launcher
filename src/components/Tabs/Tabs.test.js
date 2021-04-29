@@ -49,43 +49,49 @@ const setup = (props = {}) => {
         </Tabs>)
 }
 
-test('renders Tabs component', () => {
-    const wrapper = setup();
-    const component = wrapper.find(`Tabs`);
-    expect(component.length).toBe(1);
-});
 
-test('render 4 tabs', () => {
-    const wrapper = setup();
-    const tabsChildren = wrapper.find(TabButton);
-    expect(tabsChildren.length).toBe(4);
-});
+describe('test 4 tabs component', () => {
+    let wrapper;
+    beforeAll(() => {
+        wrapper = setup();
+    });
 
-test('render 4 tabs with the second active', () => {
-    const wrapper = setup();
-    const componentExists = findByTestAttr(wrapper, "tabs-content").exists(`div#${defaultActiveTab}`);
-    expect(componentExists).toBe(true);
-});
+    afterAll(() => {
+        wrapper.unmount();
+    });
 
-test('render 4 tabs, change active tab from default', () => {
-    const wrapper = setup();
-    const tabsChildren = wrapper.find(TabButton);
-    const lastTabIndex = defaultTabs.length - 1;
-    tabsChildren.at(lastTabIndex).simulate("click");
-    const componentExists = findByTestAttr(wrapper, "tabs-content").exists(`div#${defaultTabs[lastTabIndex]}`);
-    expect(componentExists).toBe(true);
-});
-
-test('render 4 tabs, close last tab', () => {
-    const wrapper = setup();
-    const tabsChildren = wrapper.find(TabButton);
-    const lastTabIndex = defaultTabs.length - 1;
-    // Get the close icon and click it
-    findByTestAttr(tabsChildren.at(lastTabIndex), "close-icon").simulate("click");
-    wrapper.unmount();
-    // Component has to be mounted 2 times, because it doesn't rerender normally in this test
-    // enzyme has some issues with conditional rendering of children in method mount
-    const newWrapper = setup();
-    const tabsChildrenNew = newWrapper.find(TabButton);
-    expect(tabsChildrenNew.length).toBe(3);
+    test('renders Tabs component', () => {
+        const component = wrapper.find(`Tabs`);
+        expect(component.length).toBe(1);
+    });
+    
+    test('render 4 tabs', () => {
+        const tabsChildren = wrapper.find(TabButton);
+        expect(tabsChildren.length).toBe(4);
+    });
+    
+    test('render 4 tabs with the second active', () => {
+        const componentExists = findByTestAttr(wrapper, "tabs-content").exists(`div#${defaultActiveTab}`);
+        expect(componentExists).toBe(true);
+    });
+    
+    test('render 4 tabs, change active tab from default', () => {
+        const tabsChildren = wrapper.find(TabButton);
+        const lastTabIndex = defaultTabs.length - 1;
+        tabsChildren.at(lastTabIndex).simulate("click");
+        const componentExists = findByTestAttr(wrapper, "tabs-content").exists(`div#${defaultTabs[lastTabIndex]}`);
+        expect(componentExists).toBe(true);
+    });
+    
+    test('render 4 tabs, close last tab', () => {
+        const tabsChildren = wrapper.find(TabButton);
+        const lastTabIndex = defaultTabs.length - 1;
+        // Get the close icon and click it
+        findByTestAttr(tabsChildren.at(lastTabIndex), "close-icon").simulate("click");
+        // Component has to be mounted 2 times, because it doesn't rerender normally in this test
+        // enzyme has some issues with conditional rendering of children in method mount
+        const newWrapper = setup();
+        const tabsChildrenNew = newWrapper.find(TabButton);
+        expect(tabsChildrenNew.length).toBe(3);
+    });
 });
