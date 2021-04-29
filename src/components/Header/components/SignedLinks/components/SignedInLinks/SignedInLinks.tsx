@@ -1,5 +1,7 @@
-import { LockCloseIcon } from 'assets/svg';
-import React from 'react';
+import React, { MouseEvent } from 'react';
+
+import IconButton from "components/IconButton/IconButton";
+import { LogoutIcon } from 'assets/svg';
 import useDeskAuth from "data/hooks/useDeskAuth";
 import { useHistory } from "react-router-dom";
 
@@ -11,17 +13,26 @@ import { useHistory } from "react-router-dom";
 const SignedInLinks = () => {
     const { signOut } = useDeskAuth();
     const history = useHistory();
-    const handleLogout = async (e:any) => {
+    const handleLogout = async (e:MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         await signOut();
 
         history.push('/auth/signin');
     }
+
+    const emptyFunc = () => {
+        console.log("Log Out");
+    }
     
     return (
-        <li title="Log Out" onClick={handleLogout}>
-            <LockCloseIcon />
-        </li>
+        <div 
+            title="Log Out"
+            onClick={(e:MouseEvent<HTMLDivElement>) => handleLogout(e)}>
+            <IconButton
+                onClick={emptyFunc}>
+                <LogoutIcon />
+            </IconButton>
+        </div>
     );
 }
 

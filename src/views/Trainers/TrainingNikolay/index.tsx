@@ -5,7 +5,6 @@ import { OpenInNewIcon, TabIcon } from 'assets/svg';
 import { useDispatch, useSelector } from "react-redux";
 
 import { DxcTable } from "@dxc-technology/halstack-react";
-import NavigationBar from "../../../components/NavigationBar/NavigationBar";
 import React from "react";
 import useDeskTickets from '../../../data/hooks/useDeskTickets';
 import { useHistory } from 'react-router-dom';
@@ -27,13 +26,12 @@ const TrainingNikolay = () => {
     }
 
     const openTicketNewTab = (ticketId: string, displayTicketLabel: string) => {
-        dispatch(navbarTabsActions.addNavBarTabByID(ticketId, displayTicketLabel));
+        dispatch(navbarTabsActions.addNavBarTabByID(ticketId, displayTicketLabel, "ticket"));
         history.push('/viewTab')
     }
     
     return (
         <>
-            <NavigationBar></NavigationBar>
             <DxcTable>
                 <tr>
                     <th/>
