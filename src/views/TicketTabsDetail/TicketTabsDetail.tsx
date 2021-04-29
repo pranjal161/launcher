@@ -1,12 +1,8 @@
-import {DxcTable} from "@dxc-technology/halstack-react";
+import DetailWrapper from "views/Trainers/TrainingJeenal/components/TicketView/components/DetailWrapper/DetailWrapper";
 import React from 'react';
-import styled from "styled-components";
 import useDeskTickets from "../../data/hooks/useDeskTickets";
 import { useSelector } from "react-redux";
 
-const MainTabbedDetailsContainer = styled.div`
-    margin-top: 1rem;
-`;
 
 const TicketTabsDetail = () => {
     const selectedTicketObject:any = useSelector((state:any) => state.navBarTabs.selectedTab);
@@ -37,39 +33,8 @@ const TicketTabsDetail = () => {
                         <div>
                             There isn&apos;t a ticket Id.
                         </div> :
-                        ticket ? 
-                            <MainTabbedDetailsContainer>
-                                <DxcTable>
-                                    <tr>
-                                        <td>Title: </td>
-                                        <td>{ticket.title}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Received on: </td>
-                                        <td>{ticket.receivedDate}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deadline: </td>
-                                        <td>{ticket.deadlineDate}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Created by: </td>
-                                        <td>{ticket.createdBy}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Person in charge: </td>
-                                        <td>{ticket.assignedTo}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Description: </td>
-                                        <td>{ticket.description}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Description: </td>
-                                        <td>{ticket.description}</td>
-                                    </tr>
-                                </DxcTable>
-                            </MainTabbedDetailsContainer> :
+                        ticket ?
+                            <DetailWrapper ticket={ticket} />:
                             <div>
                                 fetching ticket...
                             </div>
