@@ -47,6 +47,9 @@ const useDeskTickets = () => {
     const unSelect = useCallback((...param) => dispatch(ticketActions.unSelect(...param)), [dispatch])
     const addRelatedClients = useCallback((...param) => dispatch(ticketActions.addRelatedClients(...param)), [dispatch])
     const removeRelatedClients = useCallback((...param) => dispatch(ticketActions.removeRelatedClients(...param)), [dispatch])
+    const addRelatedContract = useCallback((...param) => dispatch(ticketActions.addRelatedContract(...param)), [dispatch])
+    const removeRelatedContract= useCallback((...param) => dispatch(ticketActions.removeRelatedContract(...param)), [dispatch])
+
     const removeSuggestedActivity = useCallback((...param) => dispatch(ticketActions.removeSuggestedActivity(...param)), [dispatch])
     const executeActivity = useCallback((...param) => dispatch(ticketActions.executeActivity(...param)), [dispatch])
     const uploadDocument = useCallback((...param) => dispatch(ticketActions.uploadDocument(...param)), [dispatch])
@@ -69,6 +72,8 @@ const useDeskTickets = () => {
         unSelect,
         addRelatedClients,
         removeRelatedClients,
+        addRelatedContract,
+        removeRelatedContract,
         removeSuggestedActivity,
         executeActivity,
         uploadDocument,

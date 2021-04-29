@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AssignRelatedToTickets from "./components/AssignRelatedToTickets/AssignRelatedToTickets";
 
 import CommunicateAcrossBrowser from "./components/CommunicateAcrossBrowser/CommunicateAcrossBrowser";
 import {DxcTabs} from "@dxc-technology/halstack-react"
@@ -29,6 +30,9 @@ function TrainingNorbert() {
                 onTabClick={onTabClick}
                 tabs={[
                     {
+                        label : "Contract assignation"
+                    },
+                    {
                         label : "TrainingConsultationPanel"
                     },
                     {
@@ -46,19 +50,22 @@ function TrainingNorbert() {
                 ]}
             />
             {activeTab === 0 && (
-                ticket && <TrainingConsultationPanel />
+                <AssignRelatedToTickets/>
             )},
             {activeTab === 1 && (
+                ticket && <TrainingConsultationPanel />
+            )},
+            {activeTab === 2 && (
                 ticket && <TicketPreview ticket={ticket}/>
             )}
-            {activeTab === 2 && (
+            {activeTab === 3 && (
                 <LatestPage/>
             )}
-            {activeTab === 3 && (
+            {activeTab === 4 && (
                 <CommunicateAcrossBrowser/>
             )}
 
-            {activeTab === 4 && (
+            {activeTab === 5 && (
                 <TicketListPage/>
             )}
         </>
