@@ -33,11 +33,11 @@ function App() {
     axios.interceptors.request.use(
         function (config) {
             // Spinning start to show
-            setLoader(true);
+            //setLoader(true);
             return config;
         },
         function (error) {
-            setLoader(false);
+            //setLoader(false);
             return Promise.reject(error);
         }
     );
