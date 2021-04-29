@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
-import ContractPreview from "../../../../views/Trainers/TrainingPranjal/ContractPreview/ContractPreview";
+import ContractPreview from "../../../Contracts/ContractPreview/ContractPreview";
 import PropTypes from "prop-types";
 import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";

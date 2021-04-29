@@ -1,4 +1,4 @@
-import './ContractPreview.scss';
+import 'components/Contracts/ContractPreview/ContractPreview.scss';
 import React, { useEffect, useState } from 'react';
 import Label from 'components/Label/Label';
 import { aia } from 'util/functions';
