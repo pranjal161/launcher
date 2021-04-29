@@ -42,7 +42,7 @@ align-items:center;
                         {/* ticketTitle */}
                     </h3>
                 </div>
-                <div className="col-3 left">
+                <div className="col-3 text-right pl-0">
                     <StyledButtonWhiteSVG onClick={viewHistory}>
                         <EyeIcon />
                     </StyledButtonWhiteSVG>
