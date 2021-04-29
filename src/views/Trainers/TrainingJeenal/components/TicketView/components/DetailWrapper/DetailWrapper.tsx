@@ -15,8 +15,8 @@ const DetailWrapper = (props: { ticket: any }) => {
                         <ViewDetails ticket={ticket} />
                     </div>
                 </div>
-                <div className="col-3 min-vh-100">
-                    <MiddleBar />
+                <div className="col-3 align-self-start min-vh-100">
+                    <MiddleBar ticket={ticket} />
                 </div>
 
             </div>

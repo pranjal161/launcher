@@ -25,19 +25,19 @@ const Data = styled.div`
 `;
 
 const DataLine = (props: any) => {
-    const { label, children } = props;
+  const { label, children } = props;
 
-    return (
-        <Root>
-            <Label className="mt-1">{label}</Label>
-            <Data>{children}</Data>
-        </Root>
-    )
+  return (
+    <Root>
+      <Label>{label}</Label>
+      <Data>{children}</Data>
+    </Root>
+  )
 }
 
 DataLine.propTypes = {
-    label: PropTypes.any,
-    children: PropTypes.any
+  label: PropTypes.any,
+  children: PropTypes.any
 }
 
 export default DataLine;
