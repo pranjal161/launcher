@@ -10,7 +10,7 @@ const ReadMore = (props: any) => {
         setIsReadMore(!isReadMore);
     };
     return (
-        <div className="text">
+        <div className="text desc_height">
             {isReadMore ? children.slice(0, 180) : children}
             <div onClick={toggleReadMore} className="read-or-hide">
                 {isReadMore ? <>{"Read more"} <ExpandMore /></> : <>{"Show less"} < ExpandLess /></>}

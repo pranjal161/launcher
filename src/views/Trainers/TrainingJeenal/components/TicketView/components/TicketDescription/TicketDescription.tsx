@@ -11,8 +11,11 @@ const TicketDescription = (props: any) => {
                 {desc}
             </ReadMore>
             :
-            <>
-            </>}
+            <div className="desc_height">
+                No description is available
+            </div>
+
+        }
 
         </>);
 };

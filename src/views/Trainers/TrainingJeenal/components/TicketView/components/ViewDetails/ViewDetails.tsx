@@ -1,3 +1,5 @@
+import "./ViewDetails.scss";
+
 import { Created, Critical, Done, Error, Pending } from "assets/svg";
 import React, { useCallback } from "react";
 
@@ -72,7 +74,7 @@ const ViewDetails = (props: { ticket: any }) => {
         }
         return (<>
             {icon}
-            {status}
+            <span className="pl-1">{status}</span>
         </>)
     };
 
@@ -85,9 +87,9 @@ const ViewDetails = (props: { ticket: any }) => {
             icon = <></>;
         }
         return (
-            <div className="pl-1">
+            <div className="padding-left-3">
                 {icon}
-                {children}
+                <span className="pl-1">{children}</span>
             </div>
         )
 
@@ -189,11 +191,10 @@ const ViewDetails = (props: { ticket: any }) => {
 
                     </div>
                     <div id="ticket_dates" className="col-6">
-
                         {/* not from API */}
-                        <DataLine label={<Label>Engagement Service</Label>}>7 jours</DataLine>
+                        <DataLine label={<Label>Engagement Service</Label>}><span className="pl-2">7 jours</span></DataLine>
                         {/* not from API */}
-                        <DataLine label={<Label>Reminder Date</Label>}><DateValue date={Date.now()} /></DataLine>
+                        <DataLine label={<Label>Reminder Date</Label>}><span className="pl-2"><DateValue date={Date.now()} /></span></DataLine>
                     </div>
                 </div> </Section>
             <Section id="businessActivities" title="Business Activity(ies)">
