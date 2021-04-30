@@ -3,12 +3,12 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import {AppConfig} from 'config/appConfig';
 import {ApplicationContext} from 'context/applicationContext';
+import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import ContractPreview from "components/Contracts/ContractPreview/ContractPreview";
 import ContractTable from "components/ContractTable/ContractTable";
 import EntitySidebar from "components/EntitySidebar/EntitySidebar";
 import axios from 'axios';
 import {useTranslation} from 'react-i18next';
-import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 
 const ContractSearch = () => {
     const {t} = useTranslation();

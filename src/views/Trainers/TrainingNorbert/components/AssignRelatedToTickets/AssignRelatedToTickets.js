@@ -1,8 +1,8 @@
+import {AppConfig} from "config/appConfig";
 import {DxcButton} from "@dxc-technology/halstack-react";
 import React from 'react';
-import {AppConfig} from "../../../../../config/appConfig";
-import useDeskTickets from "../../../../../data/hooks/useDeskTickets";
-import {aia} from "../../../../../util/functions";
+import {aia} from "util/functions";
+import useDeskTickets from "data/hooks/useDeskTickets";
 
 
 const AssignRelatedToTickets = (props) => {
