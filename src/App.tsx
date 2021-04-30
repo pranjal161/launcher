@@ -20,7 +20,6 @@ import {useTranslation} from "react-i18next";
  * @returns {*} The app depending on the context
  */
 function App() {
-    console.log('APP render')
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
     const routeNodes = applyRoutes(routes);
@@ -34,11 +33,11 @@ function App() {
     axios.interceptors.request.use(
         function (config) {
             // Spinning start to show
-            //setLoader(true);
+            setLoader(true);
             return config;
         },
         function (error) {
-            //setLoader(false);
+            setLoader(false);
             return Promise.reject(error);
         }
     );
