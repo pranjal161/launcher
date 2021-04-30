@@ -1,7 +1,7 @@
 import { DxcSidenav } from '@dxc-technology/halstack-react';
 import React from 'react';
 import Reminders from 'components/Reminders/Reminders';
-import StatusMenu from "../TicketTitle/StatusMenu";
+import StatusMenu from "../StatusMenu/StatusMenu";
 import { StyledSidenav } from '../../StyledTickets';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import { useTranslation } from 'react-i18next';
