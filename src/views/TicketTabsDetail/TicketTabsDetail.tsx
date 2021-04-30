@@ -1,18 +1,13 @@
-import {DxcTable} from "@dxc-technology/halstack-react";
+import DetailWrapper from "views/Trainers/TrainingJeenal/components/TicketView/components/DetailWrapper/DetailWrapper";
 import React from 'react';
-import styled from "styled-components";
 import useDeskTickets from "../../data/hooks/useDeskTickets";
 import { useSelector } from "react-redux";
 
-const MainTabbedDetailsContainer = styled.div`
-    margin-top: 1rem;
-`;
 
-const TicketTabsDetail = (/*props: {ticketId: number}*/) => {
-    const { getOne } = useDeskTickets();
+const TicketTabsDetail = () => {
     const selectedTicketObject:any = useSelector((state:any) => state.navBarTabs.selectedTab);
     let isWrongTabType = false;
-    if(selectedTicketObject.type === 'ticket') {
+    if(selectedTicketObject.type !== 'ticket') {
         isWrongTabType = true;
     }
 
@@ -22,6 +17,7 @@ const TicketTabsDetail = (/*props: {ticketId: number}*/) => {
     }
 
     let ticket = null;
+    const { getOne } = useDeskTickets();
     if(!isNoTabIdPresent && !isWrongTabType) {
         ticket = getOne(selectedTicketObject.id);
     }
@@ -37,39 +33,8 @@ const TicketTabsDetail = (/*props: {ticketId: number}*/) => {
                         <div>
                             There isn&apos;t a ticket Id.
                         </div> :
-                        ticket ? 
-                            <MainTabbedDetailsContainer>
-                                <DxcTable>
-                                    <tr>
-                                        <td>Title: </td>
-                                        <td>{ticket.title}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Received on: </td>
-                                        <td>{ticket.receivedDate}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deadline: </td>
-                                        <td>{ticket.deadlineDate}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Created by: </td>
-                                        <td>{ticket.createdBy}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Person in charge: </td>
-                                        <td>{ticket.assignedTo}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Description: </td>
-                                        <td>{ticket.description}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Description: </td>
-                                        <td>{ticket.description}</td>
-                                    </tr>
-                                </DxcTable>
-                            </MainTabbedDetailsContainer> :
+                        ticket ?
+                            <DetailWrapper ticket={ticket} />:
                             <div>
                                 fetching ticket...
                             </div>
