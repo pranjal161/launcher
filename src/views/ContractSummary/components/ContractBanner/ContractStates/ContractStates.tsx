@@ -28,8 +28,7 @@ const ContractStates = (props: { stateUrl: string, onHistoryChange?: any }) => {
                     const version = t('_STATE_VERSION');
                     const fromLabel = t('_FROM_VERSION');
                     const toLabel = t('_TO_VERSION');
-
-                    items.forEach((element) => {
+                    items.forEach((element: any) => {
                         const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
                         const value = element.href;
                         const data = {
