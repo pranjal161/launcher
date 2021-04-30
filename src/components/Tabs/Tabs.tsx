@@ -68,7 +68,7 @@ const Tabs = (props: {children: any, activeTabId?: string, onClick?: Function}) 
 
             </TabsButtonsContainer>
 
-            <div>
+            <div data-test="tabs-content">
                 {tabContent}
             </div>
 

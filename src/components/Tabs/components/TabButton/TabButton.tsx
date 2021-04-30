@@ -85,7 +85,9 @@ const TabButton = ( props : {
             isNavBar={isNavBar}>
             <div>
                 <span>{label}</span>
-                <span onClick={(e) => handleTabClose(e, tabId)}>
+                <span 
+                    data-test="close-icon"
+                    onClick={(e) => handleTabClose(e, tabId)}>
                     <CloseIcon />
                 </span>
             </div>

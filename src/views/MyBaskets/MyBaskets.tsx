@@ -19,7 +19,7 @@ const MyBaskets = () => {
     const {remove} = useDeskTickets()
     const tickets = ticketDesk.getAll();
     const [clickedTicket, setClickedTicket] = useState({id: null});
-    const [openSidebar, setOpenSidebar] = useState (false);
+    const [openSidebar, setOpenSidebar] = useState(false);
     const [selectedBasket, setClickedBasket] = useState({id: null, title: ''});
     const [searchedBaskets, setSearchedBaskets] = useState([]);
     const [ticketsFromBasket, setTicketsFromBasket] = useState([]);

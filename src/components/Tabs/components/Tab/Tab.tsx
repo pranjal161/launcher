@@ -4,10 +4,10 @@ const Tab = (props: {
                         children: any,
                         tabId: string,
                         tabLabel: string,
-                        onTabCloseClick: Function,
+                        onTabCloseClick?: Function,
                         isActiveTab: boolean
                     }) => {
-    const {children} = props;
+    const { children } = props;
     
     return (
         <>

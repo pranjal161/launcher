@@ -147,6 +147,41 @@ export const removeRelatedClients = (id, clientId) => (dispatch, getState, {getF
     })
 }
 
+export const addRelatedContract = (id, contract) => (dispatch, getState, {getFirebase}) => {
+    const firestore = getFirebase().firestore()
+    const history = addHistory(getState(), 'addedRelatedContract', {newValue: contract.title})
+
+    return firestore.collection('tickets').doc(id).update(
+        {
+            relatedContract: getFirebase().firestore.FieldValue.arrayUnion(contract),
+            ...history
+        }
+    ).then((result) => {
+        dispatch({type: 'ADD_RELATED_CONTRACT_TICKET_SUCCESS', result})
+    }).catch((error) => {
+        console.log(error)
+        dispatch({type: 'REMOVE_RELATED_CONTRACT_TICKET_ERROR', error})
+    })
+}
+
+export const removeRelatedContract = (id, contract) => (dispatch, getState, {getFirebase}) => {
+    const firestore = getFirebase().firestore()
+    const history = addHistory(getState(), 'removedRelatedClient', {newValue: contract.display})
+
+    return firestore.collection('tickets').doc(id).update(
+        {
+            relatedContract: getFirebase().firestore.FieldValue.arrayRemove(contract),
+            ...history
+        }
+    ).then((result) => {
+        dispatch({type: 'REMOVE_RELATED_CONTRACT_TICKET_SUCCESS', result})
+    }).catch((error) => {
+        console.log(error)
+        dispatch({type: 'ADD_RELATED_CONTRACT_TICKET_ERROR', error})
+    })
+}
+
+
 export const removeSuggestedActivity = (id, activityId) => (dispatch, getState, {getFirebase}) => {
     const firestore = getFirebase().firestore()
     const statusField = `suggestedActivities.${activityId}.status`

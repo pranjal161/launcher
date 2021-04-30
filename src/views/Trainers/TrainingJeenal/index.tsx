@@ -15,7 +15,7 @@ const TrainingJeenal = () => {
     }
 
     return (
-        <>
+        <div className="overflow-auto">
             <h1>Jeenal</h1>
             <div className="w-100">
                 <Header ticket={currentTicket} />
@@ -28,9 +28,7 @@ const TrainingJeenal = () => {
                     <SideBar />
                 </div>
             </div>
-
-
-        </>
+        </div>
     )
 }
 
