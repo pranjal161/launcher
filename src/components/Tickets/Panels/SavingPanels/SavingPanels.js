@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
-import ContractPreview from "views/Trainers/TrainingPranjal/ContractPreview/ContractPreview";
+import ContractPreview from "../../../Contracts/ContractPreview/ContractPreview";
 import PropTypes from "prop-types";
 import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
@@ -41,7 +41,7 @@ const SavingPanels = ({ticketId, onClose}) => {
             person2: {display: "Person 2", content: <div>Person 2</div>}
         }
     }
-
+    
     const handleEntitySelection = (newSelection) => setSelection((prev) => ({...prev, [entityType]: newSelection}))
     const handleTypeSelection = (value) => setEntityType(value)
 
