@@ -36,7 +36,7 @@ const TicketTabsDetail = () => {
                         </div> :
                         ticket ?
                             // <DetailWrapper ticket={ticket} />:
-                            <>
+                            <div style={{ overflowX: 'hidden' }} >
                                 <div className="w-100">
                                     <Header ticket={ticket} />
                                 </div>
@@ -49,7 +49,7 @@ const TicketTabsDetail = () => {
                                     </div>
                                 </div>
 
-                            </>
+                            </div>
                             :
                             <div>
                                 fetching ticket...
