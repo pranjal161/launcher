@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
  * @param {props} props Contains information related to the Label
  * @returns {*} Return the Label
  */
-const Label = (props: { label?: string; propertyName: string; data: any; type?: string }) => {
+const Label = (props: { label?: string; propertyName: string; data: any; type?: string; width?:any }) => {
     const { t } = useTranslation();
     const { label, propertyName, data, type } = props;
     let value, viewValue;
@@ -34,7 +34,7 @@ const Label = (props: { label?: string; propertyName: string; data: any; type?: 
 
     return (
         <>
-            {label && <StyledLabel>{t(label)}:</StyledLabel>}
+            {label && <StyledLabel width={props.width}>{t(label)}:</StyledLabel>}
             <label dangerouslySetInnerHTML={{ __html: processDataOutput() }}></label>
         </>
     );

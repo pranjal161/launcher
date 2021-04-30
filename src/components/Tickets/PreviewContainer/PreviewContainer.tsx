@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+
 import {DxcBox} from "@dxc-technology/halstack-react";
 import NewWindowPortal from "components/NewWindowPortal/NewWindowPortal";
-import Preview from "components/Tickets/PreviewContainer/components/Preview/Preview";
+import TicketPreview from "components/Tickets/TicketPreview/TicketPreview";
 import useDeskAuth from "data/hooks/useDeskAuth";
 import useDeskTickets from "data/hooks/useDeskTickets";
+import {useHistory} from "react-router-dom";
 
 
 // eslint-disable-next-line valid-jsdoc
@@ -13,8 +15,9 @@ import useDeskTickets from "data/hooks/useDeskTickets";
  * @returns {*} Display of ticket in detail
  */
 function PreviewContainer(props: any) {
+    const history = useHistory();
     const {id, onRemove, onClose} = props;
-    const {getOne, assignTo, remove} = useDeskTickets()
+    const {getOne, assignTo, remove, openInNewTab} = useDeskTickets()
     const {currentUserId} = useDeskAuth()
     let ticket = id ? getOne(id) : undefined
 
@@ -24,12 +27,19 @@ function PreviewContainer(props: any) {
     const closeHandle = () => onClose && onClose()
 
     const [openPopup, setOpenPopup] = useState(false);
+    
+    const openTicketNewTab = () => {
+        openInNewTab(id, ticket.title, 'ticket')
+        history.push('/viewTab')
+    }
 
     const assignButton = ticket && ticket.assignedTo === currentUserId ?
         <a href="#" className="btn btn-warning ml-2" onClick={removeToCurrentUser}>Unassign to me</a> :
         <a href="#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
 
-    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Delete</a>{assignButton}</>)
+    const newTabButton = <a href="#" className="btn btn-success ml-2" onClick={openTicketNewTab}>New Tab</a>
+
+    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Delete</a>{assignButton}{newTabButton}</>)
 
     const popupHandle = () => {
         setOpenPopup(true);
@@ -37,8 +47,8 @@ function PreviewContainer(props: any) {
 
     if (ticket) {
         return (
-            <><DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
-                <Preview
+            <><DxcBox padding={"xxsmall"} shadowDepth={2}>
+                <TicketPreview
                     ticket={ticket}
                     actions={Actions}
                     onClose={closeHandle}
@@ -48,7 +58,7 @@ function PreviewContainer(props: any) {
                 {openPopup &&
                 <NewWindowPortal onCloseCallback={closeHandle}>
                     <DxcBox size="large" padding={"xxsmall"} shadowDepth={2}>
-                        <Preview
+                        <TicketPreview
                             ticket={ticket}
                             actions={Actions}
                             onClose={closeHandle}/>

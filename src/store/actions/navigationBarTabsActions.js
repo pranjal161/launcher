@@ -6,9 +6,9 @@ export const closeNavBarTabs = () => ({
     type: 'CLOSE_NAVIGATION_TABS'
 })
 
-export const addNavBarTabByID = (tabId, displayTabLabel) => ({
+export const addNavBarTabByID = (tabId, displayTabLabel, type) => ({
     type: 'ADD_NAV_TAB_BY_ID',
-    payload: {tabId, displayTabLabel}
+    payload: {tabId, displayTabLabel, type}
 })
 
 export const removeNavBarTabByID = (tabId) => ({
@@ -16,7 +16,7 @@ export const removeNavBarTabByID = (tabId) => ({
     payload: tabId
 })
 
-export const setSelectedNavBarTabByID = (tabId) => ({
+export const setSelectedNavBarTabByID = (tabId, type) => ({
     type: 'SELECT_NAV_TAB_BY_ID',
-    payload: tabId
+    payload: {tabId, type}
 })

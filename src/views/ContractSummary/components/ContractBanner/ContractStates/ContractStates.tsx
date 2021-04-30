@@ -17,12 +17,10 @@ const ContractStates = (props: { stateUrl: string, onHistoryChange?: any }) => {
     }, []);
 
     const populateHistorySelect = (stateUrl: string) => {
-        console.log('populate')
         if (stateUrl) {
             axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
-
                 const response: any = res && res['data'];
-                if (false && response && response['_links'] && response['_links']['item']) {
+                if (response && response['_links'] && response['_links']['item']) {
                     const items = Array.isArray(response['_links']['item'])
                         ? response['_links']['item']
                         : [response['_links']['item']];
@@ -30,8 +28,7 @@ const ContractStates = (props: { stateUrl: string, onHistoryChange?: any }) => {
                     const version = t('_STATE_VERSION');
                     const fromLabel = t('_FROM_VERSION');
                     const toLabel = t('_TO_VERSION');
-
-                    items.forEach((element:any) => {
+                    items.forEach((element: any) => {
                         const label = `${version} ${element.summary['state_number']}${fromLabel}${element.summary['start_date']}${toLabel}${element.summary['end_date']}`;
                         const value = element.href;
                         const data = {
@@ -49,7 +46,6 @@ const ContractStates = (props: { stateUrl: string, onHistoryChange?: any }) => {
 
     const updateState = (newValue: string) => {
         changeHistory(newValue);
-        console.log('updateState')
         onHistoryChange(newValue)
     };
 

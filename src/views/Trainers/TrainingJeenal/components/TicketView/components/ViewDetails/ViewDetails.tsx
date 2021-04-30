@@ -1,16 +1,20 @@
+import "./ViewDetails.scss";
+
+import { Created, Critical, Done, Error, Pending } from "assets/svg";
 import React, { useCallback } from "react";
 
-import DataLine from "components/Tickets/PreviewContainer/components/Preview/components/DataLine/DataLine";
+import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Deadline from "components/Deadline/Deadline";
 import EditableField from "components/EditableField/EditableField";
-import Label from "components/Tickets/PreviewContainer/components/Preview/components/Label/Label";
+import Label from "components/Tickets/TicketPreview/components/Label/Label";
 import Section from "components/Section/Section";
 import StatusSelection from "components/StatusSelection/StatusSelection";
-import { StyledDivider } from "styles/global-style";
 import TextField from "@material-ui/core/TextField/TextField";
-import UserSelection from "components/Tickets/PreviewContainer/components/Preview/components/UserSelection/UserSelection";
+import TicketDescription from "../TicketDescription/TicketDescription";
+import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import { formatValue } from "util/functions";
 import moment from "moment";
+import styled from "styled-components";
 import useDeskBaskets from "data/hooks/useDeskBaskets";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
@@ -54,6 +58,44 @@ const ViewDetails = (props: { ticket: any }) => {
         );
     };
 
+    const TicketStatus = (data: any) => {
+        const { status } = data;
+        let icon;
+        if (status === 'pending') {
+            icon = <Pending />;
+        } else if (status === 'created') {
+            icon = <Created />
+        } else if (status === 'done') {
+            icon = <Done />;
+        } else if (status === 'error') {
+            icon = <Error />
+        } else {
+            icon = <></>
+        }
+        return (<>
+            {icon}
+            <span className="pl-1">{status}</span>
+        </>)
+    };
+
+    const Priority = (data: any) => {
+        const { children } = data;
+        let icon;
+        if (children === 'Critical') {
+            icon = <Critical />;
+        } else {
+            icon = <></>;
+        }
+        return (
+            <div className="padding-left-3">
+                {icon}
+                <span className="pl-1">{children}</span>
+            </div>
+        )
+
+    }
+
+
     const handleAssignTo = useCallback(
         (field, newValue) => {
             assignTo(ticket.id, newValue);
@@ -69,16 +111,21 @@ const ViewDetails = (props: { ticket: any }) => {
         [ticket, update]
     );
 
+    const StyledMainDivider = styled.div`
+  flex: 1 1 auto;
+  margin-block: 1px;
+`;
     return (
         <>
             <Deadline deadline={ticket.deadline} />
             <Section id="description" title="Description">
-                <StyledDivider />
-                {ticket.description ? ticket.description : ""}
+                <StyledMainDivider />
+                <TicketDescription desc={ticket.description} />
+                {/* {ticket.description ? ticket.description : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"} */}
             </Section>
             <Section id="details" title="Details">
-                <StyledDivider />
-                <div className="row">
+                <StyledMainDivider />
+                <div className="row align-items-start">
                     <div id="ticket_details" className="col-6">
                         <DataLine label={<Label>Ticket Origin</Label>}>Email</DataLine>
                         {/* not from API */}
@@ -90,17 +137,18 @@ const ViewDetails = (props: { ticket: any }) => {
                     </div>
                     <div id="ticket_details" className="col-6">
                         <DataLine label={<Label>Status</Label>}>
+
                             <EditableField
                                 field="status"
                                 type="select"
                                 value={ticket.status}
-                                displayValue={ticket.status}
-                                onChange={handleAssignTo}>
+                                displayValue={<TicketStatus status={ticket.status} />}
+                                onChange={handleEditChange}>
                                 <StatusSelection />
                             </EditableField>
                         </DataLine>
 
-                        <DataLine label={<Label>Priority</Label>}>Critical</DataLine>
+                        <DataLine label={<Label>Priority</Label>}>{<Priority>Critical</Priority>}</DataLine>
                         <DataLine label={<Label>Person in charge</Label>}>
                             <EditableField
                                 field="assignedTo"
@@ -116,31 +164,41 @@ const ViewDetails = (props: { ticket: any }) => {
 
             </Section>
             <Section id="dates" title="Dates">
-                <StyledDivider />
-                <DataLine label={<Label>Received on</Label>}>
-                    <EditableField
-                        field="receivedDate"
-                        type="date"
-                        value={ticket.receivedDate}
-                        displayValue={<DateValue date={ticket.receivedDate} />}
-                        onChange={handleEditChange}>
-                        <DxcDate2 date={ticket.receivedDate} id="receivedDate" />
-                    </EditableField>
-                </DataLine>
-                <DataLine label={<Label>Deadline</Label>}>
-                    <EditableField
-                        field="deadlineDate"
-                        type="date"
-                        value={ticket.deadlineDate}
-                        displayValue={<DateValue date={ticket.deadlineDate} />}
-                        onChange={handleEditChange}>
-                        <DxcDate2 date={ticket.deadlineDate} id="deadlineDate" />
-                    </EditableField>
-                </DataLine>
-            </Section>
+                <StyledMainDivider />
+                <div className="row align-items-start">
+                    <div id="ticket_dates" className="col-6">
+
+                        <DataLine label={<Label>Received on</Label>}>
+                            <EditableField
+                                field="receivedDate"
+                                type="date"
+                                value={ticket.receivedDate}
+                                displayValue={<DateValue date={ticket.receivedDate} />}
+                                onChange={handleEditChange}>
+                                <DxcDate2 date={ticket.receivedDate} id="receivedDate" />
+                            </EditableField>
+                        </DataLine>
+                        <DataLine label={<Label>Deadline</Label>}>
+                            <EditableField
+                                field="deadlineDate"
+                                type="date"
+                                value={ticket.deadlineDate}
+                                displayValue={<DateValue date={ticket.deadlineDate} />}
+                                onChange={handleEditChange}>
+                                <DxcDate2 date={ticket.deadlineDate} id="deadlineDate" />
+                            </EditableField>
+                        </DataLine>
+
+                    </div>
+                    <div id="ticket_dates" className="col-6">
+                        {/* not from API */}
+                        <DataLine label={<Label>Engagement Service</Label>}><span className="pl-2">7 jours</span></DataLine>
+                        {/* not from API */}
+                        <DataLine label={<Label>Reminder Date</Label>}><span className="pl-2"><DateValue date={Date.now()} /></span></DataLine>
+                    </div>
+                </div> </Section>
             <Section id="businessActivities" title="Business Activity(ies)">
-                <StyledDivider />
-                {/* {ticket.description ? ticket.description : ""} */}
+                <StyledMainDivider />
             </Section>
 
         </>

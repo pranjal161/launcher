@@ -71,12 +71,13 @@ const AdjustStyledDivider= styled(StyledMainDivider)`
 const ConsultationPanels = ({header, content, toolbar, onToggle, onOpenInNew, onNewTab}) => (
     <Root>
         <Row1>
-            <Toggle data-test="toggle" >
+            {onToggle && <Toggle data-test="toggle" >
                 <IconButton onClick={onToggle}>
                     <DoubleArrowIcon/>
                 </IconButton>
-            </Toggle>
-            <VerticalDivider/>
+                <VerticalDivider/>
+            </Toggle>}
+
             <Header data-test="header">
                 {header}
                 <HeaderActions>
@@ -90,7 +91,7 @@ const ConsultationPanels = ({header, content, toolbar, onToggle, onOpenInNew, on
             </Header>
         </Row1>
         <RowDivider>
-            <VerticalDivider/>
+            {onToggle && <VerticalDivider/>}
             <AdjustStyledDivider/>
         </RowDivider>
         <Row2>
