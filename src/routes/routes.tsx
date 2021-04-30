@@ -4,10 +4,9 @@ import React, {lazy} from "react";
 
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
-import ClientViewActivity from "views/ClientViewActivity/ClientViewActivity";
 import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
-import ContractView from "views/Activities/ContractView/ContractView";
+import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import Help from 'views/Help/Help';
 import HomePage from "views/HomePage/HomePage";
@@ -82,13 +81,13 @@ const routes = [
                 path: '/contracts/:contractId',
                 name: 'contract',
                 exact: true,
-                component: ContractView
+                component: ContractSummary
             },
             {
                 path: '/ClientView/person/:personId',
                 name: 'personView',
                 exact: true,
-                component: ClientViewActivity
+                component: ClientView
             },
             {
                 path: '/ClientView/organization/:organizationId',
