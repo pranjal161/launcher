@@ -30,6 +30,7 @@ const MyTickets = (props: any) => {
     // const [searchedStatus, setSearchedStatus] = useState<any[]>(sideNavItems);
     const [countArray, setCountArray] = useState({});
     const { remove } = useDeskTickets()
+    console.log(selectedItem);
 
     const { getMyAllTickets } = useDeskTickets()
     const tickets = getMyAllTickets()
