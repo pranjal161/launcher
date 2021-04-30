@@ -187,8 +187,8 @@ export function searchPerson(value: string) {
  * @returns {*} Parameters for the search - for eg. persons, tickets, contracts
  */
 export function search(obj: any) {
-    const { search, name, value } = obj;
-    let url = `${AppConfig.hostUrl.defaultHostUrl}${search}?`;
+    const { searchUrl, name, value } = obj;
+    let url = `${searchUrl}?`;
     let params;
     const nameSelected = value;
     
@@ -213,24 +213,4 @@ export function search(obj: any) {
 export const getValues = (array: Array<any>, filterBy: string, matchingValue: string, returnValue?: string) => {
     const filter: any = array && array.filter((array: any) => array[filterBy] === matchingValue);
     return returnValue ? filter && filter[0] && filter[0][returnValue] : filter && filter[0];
-}
-
-// Get Field related schema from API response passed
-export const getSearchableSchema = (response: any, rel: string) => {
-    if (response && response._options && response._options.links) {
-        const links = response._options.links;
-        const schema = getValues(links, 'rel', rel, 'schema');
-        return schema && schema.properties;
-    }
-}
-
-// Call a get on DB, filter and return rel based fields data - EX: Find in Global Search
-export const getSearchableFields = (schema: string, rel: string) => {
-    const url = `${AppConfig.hostUrl.defaultHostUrl}${schema}`;
-    const getResp = Promise.resolve(aia.get(url));
-    const searchableFields = getResp.then((result) => {
-        const searchableSchema = getSearchableSchema(result.data, rel);
-        return searchableSchema;
-    });
-    return searchableFields;
 }

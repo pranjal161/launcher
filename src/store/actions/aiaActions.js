@@ -1,30 +1,46 @@
 import {aia} from "../../util/functions";
 
-export const fetch = (hRef, callType='get') => (dispatch, getState) => {
+export const fetch = (hRef, callType = 'get', baId = null) => (dispatch, getState) => {
     //Search if we have already fetch this hRef
-    const hRefs = getState().aia.hRefs
+    //const hRefs = getState().aia.hRefs
     const timestamp = Date.now()
-    const alreadyFetched = hRefs[hRef] && hRefs[hRef].status === "succeeded"
-    const actionPrefix = alreadyFetched ? 'UPDATE_FETCH_HREF' : 'FETCH_HREF'
+    //const alreadyFetched = hRefs[hRef] && hRefs[hRef].status === "succeeded"
+    const actionPrefix = `BA_${callType.toUpperCase()}`
 
-    dispatch({type: `${actionPrefix}_START`, hRef, timestamp})
+    //dispatch({type: `${actionPrefix}_START`, hRef, timestamp})
+    dispatch({type: `${actionPrefix}_PENDING`, hRef, timestamp, baId})
 
-    aia[callType](hRef)
-        .then(
-            (response) => {
-                dispatch({
-                    type: `${actionPrefix}_SUCCESS`,
-                    data : response.data,
-                    hRef,
-                    timestamp
-                })
-            })
-        .catch((error) => {
+    const promise = aia[callType](hRef)
+    promise.then(
+        (response) => {
+
+            /*dispatch({
+                type: `${actionPrefix}_SUCCESS`,
+                data: response.data,
+                hRef,
+                timestamp
+            })*/
             dispatch({
+                type: `${actionPrefix}_SUCCESS`,
+                data: response.data,
+                hRef,
+                baId
+            })
+        })
+        .catch((error) => {
+
+            /* dispatch({
                 type: `${actionPrefix}_ERROR`,
                 error,
                 hRef,
                 timestamp
+            })*/
+            dispatch({
+                type: `${actionPrefix}_ERROR`,
+                error,
+                hRef,
+                baId
             })
         })
+    return promise
 }
