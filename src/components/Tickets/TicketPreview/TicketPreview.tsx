@@ -146,7 +146,7 @@ const TicketPreview = (props: any) => {
                 {actions && <Section id="actions" title="Actions">
                     {actions}
                 </Section>}
-                <Section id="information" title="Information">
+                <div>
                     <DataLine label={<Label>Title</Label>}>
                         <EditableField
                             field="title"
@@ -201,7 +201,7 @@ const TicketPreview = (props: any) => {
                         </EditableField>
                     </DataLine>
                     {/* <StyledDivider /> */}
-                </Section>
+                </div>
                 <Section id="description" title="Description">
                     <EditableField
                         field="description"
