@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
+import ContractPreview from "../../../Contracts/ContractPreview/ContractPreview";
 import PropTypes from "prop-types";
 import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
-import TicketPreview from "../../TicketPreview/TicketPreview";
-import Timeline from "components/Timeline/Timeline";
-import WithScroll from "../../../WithScroll/WithScroll";
 import styled from "styled-components";
-import useDeskBaskets from "../../../../data/hooks/useDeskBaskets";
 import useDeskTickets from "data/hooks/useDeskTickets";
-import useDeskUsers from "../../../../data/hooks/useDeskUsers";
 
 const Root = styled.div`
   display: flex;
@@ -19,49 +15,44 @@ const Root = styled.div`
 `;
 
 
-const SavingPanels = ({ticketId,onClose}) => {
-    const entities = {
-        ticket: [{display: "Ticket", id: ticketId}],
-        history:[{display:"History", id: ticketId}],
-        contract:
-            [{display: "contract A", id: 'contractA'}, {
-                display: "contract B",
-                id: 'contractB'
-            }, {display: "contract C", id: 'contractC'}],
-        person: [{display: "Person 1", id: 'person1'},
-            {display: "Person 2", id: 'person2'}],
-    }
+const SavingPanels = ({ticketId, onClose}) => {
     const {getOne} = useDeskTickets()
-    const {getOne: getOneBasket } = useDeskBaskets()
-    const {getAll: getAllUsers} = useDeskUsers()
+    const [entityType, setEntityType] = useState('contract')
+    const [selection, setSelection] = useState({}) // We store selection per entityType
+    const ticket = getOne(ticketId)
+    if (!ticket)
+        return (<></>)
 
-    const [entityType, setEntityType] = useState('ticket')
-    const [currentEntity, setCurrentEntity] = useState({})
 
-    const handleEntitySelection = (selection) => setCurrentEntity((prev) => ({...prev, [entityType]: selection}))
+    const ticketContracts = {}
+
+    ticket.relatedContract && ticket.relatedContract.forEach((contract) => (
+        ticketContracts[contract.id] = {
+            display: contract.title.split(':')[0],
+            displayLong: contract.title,
+            content: <ContractPreview contractUrl={contract.hRef}/>
+        })
+    )
+
+    const entities = {
+        contract: ticketContracts,
+        person: {
+            person1: {display: "Person 1", content: <div>Person 1</div>},
+            person2: {display: "Person 2", content: <div>Person 2</div>}
+        }
+    }
+    
+    const handleEntitySelection = (newSelection) => setSelection((prev) => ({...prev, [entityType]: newSelection}))
     const handleTypeSelection = (value) => setEntityType(value)
 
     const SelectEntities = () => <SelectEntity entities={entities[entityType]} onChange={handleEntitySelection}
-        value={currentEntity[entityType]}/>
+        value={selection[entityType]}/>
     const Toolbar = () => <SavingToolbar value={entityType} onChange={handleTypeSelection}/>
-    const Content = () => {
-        if (entityType === 'ticket') {
-            const ticket = getOne(ticketId)
-            return (<TicketPreview ticket={ticket}/>)
-        }
-        else if(entityType === 'history'){
-            const ticket = getOne(ticketId)
-            const basket = getOneBasket(ticket.basketId)
-            const basketTitle = basket && basket.title
-            const users = getAllUsers('data')
-            return (<WithScroll visibleHeight={800}><Timeline ticket={ticket} users={users} basketName={basketTitle} /></WithScroll>)
-        }
-        else
-            return (<div> Content of id : {currentEntity[entityType]} </div>)
-    }
+    const Content = () => (selection[entityType] ? entities[entityType][selection[entityType]].content : <div/>)
     return (
         <Root>
-            <ConsultationPanels header={<SelectEntities/>} content={<Content/>} toolbar={<Toolbar/>} onToggle={onClose}/>
+            <ConsultationPanels header={<SelectEntities/>} content={<Content/>} toolbar={<Toolbar/>}
+                onToggle={onClose}/>
         </Root>
     )
 }

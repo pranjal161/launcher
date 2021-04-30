@@ -1,10 +1,6 @@
-import './ContractPreview.scss';
-
+import 'components/Contracts/ContractPreview/ContractPreview.scss';
 import React, { useEffect, useState } from 'react';
-
-import ConsultationPanels from 'components/ConsultationPanels/ConsultationPanels';
 import Label from 'components/Label/Label';
-import SectionHeader from 'components/SectionHeader/SectionHeader';
 import { aia } from 'util/functions';
 
 const ContractPreview = (props: any) => {
@@ -61,14 +57,7 @@ const ContractPreview = (props: any) => {
     )
 
     return (
-        <div>
-            {contractData &&
-                <ConsultationPanels header={<SectionHeader title="CONTRACT DETAILS" />} content={<Content />} />
-            }
-            {!contractData &&
-                <ConsultationPanels header={<SectionHeader title="CONTRACT DETAILS" />} content={"No Contract Selected"} />
-            }
-        </div>
+        <Content />
     )
 
 };

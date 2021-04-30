@@ -50,6 +50,10 @@ const ticketReducer = (state = initialState, action) => {
             return {...state}
         case 'ADD_RELATED_CLIENT_TICKET_ERROR':
             return {...state}
+        case 'ADD_RELATED_CONTRACT_TICKET_SUCCESS':
+            return {...state}
+        case 'ADD_RELATED_CONTRACT_TICKET_ERROR':
+            return {...state}
         default:
             return state
     }
