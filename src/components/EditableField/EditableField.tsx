@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const EditableField:any = (props: { value: any, displayValue: any, field: any, mode: string, type: any, onChange: any, children: any }) => {
     const { value, displayValue, field, mode = "updateOnHover", type, onChange, children } = props;
     const [newValue, setNewValue] = useState(value)
-    const handleEditChange = (value: any) => { console.log('Change handleEditChange', value); setNewValue(value) }
+    const handleEditChange = (value: any) => setNewValue(value)
     const mapChangeEvent: any = {
         input: { onBlur: useCallback((value) => handleEditChange(value), []), placeholder: newValue },
         textarea: { onBlur: useCallback((value) => handleEditChange(value), []), placeholder: newValue },
