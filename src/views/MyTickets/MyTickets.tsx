@@ -1,13 +1,13 @@
 import 'views/MyTickets/MyTickets.scss'
 
-import { DxcInput, DxcSidenav } from "@dxc-technology/halstack-react";
 import React, { useEffect, useState } from 'react';
 
 import Card from 'components/Card/Card';
 import EntitySidebar from 'components/EntitySidebar/EntitySidebar';
+import ManagementPanel from './components/ManagementPanel/ManagementPanel';
 import PreviewContainer from "components/Tickets/PreviewContainer/PreviewContainer";
 import TicketList from "components/Tickets/TicketsList/TicketsList";
-import TicketTitle from "./components/TicketTitle/TicketTitle";
+import { TicketsContainer } from './StyledTickets';
 import useDeskTickets from "data/hooks/useDeskTickets";
 
 const MyTickets = (props: any) => {
@@ -27,9 +27,10 @@ const MyTickets = (props: any) => {
     const [openSidebar, setOpenSidebar] = useState(false);
     const [selectedItem, setItemDetails] = useState({ title: '', status: '' });
     const [filteredTickets, setFilteredTickets] = useState([]);
-    const [searchedStatus, setSearchedStatus] = useState<any[]>(sideNavItems);
+    // const [searchedStatus, setSearchedStatus] = useState<any[]>(sideNavItems);
     const [countArray, setCountArray] = useState({});
     const { remove } = useDeskTickets()
+    console.log(selectedItem);
 
     const { getMyAllTickets } = useDeskTickets()
     const tickets = getMyAllTickets()
@@ -51,11 +52,6 @@ const MyTickets = (props: any) => {
         setOpenSidebar(false)
     }
 
-    const searchStatus = (value: string) => {
-        var result = sideNavItems.filter((item: { status: string, title: string }) => item.title.indexOf(value) >= 0);
-        setSearchedStatus(result);
-    }
-
     const setTicketCount = () => {
         let countArray: any = {};
         sideNavItems && sideNavItems.map((sideNavItem: any) => {
@@ -70,11 +66,6 @@ const MyTickets = (props: any) => {
             return null;
         });
         setCountArray(countArray);
-    }
-
-    const searchTicket = (value: string) => {
-        var result = tickets.filter((ticket: { title: string }) => ticket.title.indexOf(value) >= 0);
-        setFilteredTickets(result);
     }
 
     const ticketsAssignedToList = (item: any) => {
@@ -96,68 +87,48 @@ const MyTickets = (props: any) => {
         setFilteredTickets(tickets);
         ticketsAssignedToList({ status: 'all NewTicket' });
         setItemDetails({ title: 'All NewTicket', status: 'all NewTicket' })
-        setSearchedStatus(sideNavItems);
+        //setSearchedStatus(sideNavItems);
         setTicketCount();
     }, []);
     return (
         <>
-            <div className="d-flex align-items-start">
-                <DxcSidenav>
-                    <div className="search-input">
-                        <DxcInput
-                            label={'Search Ticket'}
-                            onChange={searchStatus}
-                            margin="medium"
-                        />
-                    </div>
-                    <TicketTitle title={selectedItem.status} items={searchedStatus} onItemClick={ticketsAssignedToList} countArray={countArray} {...props} />
-                </DxcSidenav>
-                <Card
-                    className="w-100 ticket-title"
-                    title={
-                        <>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <span>{selectedItem.title}</span>
-                                <div className="search-input">
-                                    <DxcInput
-                                        label={'Search Ticket'}
-                                        onChange={searchTicket}
-                                        margin="medium"
-                                    />
-                                </div>
-                            </div>
-                        </>
-                    }>
-                    {tickets &&
-                        <div className="main-container col-12">
-                            <div className="col-12">
-                                <div className="row position-relative">
-                                    <div className="col">
-                                        <TicketList
-                                            height={'600px'}
-                                            handleTicketClick={handleTicketClick}
-                                            tickets={filteredTickets} />
+            <TicketsContainer>
+                <ManagementPanel items={sideNavItems} ticketsAssignedToBasket={ticketsAssignedToList} countArray={countArray} />
+                <TicketsContainer.StyledContentArea>
+                    <Card
+                        className="w-100 basket-title">
+                        {tickets &&
+                            <div className="main-container col-12">
+                                <div className="col-12 p-0">
+                                    <div className="row position-relative">
+                                        <div className="col p-0">
+                                            <TicketList
+                                                height={'600px'}
+                                                handleTicketClick={handleTicketClick}
+                                                selected={clickedTicket.id}
+                                                tickets={filteredTickets} />
+                                        </div>
                                     </div>
-                                    <EntitySidebar
-                                        className="ticket"
-                                        width={483}
-                                        open={openSidebar}
-                                        content={
-                                            <PreviewContainer
-                                                id={clickedTicket.id}
-                                                key={clickedTicket.id}
-                                                onRemove={handleRemove}
-                                                onClose={handleClose}
-                                                sectionId="ticket-details" />
-                                        } />
                                 </div>
                             </div>
-                        </div>
-                    }
-                </Card>
-            </div>
+                        }
+                    </Card>
+                </TicketsContainer.StyledContentArea>
+                <TicketsContainer.StyledRightSidebar>
+                    <EntitySidebar
+                        className="ticket"
+                        width={360}
+                        open={openSidebar}
+                        content={
+                            <PreviewContainer
+                                id={clickedTicket.id}
+                                key={clickedTicket.id}
+                                onRemove={handleRemove}
+                                onClose={handleClose} />
+                        } />
+                </TicketsContainer.StyledRightSidebar>
+            </TicketsContainer>
         </>
-
     );
 }
 export default MyTickets;
