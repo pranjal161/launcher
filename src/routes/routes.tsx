@@ -69,7 +69,7 @@ const routes = [
                 path: '/home',
                 name: 'home',
                 exact: true,
-                component: HomePage,
+                component: MyTickets,
             },
             {
                 path: '/ContractSearch',

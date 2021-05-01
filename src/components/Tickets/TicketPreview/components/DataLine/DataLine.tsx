@@ -8,19 +8,18 @@ const Root = styled.div`
   height: 30px;
 `;
 
-const Label = styled.div`
+const Label = styled.h6`
   width: 40%;
   justify-self: left;
-  font-size: 13px;
 
   label {
     color: #abbbcb;
   }
 `;
-const Data = styled.div`
+const Data = styled.h6`
   width: 60%;
   justify-self: left;
-  font-size: 13px;
+  font-weight: 600;
   color: #2b4358;
 `;
 
