@@ -18,13 +18,13 @@ const Status = (props: { ticket: any }) => {
             case 'pending':
                 content = (
                     <div title="Pending" style={{fill: "goldenrod"}}>
-                        <PendingIcon/> In Progress
+                        <PendingIcon/> Pending
                     </div>)
                 break;
             case 'closed':
                 content = (
-                    <div title="Resolved" style={{fill: "green"}}>
-                        <DoneIconMinimize/> Done
+                    <div title="Finished" style={{fill: "green"}}>
+                        <DoneIconMinimize/> Finished
                     </div>)
                 break;
             default:

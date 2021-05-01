@@ -1093,6 +1093,7 @@
         "van_usage:residence_parking_postal_code": "Postal code",
         "van_usage:type": "Usage",
         "warning": "Warning",
-        "WORK_PARKING_DETAILS": "Work parking details"
+        "WORK_PARKING_DETAILS": "Work parking details",
+        "_VIEWS": "Status"
     }
 }

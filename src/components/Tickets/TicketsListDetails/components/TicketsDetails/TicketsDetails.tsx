@@ -27,8 +27,6 @@ const TicketsDetails = (props: {ticketId: string}) => {
         ticket: [{display: t("_TICKET_DETAILS"), id: ticketId}]
     };
 
-    const SelectEntities = () => <SelectEntity entities={entities['ticket']} onChange={() => false} value={''}/>
-
     const Content = () => <TicketPreview ticket={selectedTicket ? selectedTicket : []}/>
 
     const openTicketNewTab = () => {

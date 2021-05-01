@@ -9,7 +9,6 @@ import ContractSearch from "views/ContractSearch/ContractSearch";
 import ContractSummary from "views/ContractSummary/ContractSummary";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import Help from 'views/Help/Help';
-import HomePage from "views/HomePage/HomePage";
 import MyBaskets from 'views/MyBaskets/MyBaskets';
 import MyTickets from "views/MyTickets/MyTickets";
 import NewTicket from 'views/NewTicket/NewTicket';

@@ -13,7 +13,7 @@ const Root = styled.h5`
 
 const TitleBig = (props: { title: string, count?: any }) => (
     <Root>{props.title}
-        {props.count && <span>{` (${props.count})`}</span>}</Root>
+        {props.count >= 0 && <span>{` (${props.count})`}</span>}</Root>
 );
 
 

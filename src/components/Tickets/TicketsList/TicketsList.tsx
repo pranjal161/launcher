@@ -10,6 +10,8 @@ import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from "data/hooks/useDeskTickets";
 import {useTranslation} from 'react-i18next';
+import TitleMedium from "components/Titles/TitleMedium/TitleMedium";
+import NoData from "components/Titles/NoData/NoData";
 
 const ActionsIconContainer = styled.div`
     position: relative;
@@ -161,6 +163,7 @@ const TicketsList = (props: any) => {
                         <th>{t('_DEADLINE')}</th>
                         <th/>
                     </tr>
+
                     {allBaskets && tickets && tickets.map((ticket: any, i: number) => (
                         <StyledTableRow key={i} className={`${selectedTicket(ticket.id) ? 'active' : ''}`} onClick={() => handleTicketClick(ticket)}>
                             <td>{ticket.title}</td>
@@ -210,6 +213,7 @@ const TicketsList = (props: any) => {
 
                     ))}
                 </DxcTable>
+                {tickets.length ===0 && <NoData/>}
             </WithScroll>
 
         </div>

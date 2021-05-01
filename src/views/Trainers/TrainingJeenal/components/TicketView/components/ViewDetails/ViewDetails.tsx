@@ -127,16 +127,16 @@ const ViewDetails = (props: { ticket: any }) => {
                 <StyledMainDivider />
                 <div className="row align-items-start">
                     <div id="ticket_details" className="col-6">
-                        <DataLine label={<Label>Ticket Origin</Label>}>Email</DataLine>
+                        <DataLine label={"Ticket Origin"}>Email</DataLine>
                         {/* not from API */}
-                        <DataLine label={<Label>Type</Label>}>Claims</DataLine>
+                        <DataLine label={"Type"}>Claims</DataLine>
                         {/* not from API */}
-                        <DataLine label={<Label>Product</Label>}>Savings</DataLine>
+                        <DataLine label={"Product"}>Savings</DataLine>
 
-                        <DataLine label={<Label>Basket</Label>}>{getBasketTitle(ticket.basketId)}</DataLine>
+                        <DataLine label={"Basket"}>{getBasketTitle(ticket.basketId)}</DataLine>
                     </div>
                     <div id="ticket_details" className="col-6">
-                        <DataLine label={<Label>Status</Label>}>
+                        <DataLine label={"Status"}>
 
                             <EditableField
                                 field="status"
@@ -148,8 +148,8 @@ const ViewDetails = (props: { ticket: any }) => {
                             </EditableField>
                         </DataLine>
 
-                        <DataLine label={<Label>Priority</Label>}>{<Priority>Critical</Priority>}</DataLine>
-                        <DataLine label={<Label>Person in charge</Label>}>
+                        <DataLine label={"Priority"}>{<Priority>Critical</Priority>}</DataLine>
+                        <DataLine label={"Person in charge"}>
                             <EditableField
                                 field="assignedTo"
                                 type="select"
@@ -168,7 +168,7 @@ const ViewDetails = (props: { ticket: any }) => {
                 <div className="row align-items-start">
                     <div id="ticket_dates" className="col-6">
 
-                        <DataLine label={<Label>Received on</Label>}>
+                        <DataLine label={"Received on"}>
                             <EditableField
                                 field="receivedDate"
                                 type="date"
@@ -178,7 +178,7 @@ const ViewDetails = (props: { ticket: any }) => {
                                 <DxcDate2 date={ticket.receivedDate} id="receivedDate" />
                             </EditableField>
                         </DataLine>
-                        <DataLine label={<Label>Deadline</Label>}>
+                        <DataLine label={"Deadline"}>
                             <EditableField
                                 field="deadlineDate"
                                 type="date"
@@ -192,9 +192,9 @@ const ViewDetails = (props: { ticket: any }) => {
                     </div>
                     <div id="ticket_dates" className="col-6">
                         {/* not from API */}
-                        <DataLine label={<Label>Engagement Service</Label>}><span className="pl-2">7 jours</span></DataLine>
+                        <DataLine label={"Engagement Service"}><span className="pl-2">7 jours</span></DataLine>
                         {/* not from API */}
-                        <DataLine label={<Label>Reminder Date</Label>}><span className="pl-2"><DateValue date={Date.now()} /></span></DataLine>
+                        <DataLine label={"Reminder Date"}><span className="pl-2"><DateValue date={Date.now()} /></span></DataLine>
                     </div>
                 </div> </Section>
             <Section id="businessActivities" title="Business Activity(ies)">

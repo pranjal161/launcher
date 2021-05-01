@@ -57,7 +57,7 @@ const MyBaskets = () => {
         <>
             <BasketsContainer>
                 <ManagementPanel searchBasket={searchBasket} searchedBaskets={searchedBaskets} selectedBasket={selectedBasket} ticketsAssignedToBasket={ticketsAssignedToBasket} />
-                <TicketsListDetails tickets={ticketsFromBasket} selectedBasket={selectedBasket} count={getSpecificBasketCount(selectedBasket.id)} />
+                <TicketsListDetails tickets={ticketsFromBasket} title={selectedBasket.title} />
             </BasketsContainer>
         </>
     );

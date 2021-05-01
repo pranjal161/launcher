@@ -31,9 +31,10 @@ export const Root = styled.div`
   width: 100%;
 `;
 
-export const Data = styled.div`
-  font-size: 13px;
+export const Data = styled.h6`
   color: #2b4358;
+  font-weight: 400;
+  min-height: 50px;
   max-height: 200px;
 `;
 
@@ -151,7 +152,7 @@ const TicketPreview = (props: any) => {
                     {actions}
                 </Section>}
                 <div>
-                    <DataLine label={<Label>Title</Label>}>
+                    <DataLine label={"Title"}>
                         <EditableField
                             field="title"
                             type="input"
@@ -164,7 +165,7 @@ const TicketPreview = (props: any) => {
                                 size="fillParent"/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Received on</Label>}>
+                    <DataLine label={"Received on"}>
                         <EditableField
                             field="receivedDate"
                             type="date"
@@ -174,7 +175,7 @@ const TicketPreview = (props: any) => {
                             <DxcDate2 date={ticket.receivedDate} id="receivedDate"/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Deadline</Label>}>
+                    <DataLine label={"Deadline"}>
                         <EditableField
                             field="deadlineDate"
                             type="date"
@@ -184,7 +185,7 @@ const TicketPreview = (props: any) => {
                             <DxcDate2 date={ticket.deadlineDate} id="deadlineDate"/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Created by</Label>}>
+                    <DataLine label={"Created by"}>
                         <EditableField
                             field="createdBy"
                             type="select"
@@ -194,7 +195,7 @@ const TicketPreview = (props: any) => {
                             <UserSelection/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Person in charge</Label>}>
+                    <DataLine label={"Person in charge"}>
                         <EditableField
                             field="assignedTo"
                             type="select"
@@ -237,7 +238,6 @@ const TicketPreview = (props: any) => {
                 {/* <StyledDivider /> */}
                 <Section id="documents" title="Documents">
                     <Documents documents={ticket.documents}/>
-                    <Upload ticketId={ticket.id}/>
                 </Section>
             </Sections>
         </Root>

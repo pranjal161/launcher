@@ -133,8 +133,7 @@ PanelTickets.List = styled.li`
 `;
 
 PanelTickets.ListTitle = styled.h6`
-    font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
 `;
 
 export { PanelTickets };

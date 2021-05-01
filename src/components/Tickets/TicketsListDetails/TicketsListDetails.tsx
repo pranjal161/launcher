@@ -38,9 +38,10 @@ const StyledTicketsDetails = styled.div`
 `;
 
 
-const TicketsListDetails = (props: { tickets: any, selectedBasket: any, count: number }) => {
+const TicketsListDetails = (props: { tickets: any, title: any }) => {
     const {t} = useTranslation();
-    const {tickets, selectedBasket, count} = props;
+    const {tickets, title} = props;
+    const count = tickets && tickets.length
     const [clickedTicket, setClickedTicket] = useState({id: ''});
     const [ticketList, setTicketList] = useState([]);
 
@@ -54,9 +55,10 @@ const TicketsListDetails = (props: { tickets: any, selectedBasket: any, count: n
     }
 
     useEffect(() => {
-        if (tickets && tickets.length > 0) {
+        if (tickets) {
             setTicketList(tickets);
-            handleTicketClick(tickets[0]);
+            if (tickets.length > 0)
+                handleTicketClick(tickets[0]);
         }
     }, [tickets]);
 
@@ -65,7 +67,7 @@ const TicketsListDetails = (props: { tickets: any, selectedBasket: any, count: n
             <Root>
                 <StyledTicketList>
                     <StyledHeader>
-                        <div className={"mt-3"}><TitleBig title={selectedBasket.title} count={count}/></div>
+                        <div className={"mt-3"}><TitleBig title={title} count={count}/></div>
                         <StyledSidenavSearchInput>
                             <DxcInput
                                 label={t('_SEARCH_TICKET')}
