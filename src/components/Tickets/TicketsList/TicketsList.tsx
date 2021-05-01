@@ -1,9 +1,10 @@
-import {DotsIcon, RoundIcon, TimeIcon, TimeLapse} from 'assets/svg';
+import {DotsIcon, RoundIcon, PendingIcon, DoneIconMinimize} from 'assets/svg';
 import {DxcBox, DxcProgressBar, DxcTable} from "@dxc-technology/halstack-react";
 import React, {useState} from 'react';
 
 import Deadline from "components/Deadline/Deadline";
 import WithScroll from "components/WithScroll/WithScroll";
+import Status from "components/Tickets/TicketsList/Status/Status";
 import styled from 'styled-components';
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
@@ -137,24 +138,24 @@ const TicketsList = (props: any) => {
             case 'pending':
                 return (
                     <div title="Pending" style={{fill: "goldenrod"}}>
-                        <TimeIcon/>
+                        <PendingIcon/>
                     </div>)
             case 'closed':
                 return (
                     <div title="Resolved" style={{fill: "green"}}>
-                        <TimeLapse/>
+                        <DoneIconMinimize/>
                     </div>)
         }
     }
 
     return (
-        <div className="p-2">
+        <div>
             <WithScroll visibleHeight={height}>
                 <DxcTable>
                     <tr>
-                        <th/>
                         <th>{t('_TITLE')}</th>
                         <th>{t('_BASKET')}</th>
+                        <th>{t('_STATUS')}</th>
                         <th>{t('_STAGE')}</th>
                         <th>{t('_CLIENT')}</th>
                         <th>{t('_DEADLINE')}</th>
@@ -162,9 +163,9 @@ const TicketsList = (props: any) => {
                     </tr>
                     {allBaskets && tickets && tickets.map((ticket: any, i: number) => (
                         <StyledTableRow key={i} className={`${selectedTicket(ticket.id) ? 'active' : ''}`} onClick={() => handleTicketClick(ticket)}>
-                            <td>{getStatusIcon(ticket.status)}</td>
                             <td>{ticket.title}</td>
                             <td>{getBasketTitle(ticket.basketId)}</td>
+                            <td><Status ticket={ticket}/></td>
                             <td>
                                 <ProgressBarContainer>
                                     <DxcProgressBar 

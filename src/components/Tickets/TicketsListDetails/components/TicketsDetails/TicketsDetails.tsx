@@ -1,10 +1,11 @@
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
-import {DxcBox} from "@dxc-technology/halstack-react";
 import PropTypes from "prop-types";
 import React from 'react';
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
 import TicketPreview from "../../../TicketPreview/TicketPreview";
+import TitleBig from "components/Titles/TitleBig/TitleBig";
 import styled from "styled-components";
+
 import useDeskTickets from "data/hooks/useDeskTickets";
 import {useHistory} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -37,9 +38,7 @@ const TicketsDetails = (props: {ticketId: string}) => {
 
     return (
         <Root>
-            <DxcBox padding={"xxsmall"} shadowDepth={2}>
-                <ConsultationPanels header={<SelectEntities/>} content={<Content/>} onOpenInNew={() => openTicketNewTab()} onNewTab={() => openInSecondary(ticketId, 'TICKET DETAILS')} />
-            </DxcBox>
+            <ConsultationPanels header={"Ticket Details"} content={<Content/>} onOpenInNew={() => openTicketNewTab()} onNewTab={() => openInSecondary(ticketId, 'TICKET DETAILS')} />
         </Root>
     )
 }

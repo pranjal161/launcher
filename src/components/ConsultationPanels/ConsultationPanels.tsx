@@ -1,10 +1,11 @@
-import { DoubleArrowIcon, OpenInNewIcon, TabIcon } from "../../assets/svg";
-
+import {DoubleArrowIcon, OpenInNewIcon, TabIcon} from "../../assets/svg";
+import Card from "components/Card/Card";
 import IconButton from "../IconButton/IconButton";
 import PropTypes from "prop-types";
 import React from 'react';
-import { StyledMainDivider } from "styles/global-style";
+import {StyledMainDivider} from "styles/global-style";
 import styled from 'styled-components';
+import TitleMedium from "components/Titles/TitleMedium/TitleMedium";
 
 const Root = styled.div`
   padding: 2px;
@@ -41,7 +42,7 @@ const Header = styled.div`
   flex: 1 1 auto;
   margin-left: 20px;
   display: flex;
-  align-items: center;
+  align-content: center;
   justify-content: space-between;
 `;
 const HeaderActions = styled.div`
@@ -56,9 +57,9 @@ const Toolbar = styled.div`
 const Content = styled.div`
   flex: 1 0 auto;
   width: 100%;
-  margin-left: 20px ;
-  margin-top: 20px ;
-  
+  margin-left: 20px;
+  margin-top: 20px;
+
 `;
 const VerticalDivider = styled.div`
   flex: 0 0;
@@ -69,43 +70,44 @@ const AdjustStyledDivider = styled(StyledMainDivider)`
 `;
 
 const ConsultationPanels = (props: any) => {
-    const { header, content, toolbar, onToggle, onOpenInNew, onNewTab } = props;
-    
+    const {header, content, toolbar, onToggle, onOpenInNew, onNewTab} = props;
+
     return (
         <Root>
-            <Row1>
-                {onToggle && <Toggle data-test="toggle">
-                    <IconButton onClick={onToggle}>
-                        <DoubleArrowIcon />
-                    </IconButton>
-                    <VerticalDivider />
-                </Toggle>}
-
-                <Header data-test="header">
-                    {header}
-                    <HeaderActions>
-                        <IconButton onClick={onOpenInNew}>
-                            <OpenInNewIcon />
+            <Card>
+                <Row1>
+                    {onToggle && <Toggle data-test="toggle">
+                        <IconButton onClick={onToggle}>
+                            <DoubleArrowIcon/>
                         </IconButton>
-                        <IconButton onClick={onNewTab}>
-                            <TabIcon />
-                        </IconButton>
-                    </HeaderActions>
-                </Header>
-            </Row1>
-            <RowDivider>
-                {onToggle && <VerticalDivider />}
-                <AdjustStyledDivider />
-            </RowDivider>
-            <Row2>
-                {toolbar && <><Toolbar data-test="toolbar">
-                    {toolbar}
-                </Toolbar>
-                <VerticalDivider /></>}
-                <Content data-test="content">
-                    {content}
-                </Content>
-            </Row2>
+                        <VerticalDivider/>
+                    </Toggle>}
+                    <Header data-test="header">
+                        <TitleMedium title={header}/>
+                        <HeaderActions>
+                            <IconButton onClick={onOpenInNew}>
+                                <OpenInNewIcon/>
+                            </IconButton>
+                            <IconButton onClick={onNewTab}>
+                                <TabIcon/>
+                            </IconButton>
+                        </HeaderActions>
+                    </Header>
+                </Row1>
+                <RowDivider>
+                    {onToggle && <VerticalDivider/>}
+                    <AdjustStyledDivider/>
+                </RowDivider>
+                <Row2>
+                    {toolbar && <><Toolbar data-test="toolbar">
+                        {toolbar}
+                    </Toolbar>
+                        <VerticalDivider/></>}
+                    <Content data-test="content">
+                        {content}
+                    </Content>
+                </Row2>
+            </Card>
         </Root>
     )
 }

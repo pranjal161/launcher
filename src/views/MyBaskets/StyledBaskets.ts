@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 const StyledSidenav = styled.div`
-    max-width: 190px !important;
+    max-width: 220px !important;
     width: 100% !important;
-    background: #fff;
+    background: #FFFFFF;
     margin-right: 10px;
     min-height: 683px;
-    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
-    border-radius: 4px;
+    //box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+    border-radius: 16px;
     overflow: hidden;
     display: flex;
+  flex-direction: column;
+  
 
     & > div {
         width: 100% !important;

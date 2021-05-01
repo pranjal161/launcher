@@ -8,10 +8,9 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h4`
+const Title = styled.h6`
   color: #102A43;
-  font-size: larger;
-  font-weight: bold;
+  font-weight: 600;
   margin: 0;
   margin-top: 15px;
 `;

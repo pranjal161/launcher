@@ -4,7 +4,7 @@ import {
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
-import React, { useCallback } from "react";
+import React, {useCallback, useState, useEffect} from "react";
 
 import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
@@ -45,14 +45,11 @@ const TicketPreview = (props: any) => {
         return (<>{formatValue(date, 'date')}</>)
     }
 
-    const PersonValue = (personid: any) => {
-        const { personId } = personid;
+    const PersonValue = (props:{personId: any}) => {
         const { getOne } = useDeskUsers()
-        const person: any = useCallback(() => {
-            getOne(personId);
-        }, [personid]);
+        const person = getOne(props.personId)
         return (<> {person && person.displayName}  </>)
-    }
+        }
 
     const SuggestedActivity = (act: any) => {
         const { activity } = act;
