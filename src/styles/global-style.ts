@@ -123,3 +123,33 @@ export const StyledMainDivider = styled.div`
   border: 1px solid #D9E2EC;
   margin-block: 1px;
 `;
+
+export const StyledSidenavSearchInput = styled.div`
+    & > div {
+        margin: 0 !important;
+        padding: 10px;
+        width: 100%;
+    }
+    
+    label {
+        color: #71787f !important;
+        font-size: 13px !important;
+        letter-spacing: 0 !important;
+        margin-left: 7px;
+        margin-top: 1px;
+
+        & + div {
+            &:before, &:after {
+                border-radius: 4px;
+                border-color: #71787f !important;
+            }
+        }
+    }
+
+    input {
+        border: 1px solid #71787f;
+        color: #71787f !important;
+        padding: 5px;
+        border-radius: 4px;
+    }
+`;

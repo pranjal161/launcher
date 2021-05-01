@@ -1,8 +1,9 @@
-import {DoubleArrowIcon, OpenInNewIcon, TabIcon} from "../../assets/svg";
+import { DoubleArrowIcon, OpenInNewIcon, TabIcon } from "../../assets/svg";
+
 import IconButton from "../IconButton/IconButton";
 import PropTypes from "prop-types";
 import React from 'react';
-import {StyledMainDivider} from "styles/global-style";
+import { StyledMainDivider } from "styles/global-style";
 import styled from 'styled-components';
 
 const Root = styled.div`
@@ -23,7 +24,6 @@ const RowDivider = styled.div`
   display: flex;
   flex-direction: row;
   flex: 0 0 auto;
-  margin-left: 44px;
   height: 1px;
 `;
 const Row2 = styled.div`
@@ -64,46 +64,51 @@ const VerticalDivider = styled.div`
   flex: 0 0;
   border: 1px solid #D9E2EC;
 `;
-const AdjustStyledDivider= styled(StyledMainDivider)`
+const AdjustStyledDivider = styled(StyledMainDivider)`
   margin-left: 20px;
 `;
 
-const ConsultationPanels = ({header, content, toolbar, onToggle, onOpenInNew, onNewTab}) => (
-    <Root>
-        <Row1>
-            {onToggle && <Toggle data-test="toggle" >
-                <IconButton onClick={onToggle}>
-                    <DoubleArrowIcon/>
-                </IconButton>
-                <VerticalDivider/>
-            </Toggle>}
+const ConsultationPanels = (props: any) => {
+    const { header, content, toolbar, onToggle, onOpenInNew, onNewTab } = props;
+    
+    return (
+        <Root>
+            <Row1>
+                {onToggle && <Toggle data-test="toggle">
+                    <IconButton onClick={onToggle}>
+                        <DoubleArrowIcon />
+                    </IconButton>
+                    <VerticalDivider />
+                </Toggle>}
 
-            <Header data-test="header">
-                {header}
-                <HeaderActions>
-                    <IconButton onClick={onOpenInNew}>
-                        <OpenInNewIcon/>
-                    </IconButton>
-                    <IconButton onClick={onNewTab}>
-                        <TabIcon/>
-                    </IconButton>
-                </HeaderActions>
-            </Header>
-        </Row1>
-        <RowDivider>
-            {onToggle && <VerticalDivider/>}
-            <AdjustStyledDivider/>
-        </RowDivider>
-        <Row2>
-            <Toolbar data-test="toolbar">
-                {toolbar}
-            </Toolbar>
-            <VerticalDivider/>
-            <Content data-test="content">
-                {content}
-            </Content>
-        </Row2>
-    </Root>)
+                <Header data-test="header">
+                    {header}
+                    <HeaderActions>
+                        <IconButton onClick={onOpenInNew}>
+                            <OpenInNewIcon />
+                        </IconButton>
+                        <IconButton onClick={onNewTab}>
+                            <TabIcon />
+                        </IconButton>
+                    </HeaderActions>
+                </Header>
+            </Row1>
+            <RowDivider>
+                {onToggle && <VerticalDivider />}
+                <AdjustStyledDivider />
+            </RowDivider>
+            <Row2>
+                {toolbar && <><Toolbar data-test="toolbar">
+                    {toolbar}
+                </Toolbar>
+                <VerticalDivider /></>}
+                <Content data-test="content">
+                    {content}
+                </Content>
+            </Row2>
+        </Root>
+    )
+}
 
 ConsultationPanels.propTypes = {
     header: PropTypes.oneOfType([
