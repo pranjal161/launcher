@@ -17,36 +17,6 @@ const StyledSidenav = styled.div`
     }
 `as any;
 
-StyledSidenav.SearchInput = styled.div`
-    & > div {
-        margin: 0 !important;
-        padding: 10px;
-        width: 100%;
-    }
-    
-    label {
-        color: #71787f !important;
-        font-size: 13px !important;
-        letter-spacing: 0 !important;
-        margin-left: 7px;
-        margin-top: 1px;
-
-        & + div {
-            &:before, &:after {
-                border-radius: 4px;
-                border-color: #71787f !important;
-            }
-        }
-    }
-
-    input {
-        border: 1px solid #71787f;
-        color: #71787f !important;
-        padding: 5px;
-        border-radius: 4px;
-    }
-`;
-
 export { StyledSidenav };
 
 const BasketsContainer = styled.div`
@@ -56,35 +26,6 @@ const BasketsContainer = styled.div`
     padding: 10px 0;
     margin-top: 10px;
 ` as any;
-
-BasketsContainer.StyledContentArea = styled.div`
-    min-width: 690px;
-    width: 100%;
-
-    .basket-title {
-        & > div > div {
-          padding: 0 1rem;
-        }
-        span {
-          width: 100%;
-        }
-    }
-
-    table {
-        font-size: 12px;
-    }
-`;
-
-BasketsContainer.StyledRightSidebar = styled.div`
-    max-width: 400px;
-    width: 100%;
-
-    .baskets-ticket {
-        position: absolute;
-        right: 0;
-        overflow: visible !important;
-    }
-`;
 
 BasketsContainer.ContentTitle = styled.h4`
     font-size: 15px;
