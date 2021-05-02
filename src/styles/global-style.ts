@@ -127,7 +127,6 @@ export const StyledMainDivider = styled.div`
 export const StyledSidenavSearchInput = styled.div`
     & > div {
         margin: 0 !important;
-        padding: 10px;
         width: 100%;
     }
     
