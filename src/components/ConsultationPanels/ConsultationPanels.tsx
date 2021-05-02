@@ -61,6 +61,11 @@ const Content = styled.div`
   margin-top: 20px;
 
 `;
+
+const Blank= styled.div`
+  width:44px;
+`;
+
 const VerticalDivider = styled.div`
   flex: 0 0;
   border: 1px solid #D9E2EC;
@@ -80,9 +85,14 @@ const ConsultationPanels = (props: any) => {
                         <IconButton onClick={onToggle}>
                             <DoubleArrowIcon/>
                         </IconButton>
-                        <VerticalDivider/>
+
                     </Toggle>}
-                    <Header data-test="header">
+
+                    {!onToggle && toolbar && <Blank/>}
+                    {(toolbar || onToggle )&& <VerticalDivider/>}
+
+                    <Header data-test="header" {...props}>
+
                         <TitleMedium title={header}/>
                         <HeaderActions>
                             <IconButton onClick={onOpenInNew}>
@@ -102,7 +112,7 @@ const ConsultationPanels = (props: any) => {
                     {toolbar && <><Toolbar data-test="toolbar">
                         {toolbar}
                     </Toolbar>
-                        <VerticalDivider/></>}
+                    <VerticalDivider/></>}
                     <Content data-test="content">
                         {content}
                     </Content>
