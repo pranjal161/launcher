@@ -100,7 +100,7 @@ const StyledTableRow = styled.tr`
     color: #243b53;
     font-size: 14px;
   }
-  & . active {
+  &.active {
     background: #f2f5f7;
   }
 `;
