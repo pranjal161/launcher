@@ -1,8 +1,7 @@
-import {DotsIcon} from 'assets/svg';
 import {DxcBox, DxcProgressBar, DxcTable} from "@dxc-technology/halstack-react";
 import React, {useState} from 'react';
-
 import Deadline from "components/Deadline/Deadline";
+import {DotsIcon} from 'assets/svg';
 import NoData from "components/Titles/NoData/NoData";
 import Status from "components/Tickets/TicketsList/Status/Status";
 import WithScroll from "components/WithScroll/WithScroll";
