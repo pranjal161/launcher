@@ -1,4 +1,4 @@
-import {DoneIconMinimize, DotsIcon, PendingIcon, RoundIcon} from 'assets/svg';
+import {DotsIcon} from 'assets/svg';
 import {DxcBox, DxcProgressBar, DxcTable} from "@dxc-technology/halstack-react";
 import React, {useState} from 'react';
 
@@ -133,27 +133,6 @@ const TicketsList = (props: any) => {
         else
             setOpenActionsTicket(ticketId);
     };
-
-    const getStatusIcon = (status: string) => {
-        switch (status) {
-            case 'created':
-                return (
-                    <div title="To be treated" style={{fill: "#0067B3"}}>
-                        <RoundIcon/>
-                    </div>)
-            case 'pending':
-                return (
-                    <div title="Pending" style={{fill: "goldenrod"}}>
-                        <PendingIcon/>
-                    </div>)
-            case 'closed':
-                return (
-                    <div title="Resolved" style={{fill: "green"}}>
-                        <DoneIconMinimize/>
-                    </div>)
-        }
-    }
-
     return (
         <div>
             <WithScroll visibleHeight={height}>

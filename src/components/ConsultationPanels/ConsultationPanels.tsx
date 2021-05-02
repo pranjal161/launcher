@@ -4,8 +4,8 @@ import IconButton from "../IconButton/IconButton";
 import PropTypes from "prop-types";
 import React from 'react';
 import {StyledMainDivider} from "styles/global-style";
-import styled from 'styled-components';
 import TitleMedium from "components/Titles/TitleMedium/TitleMedium";
+import styled from 'styled-components';
 
 const Root = styled.div`
   padding: 2px;

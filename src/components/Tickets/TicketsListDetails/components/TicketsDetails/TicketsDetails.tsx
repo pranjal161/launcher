@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 import useDeskTickets from "data/hooks/useDeskTickets";
 import {useHistory} from "react-router-dom";
-import { useTranslation } from 'react-i18next';
 
 const Root = styled.div`
   display: flex;

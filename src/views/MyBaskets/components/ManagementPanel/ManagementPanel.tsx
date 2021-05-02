@@ -3,8 +3,8 @@ import Card from "components/Card/Card";
 import MostViewedMenu from '../MostViewedMenu/MostViewedMenu';
 import React from 'react';
 import SearchBaskets from '../SearchBasket/SearchBaskets';
-import {useTranslation} from 'react-i18next';
 import styled from "styled-components";
+import {useTranslation} from 'react-i18next';
 
 const Root = styled.div`
   width: 300px;
@@ -28,9 +28,9 @@ const ManagementPanel = (props: any) => {
         <Root>
             <Card title={<SearchBaskets searchBasket={searchBasket}/>}>
                 <MostViewedMenu title={t('_MOST_VIEWED')} selectedId={selectedBasket.id} viewedBaskets={mostviewBaskets}
-                                onBasketClick={ticketsAssignedToBasket} />
+                    onBasketClick={ticketsAssignedToBasket} />
                 <AllBasketsMenu title={t('_ALL_BASKETS')} basketId={selectedBasket.id} baskets={searchedBaskets}
-                                onBasketClick={ticketsAssignedToBasket} {...props}/>
+                    onBasketClick={ticketsAssignedToBasket} {...props}/>
             </Card>
         </Root>
     );

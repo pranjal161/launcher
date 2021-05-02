@@ -1,6 +1,6 @@
 import "./Card.scss"
 
-import {DxcBox, DxcHeading} from '@dxc-technology/halstack-react';
+import {DxcBox} from '@dxc-technology/halstack-react';
 
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -42,7 +42,7 @@ const CardFooter = styled(CardHeaderFooter)`
     Couldn't be done with styled-components
 */
 const Card = (props: { title: any; actions: any; children: any; footer: any; contentFullWidth?: boolean, className?: string }) => {
-    const {title, actions, children, footer, contentFullWidth = true, className = ''} = props;
+    const {title, actions, children, footer, contentFullWidth = true} = props;
     const padding = contentFullWidth ? {} : {padding: "xsmall"}
     return (
         <Root>
