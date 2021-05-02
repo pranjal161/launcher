@@ -1,9 +1,7 @@
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import PropTypes from "prop-types";
 import React from 'react';
-import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
 import TicketPreview from "../../../TicketPreview/TicketPreview";
-import TitleBig from "components/Titles/TitleBig/TitleBig";
 import styled from "styled-components";
 
 import useDeskTickets from "data/hooks/useDeskTickets";
@@ -20,12 +18,8 @@ const Root = styled.div`
 const TicketsDetails = (props: {ticketId: string}) => {
     const { ticketId } = props;
     const {getOne, openInSecondary, openInNewTab} = useDeskTickets();
-    const { t } = useTranslation();
     const history = useHistory();
     const selectedTicket = getOne(ticketId)
-    const entities: any = {
-        ticket: [{display: t("_TICKET_DETAILS"), id: ticketId}]
-    };
 
     const Content = () => <TicketPreview ticket={selectedTicket ? selectedTicket : []}/>
 

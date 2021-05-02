@@ -8,7 +8,7 @@ const TabView = () => {
     let content = <div>Content not yet defined</div>
     switch (selectedTab.type){
         case 'ticket':
-            content = <TicketView id={selectedTab.id} />
+            content = <TicketView key={selectedTab.id} id={selectedTab.id} />
             break;
         case 'contract':
             content = <ContractView hRef={selectedTab.id} />

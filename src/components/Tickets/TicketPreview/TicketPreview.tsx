@@ -135,7 +135,7 @@ const TicketPreview = (props: any) => {
     }, [createdBy, ticket.id])
 
     const handleOnContractClick = (contract: any) => {
-        openInNewTab(contract.id, contract.title.split(':')[0], 'contract')
+        openInNewTab(contract.hRef, contract.title.split(':')[0], 'contract')
         history.push('/viewTab')
     }
 

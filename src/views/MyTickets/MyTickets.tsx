@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {BasketsContainer} from './StyledBaskets';
 import ManagementPanel from './components/ManagementPanel/ManagementPanel';
@@ -25,6 +25,10 @@ const MyTickets = () => {
         setTicketCount()
         getAllFilteredTickets(item.status);
     }
+
+    useEffect(() => {
+        ticketsAssignedToList(selectedItem.status !== '' ? selectedItem : {title: 'All', status: 'all NewTicket'})
+    }, [tickets])
 
     const getAllFilteredTickets = (status: string) => {
         if (status == "all NewTicket" || status == undefined) {
