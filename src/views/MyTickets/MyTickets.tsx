@@ -1,54 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 
-import { BasketsContainer } from './StyledBaskets';
+import {BasketsContainer} from './StyledBaskets';
 import ManagementPanel from './components/ManagementPanel/ManagementPanel';
 import TicketsListDetails from 'components/Tickets/TicketsListDetails/TicketsListDetails';
 import useDeskTickets from 'data/hooks/useDeskTickets';
 
 const sideNavItems: any[] = [
-    { title: 'All', status: 'all NewTicket', },
-    { title: 'Pending', status: 'pending' },
-    { title: 'OverDue', status: 'overdue' },
-    { title: 'Finished', status: 'closed' }
+    {title: 'All', status: 'all NewTicket',},
+    {title: 'Pending', status: 'pending'},
+    {title: 'OverDue', status: 'overdue'},
+    {title: 'Finished', status: 'closed'}
 ];
 
 const MyTickets = () => {
     const ticketDesk = useDeskTickets()
     const tickets = ticketDesk.getAll();
-    const [selectedItem, setItemDetails] = useState({ title: '', status: '' });
+    const [selectedItem, setItemDetails] = useState({title: '', status: ''});
 
     const [filteredTickets, setFilteredTickets] = useState([]);
     const [countArray, setCountArray] = useState({});
 
     const ticketsAssignedToList = (item: any) => {
-        setItemDetails({ status: item.status, title: item.title });
+        setItemDetails({status: item.status, title: item.title});
+        setTicketCount()
         getAllFilteredTickets(item.status);
     }
 
     const getAllFilteredTickets = (status: string) => {
         if (status == "all NewTicket" || status == undefined) {
             setFilteredTickets(tickets);
-        }
-        else {
+        } else {
             const selectedTicketArray = tickets && tickets.filter((ticket: { status: any; }) => ticket.status === status);
             setFilteredTickets(selectedTicketArray && selectedTicketArray.length > 0 ? selectedTicketArray : []);
         }
     }
 
 
-    const getSpecificBasketCount = (id: any) => {
-        const ticketsInsideBasket = tickets && tickets.filter((ticket: { basketId: any; }) => ticket.basketId === id);
-        const count = ticketsInsideBasket && ticketsInsideBasket.length;
-        return count;
-    }
-
     const setTicketCount = () => {
         let countArray: any = {};
         sideNavItems && sideNavItems.map((sideNavItem: any) => {
             if (sideNavItem.status == 'all NewTicket') {
                 countArray[sideNavItem.status] = tickets && tickets.length;
-            }
-            else {
+            } else {
                 const ticketsInsideItem = tickets && tickets.filter((ticket: { status: any; }) => ticket.status === sideNavItem.status);
                 countArray[sideNavItem.status] = ticketsInsideItem && ticketsInsideItem.length;
 
@@ -58,17 +51,13 @@ const MyTickets = () => {
         setCountArray(countArray);
     }
 
-    useEffect(() => {
-        setFilteredTickets(tickets);
-        ticketsAssignedToList({ title: 'All', status: 'all NewTicket' });
-        setTicketCount();
-    }, [tickets]);
 
     return (
         <>
             <BasketsContainer>
-                <ManagementPanel items={sideNavItems} ticketsAssignedToList={ticketsAssignedToList} value={selectedItem && selectedItem.status} countArray={countArray} />
-                <TicketsListDetails tickets={filteredTickets} title={selectedItem && selectedItem.title} />
+                <ManagementPanel items={sideNavItems} ticketsAssignedToList={ticketsAssignedToList}
+                    value={selectedItem && selectedItem.status} countArray={countArray}/>
+                <TicketsListDetails tickets={filteredTickets} title={selectedItem && selectedItem.title}/>
             </BasketsContainer>
         </>
     );

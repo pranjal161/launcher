@@ -2,7 +2,8 @@ import React from 'react';
 import styled from "styled-components";
 
 
-const Root = styled.h5`
+const Root = styled.span`
+  font-size: 16px;
   font-weight: 600;
   color: #2b4358;
   margin-block: auto;
@@ -10,6 +11,7 @@ const Root = styled.h5`
     color: #abbbcb;
   }
 `;
+
 
 const TitleBig = (props: { title: string, count?: any }) => (
     <Root>{props.title}

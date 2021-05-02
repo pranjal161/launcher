@@ -3,9 +3,10 @@ import React from 'react';
 import styled from "styled-components";
 
 const Root = styled.a`
-  color: blue;
   display: block;
   margin-bottom: 4px;
+  color:#0b69a3;
+  font-size:14px;
 `;
 
 const RelatedContract: any = (props: { value: any, onClick :any }) => {

@@ -9,7 +9,10 @@ const Root = styled.div`
 `;
 
 const Title = styled.h6`
+  transform:translate(0 13);
+  fill:#102a43;
   color: #102A43;
+  font-size:14px;
   font-weight: 600;
   margin: 0;
   margin-top: 15px;

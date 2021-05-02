@@ -4,20 +4,17 @@ import {
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
-import React, {useCallback, useState, useEffect} from "react";
+import React, {useCallback} from "react";
 
 import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
-import Label from "components/Tickets/TicketPreview/components/Label/Label";
 import PropTypes from "prop-types";
 import RelatedContract from "components/Tickets/TicketPreview/components/RelatedContract/RelatedContract";
 import RelatedList from "components/Tickets/TicketPreview/components/RelatedList/RelatedList";
 import Section from "components/Section/Section";
 import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
-import { StyledButton } from 'styles/global-style';
-import { TextField } from "@material-ui/core";
-import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
+import {TextField} from "@material-ui/core";
 import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import {formatValue} from "util/functions";
 import moment from "moment";
@@ -32,10 +29,13 @@ export const Root = styled.div`
 `;
 
 export const Data = styled.h6`
-  color: #2b4358;
-  font-weight: 400;
   min-height: 50px;
   max-height: 200px;
+  transform: translate(0 14);
+  font-size: 14px;
+  color: #243b53;
+  width: 95%;
+  justify-self: left;
 `;
 
 const TicketPreview = (props: any) => {
@@ -48,11 +48,11 @@ const TicketPreview = (props: any) => {
         return (<>{formatValue(date, 'date')}</>)
     }
 
-    const PersonValue = (props:{personId: any}) => {
-        const { getOne } = useDeskUsers()
+    const PersonValue = (props: { personId: any }) => {
+        const {getOne} = useDeskUsers()
         const person = getOne(props.personId)
         return (<> {person && person.displayName}  </>)
-        }
+    }
 
     const SuggestedActivity = (act: any) => {
         const {activity} = act;
@@ -79,11 +79,6 @@ const TicketPreview = (props: any) => {
                 <SuggestedActivity key={index} activity={activity}/>))
             }</>
         )
-    }
-
-    const {addRelatedClients} = useDeskTickets();
-    const handleAddRelatedClient = () => {
-        addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
     }
 
     const Description = (des: any) => {
@@ -113,7 +108,7 @@ const TicketPreview = (props: any) => {
 
 
     const closePopupAction = (
-        <div style={{ display: 'flex' }}>
+        <div style={{display: 'flex'}}>
             {showPopupIcon &&
             <div onClick={onPopupWindow}>
                 <NewWindowIcon/>
@@ -139,7 +134,7 @@ const TicketPreview = (props: any) => {
         createdBy(ticket.id, newValue)
     }, [createdBy, ticket.id])
 
-    const handleOnContractClick = (contract:any) => {
+    const handleOnContractClick = (contract: any) => {
         openInNewTab(contract.id, contract.title.split(':')[0], 'contract')
         history.push('/viewTab')
     }
@@ -222,7 +217,8 @@ const TicketPreview = (props: any) => {
 
                 {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
-                    <RelatedList value={ticket.relatedContract} component={RelatedContract} onClick={handleOnContractClick}/>
+                    <RelatedList value={ticket.relatedContract} component={RelatedContract}
+                        onClick={handleOnContractClick}/>
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="suggestedActivities" title="Suggested activities">

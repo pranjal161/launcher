@@ -11,17 +11,20 @@ const Root = styled.div`
 const Label = styled.h6`
   width: 40%;
   justify-self: left;
-  color: darkgrey;
+  transform: translate(1 13);
+  color: #829ab1;
+  font-size: 14px;
 `;
 const Data = styled.h6`
+  transform: translate(0 14);
+  font-size: 14px;
+  color: #243b53;
   width: 60%;
   justify-self: left;
-  font-weight: 400;
-  color: #2b4358;
-`;
+` ;
 
 const DataLine = (props: any) => {
-    const { label, children } = props;
+    const {label, children} = props;
 
     return (
         <Root>

@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 
 import Card from 'components/Card/Card';
 import {DxcInput} from '@dxc-technology/halstack-react';
-import {ListDetailsContainer} from './StyledTicketsListDetails';
 import {StyledSidenavSearchInput} from 'styles/global-style';
 import TicketList from 'components/Tickets/TicketsList/TicketsList';
 import TicketsDetails from './components/TicketsDetails/TicketsDetails';
 import TitleBig from "components/Titles/TitleBig/TitleBig";
-import {useTranslation} from 'react-i18next';
 import styled from "styled-components";
+import {useTranslation} from 'react-i18next';
 
 
 const Root = styled.div`
@@ -58,7 +57,9 @@ const TicketsListDetails = (props: { tickets: any, title: any }) => {
         if (tickets) {
             setTicketList(tickets);
             if (tickets.length > 0)
-                handleTicketClick(tickets[0]);
+                handleTicketClick(tickets[0])
+            else
+                setClickedTicket({id: ''})
         }
     }, [tickets]);
 
