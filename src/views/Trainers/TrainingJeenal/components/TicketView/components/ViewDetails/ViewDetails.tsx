@@ -6,7 +6,6 @@ import React, { useCallback } from "react";
 import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Deadline from "components/Deadline/Deadline";
 import EditableField from "components/EditableField/EditableField";
-import Label from "components/Tickets/TicketPreview/components/Label/Label";
 import Section from "components/Section/Section";
 import StatusSelection from "components/StatusSelection/StatusSelection";
 import TextField from "@material-ui/core/TextField/TextField";
@@ -117,7 +116,9 @@ const ViewDetails = (props: { ticket: any }) => {
 `;
     return (
         <>
-            <Deadline deadline={ticket.deadline} />
+            <div className={"mb-2 mt-2"}>
+                <Deadline deadline={ticket.deadline} />
+            </div>
             <Section id="description" title="Description">
                 <StyledMainDivider />
                 <TicketDescription desc={ticket.description} />
