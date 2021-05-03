@@ -14,5 +14,8 @@ export const AppConfig = {
         currency: 'EUR',
         DateFormat: 'en-GB'
     },
-    printModeSubmissionDoc: 'xml'
+    printModeSubmissionDoc: 'xml',
+    modifiedHeaderTag: 'X-GraphTalk-Modified',
+    modifiedHeaderResTag: 'x-graphtalk-modified',
+    deletedHeaderTag: 'X-Delete'
 }

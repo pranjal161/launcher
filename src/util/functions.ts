@@ -2,7 +2,10 @@ import { AppConfig } from '../config/appConfig';
 import axios from 'axios';
 
 export const aia = {
-    get:(url : string) => axios.get(url, { headers: AppConfig.headers })
+    // We need to include header parameter & if not present we pick the default headers
+    get:(url : string) => axios.get(url, { headers: AppConfig.headers }),
+    post:(url:string, body: Object) => axios.post(url, body, { headers: AppConfig.headers }),
+    patch:(url: string, payload: Object) => axios.patch(url, payload, { headers: AppConfig.headers })
 }
 
 
@@ -213,4 +216,24 @@ export function search(obj: any) {
 export const getValues = (array: Array<any>, filterBy: string, matchingValue: string, returnValue?: string) => {
     const filter: any = array && array.filter((array: any) => array[filterBy] === matchingValue);
     return returnValue ? filter && filter[0] && filter[0][returnValue] : filter && filter[0];
+}
+
+export const getOneOfFromResponse = (response: any, id: string) => {
+    const enumItemList = [];
+    if(response._options &&
+        response._options.properties &&
+        response._options.properties[id] &&
+        response._options.properties[id]['oneOf']) {
+        const oneOfArray: Array<any> = response._options.properties[id]['oneOf'];
+        const processedList = [];
+        for (const item of oneOfArray) {
+            // to add check for current lang when picking enum title
+            const isExisting = processedList.filter((array: any) => array.enum === item.enum);
+            if (isExisting.length === 0) {
+                processedList.push(item);
+                enumItemList.push({ value: item.enum[0], label: item.title });
+            }
+        }
+    }
+    return enumItemList;
 }

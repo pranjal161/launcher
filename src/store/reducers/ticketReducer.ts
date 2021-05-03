@@ -7,7 +7,7 @@ const initialState = {
     history: []
 }
 
-const ticketReducer = (state = initialState, action) => {
+const ticketReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case 'CREATE_TICKET_PENDING':
             return {...state, createTicketStatus: 'pending'}

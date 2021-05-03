@@ -17,6 +17,7 @@ import RiskTable from 'views/ContractSummary/components/RiskTable/RiskTable';
 import UnsolicitedPayment from 'views/ContractSummary/components/UnsolicitedPayment/UnsolicitedPayment';
 import axios from "axios";
 import { getLink } from 'util/functions';
+import useActivity from "hooks/useActivity";
 import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line valid-jsdoc
@@ -25,6 +26,10 @@ import { useTranslation } from 'react-i18next';
  * @returns {*} Display the summary of a contract
  */
 const ContractSummary = (props:{hRef:any}) => {
+    const {startActivity} = useActivity()
+    useEffect(() => {
+        startActivity()
+    },[])
     const { t } = useTranslation();
     const sections = [
         { label: t('_INVESTMENT'), id: 'investment' },

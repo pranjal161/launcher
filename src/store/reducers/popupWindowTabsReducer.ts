@@ -4,7 +4,7 @@ const initialState = {
     ticketIDsTabs: {}
 }
 
-const popupWindowTabsReducer = (state = initialState, action) => {
+const popupWindowTabsReducer = (state = initialState, action:any) => {
     switch(action.type) {
         case 'OPEN_WINDOW_TABS':
             return {...state, isPopupWindowWithTabsOpened: true};
@@ -26,7 +26,7 @@ const popupWindowTabsReducer = (state = initialState, action) => {
                         [action.payload.ticketId]: action.payload.displayTicketLabel}};
         }
         case 'REMOVE_TICKET_TAB_BY_ID': {
-            let newTicketIDsTabs = {...state.ticketIDsTabs};
+            let newTicketIDsTabs:any = {...state.ticketIDsTabs};
             let selectedTicketTabObject;
             delete newTicketIDsTabs[action.payload];
             let remainingTicketIds = Object.keys(newTicketIDsTabs);
