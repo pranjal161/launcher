@@ -6,11 +6,11 @@ import CreateReminders from './components/CreateReminders/CreateReminders';
 import Deadline from 'components/Deadline/Deadline';
 import { DxcCheckbox } from '@dxc-technology/halstack-react';
 import { InfoIcon } from 'assets/svg';
-import WithScroll from 'components/WithScroll/WithScroll';
 import useDeskUsers from 'data/hooks/useDeskUsers';
+import { useTranslation } from 'react-i18next';
 
 const Reminders = (props: { reminders: any; }) => {
-
+    const { t } = useTranslation();
     const { reminders } = props;
     const [openReminder, setOpenReminder] = useState(false);
     const [reminderData, setReminderData] = useState();
@@ -24,7 +24,7 @@ const Reminders = (props: { reminders: any; }) => {
         setOpenReminder(true);
     }
 
-    const setStatus = (newValue: string, reminder:any) => {
+    const setStatus = (newValue: string, reminder: any) => {
         // to investigate: uncheck radio button
         if (newValue) {
             reminder.status = "Done";
@@ -33,11 +33,13 @@ const Reminders = (props: { reminders: any; }) => {
             reminder.status = "To Do";
             updateReminder(reminder);
         }
-        
+
     }
     return (
         <>
-            <WithScroll visibleHeight={'250px'}>
+            <div className="reminder">
+                <h5> {t('_REMINDERS')}</h5>
+                {/* <WithScroll visibleHeight={'250px'}> */}
                 {reminders && Object.values(reminders).map((reminder: any, index) => (
                     <div className="col-12 p-0 reminder-container" key={index}>
                         <div className="col-2">
@@ -61,7 +63,8 @@ const Reminders = (props: { reminders: any; }) => {
                         }
                     </div>
                 ))}
-            </WithScroll>
+                {/* </WithScroll> */}
+            </div>
         </>
     )
 

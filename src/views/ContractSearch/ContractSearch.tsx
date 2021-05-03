@@ -6,7 +6,6 @@ import {ApplicationContext} from 'context/applicationContext';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import ContractPreview from "components/Contracts/ContractPreview/ContractPreview";
 import ContractTable from "components/ContractTable/ContractTable";
-import EntitySidebar from "components/EntitySidebar/EntitySidebar";
 import axios from 'axios';
 import {useTranslation} from 'react-i18next';
 
@@ -58,7 +57,7 @@ const ContractSearch = () => {
     return (
         <>
             <div className="d-flex flex-nowrap">
-                <div className="flex-grow-1 col-8 p-0">
+                <div className="flex-grow-1 col-9 p-0">
                     <div className="align-center">
                         <DxcInput
                             label={t('_CONTRACT')}
@@ -88,13 +87,10 @@ const ContractSearch = () => {
                     <ContractTable contractData={contractData} getData={(href: string) => getData(href)}
                         showPreview={true} selectContract={selectContract}/>
                 </div>
-                <EntitySidebar
-                    open={true}
-                    width={434}
-                    content={
-                        <ConsultationPanels content={
-                            <ContractPreview contractUrl={selectedContract}/>}/>
-                    }/>
+
+                <ConsultationPanels header={"Detail of selected contract"} content={
+                    <ContractPreview contractUrl={selectedContract}/>}/>
+
             </div>
         </>
     );

@@ -17,15 +17,14 @@ import RiskTable from 'views/ContractSummary/components/RiskTable/RiskTable';
 import UnsolicitedPayment from 'views/ContractSummary/components/UnsolicitedPayment/UnsolicitedPayment';
 import axios from "axios";
 import { getLink } from 'util/functions';
-import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+// eslint-disable-next-line valid-jsdoc
 /**
  * Retrieve information and return the summary of a contract
  * @returns {*} Display the summary of a contract
  */
-const ContractSummary = () => {
-    const location: any = useLocation();
+const ContractSummary = (props:{hRef:any}) => {
     const { t } = useTranslation();
     const sections = [
         { label: t('_INVESTMENT'), id: 'investment' },
@@ -40,7 +39,7 @@ const ContractSummary = () => {
     ];
     const [visibleSections, setSections] = useState([]);
     const [currentSection, setCurrentSection] = useState<string>();
-    const [contractUrl, setContractUrl] = useState(location.state.contractUrl);
+    const [contractUrl, setContractUrl] = useState(props.hRef);
     const [contractData, setContractData] = useState<undefined | any>();
     const [partyRole, setPartyRoleData] = useState<undefined | any>();
     const [risk, setRiskData] = useState<undefined | any>();
@@ -63,8 +62,8 @@ const ContractSummary = () => {
     }
 
     useEffect(() => {
-        getData(contractUrl);
-    }, [applicationContext, contractUrl]);
+        getData(props.hRef);
+    }, [applicationContext, contractUrl, props.hRef]);
 
     const getData = async (contractUrl: string) => {
         await axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {

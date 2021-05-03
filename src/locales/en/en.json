@@ -241,8 +241,12 @@
         "_DAMAGED_OBJECT": "Damaged objects",
         "_DATE": "Date",
         "_DATE_OF_BIRTH": "Date of birth",
-        "_DAYS": "days",
-        "_DAYS_LEFT": "days left",
+        "_DAYS": "{{count}} day",
+        "_DAYS_plural": "{{count}} days",
+        "_DAYS_LEFT": "{{count}} day left",
+        "_DAYS_LEFT_plural": "{{count}} days left",
+        "_DAYS_DUE": "Due in {{count}} day",
+        "_DAYS_DUE_plural": "Due in {{count}} days",
         "_DECLARATION_INFO": "Declaration information",
         "_DECLARATION_INFORMATION": "Declaration information",
         "_DECLARATION_SEARCH": "Declaration search",
@@ -793,6 +797,7 @@
         "_TEXT": "Text",
         "_THEFT": "Theft",
         "_THIRD_PARTY": "Third party",
+        "_TICKET_DETAILS": "Ticket Details",
         "_TIME": "Time",
         "_TIME_OUT": "We are experiencing technical issue, please contact your administrator.",
         "_TITLE": "Title",
@@ -1092,6 +1097,7 @@
         "van_usage:residence_parking_postal_code": "Postal code",
         "van_usage:type": "Usage",
         "warning": "Warning",
-        "WORK_PARKING_DETAILS": "Work parking details"
+        "WORK_PARKING_DETAILS": "Work parking details",
+        "_VIEWS": "Status"
     }
 }
