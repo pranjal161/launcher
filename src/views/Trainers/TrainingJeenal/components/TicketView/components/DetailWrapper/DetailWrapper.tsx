@@ -9,16 +9,15 @@ const DetailWrapper = (props: { ticket: any }) => {
     const { ticket } = props;
     return (
         <>
-            <div className="row">
-                <div className="col-9 min-vh-100 divider">
+            <div className="col-12 p-0" style={{display: 'inline-flex'}}>
+                <div className="col-8 p-0 divider">
                     <div className="ml-4">
                         <ViewDetails ticket={ticket} />
                     </div>
                 </div>
-                <div className="col-3 align-self-start min-vh-100">
+                <div className="col-4 p-0 align-self-start">
                     <MiddleBar ticket={ticket} />
                 </div>
-
             </div>
         </>
     )
