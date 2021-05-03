@@ -9,9 +9,9 @@ import {useSelector} from "react-redux";
  * @param params : { collection: 'NewTicket', storeAs, limit, where : [field, operation, value]}
  */
 
-const useDeskSubscribe = ({collection, ...rest}) => {
+const useDeskSubscribe = ({collection, ...rest} :any) => {
     const {storeAs = collection} = rest
-    const listenerExist = useSelector((state) => state.firestore.listeners.byId[storeAs])
+    const listenerExist = useSelector((state: any) => state.firestore.listeners.byId[storeAs])
     const {auth} = useDeskAuth()
     const logged = auth.logged
 

@@ -4,7 +4,7 @@ const initialState = {
     tabsContentByIDs: {}
 }
 
-const navigationBarTabsReducer = (state = initialState, action) => {
+const navigationBarTabsReducer = (state:any = initialState, action: any) => {
     switch(action.type) {
         case 'OPEN_NAVIGATION_TABS':
             return {
@@ -50,7 +50,7 @@ const navigationBarTabsReducer = (state = initialState, action) => {
 
         }
         case 'REMOVE_NAV_TAB_BY_ID': {
-            let newTabsByIDs = {...state.tabsContentByIDs};
+            let newTabsByIDs: any = {...state.tabsContentByIDs};
             let selectedTabObject;
             delete newTabsByIDs[action.payload];
             let remainingTabsIds = Object.keys(newTabsByIDs);

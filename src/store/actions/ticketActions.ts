@@ -1,7 +1,7 @@
 import {getSuggestedActivities} from "./utils/suggestedActivities";
 import moment from "moment";
 
-const addHistory = (state, action, values = {}) => {
+const addHistory = (state: any, action: any, values = {}) => {
     const timestamp = Date.now()
     const historyField = 'history.' + timestamp
     const updatedBy = state.auth.id
@@ -12,7 +12,7 @@ const addHistory = (state, action, values = {}) => {
     }
 }
 
-export const create = (ticket) => (dispatch, getState, {getFirebase,}) => {
+export const create = (ticket: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     dispatch({type: 'CREATE_TICKET_PENDING', ticket})
     const firestore = getFirebase().firestore()
     const createdBy = getState().auth.id
@@ -28,15 +28,15 @@ export const create = (ticket) => (dispatch, getState, {getFirebase,}) => {
         createdBy,
         createdByDisplay
     })
-        .then((result) => {
+        .then((result: any) => {
             dispatch({type: 'CREATE_TICKET_SUCCESS', result})
-        }).catch((error) => {
+        }).catch((error: any) => {
             console.log(error)
             dispatch({type: 'CREATE_TICKET_ERROR', error})
         })
 }
 
-export const update = (ticket) => (dispatch, getState, {getFirebase}) => {
+export const update = (ticket: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     dispatch({type: 'UPDATE_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'ticketUpdated')
@@ -46,27 +46,27 @@ export const update = (ticket) => (dispatch, getState, {getFirebase}) => {
         ...ticket,
         ...history,
         suggestedActivities
-    }).then((result) => {
+    }).then((result: any) => {
         dispatch({type: 'UPDATE_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'UPDATE_TICKET_ERROR', error})
     })
 }
 
-export const remove = (id) => (dispatch, getState, {getFirebase}) => {
+export const remove = (id: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     dispatch({type: 'DELETE_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     return firestore.collection('tickets').doc(id).delete()
-        .then((result) => {
+        .then((result: any) => {
             dispatch({type: 'DELETE_TICKET_SUCCESS', result})
-        }).catch((error) => {
+        }).catch((error: any) => {
             console.log(error)
             dispatch({type: 'DELETE_TICKET_ERROR', error})
         })
 }
 
-export const assignTo = (id, userId) => (dispatch, getState, {getFirebase}) => {
+export const assignTo = (id: any, userId:any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     dispatch({type: 'ASSIGN_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'assignedTo', {newValue: userId})
@@ -78,15 +78,15 @@ export const assignTo = (id, userId) => (dispatch, getState, {getFirebase}) => {
             assignedToDisplay,
             ...history
         }
-    ).then((result) => {
+    ).then((result: any) => {
         dispatch({type: 'ASSIGN_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'ASSIGN_TICKET_ERROR', error})
     })
 }
 
-export const createdBy = (id, userId) => (dispatch, getState, {getFirebase}) => {
+export const createdBy = (id: any, userId: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     dispatch({type: 'CREATED_BY_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     const createdByDisplay = getState().firestore.data.users[userId].displayName
@@ -97,23 +97,23 @@ export const createdBy = (id, userId) => (dispatch, getState, {getFirebase}) => 
             createdByDisplay,
             ...history
         }
-    ).then((result) => {
+    ).then((result: any) => {
         dispatch({type: 'CREATED_BY_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'CREATED_BY_TICKET_ERROR', error})
     })
 }
 
-export const select = (id) => (dispatch) => {
+export const select = (id: any) => (dispatch: any) => {
     dispatch({type: 'SELECT_TICKET', id})
 }
 
-export const unSelect = (id) => (dispatch) => {
+export const unSelect = (id: any) => (dispatch: any) => {
     dispatch({type: 'UNSELECT_TICKET', id})
 }
 
-export const addRelatedClients = (id, clientId) => (dispatch, getState, {getFirebase}) => {
+export const addRelatedClients = (id: any, clientId: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'addedRelatedClient', {newValue: clientId})
 
@@ -122,15 +122,15 @@ export const addRelatedClients = (id, clientId) => (dispatch, getState, {getFire
             relatedClients: getFirebase().firestore.FieldValue.arrayUnion(clientId),
             ...history
         }
-    ).then((result) => {
+    ).then((result: any) => {
         dispatch({type: 'ADD_RELATED_CLIENT_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'REMOVE_RELATED_CLIENT_TICKET_ERROR', error})
     })
 }
 
-export const removeRelatedClients = (id, clientId) => (dispatch, getState, {getFirebase}) => {
+export const removeRelatedClients = (id: any, clientId: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'removedRelatedClient', {newValue: clientId})
 
@@ -139,15 +139,15 @@ export const removeRelatedClients = (id, clientId) => (dispatch, getState, {getF
             relatedClients: getFirebase().firestore.FieldValue.arrayRemove(clientId),
             ...history
         }
-    ).then((result) => {
+    ).then((result: any) => {
         dispatch({type: 'REMOVE_RELATED_CLIENT_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'ADD_RELATED_CLIENT_TICKET_ERROR', error})
     })
 }
 
-export const addRelatedContract = (id, contract) => (dispatch, getState, {getFirebase}) => {
+export const addRelatedContract = (id: any, contract: { title: any; }) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'addedRelatedContract', {newValue: contract.title})
 
@@ -156,15 +156,15 @@ export const addRelatedContract = (id, contract) => (dispatch, getState, {getFir
             relatedContract: getFirebase().firestore.FieldValue.arrayUnion(contract),
             ...history
         }
-    ).then((result) => {
+    ).then((result: any) => {
         dispatch({type: 'ADD_RELATED_CONTRACT_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'REMOVE_RELATED_CONTRACT_TICKET_ERROR', error})
     })
 }
 
-export const removeRelatedContract = (id, contract) => (dispatch, getState, {getFirebase}) => {
+export const removeRelatedContract = (id: any, contract: { display: any; }) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'removedRelatedClient', {newValue: contract.display})
 
@@ -173,16 +173,16 @@ export const removeRelatedContract = (id, contract) => (dispatch, getState, {get
             relatedContract: getFirebase().firestore.FieldValue.arrayRemove(contract),
             ...history
         }
-    ).then((result) => {
+    ).then((result: any) => {
         dispatch({type: 'REMOVE_RELATED_CONTRACT_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'ADD_RELATED_CONTRACT_TICKET_ERROR', error})
     })
 }
 
 
-export const removeSuggestedActivity = (id, activityId) => (dispatch, getState, {getFirebase}) => {
+export const removeSuggestedActivity = (id: any, activityId: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const statusField = `suggestedActivities.${activityId}.status`
     return firestore.collection('tickets').doc(id).update(
@@ -193,12 +193,12 @@ export const removeSuggestedActivity = (id, activityId) => (dispatch, getState, 
         // Nothing to do
     ) => {
         // Nothing to do
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
     })
 }
 
-export const executeActivity = (id, activityId) => (dispatch, getState, {getFirebase}) => {
+export const executeActivity = (id: any, activityId: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const statusField = `suggestedActivities.${activityId}.status`
     const executionNumber = `suggestedActivities.${activityId}.executionNumber`
@@ -212,12 +212,12 @@ export const executeActivity = (id, activityId) => (dispatch, getState, {getFire
         }
     ).then(() => {
         window.alert(`Execution of Activity : ${activityId} for ticket ${id}`)
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
     })
 }
 
-export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {getFirebase}) => {
+export const uploadDocument = (id: any, name: any, blob: any, type: any) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firebase = getFirebase()
 
     const filesPath = `/tickets/${id}`
@@ -229,7 +229,7 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
         const fileRef = storageRef.child(`${filesPath}/${name}`);
 
         fileRef.getDownloadURL().then(
-            (downloadURL) => {
+            (downloadURL: any) => {
                 addDocument(id, {
                     name,
                     url: downloadURL,
@@ -237,14 +237,14 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
                     type
                 })(dispatch, getState, {getFirebase})
             }
-        ).catch((error) => {
+        ).catch((error: any) => {
             console.log('error', error)
         });
     }
 
 
     //Workarround because wz have access denied on getting downloadUrl for updload
-    uploadPromise.then((uploadResult) => {
+    uploadPromise.then((uploadResult: { downloadURL: any; }) => {
         console.log('réussi')
         addDocument(id, {
             name,
@@ -252,14 +252,14 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
             receivedDate: Date.now(),
             type
         })(dispatch, getState, {getFirebase})
-    }).catch((e) => {
+    }).catch((e: any) => {
         setDownloadUrl()
     })
 
     return uploadPromise
 }
 
-export const addDocument = (id, document) => (dispatch, getState, {getFirebase}) => {
+export const addDocument = (id: any, document: { name?: any; url?: any; receivedDate: any; type?: any; }) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'addedDocument', {newValue: document})
     const documentId = `documents.${document.receivedDate}`
@@ -268,10 +268,10 @@ export const addDocument = (id, document) => (dispatch, getState, {getFirebase})
             [documentId]: document,
             ...history
         }
-    ).then((result) => {
+    ).then((result: any) => {
         addToDailyUpdates(id, history)(dispatch, getState, {getFirebase})
         dispatch({type: 'ADD_DOCUMENT_TICKET_SUCCESS', result})
-    }).catch((error) => {
+    }).catch((error: any) => {
         console.log(error)
         dispatch({type: 'ADD_DOCUMENT_TICKET_ERROR, error'})
     })
@@ -279,7 +279,7 @@ export const addDocument = (id, document) => (dispatch, getState, {getFirebase})
 
 export const currentDailyUpdatesId = moment().format("DD-MM-Y");
 
-const addToDailyUpdates = (id, change) => (dispatch, getState, {getFirebase}) => {
+const addToDailyUpdates = (id: any, change: { [x: string]: { metadata: { updatedBy: any; updatedByDisplay: any; updatedISODate: string; timestamp: number; }; action: any; }; }) => (dispatch: any, getState: any, {getFirebase}: any) => {
     const firestore = getFirebase().firestore()
     const dailyUpdateId = currentDailyUpdatesId
 
@@ -292,7 +292,7 @@ const addToDailyUpdates = (id, change) => (dispatch, getState, {getFirebase}) =>
 
     return firestore.collection('dailyUpdates').doc(dailyUpdateId).update({
         ...change
-    }).catch((e) => console.log(e))
+    }).catch((e: any) => console.log(e))
 
 
 }

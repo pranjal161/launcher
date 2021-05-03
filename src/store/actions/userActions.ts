@@ -1,4 +1,4 @@
-export const createReminder = (reminder) => (dispatch, getState, { getFirebase }) => {
+export const createReminder = (reminder: any) => (dispatch:any, getState:any, { getFirebase }: any) => {
     const firestore = getFirebase().firestore();
     const user = getState().auth.id;
     const timestamp = Date.now();
@@ -8,14 +8,14 @@ export const createReminder = (reminder) => (dispatch, getState, { getFirebase }
         {
             [reminderId] : reminder
         }
-    ).then((result) => {
+    ).then((result:any) => {
         dispatch({ type: 'CREATE_USER_REMINDER_SUCCESS', result })
-    }).catch((error) => {
+    }).catch((error:any) => {
         dispatch({ type: 'CREATE_USER_REMINDER_ERROR', error })
     })
 }
 
-export const updateReminder = (reminder) => (dispatch, getState, { getFirebase }) => {
+export const updateReminder = (reminder: any) => (dispatch:any, getState:any, { getFirebase }: any) => {
     const firestore = getFirebase().firestore();
     const user = getState().auth.id;
     reminder = { ...reminder, ...{ timestamp: reminder.timestamp } }
@@ -24,9 +24,9 @@ export const updateReminder = (reminder) => (dispatch, getState, { getFirebase }
         {
             [reminderId] : reminder
         }
-    ).then((result) => {
+    ).then((result:any) => {
         dispatch({ type: 'UPDATE_USER_REMINDER_SUCCESS', result })
-    }).catch((error) => {
+    }).catch((error:any) => {
         dispatch({ type: 'UPDATE_USER_REMINDER_ERROR', error })
     })
 }
