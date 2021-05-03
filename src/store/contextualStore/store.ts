@@ -1,13 +1,13 @@
 // action creators
-export const setFocus = (focus) => ({
+export const setFocus = (focus: any) => ({
     type: 'SET_FOCUS', focus
 });
-export const setCurrentSection = (sectionId) => ({
+export const setCurrentSection = (sectionId: any) => ({
     type: 'SET_SECTION',
     sectionId
 })
 
-export const selectTicket = (ticketId) => ({
+export const selectTicket = (ticketId: undefined) => ({
     type: 'SELECT_TICKET',
     ticketId,
 });
@@ -23,7 +23,7 @@ export const initialState = {
     sectionId: undefined,
 };
 
-export const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action: { type: any; sectionId: any; ticketId: any; }) => {
     switch (action.type) {
         case 'SET_SECTION':
             return {...state, sectionId: action.sectionId};

@@ -15,6 +15,7 @@ import RelatedList from "components/Tickets/TicketPreview/components/RelatedList
 import Section from "components/Section/Section";
 import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
 import {TextField} from "@material-ui/core";
+import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
 import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import {formatValue} from "util/functions";
 import moment from "moment";
@@ -234,6 +235,7 @@ const TicketPreview = (props: any) => {
                 {/* <StyledDivider /> */}
                 <Section id="documents" title="Documents">
                     <Documents documents={ticket.documents}/>
+                    <Upload ticketId={ticket.id}/>
                 </Section>
             </Sections>
         </Root>

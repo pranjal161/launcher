@@ -14,7 +14,7 @@ const TicketView = (props: { id: string }) => {
                 <div className="w-100">
                     <Header ticket={ticket}/>
                 </div>
-                <div className="row overflow-hidden">
+                <div className="row overflow-hidden d-flex align-content-start">
                     <div className="col-9 min-vh-100 vertical-divider">
                         <DetailWrapper ticket={ticket}/>
                     </div>

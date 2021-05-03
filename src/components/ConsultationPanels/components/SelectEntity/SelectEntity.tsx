@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
+
 import {DxcSelect} from "@dxc-technology/halstack-react";
 import PropTypes from "prop-types";
 import SectionHeader from "components/SectionHeader/SectionHeader";
 
-const SelectEntity = ({entities, value, onChange}) => {
-    const entitiesArr = Object.entries(entities).map(([key, value]) => ({...value, id: key}))
+const SelectEntity = (props: {entities: any, value:any, onChange:any}) => {
+    const {entities, value, onChange } = props
+    const entitiesArr = Object.entries(entities).map(([key, value]: any) => ({...value, id: key}))
     let currentValue = value
     useEffect(() => {
         if (!value && entitiesArr.length > 1) {
