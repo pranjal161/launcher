@@ -15,6 +15,7 @@ import RelatedList from "components/Tickets/TicketPreview/components/RelatedList
 import Section from "components/Section/Section";
 import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
 import {TextField} from "@material-ui/core";
+import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
 import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import {formatValue} from "util/functions";
 import moment from "moment";
@@ -22,7 +23,6 @@ import styled from "styled-components";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
 import {useHistory} from "react-router-dom";
-import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
 
 export const Root = styled.div`
   height: 100%;
