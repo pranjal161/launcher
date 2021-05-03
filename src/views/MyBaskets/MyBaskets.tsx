@@ -7,16 +7,16 @@ import useDeskBaskets from "data/hooks/useDeskBaskets";
 import useDeskTickets from 'data/hooks/useDeskTickets';
 
 const MyBaskets = () => {
-    const {getAll} = useDeskBaskets()
+    const { getAll } = useDeskBaskets()
     const baskets = getAll();
     const ticketDesk = useDeskTickets()
     const tickets = ticketDesk.getAll();
-    const [selectedBasket, setClickedBasket] = useState({id: null, title: ''});
+    const [selectedBasket, setClickedBasket] = useState({ id: null, title: '' });
     const [searchedBaskets, setSearchedBaskets] = useState([]);
     const [ticketsFromBasket, setTicketsFromBasket] = useState([]);
 
     const ticketsAssignedToBasket = (basket: any) => {
-        setClickedBasket({id: basket.id, title: basket.title});
+        setClickedBasket({ id: basket.id, title: basket.title });
         getAllTicketsFromBasket(basket.id);
     }
 
@@ -48,16 +48,20 @@ const MyBaskets = () => {
     }
 
     useEffect(() => {
-        ticketsAssignedToBasket({id: baskets && baskets[0].id, title: baskets && baskets[0].title});
+        ticketsAssignedToBasket({ id: baskets && baskets[0].id, title: baskets && baskets[0].title });
         const updatedBaskets = getTicketCount();
         setSearchedBaskets(updatedBaskets);
     }, [baskets, tickets]);
-    
+
     return (
         <>
             <BasketsContainer>
-                <ManagementPanel searchBasket={searchBasket} searchedBaskets={searchedBaskets} selectedBasket={selectedBasket} ticketsAssignedToBasket={ticketsAssignedToBasket} />
-                <TicketsListDetails tickets={ticketsFromBasket} title={selectedBasket.title} />
+                <div className="col-2 pl-0">
+                    <ManagementPanel searchBasket={searchBasket} searchedBaskets={searchedBaskets} selectedBasket={selectedBasket} ticketsAssignedToBasket={ticketsAssignedToBasket} />
+                </div>
+                <div className="col-10 p-0">
+                    <TicketsListDetails tickets={ticketsFromBasket} title={selectedBasket.title} />
+                </div>
             </BasketsContainer>
         </>
     );
