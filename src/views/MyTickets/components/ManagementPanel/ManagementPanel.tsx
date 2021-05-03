@@ -1,24 +1,30 @@
-import { DxcSidenav } from '@dxc-technology/halstack-react';
+import Card from "components/Card/Card";
 import React from 'react';
-import Reminders from 'components/Reminders/Reminders';
 import StatusMenu from "../StatusMenu/StatusMenu";
-import { StyledSidenav } from '../../StyledTickets';
-import useDeskAuth from 'data/hooks/useDeskAuth';
+import styled from "styled-components";
 import { useTranslation } from 'react-i18next';
+
+const Root = styled.div`
+  width: 300px;
+  background: #FFFFFF;
+  margin-right: 20px;
+  overflow: hidden;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+`;
 
 const ManagementPanel = (props:any) => {
     const { items, countArray, ticketsAssignedToList } = props;
-    const {profile} = useDeskAuth()
-    const reminders = profile ? profile.reminders : undefined;
     const { t } = useTranslation();
 
     return (
-        <StyledSidenav>
-            <DxcSidenav>
+        <Root>
+            <Card>
                 <StatusMenu title={t('_VIEWS')} items={items} onItemClick={ticketsAssignedToList} countArray={countArray} {...props} />
-                <Reminders reminders={reminders}></Reminders>
-            </DxcSidenav>
-        </StyledSidenav>
+            </Card>
+        </Root>
     );
 };
 

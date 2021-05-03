@@ -45,7 +45,6 @@ const Item: React.FC<IItem> = ({ item = null, users, basketName }: IItem) => {
                                 :
                                 (<div className="text-icon-container">
                                     <DescriptionIcon />
-                                    {console.log('item', item)}
                                     {
                                         item.action === "assignedTo" && item.newValue &&
                                         <p data-test="assignedTo-item" className="action-item">{t('timeline_assigned')}<br /><span>{`'${item.metadata.updatedByDisplay}'`}</span> to <span>{`'${users[item.newValue].displayName}'`}</span></p>
