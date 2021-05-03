@@ -44,9 +44,21 @@ export const StyledButton = styled.button`
     }
 `;
 
+export const StyledButtonWhiteSVG = styled.button`
+    border: unset;
+    border-radius: 4px;
+    background: transparent;
+    svg {
+        fill: #FFFFFF;
+        max-width: 25px;
+        max-height: 25px;
+    }
+`;
+
 export const StyledLabel = styled.label`
   margin-right: 7px;
-  font-weight: 600;
+  color: gray;
+  width: ${(props : { width: number}) => (props.width ? props.width : 'unset')}px;
 `;
 
 export const StyledPaginator = styled.div`
@@ -95,7 +107,7 @@ export const StyledToolbarItem = styled.li<ListItemProps>`
   display: block;
   color: #000;
   text-decoration: none;
-  background-color: ${(props:any) => (props.active ? '#EAE2F8':'#ffffff')};
+  background-color: ${(props: any) => (props.active ? '#EAE2F8' : '#ffffff')};
 `;
 
 
@@ -110,4 +122,33 @@ export const StyledMainDivider = styled.div`
   flex: 1 1 auto;
   border: 1px solid #D9E2EC;
   margin-block: 1px;
+`;
+
+export const StyledSidenavSearchInput = styled.div`
+    & > div {
+        margin: 0 !important;
+        width: 100%;
+    }
+    
+    label {
+        color: #71787f !important;
+        font-size: 13px !important;
+        letter-spacing: 0 !important;
+        margin-left: 7px;
+        margin-top: 1px;
+
+        & + div {
+            &:before, &:after {
+                border-radius: 4px;
+                border-color: #71787f !important;
+            }
+        }
+    }
+
+    input {
+        border: 1px solid #71787f;
+        color: #71787f !important;
+        padding: 5px;
+        border-radius: 4px;
+    }
 `;

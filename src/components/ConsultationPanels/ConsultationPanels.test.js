@@ -1,7 +1,7 @@
 import ConsultationPanels from "./ConsultationPanels";
 import React from "react";
 import {findByTestAttr} from "../../test/testUtils";
-import  {shallow} from "enzyme";
+import {shallow} from "enzyme";
 
 const defaultProps = {}
 

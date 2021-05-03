@@ -1,7 +1,7 @@
 import './HomePage.scss';
 
-import {DxcBox, DxcHeading, DxcLink} from '@dxc-technology/halstack-react';
-import React, {useState} from 'react';
+import { DxcBox, DxcHeading, DxcLink } from '@dxc-technology/halstack-react';
+import React, { useState } from 'react';
 
 import BasketList from 'components/Baskets/BasketList/BasketList';
 import Card from 'components/Card/Card';
@@ -13,6 +13,7 @@ import TicketList from 'components/Tickets/TicketsList/TicketsList';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
 import useDeskTickets from 'data/hooks/useDeskTickets';
+
 
 const HomePage = () => {
     const {profile} = useDeskAuth()
@@ -55,7 +56,15 @@ const HomePage = () => {
             </div>
             <div className="main-container">
                 <div className="grid-container col-12">
-                    <div className="col-8">
+                    {
+
+                        /*
+                            add style={{zIndex: 9}} to make the z-index of the card title 
+                            smaller than the z-index of DxcApplicationLayout.Header, which it 10.
+                            Setting the z-index of a container component overrides the z-index of a child component.
+                        */
+                    }
+                    <div className="col-8" style={{zIndex: 9}}>
                         <Card
                             title="All Baskets">
                             {baskets &&
@@ -63,7 +72,7 @@ const HomePage = () => {
                             }
                         </Card>
                     </div>
-                    <div className="col-4">
+                    <div className="col-4" style={{zIndex: 9}}>
                         <Card
                             title="Today&apos;s Reminder"
                             actions={
@@ -81,7 +90,7 @@ const HomePage = () => {
                             }  
                         </Card>
                     </div>
-                    <div className="col-12">
+                    <div className="col-12" style={{zIndex: 9}}>
                         <Card
                             title="All Tickets">
                             {tickets &&
@@ -89,7 +98,7 @@ const HomePage = () => {
                                 <div className="col-12">
                                     <div className="d-flex flex-nowrap">
                                         <div className="flex-grow-1">
-                                            <TicketList
+                                            <TicketList height={800}
                                                 handleTicketClick={handleTicketClick}
                                                 tickets={tickets}/>
                                         </div>

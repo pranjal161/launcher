@@ -1,51 +1,71 @@
 import React, {useState} from 'react';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
-import Preview from "../../PreviewContainer/components/Preview/Preview";
+import ContractPreview from "../../../Contracts/ContractPreview/ContractPreview";
 import PropTypes from "prop-types";
 import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
 import styled from "styled-components";
 import useDeskTickets from "data/hooks/useDeskTickets";
+import {useHistory} from "react-router-dom";
 
 const Root = styled.div`
   display: flex;
+  flex: 1 0 auto;
   width: 100%;
   height: 100%;
 `;
 
 
-const SavingPanels = ({ticketId,onClose}) => {
-    const entities = {
-        ticket: [{display: "Ticket", id: ticketId}],
-        contract:
-            [{display: "contract A", id: 'contractA'}, {
-                display: "contract B",
-                id: 'contractB'
-            }, {display: "contract C", id: 'contractC'}],
-        person: [{display: "Person 1", id: 'person1'},
-            {display: "Person 2", id: 'person2'}],
-    }
-    const {getOne} = useDeskTickets()
+const SavingPanels = ({ticketId, onClose}) => {
+    const {getOne, openInNewTab, openInSecondary} = useDeskTickets()
+    const history = useHistory();
     const [entityType, setEntityType] = useState('contract')
-    const [currentEntity, setCurrentEntity] = useState({})
+    const [selection, setSelection] = useState({}) // We store selection per entityType
+    const ticket = getOne(ticketId)
+    if (!ticket)
+        return (<></>)
 
-    const handleEntitySelection = (selection) => setCurrentEntity((prev) => ({...prev, [entityType]: selection}))
+
+    const ticketContracts = {}
+
+    ticket.relatedContract && ticket.relatedContract.forEach((contract) => (
+        ticketContracts[contract.id] = {
+            display: contract.title.split(':')[0],
+            displayLong: contract.title,
+            hRef:contract.hRef,
+            content: <ContractPreview contractUrl={contract.hRef}/>
+        })
+    )
+
+    const entities = {
+        contract: ticketContracts,
+        person: {
+            person1: {hRef:1, display: "Person 1", content: <div>Person 1 detail to define</div>},
+            person2: {hRef:2, display: "Person 2", content: <div>Person 2 detail to define</div>}
+        }
+    }
+
+    const handleOnTicketNewTab = () => {
+        const item = entities[entityType][selection[entityType]]
+        openInNewTab(item.hRef, item.display, entityType)
+        history.push('/viewTab')
+    }
+
+    const handleOnNewTab = () => {
+        openInSecondary(ticketId, ticket && ticket.title)
+    }
+
+    const handleEntitySelection = (newSelection) => setSelection((prev) => ({...prev, [entityType]: newSelection}))
     const handleTypeSelection = (value) => setEntityType(value)
 
     const SelectEntities = () => <SelectEntity entities={entities[entityType]} onChange={handleEntitySelection}
-        value={currentEntity[entityType]}/>
+        value={selection[entityType]}/>
     const Toolbar = () => <SavingToolbar value={entityType} onChange={handleTypeSelection}/>
-    const Content = () => {
-        if (entityType === 'ticket') {
-            const ticket = getOne(ticketId)
-            return (<Preview ticket={ticket}/>)
-        }
-        else
-            return (<div> Content of id : {currentEntity[entityType]} </div>)
-    }
+    const Content = () => (selection[entityType] ? entities[entityType][selection[entityType]].content : <div/>)
     return (
         <Root>
-            <ConsultationPanels header={<SelectEntities/>} content={<Content/>} toolbar={<Toolbar/>} onToggle={onClose} />
+            <ConsultationPanels header={<SelectEntities/>} content={<Content/>} toolbar={<Toolbar/>}
+                onToggle={onClose} onOpenInNew={handleOnTicketNewTab} onNewTab={handleOnNewTab}/>
         </Root>
     )
 }

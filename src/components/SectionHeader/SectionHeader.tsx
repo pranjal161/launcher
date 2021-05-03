@@ -5,12 +5,24 @@ import styled from "styled-components";
 const Root = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 `;
-const Title = styled.span`
+
+const Title = styled.h6`
+  transform:translate(0 13);
+  fill:#102a43;
   color: #102A43;
-  justify-self: left;
-  font-size: larger;
-  font-weight: bold;
+  font-size:14px;
+  font-weight: 600;
+  margin: 0;
+  margin-top: 15px;
+`;
+
+const StyledDivider = styled.div`
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #D9E2EC;
+    margin: 7px 0 15px;
 `;
 
 const SectionHeader = (props: any) => {
@@ -21,6 +33,7 @@ const SectionHeader = (props: any) => {
             <div>
                 <Root {...id}>
                     <Title>{title}</Title>
+                    <StyledDivider />
                     {actions}
                 </Root>
                 {children}

@@ -1,3 +1,5 @@
+import * as navbarTabsActions from "../../store/actions/navigationBarTabsActions";
+import * as popupWindowActions from "../../store/actions/popupWindowTabsActions";
 import * as ticketActions from "../../store/actions/ticketActions";
 
 import {useDispatch, useSelector} from "react-redux";
@@ -12,7 +14,7 @@ const useMyAllTickets = () => {
     return allTickets && allTickets.filter((ticket) => ticket.assignedTo && ticket.assignedTo === auth.id)
 }
 
-const useGetOne = (id) => useSelector((state) => (state.firestore.data.tickets?{id, ...state.firestore.data.tickets[id]}:undefined))
+const useGetOne = (id) => useSelector((state) => (state.firestore.data.tickets ? {id, ...state.firestore.data.tickets[id]} : undefined))
 
 const useGetState = () => useSelector((state) => (state.tickets))
 
@@ -25,6 +27,7 @@ const useGetDocumentUrl = (ticketId, documentId) => {
     const ticket = useGetOne(ticketId)
     return ticket && ticket.documents && ticket.documents[documentId] && ticket.documents[documentId].url
 }
+
 
 const useDeskTickets = () => {
     const getAll = useAllTickets
@@ -44,9 +47,14 @@ const useDeskTickets = () => {
     const unSelect = useCallback((...param) => dispatch(ticketActions.unSelect(...param)), [dispatch])
     const addRelatedClients = useCallback((...param) => dispatch(ticketActions.addRelatedClients(...param)), [dispatch])
     const removeRelatedClients = useCallback((...param) => dispatch(ticketActions.removeRelatedClients(...param)), [dispatch])
+    const addRelatedContract = useCallback((...param) => dispatch(ticketActions.addRelatedContract(...param)), [dispatch])
+    const removeRelatedContract= useCallback((...param) => dispatch(ticketActions.removeRelatedContract(...param)), [dispatch])
+
     const removeSuggestedActivity = useCallback((...param) => dispatch(ticketActions.removeSuggestedActivity(...param)), [dispatch])
     const executeActivity = useCallback((...param) => dispatch(ticketActions.executeActivity(...param)), [dispatch])
     const uploadDocument = useCallback((...param) => dispatch(ticketActions.uploadDocument(...param)), [dispatch])
+    const openInSecondary = useCallback((...param) => dispatch(popupWindowActions.addTicketTabByID(...param)), [dispatch])
+    const openInNewTab = useCallback((...param) => dispatch(navbarTabsActions.addNavBarTabByID(...param)), [dispatch])
 
     return {
         getOne,
@@ -64,9 +72,13 @@ const useDeskTickets = () => {
         unSelect,
         addRelatedClients,
         removeRelatedClients,
+        addRelatedContract,
+        removeRelatedContract,
         removeSuggestedActivity,
         executeActivity,
-        uploadDocument
+        uploadDocument,
+        openInNewTab,
+        openInSecondary
     }
 }
 

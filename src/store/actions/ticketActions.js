@@ -5,7 +5,7 @@ const addHistory = (state, action, values = {}) => {
     const timestamp = Date.now()
     const historyField = 'history.' + timestamp
     const updatedBy = state.auth.id
-    const updatedByDisplay= state.firebase.profile.displayName
+    const updatedByDisplay = state.firebase.profile.displayName
     const updatedISODate = moment(timestamp).format()
     return {
         [historyField]: {action, ...values, metadata: {updatedBy, updatedByDisplay, updatedISODate, timestamp}}
@@ -70,7 +70,7 @@ export const assignTo = (id, userId) => (dispatch, getState, {getFirebase}) => {
     dispatch({type: 'ASSIGN_TICKET_PENDING'})
     const firestore = getFirebase().firestore()
     const history = addHistory(getState(), 'assignedTo', {newValue: userId})
-    const assignedToDisplay = userId?getState().firestore.data.users[userId].displayName:''
+    const assignedToDisplay = userId ? getState().firestore.data.users[userId].displayName : ''
 
     return firestore.collection('tickets').doc(id).update(
         {
@@ -147,6 +147,41 @@ export const removeRelatedClients = (id, clientId) => (dispatch, getState, {getF
     })
 }
 
+export const addRelatedContract = (id, contract) => (dispatch, getState, {getFirebase}) => {
+    const firestore = getFirebase().firestore()
+    const history = addHistory(getState(), 'addedRelatedContract', {newValue: contract.title})
+
+    return firestore.collection('tickets').doc(id).update(
+        {
+            relatedContract: getFirebase().firestore.FieldValue.arrayUnion(contract),
+            ...history
+        }
+    ).then((result) => {
+        dispatch({type: 'ADD_RELATED_CONTRACT_TICKET_SUCCESS', result})
+    }).catch((error) => {
+        console.log(error)
+        dispatch({type: 'REMOVE_RELATED_CONTRACT_TICKET_ERROR', error})
+    })
+}
+
+export const removeRelatedContract = (id, contract) => (dispatch, getState, {getFirebase}) => {
+    const firestore = getFirebase().firestore()
+    const history = addHistory(getState(), 'removedRelatedClient', {newValue: contract.display})
+
+    return firestore.collection('tickets').doc(id).update(
+        {
+            relatedContract: getFirebase().firestore.FieldValue.arrayRemove(contract),
+            ...history
+        }
+    ).then((result) => {
+        dispatch({type: 'REMOVE_RELATED_CONTRACT_TICKET_SUCCESS', result})
+    }).catch((error) => {
+        console.log(error)
+        dispatch({type: 'ADD_RELATED_CONTRACT_TICKET_ERROR', error})
+    })
+}
+
+
 export const removeSuggestedActivity = (id, activityId) => (dispatch, getState, {getFirebase}) => {
     const firestore = getFirebase().firestore()
     const statusField = `suggestedActivities.${activityId}.status`
@@ -187,9 +222,12 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
 
     const filesPath = `/tickets/${id}`
     const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
+
     uploadPromise.then((uploadResult) => {
+        console.log('réussi')
         addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now(), type})(dispatch, getState, {getFirebase})
-    })
+    })//.catch((e)=>console.log('Echec', e))
+
 
     return uploadPromise
 }
@@ -204,7 +242,6 @@ export const addDocument = (id, document) => (dispatch, getState, {getFirebase})
             ...history
         }
     ).then((result) => {
-        console.log('history', history)
         addToDailyUpdates(id, history)(dispatch, getState, {getFirebase})
         dispatch({type: 'ADD_DOCUMENT_TICKET_SUCCESS', result})
     }).catch((error) => {
@@ -223,7 +260,7 @@ const addToDailyUpdates = (id, change) => (dispatch, getState, {getFirebase}) =>
 
     //the format of the nested object is different using set and update !!!
     if (!dailyUpdatesExist)
-    //Create the document empty
+        //Create the document empty
         firestore.collection('dailyUpdates').doc(dailyUpdateId).set({})
 
     return firestore.collection('dailyUpdates').doc(dailyUpdateId).update({

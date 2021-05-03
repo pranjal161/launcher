@@ -1,27 +1,37 @@
-import "./Tabs.css"
-
-import * as popupWindowActions from "../../store/actions/popupWindowTabsActions";
 
 import React, {useEffect, useState} from 'react';
 
 import TabButton from './components/TabButton/TabButton';
-import {useDispatch} from "react-redux";
+import styled from 'styled-components';
+
+const TabsMainContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+`;
+
+const TabsButtonsContainer = styled.div`
+    display: flex;
+    border-bottom: 2px solid #D9D9D9;
+`;
 
 
-const Tabs = (props: {children: any, activeTabId: string}) => {
+const Tabs = (props: {children: any, activeTabId?: string, onClick?: Function}) => {
 
-    const {children, activeTabId} = props;
+    const {children, activeTabId = null, onClick = null} = props;
     const [activeTab, setActiveTab] = useState(children[0].props.tabId);
     let tabContent = null;
-    let dispatch = useDispatch();
+
     useEffect(() => {
-        setActiveTab(activeTabId);
+        if(activeTabId)
+            setActiveTab(activeTabId);
     }, [activeTabId]);
 
 
     const changeTab = (tabId: string) => {
-        if(activeTabId)
-            dispatch(popupWindowActions.setSelectedTicketTabByID(tabId));
+        if(activeTabId && onClick)
+            onClick(tabId);
         else
             setActiveTab(tabId);
     }
@@ -37,8 +47,8 @@ const Tabs = (props: {children: any, activeTabId: string}) => {
     }
 
     return (
-        <div className="tabs__main-container">
-            <div className="tabs__tabs-container">
+        <TabsMainContainer>
+            <TabsButtonsContainer>
                 {
                     children.map((child: any) => {
                         if(child.props.tabId === activeTab) 
@@ -56,13 +66,13 @@ const Tabs = (props: {children: any, activeTabId: string}) => {
                     })
                 }
 
-            </div>
+            </TabsButtonsContainer>
 
-            <div>
+            <div data-test="tabs-content">
                 {tabContent}
             </div>
 
-        </div>
+        </TabsMainContainer>
     );
 }
 
