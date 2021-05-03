@@ -26,8 +26,8 @@ import { useTranslation } from 'react-i18next';
  * @returns {*} Display the summary of a contract
  */
 const ContractSummary = (props:{hRef:any}) => {
-    const {startActivity, stopActivity} = useActivity()
-    useEffect(()=> {
+    const {startActivity} = useActivity()
+    useEffect(() => {
         startActivity()
     },[])
     const { t } = useTranslation();
