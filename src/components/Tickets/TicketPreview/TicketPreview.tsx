@@ -22,6 +22,7 @@ import styled from "styled-components";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
 import {useHistory} from "react-router-dom";
+import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
 
 export const Root = styled.div`
   height: 100%;
@@ -234,6 +235,7 @@ const TicketPreview = (props: any) => {
                 {/* <StyledDivider /> */}
                 <Section id="documents" title="Documents">
                     <Documents documents={ticket.documents}/>
+                    <Upload ticketId={ticket.id}/>
                 </Section>
             </Sections>
         </Root>

@@ -223,11 +223,38 @@ export const uploadDocument = (id, name, blob, type) => (dispatch, getState, {ge
     const filesPath = `/tickets/${id}`
     const uploadPromise = firebase.uploadFile(filesPath, blob, filesPath, {name})
 
+
+    const setDownloadUrl = () => {
+        const storageRef = firebase.storage().ref()
+        const fileRef = storageRef.child(`${filesPath}/${name}`);
+
+        fileRef.getDownloadURL().then(
+            (downloadURL) => {
+                addDocument(id, {
+                    name,
+                    url: downloadURL,
+                    receivedDate: Date.now(),
+                    type
+                })(dispatch, getState, {getFirebase})
+            }
+        ).catch((error) => {
+            console.log('error', error)
+        });
+    }
+
+
+    //Workarround because wz have access denied on getting downloadUrl for updload
     uploadPromise.then((uploadResult) => {
         console.log('réussi')
-        addDocument(id, {name, url: uploadResult.downloadURL, receivedDate:Date.now(), type})(dispatch, getState, {getFirebase})
-    })//.catch((e)=>console.log('Echec', e))
-
+        addDocument(id, {
+            name,
+            url: uploadResult.downloadURL,
+            receivedDate: Date.now(),
+            type
+        })(dispatch, getState, {getFirebase})
+    }).catch((e) => {
+        setDownloadUrl()
+    })
 
     return uploadPromise
 }
