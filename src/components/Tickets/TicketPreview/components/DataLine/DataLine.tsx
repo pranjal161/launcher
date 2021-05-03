@@ -8,36 +8,35 @@ const Root = styled.div`
   height: 30px;
 `;
 
-const Label = styled.div`
+const Label = styled.h6`
   width: 40%;
   justify-self: left;
-  font-size: 13px;
-
-  label {
-    color: #abbbcb;
-  }
+  transform: translate(1 13);
+  color: #829ab1;
+  font-size: 14px;
 `;
-const Data = styled.div`
+const Data = styled.h6`
+  transform: translate(0 14);
+  font-size: 14px;
+  color: #243b53;
   width: 60%;
   justify-self: left;
-  font-size: 13px;
-  color: #2b4358;
-`;
+` ;
 
 const DataLine = (props: any) => {
-  const { label, children } = props;
+    const {label, children} = props;
 
-  return (
-    <Root>
-      <Label>{label}</Label>
-      <Data>{children}</Data>
-    </Root>
-  )
+    return (
+        <Root>
+            <Label>{label}</Label>
+            <Data>{children}</Data>
+        </Root>
+    )
 }
 
 DataLine.propTypes = {
-  label: PropTypes.any,
-  children: PropTypes.any
+    label: PropTypes.any,
+    children: PropTypes.any
 }
 
 export default DataLine;

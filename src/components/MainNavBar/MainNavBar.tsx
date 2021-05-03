@@ -181,6 +181,9 @@ const MainNavBar = () => {
                         onClick={goToHome} />
                     <ActionButtonsContainer>
                         <CreateButton />
+
+                    </ActionButtonsContainer>
+                    <SecondaryViewButtonsContainer>
                         <DxcHeader.Dropdown
                             options={langs}
                             onSelectOption={changeLang}
@@ -188,8 +191,6 @@ const MainNavBar = () => {
                             iconSrc={langIcon}
                             margin="xxsmall"
                             padding="xxsmall" />
-                    </ActionButtonsContainer>
-                    <SecondaryViewButtonsContainer>
                         <div title="Help">
                             <IconButton
                                 onClick={goToHelp}>

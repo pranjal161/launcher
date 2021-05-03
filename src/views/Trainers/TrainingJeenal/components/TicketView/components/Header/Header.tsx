@@ -1,14 +1,14 @@
 import "./Header.scss";
 
-import { AddReminder, EyeIcon } from "assets/svg";
+import {AddReminder, EyeIcon} from "assets/svg";
 
-import { DxcButton } from "@dxc-technology/halstack-react";
+import {DxcButton} from "@dxc-technology/halstack-react";
 import React from "react";
-import { StyledButtonWhiteSVG } from 'styles/global-style';
+import {StyledButtonWhiteSVG} from 'styles/global-style';
 import styled from "styled-components";
 
 const Header = (props: { ticket: any }) => {
-    const { ticket } = props;
+    const {ticket} = props;
 
     const onLaunchActivity = () => {
         //write functionality on click of launch activity
@@ -25,12 +25,13 @@ const Header = (props: { ticket: any }) => {
     }
 
     const Root = styled.div`
-  display: flex ;
-  width: 100%;
-  justify-content: space-between;
-align-items:center;
-  background: darkgray;
-`;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      background: #486581;
+      height:84px;
+    `;
 
     return (
         ticket && ticket.title
@@ -44,10 +45,10 @@ align-items:center;
                 </div>
                 <div className="col-3 text-right pl-0">
                     <StyledButtonWhiteSVG onClick={viewHistory}>
-                        <EyeIcon />
+                        <EyeIcon/>
                     </StyledButtonWhiteSVG>
                     <StyledButtonWhiteSVG onClick={addReminder}>
-                        <AddReminder />
+                        <AddReminder/>
                     </StyledButtonWhiteSVG>
                     <DxcButton
                         mode="primary"
@@ -56,7 +57,7 @@ align-items:center;
                         margin="xxsmall"
                     />
                 </div>
-            </Root >
+            </Root>
         )
     )
 
