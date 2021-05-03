@@ -1,8 +1,9 @@
-import {DotsIcon, RoundIcon, TimeIcon, TimeLapse} from 'assets/svg';
 import {DxcBox, DxcProgressBar, DxcTable} from "@dxc-technology/halstack-react";
 import React, {useState} from 'react';
-
 import Deadline from "components/Deadline/Deadline";
+import {DotsIcon} from 'assets/svg';
+import NoData from "components/Titles/NoData/NoData";
+import Status from "components/Tickets/TicketsList/Status/Status";
 import WithScroll from "components/WithScroll/WithScroll";
 import styled from 'styled-components';
 import useDeskAuth from "../../../data/hooks/useDeskAuth";
@@ -11,14 +12,14 @@ import useDeskTickets from "data/hooks/useDeskTickets";
 import {useTranslation} from 'react-i18next';
 
 const ActionsIconContainer = styled.div`
-    position: relative;
-    width: 24px;
-    white-space: nowrap;
+  position: relative;
+  width: 24px;
+  white-space: nowrap;
 
-    & > svg {
-        width: 24px;
-        height: 24px;
-    }
+  & > svg {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 /*
@@ -39,32 +40,32 @@ const ActionsIconContainer = styled.div`
     Of course, breaking changes can occur in other situations if the numActions is high enough, 
     but this arises for unrealistically high numbers.
 */
-const ActionsContainer = styled("div")<{numActions: number, index: number, length: number}>`
-    position: absolute;
-    right: 150%;
-    top: 50%;
-    transform: translateY(${(props) => ((props.numActions < 3) ? 
-        '-50%' : 
+const ActionsContainer = styled("div")<{ numActions: number, index: number, length: number }>`
+  position: absolute;
+  right: 150%;
+  top: 50%;
+  transform: translateY(${(props) => ((props.numActions < 3) ?
+        '-50%' :
         props.index === (props.length - 1) ?
-            (-29-(props.numActions-2)*22+12)+'px' :
+            (-29 - (props.numActions - 2) * 22 + 12) + 'px' :
             '-50%')});
-    z-index: 2;
+  z-index: 2;
 `;
 
 const ActionContainer = styled.div`
-        height: 22px;
-        font-size: 0.8rem;
-        line-height: 22px;
-        padding: 0 0.5rem;
-        border-bottom: 1px solid #D9D9D9;
+  height: 22px;
+  font-size: 0.8rem;
+  line-height: 22px;
+  padding: 0 0.5rem;
+  border-bottom: 1px solid #D9D9D9;
 
-        &:last-child {
-            border-bottom: unset;
-        }
+  &:last-child {
+    border-bottom: unset;
+  }
 
-        &:hover {
-            background-color: #EAEAEA;
-        }
+  &:hover {
+    background-color: #EAEAEA;
+  }
 `;
 
 
@@ -79,23 +80,28 @@ const ActionContainer = styled.div`
 */
 const ProgressBarContainer = styled.div`
 
-    > div {
-        min-width: 200px !important;
-    }
+  > div {
+    min-width: 200px !important;
+  }
 
-    & > div > div > div:first-child > div:nth-child(1) {
-        width: 75%;
-    }
+  & > div > div > div:first-child > div:nth-child(1) {
+    width: 75%;
+  }
 
-    > div > div > div:first-child > div:nth-child(2) {
-        width: 20%;
-    }
+  > div > div > div:first-child > div:nth-child(2) {
+    width: 20%;
+  }
 `;
 
 const StyledTableRow = styled.tr`
-    &.active {
-        background: #f2f5f7;
-    }
+  > td {
+    transform: translate(0 15);
+    color: #243b53;
+    font-size: 14px;
+  }
+  &.active {
+    background: #f2f5f7;
+  }
 `;
 
 
@@ -121,81 +127,62 @@ const TicketsList = (props: any) => {
     let handleActionsClick = (event: any, ticketId: string) => {
         event.stopPropagation();
 
-        if(openActionsTicket === ticketId)
+        if (openActionsTicket === ticketId)
             setOpenActionsTicket('');
         else
             setOpenActionsTicket(ticketId);
     };
-
-    const getStatusIcon = (status: string) => {
-        switch (status) {
-            case 'created':
-                return (
-                    <div title="To be treated" style={{fill: "#0067B3"}}>
-                        <RoundIcon/>
-                    </div>)
-            case 'pending':
-                return (
-                    <div title="Pending" style={{fill: "goldenrod"}}>
-                        <TimeIcon/>
-                    </div>)
-            case 'closed':
-                return (
-                    <div title="Resolved" style={{fill: "green"}}>
-                        <TimeLapse/>
-                    </div>)
-        }
-    }
-
     return (
-        <div className="p-2">
+        <div>
             <WithScroll visibleHeight={height}>
                 <DxcTable>
                     <tr>
-                        <th/>
                         <th>{t('_TITLE')}</th>
                         <th>{t('_BASKET')}</th>
+                        <th>{t('_STATUS')}</th>
                         <th>{t('_STAGE')}</th>
                         <th>{t('_CLIENT')}</th>
                         <th>{t('_DEADLINE')}</th>
                         <th/>
                     </tr>
+
                     {allBaskets && tickets && tickets.map((ticket: any, i: number) => (
-                        <StyledTableRow key={i} className={`${selectedTicket(ticket.id) ? 'active' : ''}`} onClick={() => handleTicketClick(ticket)}>
-                            <td>{getStatusIcon(ticket.status)}</td>
+                        <StyledTableRow key={i} className={`${selectedTicket(ticket.id) ? 'active' : ''}`}
+                            onClick={() => handleTicketClick(ticket)}>
                             <td>{ticket.title}</td>
                             <td>{getBasketTitle(ticket.basketId)}</td>
+                            <td><Status ticket={ticket}/></td>
                             <td>
                                 <ProgressBarContainer>
-                                    <DxcProgressBar 
+                                    <DxcProgressBar
                                         margin="xxsmall"
-                                        overlay={false} 
+                                        overlay={false}
                                         showValue
                                         value={ticket.stage}/>
                                 </ProgressBarContainer>
                             </td>
                             <td>{ticket.createdByDisplay.toUpperCase()}</td>
                             <td><Deadline deadline={ticket.deadline}/></td>
-                            <td id={'action'+ticket.id}>
+                            <td id={'action' + ticket.id}>
                                 <ActionsIconContainer
                                     onClick={(e) => handleActionsClick(e, ticket.id)}>
                                     <DotsIcon/>
                                     {
                                         (openActionsTicket === ticket.id) &&
-                                        <ActionsContainer 
-                                            numActions={2} 
-                                            index={i} 
+                                        <ActionsContainer
+                                            numActions={2}
+                                            index={i}
                                             length={tickets.length}>
-                                            <DxcBox 
+                                            <DxcBox
                                                 display="block"
                                                 padding="">
-                                                <ActionContainer 
-                                                    onClick={() => assignTo(ticket.id, ticket.assignedTo === currentUserId ? 
-                                                        null : 
+                                                <ActionContainer
+                                                    onClick={() => assignTo(ticket.id, ticket.assignedTo === currentUserId ?
+                                                        null :
                                                         currentUserId)}>
-                                                    {ticket.assignedTo === currentUserId ?'Unassign from me':'Assign to me'}
+                                                    {ticket.assignedTo === currentUserId ? 'Unassign from me' : 'Assign to me'}
                                                 </ActionContainer>
-                                                <ActionContainer 
+                                                <ActionContainer
                                                     onClick={() => remove(ticket.id)}>
                                                     Remove
                                                 </ActionContainer>
@@ -203,12 +190,13 @@ const TicketsList = (props: any) => {
                                         </ActionsContainer>
                                     }
                                 </ActionsIconContainer>
-                                
+
                             </td>
                         </StyledTableRow>
 
                     ))}
                 </DxcTable>
+                {tickets.length === 0 && <NoData/>}
             </WithScroll>
 
         </div>

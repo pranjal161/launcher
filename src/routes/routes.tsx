@@ -4,18 +4,16 @@ import React, {lazy} from "react";
 
 import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
-import ClientViewActivity from "views/ClientViewActivity/ClientViewActivity";
 import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
-import ContractView from "views/Activities/ContractView/ContractView";
+import ContractView from "components/Contracts/ContractView/ContractView";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import Help from 'views/Help/Help';
-import HomePage from "views/HomePage/HomePage";
 import MyBaskets from 'views/MyBaskets/MyBaskets';
 import MyTickets from "views/MyTickets/MyTickets";
 import NewTicket from 'views/NewTicket/NewTicket';
 import {Redirect} from "react-router-dom";
-import TicketTabsDetail from 'views/TicketTabsDetail/TicketTabsDetail';
+import TabView from "views/TabView/TabView";
 import Trainers from "views/Trainers";
 
 const routes = [
@@ -70,7 +68,7 @@ const routes = [
                 path: '/home',
                 name: 'home',
                 exact: true,
-                component: HomePage,
+                component: MyTickets,
             },
             {
                 path: '/ContractSearch',
@@ -88,7 +86,7 @@ const routes = [
                 path: '/ClientView/person/:personId',
                 name: 'personView',
                 exact: true,
-                component: ClientViewActivity
+                component: ClientView
             },
             {
                 path: '/ClientView/organization/:organizationId',
@@ -112,7 +110,7 @@ const routes = [
                 path: '/viewTab',
                 name: 'viewTab',
                 exact: true,
-                component: TicketTabsDetail
+                component: TabView
             },
             {
                 path: '/NewTicket/create',

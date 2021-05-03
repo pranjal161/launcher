@@ -20,7 +20,6 @@ import {useTranslation} from "react-i18next";
  * @returns {*} The app depending on the context
  */
 function App() {
-    console.log('APP render')
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
     const routeNodes = applyRoutes(routes);
