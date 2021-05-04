@@ -6,7 +6,7 @@ const initialState = {
     logged: false
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case 'SIGNED_SUCCESS':
         case 'SIGNUP_SUCCESS':

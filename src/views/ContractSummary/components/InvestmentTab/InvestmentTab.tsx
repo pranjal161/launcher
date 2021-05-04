@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
-import axios from 'axios';
 import { getDescriptionValue } from 'util/functions';
+import useAia from "data/hooks/useAia";
 import { useTranslation } from 'react-i18next';
 
 const InvestmentTab = (props: { mainRiskUrl: string }) => {
@@ -34,18 +34,16 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
         { label: '_VALUE', property: 'interest_fund:net_cash_value', type: 'currency' },
         { label: '_DISTRIBUTION', property: 'contract_allocation_rate', type: 'percent' },
     ];
+    const { fetch } = useAia();
     useEffect(() => {
         getData();
     }, [applicationContext, props.mainRiskUrl]);
 
-    const getData = () => {
-        axios.get(props.mainRiskUrl, { headers: applicationContext.headers }).then((riskRes) => {
+    const getData = () => (
+        fetch(props.mainRiskUrl, 'get').then((riskRes: any) => {
             if (riskRes.data._links['cscaia:product_component_list']) {
-                axios
-                    .get(riskRes.data._links['cscaia:product_component_list'].href, {
-                        headers: applicationContext.headers,
-                    })
-                    .then((res) => {
+                fetch(riskRes.data._links['cscaia:product_component_list'].href, 'get')
+                    .then((res: any) => {
                         if (res && res.data && res.data._links && res.data._links.item) {
                             const req: any[] = [];
                             res.data._links.item = Array.isArray(res.data._links.item)
@@ -57,7 +55,7 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                                         element.summary &&
                                         element.summary['coverage_fund:type_variant'] === 'savings_pool'
                                     ) {
-                                        req.push(axios.get(element.href, { headers: applicationContext.headers }));
+                                        req.push(fetch(element.href));
                                     }
                                 },
                             );
@@ -68,7 +66,7 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                                         const investmentFundsUrl =
                                             item.data._links['savings_pool:coverage_fund_list'].href;
                                         investmentFunds.push(
-                                            axios.get(investmentFundsUrl, { headers: applicationContext.headers }),
+                                            fetch(investmentFundsUrl)
                                         );
                                     }
                                 });
@@ -104,8 +102,8 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                         }
                     });
             }
-        });
-    };
+        })
+    );
 
     const buildChartData = (unitFunds: any[]) => {
         let chartFundList = processChartData(unitFunds);

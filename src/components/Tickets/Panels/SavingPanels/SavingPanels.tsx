@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import ContractPreview from "../../../Contracts/ContractPreview/ContractPreview";
 import PropTypes from "prop-types";
@@ -16,19 +17,20 @@ const Root = styled.div`
 `;
 
 
-const SavingPanels = ({ticketId, onClose}) => {
+const SavingPanels = (props: {ticketId: any, onClose: any}) => {
+    const { ticketId , onClose} = props;
     const {getOne, openInNewTab, openInSecondary} = useDeskTickets()
     const history = useHistory();
     const [entityType, setEntityType] = useState('contract')
-    const [selection, setSelection] = useState({}) // We store selection per entityType
+    const [selection, setSelection] = useState<any>({}) // We store selection per entityType
     const ticket = getOne(ticketId)
     if (!ticket)
         return (<></>)
 
 
-    const ticketContracts = {}
+    const ticketContracts:any = {}
 
-    ticket.relatedContract && ticket.relatedContract.forEach((contract) => (
+    ticket.relatedContract && ticket.relatedContract.forEach((contract:any) => (
         ticketContracts[contract.id] = {
             display: contract.title.split(':')[0],
             displayLong: contract.title,
@@ -37,7 +39,7 @@ const SavingPanels = ({ticketId, onClose}) => {
         })
     )
 
-    const entities = {
+    const entities:any = {
         contract: ticketContracts,
         person: {
             person1: {hRef:1, display: "Person 1", content: <div>Person 1 detail to define</div>},
@@ -55,8 +57,8 @@ const SavingPanels = ({ticketId, onClose}) => {
         openInSecondary(ticketId, ticket && ticket.title)
     }
 
-    const handleEntitySelection = (newSelection) => setSelection((prev) => ({...prev, [entityType]: newSelection}))
-    const handleTypeSelection = (value) => setEntityType(value)
+    const handleEntitySelection = (newSelection: any) => setSelection((prev: any) => ({...prev, [entityType]: newSelection}))
+    const handleTypeSelection = (value:any) => setEntityType(value)
 
     const SelectEntities = () => <SelectEntity entities={entities[entityType]} onChange={handleEntitySelection}
         value={selection[entityType]}/>

@@ -1,4 +1,5 @@
 import {DoubleArrowIcon, OpenInNewIcon, TabIcon} from "../../assets/svg";
+
 import Card from "components/Card/Card";
 import IconButton from "../IconButton/IconButton";
 import PropTypes from "prop-types";
@@ -13,7 +14,7 @@ const Root = styled.div`
   flex-direction: column;
   flex: 1 1 auto;
   height: 100%;
-  width: 434px;
+  width: 100%;
 `;
 const Row1 = styled.div`
   display: flex;

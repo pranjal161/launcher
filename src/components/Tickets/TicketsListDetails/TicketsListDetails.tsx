@@ -9,17 +9,9 @@ import TitleBig from "components/Titles/TitleBig/TitleBig";
 import styled from "styled-components";
 import {useTranslation} from 'react-i18next';
 
-
 const Root = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 100%;
-  width: 100%;
-`;
-const StyledTicketList = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1 1;
   height: 100%;
   width: 100%;
 `;
@@ -31,10 +23,6 @@ const StyledHeader = styled.div`
   margin-bottom: 1rem;
 `;
 
-const StyledTicketsDetails = styled.div`
-  flex : 0 1 394px;
-  height:100%
-`;
 
 
 const TicketsListDetails = (props: { tickets: any, title: any }) => {
@@ -66,9 +54,9 @@ const TicketsListDetails = (props: { tickets: any, title: any }) => {
     return (
         <Card>
             <Root>
-                <StyledTicketList>
+                <div className="col-8 p-0">
                     <StyledHeader>
-                        <div className={"mt-3"}><TitleBig title={title} count={count}/></div>
+                        <TitleBig title={title} count={count}/>
                         <StyledSidenavSearchInput>
                             <DxcInput
                                 label={t('_SEARCH_TICKET')}
@@ -82,11 +70,11 @@ const TicketsListDetails = (props: { tickets: any, title: any }) => {
                         handleTicketClick={handleTicketClick}
                         selected={clickedTicket.id}
                         tickets={ticketList}/>}
-                </StyledTicketList>
+                </div>
 
-                <StyledTicketsDetails>
+                <div className="col-4 p-0">
                     <TicketsDetails ticketId={clickedTicket.id}/>
-                </StyledTicketsDetails>
+                </div>
             </Root>
         </Card>
     );

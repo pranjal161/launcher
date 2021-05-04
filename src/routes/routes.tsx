@@ -6,7 +6,7 @@ import AppLayout from "layouts/AppLayout/AppLayout";
 import AuthLayout from "layouts/AuthLayout/AuthLayout";
 import ClientView from "views/ClientView/ClientView";
 import ContractSearch from "views/ContractSearch/ContractSearch";
-import ContractView from "components/Contracts/ContractView/ContractView";
+import ContractView from "views/Activities/ContractView/ContractView";
 import ErrorLayout from "layouts/ErrorLayout/ErrorLayout";
 import Help from 'views/Help/Help';
 import MyBaskets from 'views/MyBaskets/MyBaskets';

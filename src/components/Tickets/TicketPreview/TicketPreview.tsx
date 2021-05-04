@@ -10,11 +10,13 @@ import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataL
 import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
 import PropTypes from "prop-types";
+import RelatedClient from "./components/RelatedClient/RelatedClient";
 import RelatedContract from "components/Tickets/TicketPreview/components/RelatedContract/RelatedContract";
 import RelatedList from "components/Tickets/TicketPreview/components/RelatedList/RelatedList";
 import Section from "components/Section/Section";
 import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
 import {TextField} from "@material-ui/core";
+import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
 import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
 import {formatValue} from "util/functions";
 import moment from "moment";
@@ -213,7 +215,9 @@ const TicketPreview = (props: any) => {
                     </EditableField>
                 </Section>
                 {/* <StyledDivider /> */}
-                <Section id="relatedClients" title="Related Client">To be defined</Section>
+                <Section id="relatedClients" title="Related Client">
+                    <RelatedClient ticketId={ticket.id} relatedClient={ticket.relatedClients} onClick={handleOnContractClick} />
+                </Section>
 
                 {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
@@ -234,6 +238,7 @@ const TicketPreview = (props: any) => {
                 {/* <StyledDivider /> */}
                 <Section id="documents" title="Documents">
                     <Documents documents={ticket.documents}/>
+                    <Upload ticketId={ticket.id}/>
                 </Section>
             </Sections>
         </Root>

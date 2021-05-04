@@ -1,4 +1,5 @@
 import './TicketView.scss'
+
 import DetailWrapper from "views/Trainers/TrainingJeenal/components/TicketView/components/DetailWrapper/DetailWrapper";
 import Header from "views/Trainers/TrainingJeenal/components/TicketView/components/Header/Header";
 import React from 'react';
@@ -14,11 +15,11 @@ const TicketView = (props: { id: string }) => {
                 <div className="w-100">
                     <Header ticket={ticket}/>
                 </div>
-                <div className="row overflow-hidden">
-                    <div className="col-9 min-vh-100 vertical-divider">
+                <div className="col-12 p-0" style={{display: 'inline-flex'}}>
+                    <div className="col-8 p-0 vertical-divider">
                         <DetailWrapper ticket={ticket}/>
                     </div>
-                    <div className="col-3 min-vh-100">
+                    <div className="col-4 p-0">
                         <SavingPanels ticketId={ticket.id}/>
                     </div>
                 </div>

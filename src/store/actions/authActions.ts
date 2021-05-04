@@ -1,12 +1,12 @@
-export const signUp = (newUser) => (dispatch, getState, {getFirebase,}) => {
+export const signUp = (newUser: any) => (dispatch: any, getState: any, {getFirebase,}: any) => {
     const firebase = getFirebase()
     const firestore = getFirebase().firestore()
-    let result
+    let result: any
     
     firebase.auth().createUserWithEmailAndPassword(
         newUser.email,
         newUser.password)
-        .then((resp) => {
+        .then((resp: { user: { uid: any } }) => {
             result = resp
             
             // Create a user document in firestore with the same id as the user in firebase.auth()
@@ -17,29 +17,29 @@ export const signUp = (newUser) => (dispatch, getState, {getFirebase,}) => {
         }).then(() => {
             dispatch({type: 'SIGNUP_SUCCESS', result})
         })
-        .catch((error) => {
+        .catch((error: any) => {
             console.log(error)
             dispatch({type: 'SIGNUP_ERROR', error})
         })
 }
 
-export const signIn = (credentials) => (dispatch, getState, {getFirebase}) => {
+export const signIn = (credentials: { email: any; password: any }) => (dispatch: any, getState: any, {getFirebase,}: any) => {
     const firebase = getFirebase()
     const {email, password} = credentials
     
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(() => {
             firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((result) => {
+                .then((result: any) => {
                     dispatch({type: 'SIGNED_SUCCESS', result})
                 })
-                .catch((error) => {
+                .catch((error: any) => {
                     dispatch({type: 'SIGNED_ERROR', error})
                 })
         })
 }
 
-export const signOut = () => (dispatch, getState, {getFirebase}) => {
+export const signOut = (credentials?: any) => (dispatch: any, getState: any, {getFirebase,}: any) => {
     const firebase = getFirebase()
 
     return firebase.auth().signOut()

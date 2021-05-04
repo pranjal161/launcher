@@ -3,7 +3,7 @@ const initialState = {
     status: undefined
 }
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case 'CREATE_USER_REMINDER_SUCCESS':
             return {...state}

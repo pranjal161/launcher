@@ -2,13 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react';
 import styled from "styled-components";
 
-const Root = styled.a`
-   color: blue;
+const Root = styled.div`
+    color: #829ab1;
+    font-size: 14px;
  `;
 const LinkedClient = (props:any) => {
-    const {client, url, display} = props;
+    const { display} = props;
     return(
-        <Root href={url}>{client}{display} </Root>
+        <Root>{display}</Root>
     )
 }
 

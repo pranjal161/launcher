@@ -1,5 +1,6 @@
-import {DxcBox, DxcProgressBar, DxcTable} from "@dxc-technology/halstack-react";
+import {DxcBox, DxcTable} from "@dxc-technology/halstack-react";
 import React, {useState} from 'react';
+
 import Deadline from "components/Deadline/Deadline";
 import {DotsIcon} from 'assets/svg';
 import NoData from "components/Titles/NoData/NoData";
@@ -78,20 +79,20 @@ const ActionContainer = styled.div`
     The width percentages for progress bar originally were 5% for value and 90% for Label,
     now they are changed to 15% for value and 90% for Label.
 */
-const ProgressBarContainer = styled.div`
+// const ProgressBarContainer = styled.div`
 
-  > div {
-    min-width: 200px !important;
-  }
+//   > div {
+//     min-width: 150px !important;
+//   }
 
-  & > div > div > div:first-child > div:nth-child(1) {
-    width: 75%;
-  }
+//   & > div > div > div:first-child > div:nth-child(1) {
+//     width: 75%;
+//   }
 
-  > div > div > div:first-child > div:nth-child(2) {
-    width: 20%;
-  }
-`;
+//   > div > div > div:first-child > div:nth-child(2) {
+//     width: 25%;
+//   }
+// `;
 
 const StyledTableRow = styled.tr`
   > td {
@@ -133,14 +134,13 @@ const TicketsList = (props: any) => {
             setOpenActionsTicket(ticketId);
     };
     return (
-        <div>
+        <>
             <WithScroll visibleHeight={height}>
                 <DxcTable>
                     <tr>
                         <th>{t('_TITLE')}</th>
                         <th>{t('_BASKET')}</th>
                         <th>{t('_STATUS')}</th>
-                        <th>{t('_STAGE')}</th>
                         <th>{t('_CLIENT')}</th>
                         <th>{t('_DEADLINE')}</th>
                         <th/>
@@ -152,7 +152,7 @@ const TicketsList = (props: any) => {
                             <td>{ticket.title}</td>
                             <td>{getBasketTitle(ticket.basketId)}</td>
                             <td><Status ticket={ticket}/></td>
-                            <td>
+                            {/* <td>
                                 <ProgressBarContainer>
                                     <DxcProgressBar
                                         margin="xxsmall"
@@ -160,7 +160,7 @@ const TicketsList = (props: any) => {
                                         showValue
                                         value={ticket.stage}/>
                                 </ProgressBarContainer>
-                            </td>
+                            </td> */}
                             <td>{ticket.createdByDisplay.toUpperCase()}</td>
                             <td><Deadline deadline={ticket.deadline}/></td>
                             <td id={'action' + ticket.id}>
@@ -199,7 +199,7 @@ const TicketsList = (props: any) => {
                 {tickets.length === 0 && <NoData/>}
             </WithScroll>
 
-        </div>
+        </>
     );
 }
 

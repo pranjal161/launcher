@@ -8,14 +8,14 @@ import React from 'react';
 //import useDeskAuth from 'data/hooks/useDeskAuth';
 
 const StatusMenu = (props: any) => {
-    const {title, items, onItemClick, value, countArray = {} } = props;
+    const { title, items, onItemClick, value, countArray = {} } = props;
 
     const selected = (status: string) => value === status;
     //const {profile} = useDeskAuth()
     // const reminders = profile ? profile.reminders : undefined;
 
     return (
-        <PanelTickets className="tickets-menu">
+        <PanelTickets className="tickets-menu pb-5">
             <PanelTickets.title>{title}</PanelTickets.title>
             <PanelTickets.ParentList className="mt-2 pr-1 pl-2">
                 {/* <h5>Views</h5> */}

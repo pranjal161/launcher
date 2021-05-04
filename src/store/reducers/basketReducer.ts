@@ -6,7 +6,7 @@ const initialState = {
     removeUserToBasketStatus:undefined,
 }
 
-const basketReducer = (state = initialState, action) => {
+const basketReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case 'CREATE_BASKET_PENDING':
             return {...state, createBasketStatus:'pending'}
