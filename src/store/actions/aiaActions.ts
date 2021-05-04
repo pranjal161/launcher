@@ -95,6 +95,40 @@ export const patch = (href: string, payload: Object, baId: string) => (dispatch:
     return promise;
 }
 
+export const deleteRequest = (href: string, baId: string) => (dispatch: any, getState:any) => {
+    let callType = 'delete';
+    const actionPrefix = `BA_${callType.toUpperCase()}`
+    dispatch({type: `${actionPrefix}_PENDING`, href, baId})
+
+    const promise = aia.delete(href);
+    promise.then((response: any) => {
+      
+        if (response && response.data && response.data.messages && response.data.messages.length > 0) {
+            const messages = response.data.messages;
+            const existingHrefs = getState().aia[baId];
+            const modifiedArray: any = messages.find((message: any) => message.context === AppConfig.modifiedHeaderTag);
+            if (modifiedArray) {
+                processModifiedHeaders(modifiedArray.message, existingHrefs, baId, dispatch);
+            }
+        }
+        dispatch({
+            type: `${actionPrefix}_SUCCESS`,
+            data: response.data,
+            href,
+            baId
+        })
+    })
+        .catch((error: any) => {
+            dispatch({
+                type: `${actionPrefix}_ERROR`,
+                error,
+                href,
+                baId
+            })
+        })
+    return promise;
+}
+
 
 const processModifiedHeaders = (modifiedArray: Array<Object | string>, existingMap: Array<any>, baId: string, dispatch:any) => {
     const requestArray :Array<Object> =[];
