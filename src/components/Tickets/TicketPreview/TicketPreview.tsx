@@ -10,6 +10,7 @@ import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataL
 import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
 import PropTypes from "prop-types";
+import RelatedClient from "./components/RelatedClient/RelatedClient";
 import RelatedContract from "components/Tickets/TicketPreview/components/RelatedContract/RelatedContract";
 import RelatedList from "components/Tickets/TicketPreview/components/RelatedList/RelatedList";
 import Section from "components/Section/Section";
@@ -214,7 +215,9 @@ const TicketPreview = (props: any) => {
                     </EditableField>
                 </Section>
                 {/* <StyledDivider /> */}
-                <Section id="relatedClients" title="Related Client">To be defined</Section>
+                <Section id="relatedClients" title="Related Client">
+                    <RelatedClient ticketId={ticket.id} relatedClient={ticket.relatedClients} onClick={handleOnContractClick} />
+                </Section>
 
                 {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
