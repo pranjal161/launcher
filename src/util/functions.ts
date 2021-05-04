@@ -1,11 +1,13 @@
+/* eslint-disable no-unneeded-ternary */
+
 import { AppConfig } from '../config/appConfig';
 import axios from 'axios';
 
 export const aia = {
     // We need to include header parameter & if not present we pick the default headers
-    get:(url : string) => axios.get(url, { headers: AppConfig.headers }),
-    post:(url:string, body: Object) => axios.post(url, body, { headers: AppConfig.headers }),
-    patch:(url: string, payload: Object) => axios.patch(url, payload, { headers: AppConfig.headers })
+    get: (url: string) => axios.get(url, { headers: AppConfig.headers }),
+    post: (url: string, body: Object) => axios.post(url, body, { headers: AppConfig.headers }),
+    patch: (url: string, payload: Object) => axios.patch(url, payload, { headers: AppConfig.headers })
 }
 
 
@@ -165,9 +167,9 @@ export function searchPerson(value: string) {
     let url = AppConfig.hostUrl.defaultHostUrl + 'persons?';
     let params;
     const nameSelected = value;
-    
+
     if (nameSelected && nameSelected !== '') {
-        
+
         // First name is not empty
         if (nameSelected !== undefined) {
             params = 'person:last_name=' + nameSelected.charAt(0).toUpperCase() + nameSelected.slice(1);
@@ -180,7 +182,7 @@ export function searchPerson(value: string) {
             return (url + params);
         }
     }
-    
+
     return ''
 }
 
@@ -194,9 +196,9 @@ export function search(obj: any) {
     let url = `${searchUrl}?`;
     let params;
     const nameSelected = value;
-    
+
     if (nameSelected && nameSelected !== '') {
-        
+
         if (nameSelected !== undefined) {
             params = name + '=' + nameSelected;
         }
@@ -208,7 +210,7 @@ export function search(obj: any) {
             return (url + params);
         }
     }
-    
+
     return ''
 }
 
@@ -220,7 +222,7 @@ export const getValues = (array: Array<any>, filterBy: string, matchingValue: st
 
 export const getOneOfFromResponse = (response: any, id: string) => {
     const enumItemList = [];
-    if(response._options &&
+    if (response._options &&
         response._options.properties &&
         response._options.properties[id] &&
         response._options.properties[id]['oneOf']) {
@@ -236,4 +238,43 @@ export const getOneOfFromResponse = (response: any, id: string) => {
         }
     }
     return enumItemList;
+}
+export const isFieldEditable = (response: any, field: string) => {
+    if (response['_options']) {
+        const patchLink = response['_options']['links'].find((item: any) => item.method === 'PATCH');
+        if (patchLink.isEmpty()) {
+            return false;
+        }
+        return patchLink &&
+            patchLink['schema'] &&
+            patchLink['schema']['properties'] &&
+            patchLink['schema']['properties'][field]
+            ? true
+            : false;
+    }
+    return false;
+
+}
+
+export const isFieldRequired = (response: any, field: string) => (
+    response['_options'] &&
+    response['_options']['required'] &&
+    response['_options']['required'].indexOf(field) !== -1
+)
+
+export const isFieldVisible = (response: any, field: string) => (
+    response['_options'] &&
+    response['_options']['properties'] &&
+    !response['_options']['properties'][field].isEmpty()
+)
+
+export const isFieldCreatable = (response: any) => {
+    if (response && response['_options'] && response['_options']['links']) {
+        const postLink = response['_options']['links'].find((item: any) => item.method === 'POST');
+        if (postLink.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+    return false;
 }
