@@ -5,3 +5,18 @@
         display: inline-grid;
     }
 }
+
+.reminder{
+    // overflow-y:scroll;
+    max-height: 40%;
+}
+
+.reminder-category{
+    padding-left: 0px;
+    font-size: 14px;
+    color: #71787f !important;
+}
+
+// .reminder-deadline{
+//     font-size: 14px;
+// }

@@ -1,62 +1,64 @@
-import { AddIcon, CloseIcon, NewWindowIcon } from "assets/svg";
+import {CloseIcon, NewWindowIcon} from "assets/svg";
 import {
     DxcChip,
     DxcInput,
     DxcTextarea,
 } from "@dxc-technology/halstack-react";
-import React, { useCallback } from "react";
+import React, {useCallback} from "react";
 
 import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
-import Label from "components/Tickets/TicketPreview/components/Label/Label";
-import LinkedContract from "components/Tickets/TicketPreview/components/LinkedContract/LinkedContract";
 import PropTypes from "prop-types";
-import RelatedClient from 'components/Tickets/TicketPreview/components/RelatedClient/RelatedClient';
+import RelatedClient from "./components/RelatedClient/RelatedClient";
+import RelatedContract from "components/Tickets/TicketPreview/components/RelatedContract/RelatedContract";
+import RelatedList from "components/Tickets/TicketPreview/components/RelatedList/RelatedList";
 import Section from "components/Section/Section";
 import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
-import { StyledButton } from 'styles/global-style';
-import { TextField } from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import Upload from "components/Tickets/TicketPreview/components/Upload/Upload";
 import UserSelection from "components/Tickets/TicketPreview/components/UserSelection/UserSelection";
-import { formatValue } from "util/functions";
+import {formatValue} from "util/functions";
 import moment from "moment";
 import styled from "styled-components";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import useDeskUsers from "data/hooks/useDeskUsers";
+import {useHistory} from "react-router-dom";
 
 export const Root = styled.div`
   height: 100%;
   width: 100%;
 `;
 
-export const Data = styled.div`
-    font-size: 13px;
-    color: #2b4358;
-    max-height: 200px;
+export const Data = styled.h6`
+  min-height: 50px;
+  max-height: 200px;
+  transform: translate(0 14);
+  font-size: 14px;
+  color: #243b53;
+  width: 95%;
+  justify-self: left;
 `;
 
 const TicketPreview = (props: any) => {
-    const { ticket, onClose, onPopupWindow, showPopupIcon = false, actions } = props;
-    const { update, assignTo, createdBy } = useDeskTickets()
+    const {ticket, onClose, onPopupWindow, showPopupIcon = false, actions} = props;
+    const {update, assignTo, createdBy, openInNewTab} = useDeskTickets()
+    const history = useHistory();
     const TitleValue: any = () => (<>{ticket.title}</>)
     const DateValue = (data: any) => {
-        const { date } = data;
+        const {date} = data;
         return (<>{formatValue(date, 'date')}</>)
     }
 
-    const PersonValue = (personid: any) => {
-        const { personId } = personid;
-        const { getOne } = useDeskUsers()
-        const person: any = useCallback(() => {
-            getOne(personId);
-        }, [personid]);
+    const PersonValue = (props: { personId: any }) => {
+        const {getOne} = useDeskUsers()
+        const person = getOne(props.personId)
         return (<> {person && person.displayName}  </>)
     }
 
     const SuggestedActivity = (act: any) => {
-        const { activity } = act;
-        const { executeActivity } = useDeskTickets()
+        const {activity} = act;
+        const {executeActivity} = useDeskTickets()
         const handleClick = (e: any) => {
             e.preventDefault()
             executeActivity(ticket.id, activity)
@@ -73,25 +75,20 @@ const TicketPreview = (props: any) => {
     }
 
     const SuggestedActivities = (activity: any) => {
-        const { activities } = activity;
+        const {activities} = activity;
         return (
             < > {activities && Object.keys(activities).map((activity, index) => (
-                <SuggestedActivity key={index} activity={activity} />))
+                <SuggestedActivity key={index} activity={activity}/>))
             }</>
         )
     }
 
-    const { addRelatedClients } = useDeskTickets();
-    const handleAddRelatedClient = () => {
-        addRelatedClients('OqMyhl637zmSrJPPCjQz', 'Pet')
-    }
-
     const Description = (des: any) => {
-        const { description } = des;
+        const {description} = des;
         return (<Data>{description}</Data>)
     }
     const DxcDate2 = (data: any) => {
-        const { date, id, ...rest } = data;
+        const {date, id, ...rest} = data;
         return (
             <TextField
                 id={id}
@@ -113,14 +110,14 @@ const TicketPreview = (props: any) => {
 
 
     const closePopupAction = (
-        <div style={{ display: 'flex' }}>
+        <div style={{display: 'flex'}}>
             {showPopupIcon &&
-                <div onClick={onPopupWindow}>
-                    <NewWindowIcon />
-                </div>
+            <div onClick={onPopupWindow}>
+                <NewWindowIcon/>
+            </div>
             }
             <div onClick={onClose}>
-                <CloseIcon />
+                <CloseIcon/>
             </div>
         </div>
     )
@@ -128,7 +125,7 @@ const TicketPreview = (props: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleEditChange = useCallback((field, newValue) => {
         //console.log('handleEditChange',field, newValue)
-        update({ ...ticket, [field]: newValue })
+        update({...ticket, [field]: newValue})
     }, [ticket, update])
 
     const handleAssignTo = useCallback((field, newValue) => {
@@ -139,6 +136,11 @@ const TicketPreview = (props: any) => {
         createdBy(ticket.id, newValue)
     }, [createdBy, ticket.id])
 
+    const handleOnContractClick = (contract: any) => {
+        openInNewTab(contract.hRef, contract.title.split(':')[0], 'contract')
+        history.push('/viewTab')
+    }
+
     return (
         <Root>
             <Sections>
@@ -146,110 +148,85 @@ const TicketPreview = (props: any) => {
                 {actions && <Section id="actions" title="Actions">
                     {actions}
                 </Section>}
-                <Section id="information" title="Information">
-                    <DataLine label={<Label>Title</Label>}>
+                <div>
+                    <DataLine label={"Title"}>
                         <EditableField
                             field="title"
                             type="input"
-                            displayValue={<TitleValue />}
+                            displayValue={<TitleValue/>}
                             value={ticket.title}
                             onChange={handleEditChange}>
                             <DxcInput
                                 placeholder={ticket.title}
                                 margin="xsmall"
-                                size="fillParent" />
+                                size="fillParent"/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Received on</Label>}>
+                    <DataLine label={"Received on"}>
                         <EditableField
                             field="receivedDate"
                             type="date"
                             value={ticket.receivedDate}
-                            displayValue={<DateValue date={ticket.receivedDate} />}
+                            displayValue={<DateValue date={ticket.receivedDate}/>}
                             onChange={handleEditChange}>
-                            <DxcDate2 date={ticket.receivedDate} id="receivedDate" />
+                            <DxcDate2 date={ticket.receivedDate} id="receivedDate"/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Deadline</Label>}>
+                    <DataLine label={"Deadline"}>
                         <EditableField
                             field="deadlineDate"
                             type="date"
                             value={ticket.deadlineDate}
-                            displayValue={<DateValue date={ticket.deadlineDate} />}
+                            displayValue={<DateValue date={ticket.deadlineDate}/>}
                             onChange={handleEditChange}>
-                            <DxcDate2 date={ticket.deadlineDate} id="deadlineDate" />
+                            <DxcDate2 date={ticket.deadlineDate} id="deadlineDate"/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Created by</Label>}>
+                    <DataLine label={"Created by"}>
                         <EditableField
                             field="createdBy"
                             type="select"
                             value={ticket.createdBy}
-                            displayValue={<PersonValue personId={ticket.createdBy} />}
+                            displayValue={<PersonValue personId={ticket.createdBy}/>}
                             onChange={handleCreatedBy}>
-                            <UserSelection />
+                            <UserSelection/>
                         </EditableField>
                     </DataLine>
-                    <DataLine label={<Label>Person in charge</Label>}>
+                    <DataLine label={"Person in charge"}>
                         <EditableField
                             field="assignedTo"
                             type="select"
                             value={ticket.assignedTo}
-                            displayValue={<PersonValue personId={ticket.assignedTo} />}
+                            displayValue={<PersonValue personId={ticket.assignedTo}/>}
                             onChange={handleAssignTo}>
-                            <UserSelection />
+                            <UserSelection/>
                         </EditableField>
                     </DataLine>
                     {/* <StyledDivider /> */}
-                </Section>
+                </div>
                 <Section id="description" title="Description">
                     <EditableField
                         field="description"
                         type="textarea"
                         value={ticket.description}
-                        displayValue={<Description description={ticket.description} />}
+                        displayValue={<Description description={ticket.description}/>}
                         onChange={handleEditChange}>
-                        <DxcTextarea />
+                        <DxcTextarea/>
                     </EditableField>
                 </Section>
                 {/* <StyledDivider /> */}
-                <Section id="relatedClients" title="Related Client" actions={<StyledButton onClick={handleAddRelatedClient}><AddIcon /></StyledButton>}>
-                    <DataLine label={<Label>Client</Label>}>
-                        {/* <LinkedClient client={{displayName: ticket.relatedClients}} url={"jkjk"} /> */}
-                        <RelatedClient relatedClient={ticket.relatedClients} onClick={onclick} />
-                    </DataLine>
+                <Section id="relatedClients" title="Related Client">
+                    <RelatedClient ticketId={ticket.id} relatedClient={ticket.relatedClients} onClick={handleOnContractClick} />
                 </Section>
 
                 {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
-                    <DataLine label={<Label> Contract </Label>}>
-                        <LinkedContract
-                            client={{
-                                displayName: "UI01929821",
-                            }}
-                            url={"jkjk"}
-                        />
-                    </DataLine>
-                    <DataLine label={<Label> Contract </Label>}>
-                        <LinkedContract
-                            client={{
-                                displayName: "UI07292093",
-                            }}
-                            url={"jkjk"}
-                        />
-                    </DataLine>
-                    <DataLine label={<Label> Contract </Label>}>
-                        <LinkedContract
-                            client={{
-                                displayName: "MP27293032",
-                            }}
-                            url={"jkjk"}
-                        />
-                    </DataLine>
+                    <RelatedList value={ticket.relatedContract} component={RelatedContract}
+                        onClick={handleOnContractClick}/>
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="suggestedActivities" title="Suggested activities">
-                    <SuggestedActivities activities={ticket.suggestedActivities} />
+                    <SuggestedActivities activities={ticket.suggestedActivities}/>
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="notes" title="Notes">
@@ -260,8 +237,8 @@ const TicketPreview = (props: any) => {
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="documents" title="Documents">
-                    <Documents documents={ticket.documents} />
-                    <Upload ticketId={ticket.id} />
+                    <Documents documents={ticket.documents}/>
+                    <Upload ticketId={ticket.id}/>
                 </Section>
             </Sections>
         </Root>
@@ -269,7 +246,7 @@ const TicketPreview = (props: any) => {
 };
 
 TicketPreview.propTypes = {
-    ticket: PropTypes.string,
+    ticket: PropTypes.any,
     personId: PropTypes.string,
     showPopupIcon: PropTypes.bool,
     onPopupWindow: PropTypes.func,

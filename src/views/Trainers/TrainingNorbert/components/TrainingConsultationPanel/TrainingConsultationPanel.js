@@ -22,7 +22,7 @@ const Test = styled.div`
 const TrainingConsultationPanel = () => (
     <Root>
         <Test>
-            <SavingPanels/>
+            <SavingPanels ticketId={"Edi1dN60i2O2eFm9zJ0f"}/>
         </Test>
     </Root>
 )

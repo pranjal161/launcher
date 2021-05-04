@@ -23,7 +23,7 @@ const CreateButton = () => {
     return (
         <div>
             <DxcButton
-                mode="primary"
+                mode="secondary"
                 label="New Ticket"
                 onClick={handleClickOpen}
                 margin="xxsmall"

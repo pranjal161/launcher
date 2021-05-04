@@ -3,7 +3,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
 import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import routes, { applyRoutes } from './routes';
 
 import Alert from "./components/Alert/Alert";
@@ -13,6 +13,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 import {currentDailyUpdatesId} from "./store/actions/ticketActions";
 import useDeskSubscribe from "./data/hooks/useDeskSubscribe";
+import useGlobalSearchData from "data/hooks/useGlobalSearchData";
 import {useTranslation} from "react-i18next";
 
 /**
@@ -23,21 +24,28 @@ function App() {
     const {ready} = useTranslation();
     const [isLoading, setLoader] = useState(false);
     const routeNodes = applyRoutes(routes);
+    const {loadData} = useGlobalSearchData();
 
     //Please don't touch
     useDeskSubscribe({collection: 'tickets'})
     useDeskSubscribe({collection: 'baskets'})
     useDeskSubscribe({collection: 'users'})
     useDeskSubscribe({collection: 'dailyUpdates', doc: currentDailyUpdatesId})
+    
+    // Load Global Search Data
+    useEffect(() => {
+        loadData({collection: 'person'});
+        loadData({collection: 'contract'});
+    }, []);
 
     axios.interceptors.request.use(
         function (config) {
             // Spinning start to show
-            setLoader(true);
+            //setLoader(true);
             return config;
         },
         function (error) {
-            setLoader(false);
+            //setLoader(false);
             return Promise.reject(error);
         }
     );
