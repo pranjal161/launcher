@@ -44,7 +44,7 @@ const Reminders = (props: { reminders: any; }) => {
                 <PanelBaskets.ParentList className="mt-2 pr-1 pl-2">
                     {reminders && Object.values(reminders).map((reminder: any, index) => (
                         <div className="col-12 p-0 reminder-container" key={index}>
-                            <div className="col-2">
+                            <div className="col-2 p-0 pr-1">
                                 <DxcCheckbox
                                     size="fillParent"
                                     onChange={(newValue: string) => setStatus(newValue, reminder)}
@@ -59,7 +59,7 @@ const Reminders = (props: { reminders: any; }) => {
                                     <small className="p-0">{reminder.ticket}</small>
                                 </div>
                             </div>
-                            <div onClick={() => openSetReminder(reminder)} className="col-2 pt-2"><InfoIcon /></div>
+                            <div onClick={() => openSetReminder(reminder)} className="col-2 p-0 pt-2"><InfoIcon /></div>
                             {openReminder &&
                                 <CreateReminders reminder={reminderData} onClickDialog={onClickDialog} />
                             }

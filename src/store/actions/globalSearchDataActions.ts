@@ -6,11 +6,12 @@ export const loadData = (params: {collection: string, rel: string, schema: strin
     const { collection, rel, schema, search } = params;
     const id = collection;
     const href = `${AppConfig.hostUrl.defaultHostUrl}${schema}`;
+    const callToHref = `${href}?_num=10`;
     const timestamp = Date.now()
     dispatch({type: `DATA_FETCH_HREF_START`, id, href, timestamp})
     let result: { _options: {links: any}};
 
-    const getResponse = Promise.resolve(aia.get(href));
+    const getResponse = Promise.resolve(aia.get(callToHref));
     getResponse.then((response) => {
         result = response.data;
         return response.data;

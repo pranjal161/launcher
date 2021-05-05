@@ -42,12 +42,12 @@ const GlobalSearch = (props: { getAvailableOptions: (value: string) => { href: s
     const propertyChange = (newValue: string) => {
         setSelected({ ...selected, property: newValue, searched: '' });
         const searchFields: any = storeData['options'];
-        const fieldType: { format: string, oneOf: Array<{ enum: Array<[]>, title: string }> } = searchFields[newValue];
-        if (fieldType && fieldType.oneOf) {
+        const fieldType: Array<{ value: string, oneOf: [], format: string }> = searchFields.filter((fields: any) => fields.value === newValue);
+        if (fieldType && fieldType[0] && fieldType[0].oneOf) {
             setSearchFieldType('oneOf');
-            populateSelectBoxOptions(fieldType.oneOf);
+            populateSelectBoxOptions(fieldType[0].oneOf);
         } else {
-            setSearchFieldType(fieldType && fieldType.format ? fieldType.format : '');
+            setSearchFieldType(fieldType && fieldType[0].format ? fieldType[0].format : '');
         }
     }
 

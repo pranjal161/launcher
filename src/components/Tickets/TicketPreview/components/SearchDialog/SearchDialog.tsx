@@ -4,16 +4,12 @@ import SearchTable from './SearchTable';
 import { aia } from "util/functions";
 import {useSelector} from "react-redux";
 
-const SearchDialog = (props: { selectedEntity: string, getSelectedData: (data: any) => void }) => {
-    const { selectedEntity, getSelectedData } = props;
+const SearchDialog = (props: { selectedEntity: string, getSelectedData: (data: any) => void, dataList: {} }) => {
+    const { selectedEntity, getSelectedData, dataList } = props;
     const [searchData, setSearchedData] = React.useState([]);
     const searchOptions = useSelector((state: any) => state.dataFetch.data);
 
     const getSchema = (selected: string) => searchOptions && searchOptions[selected]
-    const tableStats = {
-        "Person Details": 'person:display_id',
-        "Birthdate": 'person:birth_date'
-    }
 
     const searchResults = async (url: string) => {
         const getResp = Promise.resolve(aia.get(url));
@@ -29,7 +25,7 @@ const SearchDialog = (props: { selectedEntity: string, getSelectedData: (data: a
 
     return (<>
         <GlobalSearch selectedEntity={selectedEntity} getAvailableOptions={getSchema} getSearchOptions={searchResults} />
-        <SearchTable tableData={searchData} tableStats={tableStats} setSelectedData={getSelectedData} />
+        <SearchTable tableData={searchData} tableStats={dataList} setSelectedData={getSelectedData} />
     </>);
 };
 
