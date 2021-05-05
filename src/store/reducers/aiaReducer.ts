@@ -49,6 +49,19 @@ const aiaReducer = (state = initialState, action: any) => {
             console.log('Error in BA_PATCH', action)
             return newState
 
+        case 'BA_DELETE_PENDING':
+            return newState
+        
+        case 'BA_DELETE_SUCCESS':
+            let resources = newState[action.baId] ? newState[action.baId] : {};
+            delete resources[action.href];
+            newState[action.baId] = resources;
+            return newState
+        
+        case 'BA_DELETE_ERROR':
+            console.log('Error in BA_DELETE', action)
+            return newState
+
             // case 'FETCH_HREF_START':
             //     //If hRef not exist, we add it
             //     if (!newState.hRefs[action.hRef])
