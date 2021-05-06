@@ -147,6 +147,11 @@ const TicketPreview = (props: any) => {
         history.push('/viewTab')
     }
 
+    const handleOnClientClick = (person: any) => {
+        openInNewTab(person.hRef, person.title.split('-')[0], 'client')
+        history.push('/viewTab')
+    }
+
     return (
         <Root>
             <Sections>
