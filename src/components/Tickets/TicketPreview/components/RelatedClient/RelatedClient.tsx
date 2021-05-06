@@ -16,6 +16,10 @@ const RelatedClient = (props: any) => {
     const { addRelatedClients } = useDeskTickets();
     const { ticketId, relatedClient } = props;
     const [openDialog, setOpenDialog] = React.useState(false);
+    const tableStats = {
+        "Person Details": 'person:display_id',
+        "Birthdate": 'person:birth_date'
+    }
 
     const selectedData = (data: any) => {
         const client = {
@@ -45,7 +49,7 @@ const RelatedClient = (props: any) => {
                 <StyledButton className="border" onClick={() => setOpenDialog(true)}>+</StyledButton>
             </ul>
             {openDialog && <DxcDialog padding="medium" isCloseVisible={true} onCloseClick={() => setOpenDialog(false)}>
-                <SearchDialog selectedEntity={'person'} getSelectedData={selectedData} />
+                <SearchDialog selectedEntity={'person'} getSelectedData={selectedData} dataList={tableStats} />
             </DxcDialog>}
         </>
     )
