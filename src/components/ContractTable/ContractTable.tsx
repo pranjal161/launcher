@@ -25,7 +25,8 @@ const ContractTable = (props: any) => {
      * @returns {void} Return the link to the contract
      */
     function goToContract(item: any) {
-        openInNewTab(item.href, item.title, 'contract')
+        const title = item.summary['contract:number'] + '/' + item.summary['contract:product_label']
+        openInNewTab(item.href, title, 'contract')
         history.push('/viewTab')
     }
 

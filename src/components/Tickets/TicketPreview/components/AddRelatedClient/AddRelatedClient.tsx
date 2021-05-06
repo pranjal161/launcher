@@ -18,7 +18,7 @@ const AddRelatedClient = (props: any) => {
         const client = {
             id: data.summary['person:client_number'],
             hRef: data.href,
-            title: data.title
+            title: data.summary['person:display_id1']
         };
         addRelatedClients(ticketId, client);
         setOpenDialog(false);
