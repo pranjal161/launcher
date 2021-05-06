@@ -10,14 +10,15 @@ import { DxcSidenav } from "@dxc-technology/halstack-react";
 import FinancialTable from "views/ClientView/components/FinancialTable/FinancialTable";
 import Label from "components/Label/Label";
 import { StyledBanner } from 'styles/global-style';
-import axios from 'axios';
 import { getLink } from 'util/functions';
-import { useLocation } from "react-router-dom";
+import useActivity from 'hooks/useActivity';
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from "react-i18next";
 
-const ClientView = () => {
-    const location: any = useLocation();
+const ClientSummary = (props: any) => {
     const { t } = useTranslation();
+    const { startActivity } = useActivity()
+
     const visibleSections = [
         { label: t('_CONTRACT_ROLES'), id: 'roles' },
         { label: t('_FINANCIAL'), id: 'financial' },
@@ -28,24 +29,29 @@ const ClientView = () => {
     const [currentSection, setCurrentSection] = useState<string>('roles');
     const [clientData, setClientData] = useState<undefined | any>();
     const applicationContext = useContext(ApplicationContext);
-    const clientUrl = location.state.clientData._links.self.href;
+    const { fetch } = useAia();
+    const clientUrl = props.hRef;
     const [clientDetailData, setClientDetails] = useState([]);
     const [outputDoc, setOutputDoc] = useState('');
     const [receivedDoc, setReceivedDoc] = useState('');
     useEffect(() => {
+        startActivity();
         callLoadData();
-    }, [applicationContext]);
+    }, [applicationContext, clientUrl, props.hRef])
 
     const callLoadData = () => {
-        const clientData = location.state.clientData;
-        setClientData(clientData);
-        if (getLink(clientData, 'cscaia:output_documents')) {
-            setOutputDoc(getLink(clientData, 'cscaia:output_documents'));
-        }
-        if (getLink(clientData, 'cscaia:information_receipts')) {
-            setReceivedDoc(getLink(clientData, 'cscaia:information_receipts'));
-        }
-        populateClientOtherDetails(clientData);
+        // const clientData = location.state.clientData;
+        // setClientData(clientData);
+        fetch(clientUrl).then((response: any) => {
+            setClientData(response.data);
+            if (getLink(clientData, 'cscaia:output_documents')) {
+                setOutputDoc(getLink(clientData, 'cscaia:output_documents'));
+            }
+            if (getLink(clientData, 'cscaia:information_receipts')) {
+                setReceivedDoc(getLink(clientData, 'cscaia:information_receipts'));
+            }
+            populateClientOtherDetails(response.data);
+        });
     };
 
     const populateClientOtherDetails = (response: any) => {
@@ -77,13 +83,13 @@ const ClientView = () => {
         });
         clientDetails.map((data: any) => {
             if (data.url) {
-                requestArray.push(axios.get(data.url, { headers: applicationContext.headers }));
+                requestArray.push(fetch(data.url));
             }
             return null;
         });
         Promise.all(requestArray).then((responseArray) => {
             responseArray.map((response: any) => {
-                let index = clientDetails.findIndex((x: any) => x['url'] === response['config']['url']);
+                let index = clientDetails.findIndex((x: any) => x['url'] === response.data._links.self.href);
                 clientDetails[index]['data'] = response.data;
                 return null;
             });
@@ -259,4 +265,4 @@ const ClientView = () => {
         </>
     );
 };
-export default ClientView;
+export default ClientSummary;

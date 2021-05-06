@@ -5,7 +5,7 @@ import { DxcTable } from '@dxc-technology/halstack-react';
 import Paginator from "components/Paginator/Paginator";
 import React from 'react';
 import { getDescriptionValue } from 'util/functions';
-import useAia from "data/hooks/useAia";
+import useDeskTickets from 'data/hooks/useDeskTickets';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
@@ -16,8 +16,8 @@ import { useTranslation } from "react-i18next";
  */
 const ContractTable = (props: any) => {
     const { t } = useTranslation();
+    const {openInNewTab} = useDeskTickets();
     const history = useHistory();
-    const { fetch } = useAia()
 
     /**
      * Redirection to a contract
@@ -25,11 +25,8 @@ const ContractTable = (props: any) => {
      * @returns {void} Return the link to the contract
      */
     function goToContract(item: any) {
-        const contractNumber = item.summary['contract:number'];
-
-        fetch(item.href, 'get')
-
-        history.push('/contracts/' + contractNumber, { contractUrl: item.href });
+        openInNewTab(item.href, item.title, 'contract')
+        history.push('/viewTab')
     }
 
     return (

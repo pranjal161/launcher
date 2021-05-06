@@ -1,15 +1,30 @@
 const initialState = {
-    hRefs: {},
-    subscriptions:{}
+   
 }
 
 const aiaReducer = (state = initialState, action: any) => {
     let newState:any = {...state}
     let newBa: any
 
+    const updateResponse = (newState:any, action:any) => {
+        Object.keys(action.store.aia).map((baId: any) => {
+            if (baId && baId[action.href]) {
+                newState[baId][action.href] = {data:{...action.data}}
+            } else {
+                newState[action.baId][action.href] = {data:{...action.data}}
+            }
+        })
+        return newState;
+    }
+
     switch (action.type) {
         case 'BA_START':
-            newState[action.baId] = {}
+            // While switching tab the baId is set blank again, to check in store it's existence
+            // if (action.store[action.baId]) {
+            //     newState[action.baId] = action.store[action.baId]
+            // } else {
+            //     newState[action.baId] = {}
+            // }
             return newState
 
         case 'BA_END':
@@ -21,11 +36,22 @@ const aiaReducer = (state = initialState, action: any) => {
             return newState
 
         case 'BA_GET_SUCCESS':
-            newState[action.baId][action.href] = {data:{...action.data}}
+            newState = updateResponse(newState, action)
             return newState
 
         case 'BA_GET_ERROR':
             console.log('Error in BA_GET', action)
+            return newState
+
+        case 'BA_REFRESH_PENDING':
+            return newState
+    
+        case 'BA_REFRESH_SUCCESS':
+            newState = updateResponse(newState, action)
+            return newState
+    
+        case 'BA_REFRESH_ERROR':
+            console.log('Error in BA_REFRESH', action)
             return newState
 
         case 'BA_POST_PENDING':
@@ -42,7 +68,7 @@ const aiaReducer = (state = initialState, action: any) => {
             return newState
     
         case 'BA_PATCH_SUCCESS':
-            newState[action.baId][action.href] = {data:{...action.data}}
+            newState = updateResponse(newState, action)
             return newState
     
         case 'BA_PATCH_ERROR':
