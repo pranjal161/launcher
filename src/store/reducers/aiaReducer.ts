@@ -26,6 +26,7 @@ const aiaReducer = (state = initialState, action: any) => {
             // } else {
             //     newState[action.baId] = {}
             // }
+            newState[action.baId] = {}
             return newState
 
         case 'BA_END':
