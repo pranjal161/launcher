@@ -16,7 +16,7 @@ const PrimaryTabs = (props : {
     return (
         <DxcTabs 
             tabs={TabbedLinksLabels}
-            activeTabIndex={value}
+            activeTabIndex={value === null ? false : value }
             onTabClick={handleTabClick} />
     );
 }
