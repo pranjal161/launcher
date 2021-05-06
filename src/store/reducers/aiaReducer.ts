@@ -7,6 +7,7 @@ const aiaReducer = (state = initialState, action: any) => {
     let newBa: any
 
     const updateResponse = (newState:any, action:any) => {
+        // eslint-disable-next-line array-callback-return
         Object.keys(action.store.aia).map((baId: any) => {
             if (baId && baId[action.href]) {
                 newState[baId][action.href] = {data:{...action.data}}
