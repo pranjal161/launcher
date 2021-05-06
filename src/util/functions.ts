@@ -7,7 +7,8 @@ export const aia = {
     // We need to include header parameter & if not present we pick the default headers
     get: (url: string) => axios.get(url, { headers: AppConfig.headers }),
     post: (url: string, body: Object) => axios.post(url, body, { headers: AppConfig.headers }),
-    patch: (url: string, payload: Object) => axios.patch(url, payload, { headers: AppConfig.headers })
+    patch: (url: string, payload: Object) => axios.patch(url, payload, { headers: AppConfig.headers }),
+    delete: (url: string) => axios.delete(url, { headers: AppConfig.headers })
 }
 
 

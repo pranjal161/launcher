@@ -63,7 +63,7 @@ const Item: React.FC<IItem> = ({ item = null, users, basketName }: IItem) => {
                                     }
                                     {
                                         item.action === "addedRelatedClient" &&
-                                        <p data-test="add-related-client-item" className="action-item">{t('timeline_added_client')} {item.newValue}</p>
+                                        <p data-test="add-related-client-item" className="action-item">{t('timeline_added_client')} {item.newValue.title}</p>
                                     }
                                     {
                                         item.action === "executedActivity" &&
