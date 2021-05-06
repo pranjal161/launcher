@@ -1,5 +1,3 @@
-/* eslint-disable no-unneeded-ternary */
-
 import { AppConfig } from '../config/appConfig';
 import axios from 'axios';
 
@@ -250,6 +248,7 @@ export const isFieldEditable = (response: any, field: string) => {
             patchLink['schema'] &&
             patchLink['schema']['properties'] &&
             patchLink['schema']['properties'][field]
+            // eslint-disable-next-line no-unneeded-ternary
             ? true
             : false;
     }
