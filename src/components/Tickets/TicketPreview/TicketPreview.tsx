@@ -142,6 +142,11 @@ const TicketPreview = (props: any) => {
         history.push('/viewTab')
     }
 
+    const handleOnClientClick = (person: any) => {
+        openInNewTab(person.hRef, person.title.split('-')[0], 'client')
+        history.push('/viewTab')
+    }
+
     return (
         <Root>
             <Sections>
@@ -217,7 +222,7 @@ const TicketPreview = (props: any) => {
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="relatedClients" title="Related Client">
-                    <RelatedList value={ticket.relatedClients} component={RelatedSection} onClick={handleOnContractClick} />
+                    <RelatedList value={ticket.relatedClients} component={RelatedSection} onClick={handleOnClientClick} />
                     <AddRelatedClient ticketId={ticket.id} />
                 </Section>
 

@@ -11,6 +11,13 @@ const Root = styled.div`
       & > div {
         font-size: 14px;
         line-height: 18px;
+        margin-bottom: 4px;
+        color: #243b53;
+        border: 0;
+
+        &:hover {
+          border: 0;
+        }
       }
   }
 `;
