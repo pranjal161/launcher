@@ -27,9 +27,7 @@ import { useTranslation } from 'react-i18next';
  */
 const ContractSummary = (props:{hRef:any}) => {
     const {startActivity} = useActivity()
-    useEffect(() => {
-        startActivity()
-    },[])
+
     const { t } = useTranslation();
     const sections = [
         { label: t('_INVESTMENT'), id: 'investment' },
@@ -66,7 +64,8 @@ const ContractSummary = (props:{hRef:any}) => {
         setContractUrl(newValue);
     }
 
-    useEffect(() => {
+    useEffect(() => {        
+        startActivity();
         getData(props.hRef);
     }, [applicationContext, contractUrl, props.hRef]);
 
@@ -175,7 +174,7 @@ const ContractSummary = (props:{hRef:any}) => {
         <>
             {contractData && visibleSections.length > 0 && (
                 <>
-                    {partyRole && stateUrl &&
+                    {
                         <Banner owner={<OwnerName />} contractData={contractData} stateUrl={stateUrl}
                             onActionChange={onActionChange} onHistoryChange={onHistoryChange} />
                     }
