@@ -3,7 +3,7 @@ import React from 'react';
 import { TabbedLinksLabels } from './PrimaryTabsConstants';
 
 const PrimaryTabs = (props : {
-                                value: number,
+                                value: number | null,
                                 onChange: Function
                             }) => {
 
