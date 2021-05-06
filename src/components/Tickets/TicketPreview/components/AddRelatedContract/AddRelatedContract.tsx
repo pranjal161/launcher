@@ -5,7 +5,7 @@ import SearchDialog from '../SearchDialog/SearchDialog';
 import { StyledButton } from 'styles/global-style';
 import useDeskTickets from "data/hooks/useDeskTickets";
 
-const RelatedContract = (props: any) => {
+const AddRelatedContract = (props: any) => {
     const { addRelatedContract } = useDeskTickets();
     const { ticketId } = props;
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -34,8 +34,8 @@ const RelatedContract = (props: any) => {
     )
 }
 
-RelatedContract.propTypes = {
+AddRelatedContract.propTypes = {
     ticketId: PropTypes.string
 }
 
-export default RelatedContract
+export default AddRelatedContract

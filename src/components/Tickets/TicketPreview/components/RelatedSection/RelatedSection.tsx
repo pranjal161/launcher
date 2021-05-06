@@ -15,11 +15,10 @@ const Root = styled.div`
   }
 `;
 
-const RelatedSection: any = (props: { value: any, onClick: any, rowTitle: string }) => {
+const RelatedSection: any = (props: { value: any, onClick: any }) => {
     const handleOnClick = () => props.onClick && props.onClick(props.value)
     return (<Root className="row">
-        <div className="col-5">{props.rowTitle}</div>
-        <div className="col-7 pl-0"><DxcLink onClick={handleOnClick} text={props.value.title}></DxcLink></div>
+        <div className="col-12"><DxcLink onClick={handleOnClick} text={props.value.title}></DxcLink></div>
     </Root>)
 }
 

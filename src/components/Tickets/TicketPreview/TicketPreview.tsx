@@ -6,12 +6,12 @@ import {
 } from "@dxc-technology/halstack-react";
 import React, {useCallback} from "react";
 
+import AddRelatedClient from "./components/AddRelatedClient/AddRelatedClient";
+import AddRelatedContract from "components/Tickets/TicketPreview/components/AddRelatedContract/AddRelatedContract";
 import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
 import PropTypes from "prop-types";
-import RelatedClient from "./components/RelatedClient/RelatedClient";
-import RelatedContract from "components/Tickets/TicketPreview/components/RelatedContract/RelatedContract";
 import RelatedList from "./components/RelatedList/RelatedList";
 import RelatedSection from "./components/RelatedSection/RelatedSection";
 import Section from "components/Section/Section";
@@ -217,14 +217,14 @@ const TicketPreview = (props: any) => {
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="relatedClients" title="Related Client">
-                    <RelatedList value={ticket.relatedClients} component={RelatedSection} onClick={handleOnContractClick} listTitle={'Client'} />
-                    <RelatedClient ticketId={ticket.id} />
+                    <RelatedList value={ticket.relatedClients} component={RelatedSection} onClick={handleOnContractClick} />
+                    <AddRelatedClient ticketId={ticket.id} />
                 </Section>
 
                 {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
-                    <RelatedList value={ticket.relatedContract} component={RelatedSection} onClick={handleOnContractClick} listTitle={'Contract'} />
-                    <RelatedContract ticketId={ticket.id} />
+                    <RelatedList value={ticket.relatedContract} component={RelatedSection} onClick={handleOnContractClick} />
+                    <AddRelatedContract ticketId={ticket.id} />
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="suggestedActivities" title="Suggested activities">

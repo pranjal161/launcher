@@ -5,7 +5,7 @@ import SearchDialog from '../SearchDialog/SearchDialog';
 import { StyledButton } from 'styles/global-style';
 import useDeskTickets from "data/hooks/useDeskTickets";
 
-const RelatedClient = (props: any) => {
+const AddRelatedClient = (props: any) => {
     const { addRelatedClients } = useDeskTickets();
     const { ticketId } = props;
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -34,8 +34,8 @@ const RelatedClient = (props: any) => {
     )
 }
 
-RelatedClient.propTypes = {
+AddRelatedClient.propTypes = {
     ticketId: PropTypes.string
 }
 
-export default RelatedClient
+export default AddRelatedClient
