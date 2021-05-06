@@ -1,4 +1,4 @@
-import {fetch as fetchAction, patch as patchAction, post as postAction} from 'store/actions/aiaActions';
+import {deleteRequest as deleteAction, fetch as fetchAction, patch as patchAction, post as postAction} from 'store/actions/aiaActions';
 import {useCallback, useContext, useEffect, useReducer} from "react";
 
 import baContext from "context/baContext";
@@ -58,8 +58,14 @@ export default function useAia() {
             return dispatch(patchAction(hRef, payload, baId))
         }, [dispatch])
 
+    const deleteRequest = useCallback(
+        (...params) => {
+            const hRef = params[0]                    
+            return dispatch(deleteAction(hRef, baId))
+        }, [dispatch])
+
     //On component unmount, we unsubscribe its subscription
     useEffect(() => (() => dispatchLocal({type: "unMount"})), [])
 
-    return {fetch, post, patch}
+    return {fetch, post, patch, deleteRequest}
 }

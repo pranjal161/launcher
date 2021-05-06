@@ -12,7 +12,6 @@ import EditableField from "components/EditableField/EditableField";
 import PropTypes from "prop-types";
 import RelatedClient from "./components/RelatedClient/RelatedClient";
 import RelatedContract from "components/Tickets/TicketPreview/components/RelatedContract/RelatedContract";
-import RelatedList from "components/Tickets/TicketPreview/components/RelatedList/RelatedList";
 import Section from "components/Section/Section";
 import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
 import {TextField} from "@material-ui/core";
@@ -221,8 +220,7 @@ const TicketPreview = (props: any) => {
 
                 {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
-                    <RelatedList value={ticket.relatedContract} component={RelatedContract}
-                        onClick={handleOnContractClick}/>
+                    <RelatedContract ticketId={ticket.id} relatedContract={ticket.relatedContract} onClick={handleOnContractClick}/>
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="suggestedActivities" title="Suggested activities">
