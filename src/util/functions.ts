@@ -279,3 +279,11 @@ export const isFieldCreatable = (response: any) => {
     }
     return false;
 }
+
+export const hasRelInOptions = (response: any, rel: string): boolean => response && response._options && response._options['links'] && response['_options']['links'].find((item: any) => item.rel === rel)
+
+export const hasMethodInOptions = (response: any, method: string): boolean => response && response._options && response._options['links'] && response['_options']['links'].find((item: any) => item.method === method)
+
+export const isSaveOperationAvailable = (resource: any): boolean => getLink(resource, 'cscaia:save')
+
+
