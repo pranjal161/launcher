@@ -11,6 +11,13 @@ const Root = styled.div`
       & > div {
         font-size: 14px;
         line-height: 18px;
+        margin-bottom: 4px;
+        color: #243b53;
+        border: 0;
+
+        &:hover {
+          border: 0;
+        }
       }
   }
 `;
@@ -18,7 +25,7 @@ const Root = styled.div`
 const RelatedSection: any = (props: { value: any, onClick: any }) => {
     const handleOnClick = () => props.onClick && props.onClick(props.value)
     return (<Root className="row">
-        <div className="col-12"><DxcLink onClick={handleOnClick} text={props.value.title}></DxcLink></div>
+        <div className="col-12"><DxcLink underlined={false} onClick={handleOnClick} text={props.value.title}></DxcLink></div>
     </Root>)
 }
 

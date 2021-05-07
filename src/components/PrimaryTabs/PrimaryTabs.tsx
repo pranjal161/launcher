@@ -3,7 +3,7 @@ import React from 'react';
 import { TabbedLinksLabels } from './PrimaryTabsConstants';
 
 const PrimaryTabs = (props : {
-                                value: number,
+                                value: number | null,
                                 onChange: Function
                             }) => {
 
@@ -16,7 +16,7 @@ const PrimaryTabs = (props : {
     return (
         <DxcTabs 
             tabs={TabbedLinksLabels}
-            activeTabIndex={value}
+            activeTabIndex={value === null ? false : value }
             onTabClick={handleTabClick} />
     );
 }

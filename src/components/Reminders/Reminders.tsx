@@ -7,6 +7,7 @@ import Deadline from 'components/Deadline/Deadline';
 import { DxcCheckbox } from '@dxc-technology/halstack-react';
 import { InfoIcon } from 'assets/svg';
 import { PanelBaskets } from 'views/MyTickets/StyledBaskets';
+import { StyledButton } from 'styles/global-style';
 import useDeskUsers from 'data/hooks/useDeskUsers';
 import { useTranslation } from 'react-i18next';
 
@@ -40,6 +41,11 @@ const Reminders = (props: { reminders: any; }) => {
         <>
             <div className="reminder">
                 <PanelBaskets.title> {t('_REMINDERS')}</PanelBaskets.title>
+                <StyledButton className="buttonBorder border" onClick={() => setOpenReminder(true)}>+</StyledButton>
+                {openReminder &&
+                    <CreateReminders onClickDialog={onClickDialog} />
+                }
+
                 {/* <WithScroll visibleHeight={'250px'}> */}
                 <PanelBaskets.ParentList className="mt-2 pr-1 pl-2">
                     {reminders && Object.values(reminders).map((reminder: any, index) => (
