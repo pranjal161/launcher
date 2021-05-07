@@ -5,7 +5,7 @@ import { ApplicationContext } from "context/applicationContext";
 import ContractTable from "components/ContractTable/ContractTable";
 import {DxcHeading} from '@dxc-technology/halstack-react';
 import Table from "components/Table/Table";
-import axios from "axios";
+import useAia from "data/hooks/useAia";
 import { useTranslation } from "react-i18next";
 
 const ContractRoles = (props: { clientUrl: string }) => {
@@ -16,6 +16,7 @@ const ContractRoles = (props: { clientUrl: string }) => {
     const [quoteUrl, setQuoteUrl] = useState('');
     const [propositionUrl, setPropositionUrl] = useState('');
     const [contractData, setContractData] = useState({});
+    const { fetch } = useAia();
     const offerListColumns = [
         { label: '_OFFER_IDENTIFIER', property: 'contract:offer_number' },
         { label: '_PRODUCT_IDENTIFIER', property: 'contract:product_identifier' },
@@ -91,7 +92,7 @@ const ContractRoles = (props: { clientUrl: string }) => {
     }, [applicationContext, props.clientUrl]);
 
     const fetchContractData = (contractHref: string) => {
-        axios.get(contractHref, { headers: applicationContext.headers }).then((response) => {
+        fetch(contractHref).then((response:any) => {
             if (response && response.data['_links']['item']) {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];

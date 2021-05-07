@@ -6,8 +6,8 @@ import { EyeIcon } from 'assets/svg';
 import Paginator from "components/Paginator/Paginator";
 import { StyledButton } from 'styles/global-style';
 import { SwitchSummary } from '../SwitchSummary/SwitchSummary';
-import axios from 'axios';
 import { getDescriptionValue } from 'util/functions';
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -23,7 +23,7 @@ const SwitchTable = (props: { url: undefined | string }) => {
     const [isSwitchDialogVisible, setSwitchDialogVisible] = useState(false);
     const [switchData, setSwitchData] = useState<undefined | any>();
     const [switchCount, setSwitchCount] = useState(0);
-
+    const { fetch } = useAia();
 
     const switchListColumns = [
         { label: '_OPERATION', property: 'switch:type_label' },
@@ -53,7 +53,7 @@ const SwitchTable = (props: { url: undefined | string }) => {
     function getOperationItems(url: string) {
         if (url) {
             const tableUrl = url + '?_num=5';
-            axios.get(tableUrl, { headers: applicationContext.headers }).then((getResponse) => {
+            fetch(tableUrl).then((getResponse:any) => {
                 if (getResponse && getResponse.data['_links']['item']) {
                     if (!Array.isArray(getResponse.data['_links']['item'])) {
                         getResponse.data['_links']['item'] = [getResponse.data['_links']['item']];

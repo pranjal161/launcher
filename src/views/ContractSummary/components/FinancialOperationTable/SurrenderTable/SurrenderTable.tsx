@@ -6,8 +6,8 @@ import { EyeIcon } from 'assets/svg';
 import Paginator from "components/Paginator/Paginator";
 import { StyledButton } from 'styles/global-style';
 import { SurrenderSummary } from '../SurrenderSummary/SurrenderSummary';
-import axios from 'axios';
 import { getDescriptionValue } from 'util/functions';
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -23,7 +23,7 @@ const SurrenderTable = (props: { url: undefined | string }) => {
     const [isSurrenderDialogVisible, setSurrenderDialogVisible] = useState(false);
     const [surrenderData, setSurrenderData] = useState<undefined | any>();
     const [surrenderCount, setSurrenderCount] = useState(0);
-
+    const { fetch } = useAia();
     const surrenderListColumns = [
         { label: '_OPERATION', property: 'surrender:type' },
         { label: '_EFFECTIVE_DATE', property: 'operation:value_date', type: 'date' },
@@ -52,7 +52,7 @@ const SurrenderTable = (props: { url: undefined | string }) => {
     function getOperationItems(url: string) {
         if (url) {
             const tableUrl = url + '?_num=5';
-            axios.get(tableUrl, { headers: applicationContext.headers }).then((getResponse) => {
+            fetch(tableUrl).then((getResponse: any) => {
                 if (getResponse && getResponse.data['_links']['item']) {
                     if (!Array.isArray(getResponse.data['_links']['item'])) {
                         getResponse.data['_links']['item'] = [getResponse.data['_links']['item']];

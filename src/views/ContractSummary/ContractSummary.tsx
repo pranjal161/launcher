@@ -15,9 +15,9 @@ import InvestmentTab from 'views/ContractSummary/components/InvestmentTab/Invest
 import PartyRoleTable from 'views/ContractSummary/components/PartyRoleTable/PartyRoleTable';
 import RiskTable from 'views/ContractSummary/components/RiskTable/RiskTable';
 import UnsolicitedPayment from 'views/ContractSummary/components/UnsolicitedPayment/UnsolicitedPayment';
-import axios from "axios";
 import { getLink } from 'util/functions';
 import useActivity from "hooks/useActivity";
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line valid-jsdoc
@@ -25,8 +25,8 @@ import { useTranslation } from 'react-i18next';
  * Retrieve information and return the summary of a contract
  * @returns {*} Display the summary of a contract
  */
-const ContractSummary = (props:{hRef:any}) => {
-    const {startActivity} = useActivity()
+const ContractSummary = (props: { hRef: any }) => {
+    const { startActivity } = useActivity()
 
     const { t } = useTranslation();
     const sections = [
@@ -53,7 +53,7 @@ const ContractSummary = (props:{hRef:any}) => {
     const [outputDoc, setOutputDoc] = useState('');
     const [receivedDoc, setReceivedDoc] = useState('');
     const [stateUrl, setStateUrl] = useState<undefined | string>();
-
+    const { fetch } = useAia();
     const onActionChange = (newValue: string) => {
         if (newValue === 'unsolicitedPayment') {
             createunsollicitedPayment();
@@ -64,20 +64,20 @@ const ContractSummary = (props:{hRef:any}) => {
         setContractUrl(newValue);
     }
 
-    useEffect(() => {        
+    useEffect(() => {
         startActivity();
         getData(props.hRef);
     }, [applicationContext, contractUrl, props.hRef]);
 
-    const getData = async (contractUrl: string) => {
-        await axios.get(contractUrl, { headers: applicationContext.headers }).then((result) => {
+    const getData = (contractUrl: string) => {
+        fetch(contractUrl).then((result: any) => {
             setContractData(result.data);
             getRiskData(result.data._links);
             manageSectionVisibility(result.data);
             if (result.data._links && result.data._links['contract:role_list']) {
                 const partyUrl: string =
                     result.data._links['contract:role_list'].href + '?_inquiry=e_contract_parties_view';
-                axios.get(partyUrl, { headers: applicationContext.headers }).then((partyRoleRes) => {
+                fetch(partyUrl).then((partyRoleRes: any) => {
                     if (partyRoleRes && partyRoleRes.data._links && partyRoleRes.data._links.item) {
                         setPartyRoleData(partyRoleRes.data._links.item);
                         if (getLink(result.data, 'cscaia:states')) {
@@ -103,7 +103,7 @@ const ContractSummary = (props:{hRef:any}) => {
     const getRiskData = (data: { [x: string]: any }) => {
         if (data && data['contract:membership_list']) {
             const risks: string = data['contract:membership_list'].href;
-            axios.get(risks, { headers: applicationContext.headers }).then((riskResponse) => {
+            fetch(risks).then((riskResponse: any) => {
                 if (riskResponse && riskResponse.data && riskResponse.data._links && riskResponse.data._links.item) {
                     if (!Array.isArray(riskResponse.data._links.item)) {
                         riskResponse.data._links.item = [riskResponse.data._links.item];
@@ -142,7 +142,7 @@ const ContractSummary = (props:{hRef:any}) => {
 
     const createunsollicitedPayment = () => {
         const operationUrl = contractUrl + '/operations';
-        axios.get(operationUrl, { headers: applicationContext.headers }).then((operationRes) => {
+        fetch(operationUrl).then((operationRes: any) => {
             if (operationRes && operationRes.data._links && operationRes.data._links['item']) {
                 const operationItem = operationRes.data._links['item'];
                 const payment = operationItem.find((item: { name: string }) => item.name === 'unsolicited_payment');
@@ -159,10 +159,10 @@ const ContractSummary = (props:{hRef:any}) => {
         const productType = contract['contract:product_type'];
         if (productType === 'multi_risk') {
             newSections = sections.filter((item) => item.id !== 'investment' && item.id !== 'coverages');
-        } 
+        }
         else if (productType !== 'savings') {
             newSections = sections.filter((item) => item.id !== 'investment' && item.id !== 'risks');
-        } 
+        }
         else if (productType === 'savings') {
             newSections = sections.filter((item) => item.id !== 'risks');
         }

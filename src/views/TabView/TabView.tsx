@@ -12,10 +12,10 @@ const TabView = () => {
             content = <TicketView key={selectedTab.id} id={selectedTab.id} />
             break;
         case 'contract':
-            content = <ContractView hRef={selectedTab.id} />
+            content = <ContractView key={selectedTab.id} hRef={selectedTab.id} />
             break;
         case 'client':
-            content = <ClientView hRef={selectedTab.id} />
+            content = <ClientView key={selectedTab.id} hRef={selectedTab.id} />
             break;
         default:
             break;
