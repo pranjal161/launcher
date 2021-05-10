@@ -29,7 +29,7 @@ function copyStyles(sourceDoc: Document, targetDoc: Document) {
     // be managed with styled-components StyleSheetManager
     for(let i = 0; i < sourceStyles.length; i++) {
         if(sourceStyles[i].dataset &&
-           sourceStyles[i].dataset.styled == "active") {
+           sourceStyles[i].dataset.styled === "active") {
             indexStyledComponents = i;
             break;
         }

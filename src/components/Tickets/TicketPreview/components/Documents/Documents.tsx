@@ -39,7 +39,7 @@ const Documents = (props: { documents: any; }) => {
             </li>
             {docOpen && content && (
                 <DxcDialog padding="medium" onCloseClick={onClickDialog}>
-                    <iframe src={content} id="doc-preview" />
+                    <iframe title={'PREVIEW'} src={content} id="doc-preview" />
                 </DxcDialog>
             )}
         </div> 

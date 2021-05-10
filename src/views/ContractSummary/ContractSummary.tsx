@@ -67,7 +67,7 @@ const ContractSummary = (props: { hRef: any }) => {
     useEffect(() => {
         startActivity();
         getData(props.hRef);
-    }, [applicationContext, contractUrl, props.hRef]);
+    }, [applicationContext, contractUrl]);
 
     const getData = (contractUrl: string) => {
         fetch(contractUrl).then((result: any) => {

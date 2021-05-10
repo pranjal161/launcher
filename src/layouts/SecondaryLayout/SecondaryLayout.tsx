@@ -9,7 +9,7 @@ const SecondaryLayout = (props: { route: any }) => (
 )
 
 SecondaryLayout.propTypes = {
-    route: PropTypes.string,
+    route: PropTypes.object,
 }
 
 export default SecondaryLayout;

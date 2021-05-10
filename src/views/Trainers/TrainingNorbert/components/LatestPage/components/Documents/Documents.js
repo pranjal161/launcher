@@ -14,7 +14,7 @@ const Documents = ({ticketId}) => {
     return (
         <ul className="list-group" key="DocumentList">
             {documents && Object.values(documents).map((document) => <li className="list-group-item" key={document.name}>
-                <a href="" onClick={(e) => viewDocument(e, document.url)} >{document.name}</a>
+                <a href="/#" onClick={(e) => viewDocument(e, document.url)} >{document.name}</a>
             </li>)}
         </ul>
     );
