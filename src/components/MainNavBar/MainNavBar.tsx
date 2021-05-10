@@ -104,7 +104,7 @@ const MainNavBar = () => {
     const location = useLocation();
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
-    const [primaryTabSelected, setPrimaryTabSelected] = useState<number>(-1);
+    const [primaryTabSelected, setPrimaryTabSelected] = useState<number | null>(null);
     let isWindowOpen = useSelector((state:any) => state.popupWindow.isPopupWindowWithTabsOpened);
     let dispatch = useDispatch();
 
@@ -163,7 +163,7 @@ const MainNavBar = () => {
     useEffect(() => {
         if(location.pathname) {
             let indexFound: number = TabbedLinksArray.findIndex((elem) => elem.path === location.pathname);
-            setPrimaryTabSelected(indexFound);
+            indexFound === -1 ? setPrimaryTabSelected(null): setPrimaryTabSelected(indexFound);
         }
     }, [location.pathname]);
 

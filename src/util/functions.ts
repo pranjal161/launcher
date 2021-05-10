@@ -2,11 +2,11 @@ import { AppConfig } from '../config/appConfig';
 import axios from 'axios';
 
 export const aia = {
-    // We need to include header parameter & if not present we pick the default headers
-    get: (url: string) => axios.get(url, { headers: AppConfig.headers }),
-    post: (url: string, body: Object) => axios.post(url, body, { headers: AppConfig.headers }),
-    patch: (url: string, payload: Object) => axios.patch(url, payload, { headers: AppConfig.headers }),
-    delete: (url: string) => axios.delete(url, { headers: AppConfig.headers })
+    // Params can be used to pass additional parameter to the request, in case we need change in headers, responseType etc
+    get:(url : string, params?: { headers?: any; }) => axios.get(url, { headers: params && params.headers ? params.headers: AppConfig.headers }),
+    post:(url:string, body: Object, params?: { headers?: any; }) => axios.post(url, body, { headers:params && params.headers ? params.headers: AppConfig.headers }),
+    patch:(url: string, payload: Object, params?: { headers?: any; }) => axios.patch(url, payload, { headers: params && params.headers ? params.headers: AppConfig.headers }),
+    delete:(url:string,params?: { headers?: any; }) => axios.delete(url, { headers: params && params.headers ? params.headers: AppConfig.headers })
 }
 
 
