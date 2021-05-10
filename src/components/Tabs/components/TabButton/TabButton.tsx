@@ -16,6 +16,7 @@ const TabButtonComponent = styled.div`
     background-color: ${(props) => (props.isNavBar ? '#F4F6F9' : '#FFFFFF')};
     ${(props) => (props.isNavBar ? 'border-right: solid 1px #DBE3EC;' : '')}
     transition: all .5s ease;
+    max-width: 180px;
 
     &::after {
         content: "";
@@ -48,6 +49,9 @@ const TabButtonComponent = styled.div`
         text-align: left;
         padding-left: 5px;
         padding-right: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 `;
 
@@ -83,7 +87,7 @@ const TabButton = ( props : {
             onClick={onTabClick}
             minWidth={minWidth}
             isNavBar={isNavBar}>
-            <div>
+            <div title={label}>
                 <span>{label}</span>
                 <span 
                     data-test="close-icon"

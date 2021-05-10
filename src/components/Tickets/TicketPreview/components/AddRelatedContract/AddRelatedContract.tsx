@@ -18,7 +18,7 @@ const AddRelatedContract = (props: any) => {
         const client = {
             id: data.summary['contract:number'],
             hRef: data.href,
-            title: data.title
+            title: data.summary['contract:number'] + '/' + data.summary['contract:product_label']
         };
         addRelatedContract(ticketId, client);
         setOpenDialog(false);

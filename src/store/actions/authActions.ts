@@ -12,7 +12,8 @@ export const signUp = (newUser: any) => (dispatch: any, getState: any, {getFireb
             // Create a user document in firestore with the same id as the user in firebase.auth()
             return firestore.collection('users').doc(resp.user.uid).set({
                 ...newUser,
-                initials: (newUser.firstName[0] + newUser.lastName[0]).toUpperCase()
+                initials: (newUser.firstName[0] + newUser.lastName[0]).toUpperCase(),
+                displayName :newUser.firstName + ' ' + newUser.lastName
             })
         }).then(() => {
             dispatch({type: 'SIGNUP_SUCCESS', result})

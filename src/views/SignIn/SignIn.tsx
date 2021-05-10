@@ -34,7 +34,7 @@ const SignIn = () => {
                             ref={passwordRef}/>
                     </div>
                     <button className="m-2">Submit</button>
-                    <button className="m-2"><NavLink to="/signup">Sign Up</NavLink></button>
+                    <button className="m-2"><NavLink to="/auth/signup">Sign Up</NavLink></button>
                     {errorMessage && <div className="alert alert-danger mt-2" role="alert">{errorMessage}</div>}
                 </form>
             </div>
