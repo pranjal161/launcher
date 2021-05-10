@@ -3,10 +3,10 @@ import axios from 'axios';
 
 export const aia = {
     // Params can be used to pass additional parameter to the request, in case we need change in headers, responseType etc
-    get:(url : string, params?: { headers?: any; }) => axios.get(url, { headers: params && params.headers ? params.headers: AppConfig.headers }),
-    post:(url:string, body: Object, params?: { headers?: any; }) => axios.post(url, body, { headers:params && params.headers ? params.headers: AppConfig.headers }),
-    patch:(url: string, payload: Object, params?: { headers?: any; }) => axios.patch(url, payload, { headers: params && params.headers ? params.headers: AppConfig.headers }),
-    delete:(url:string,params?: { headers?: any; }) => axios.delete(url, { headers: params && params.headers ? params.headers: AppConfig.headers })
+    get: (url: string, params?: { headers?: any; }) => axios.get(url, { headers: params && params.headers ? params.headers : AppConfig.headers }),
+    post: (url: string, body: Object, params?: { headers?: any; }) => axios.post(url, body, { headers: params && params.headers ? params.headers : AppConfig.headers }),
+    patch: (url: string, payload: Object, params?: { headers?: any; }) => axios.patch(url, payload, { headers: params && params.headers ? params.headers : AppConfig.headers }),
+    delete: (url: string, params?: { headers?: any; }) => axios.delete(url, { headers: params && params.headers ? params.headers : AppConfig.headers })
 }
 
 
@@ -279,6 +279,17 @@ export const isFieldCreatable = (response: any) => {
     return false;
 }
 
+export const isFieldDeletable = (response: any) => {
+    if (response && response['_options'] && response['_options']['links']) {
+        const deleteLink = response['_options']['links'].find((item: any) => item.method === 'DELETE');
+        if (deleteLink.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
 export const hasRelInOptions = (response: any, rel: string): boolean => response && response._options && response._options['links'] && response['_options']['links'].find((item: any) => item.rel === rel)
 
 export const hasMethodInOptions = (response: any, method: string): boolean => response && response._options && response._options['links'] && response['_options']['links'].find((item: any) => item.method === method)
@@ -286,3 +297,49 @@ export const hasMethodInOptions = (response: any, method: string): boolean => re
 export const isSaveOperationAvailable = (resource: any): boolean => getLink(resource, 'cscaia:save')
 
 
+export const getTitle = (response: any) => {
+    if (response &&
+        response._links &&
+        response._links['self'] &&
+        response._links['self'].title) {
+        return response._links['self'].title;
+    } else {
+        return null;
+    }
+}
+
+export const getMinLength = (response: any, propertyName: string) => {
+    if (response && response['_options'] &&
+        response['_options']['properties'] &&
+        response['_options']['properties'][propertyName] &&
+        response['_options']['properties'][propertyName].minLength) {
+        return response['_options']['properties'][propertyName].minLength;
+    }
+}
+
+export const getMaxLength = (response: any, propertyName: string) => {
+    if (response && response['_options'] &&
+        response['_options']['properties'] &&
+        response['_options']['properties'][propertyName] &&
+        response['_options']['properties'][propertyName].maxLength) {
+        return response['_options']['properties'][propertyName].maxLength;
+    }
+}
+
+export const getMinValue = (response: any, propertyName: string) => {
+    if (response && response['_options'] &&
+        response['_options']['properties'] &&
+        response['_options']['properties'][propertyName] &&
+        response['_options']['properties'][propertyName].minimum) {
+        return response['_options']['properties'][propertyName].minimum;
+    }
+}
+
+export const getMaxValue = (response: any, propertyName: string) => {
+    if (response && response['_options'] &&
+        response['_options']['properties'] &&
+        response['_options']['properties'][propertyName] &&
+        response['_options']['properties'][propertyName].maximum) {
+        return response['_options']['properties'][propertyName].maximum;
+    }
+}
