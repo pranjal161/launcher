@@ -3,11 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Table from "components/Table/Table";
-import axios from 'axios';
+import useAia from 'data/hooks/useAia';
 
 const FinancialTable = (props: { clientUrl: any }) => {
     const applicationContext = useContext(ApplicationContext);
     const [premiumUrl, setPremiumUrl] = useState('');
+    const { fetch } = useAia();
     let client_number;
     let premium;
     const financialDataColumns = [
@@ -26,7 +27,7 @@ const FinancialTable = (props: { clientUrl: any }) => {
 
     const getData = () => {
         if (props.clientUrl) {
-            axios.get(props.clientUrl, { headers: applicationContext.headers }).then((res) => {
+            fetch(props.clientUrl).then((res: any) => {
                 if (props.clientUrl.includes('persons')) {
                     client_number = res.data['person:client_number'];
                     premium =

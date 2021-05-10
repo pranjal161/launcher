@@ -4,14 +4,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { ApplicationContext } from "context/applicationContext";
 import Document from 'assets/description.png';
 import Tooltip from '@material-ui/core/Tooltip';
-import axios from 'axios';
 import { getDescriptionValue } from "util/functions";
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from "react-i18next";
 
 const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
     const applicationContext = useContext(ApplicationContext);
     const [outputDocData, setOutputDocData] = useState<undefined | any>();
     const { t } = useTranslation();
+    const { fetch } = useAia();
     const [receivedDocData, setReceivedDocData] = useState<undefined | any>();
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
 
     const getDocuments = () => {
         if (props.outputDoc) {
-            axios.get(props.outputDoc, { headers: applicationContext.headers }).then((response) => {
+            fetch(props.outputDoc).then((response: any) => {
                 if (response && response.data._links && response.data._links.item) {
                     if (!Array.isArray(response.data['_links']['item'])) {
                         response.data['_links']['item'] = [response.data['_links']['item']];
@@ -30,7 +31,7 @@ const Documents = (props: { outputDoc: string; receivedDoc: string }) => {
             });
         }
         if (props.receivedDoc) {
-            axios.get(props.receivedDoc, { headers: applicationContext.headers }).then((response) => {
+            fetch(props.receivedDoc).then((response: any) => {
                 if (response && response.data._links && response.data._links.item) {
                     if (!Array.isArray(response.data['_links']['item'])) {
                         response.data['_links']['item'] = [response.data['_links']['item']];

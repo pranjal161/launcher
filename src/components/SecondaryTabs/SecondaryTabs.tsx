@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
 import TabButton from '../Tabs/components/TabButton/TabButton';
-
 import styled from 'styled-components';
 
 const TabsButtonsContainer = styled.div`
@@ -33,8 +32,8 @@ const SecondaryTabs = () => {
        displayedTabsArray.length == 0)
         displaySecTabs = false;
     
-    const changeSecTab = (tabId:string) => {
-        dispatch(navBarTabsActions.setSelectedNavBarTabByID(tabId, "ticket"));
+    const changeSecTab = (tabId:string, type:string) => {
+        dispatch(navBarTabsActions.setSelectedNavBarTabByID(tabId, type));
         // if the current page opened isn't viewTab, go to it.
         if(location.pathname !== '/viewTab')
             history.push('/viewTab');
@@ -60,7 +59,7 @@ const SecondaryTabs = () => {
                             isActive={selectedTabObject.id === tabId}
                             tabId={tabId}
                             label={displayedTabsObject[tabId].displayLabel}
-                            onTabClick={() => changeSecTab(tabId)}
+                            onTabClick={() => changeSecTab(tabId, displayedTabsObject[tabId].type)}
                             onTabCloseClick={closeSecTab}
                             minWidth="150px"
                             isNavBar={true}
