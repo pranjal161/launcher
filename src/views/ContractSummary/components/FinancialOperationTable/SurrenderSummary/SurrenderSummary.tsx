@@ -1,12 +1,11 @@
 import { DxcHeading, DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 
-import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
 import Label from 'components/Label/Label';
-import axios from 'axios';
 import { formatValue } from 'util/functions';
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from 'react-i18next';
 
 export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
@@ -15,16 +14,16 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
     const [surrenderResponse, setSurrenderResponse] = useState<Array<any>>([]);
     let surrenderRes: any;
     const applicationContext = useContext(ApplicationContext);
-    const config = AppConfig;
     const [chartData, setChartData] = useState<Array<any>>([]);
     let disinvestmentSplitItem:any[] = [];
+    const { fetch } = useAia();
 
     useEffect(() => {
         getData();
     }, [applicationContext]);
 
     const getData = () => {
-        axios.get(props.surrenderSummaryHref, { headers: config.headers }).then((res: any) => {
+        fetch(props.surrenderSummaryHref).then((res: any) => {
             surrenderRes = res.data;
             setSurrenderResponse(res.data);
             const disinvestmentSplitListItems: any = res.data && res.data['disinvestment_split'] && Array.isArray(res.data['disinvestment_split']) ? res.data['disinvestment_split'] :
@@ -35,7 +34,7 @@ export const SurrenderSummary = (props: { surrenderSummaryHref: string }) => {
                 disinvestmentSplitListItems.forEach((element: any) => {
                     if (element && element['allocation:coverage_fund']) {
                         disinvestmentSplitItem.push(element);
-                        disinvestmentSplitElement.push(axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }));
+                        disinvestmentSplitElement.push(fetch(element['allocation:coverage_fund']));
                     }
                 });
                 Promise.all(disinvestmentSplitElement).then((disinvestmentRes) => {

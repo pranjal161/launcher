@@ -25,8 +25,6 @@ const SelectEntity = (props: {entities: any, value:any, onChange:any}) => {
             options={options}
             value={currentValue}
             onChange={onChange}
-            padding={{left: 0, bottom: 0, top: 0, right: 0}}
-            margin={{left: 0, bottom: 0, top: 0, right: 0}}
         />}
     </>
     )
@@ -34,7 +32,7 @@ const SelectEntity = (props: {entities: any, value:any, onChange:any}) => {
 
 SelectEntity.propTypes =
     {
-        entities: PropTypes.array,
+        entities: PropTypes.object,
         value: PropTypes.string,
         onChange: PropTypes.func,
     }

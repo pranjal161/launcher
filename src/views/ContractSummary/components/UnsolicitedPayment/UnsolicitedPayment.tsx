@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 
 import {AlertContext} from "context/alertContext";
 import { ApplicationContext } from "context/applicationContext";
-import axios from "axios";
 import { getStatusReport } from "util/functions";
+import useAia from "data/hooks/useAia";
 import { useTranslation } from "react-i18next";
 
 const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) => {
@@ -16,6 +16,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
     const [investmentSplitPayload, setInvestmentSplitPayload] = useState<any>([]);
     const { t } = useTranslation();
     const alertContext = useContext(AlertContext);
+    const { fetch, post, patch } = useAia();
 
     useEffect(() => {
         investmentSplitData();
@@ -23,14 +24,14 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
 
     const investmentSplitData = () => {
         const requestArray: any[] = [];
-        axios.post(url, {}, { headers: applicationContext.headers }).then((res) => {
+        post(url, {}).then((res: any) => {
             if (res && res.data) {
                 let data = res.data['investment_split'];
                 setOperationAmount(res.data['operation:amount']);
                 data.forEach((element: { [x: string]: any }) => {
                     if (element['allocation:coverage_fund']) {
                         requestArray.push(
-                            axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }),
+                            fetch(element['allocation:coverage_fund']),
                         );
                     }
                 });
@@ -107,7 +108,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
             investment_split: investmentSplitPayload,
         };
         
-        axios.patch(url, payload, { headers: applicationContext.headers }).then((res) => {
+        patch(url, payload).then((res: any) => {
             const status_report = getStatusReport(res);
             alertContext.setToastList(status_report);
             
@@ -119,7 +120,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
                 if (res.data._embedded['cscaia:execute']) {
                     const transferUrl = url + '/execute';
                     
-                    axios.post(transferUrl, {}, { headers: applicationContext.headers }).then((res) => {
+                    post(transferUrl, {}).then(() => {
                         props.onClickDialog();
                     });
                 }
@@ -131,7 +132,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
         const payload = {
             'operation:amount': parseInt(value),
         };
-        axios.patch(url, payload, { headers: applicationContext.headers }).then(() => {
+        patch(url, payload).then(() => {
             setOperationAmount(parseInt(value));
         });
     };

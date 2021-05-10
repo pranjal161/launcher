@@ -4,55 +4,33 @@ import { StyledButton, StyledHoverRow } from 'styles/global-style';
 import { ApplicationContext } from "context/applicationContext";
 import { DxcTable } from "@dxc-technology/halstack-react";
 import { EyeIcon } from 'assets/svg';
-import axios from "axios";
+import { getLink } from 'util/functions';
+import useAia from 'data/hooks/useAia';
+import useDeskTickets from 'data/hooks/useDeskTickets';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const PartyRoleTable = (props: { roles: Array<any> }) => {
     const { t } = useTranslation();
     const history = useHistory();
+    const { openInNewTab } = useDeskTickets();
     const applicationContext = useContext(ApplicationContext);
-
+    const { fetch } = useAia();
     useEffect(() => {
         // Nothing to do
-    }, 
-    [props.roles, applicationContext]
+    },[props.roles, applicationContext]
     );
-    
+
     const goToClientView = (item: any) => {
-        axios.get(item.href, { headers: applicationContext.headers }).then((partyRoleResponse) => {
-            if (
-                partyRoleResponse &&
-                partyRoleResponse.data._links &&
-                partyRoleResponse.data._links['party_role:person'] &&
-                partyRoleResponse.data._links['party_role:person'].href
-            ) {
-                axios
-                    .get(partyRoleResponse.data._links['party_role:person'].href, {
-                        headers: applicationContext.headers,
-                    })
-                    .then((personResponse) => {
-                        if (personResponse && personResponse.data['person:client_number'])
-                            history.push('/ClientView/person/' + personResponse.data['person:client_number'], {
-                                clientData: personResponse.data,
-                            });
-                    });
-            } else if (
-                partyRoleResponse &&
-                partyRoleResponse.data._links &&
-                partyRoleResponse.data._links['party_role:organization'] &&
-                partyRoleResponse.data._links['party_role:organization'].href
-            ) {
-                axios
-                    .get(partyRoleResponse.data._links['party_role:organization'].href, {
-                        headers: applicationContext.headers,
-                    })
-                    .then((orgResponse) => {
-                        if (orgResponse && orgResponse.data['organization:client_number'])
-                            history.push('/ClientView/organization/' + orgResponse.data['organization:client_number'], {
-                                clientData: orgResponse.data,
-                            });
-                    });
+        fetch(item.href).then((partyRoleResponse:any) => {
+            if (getLink(partyRoleResponse.data, 'party_role:person')) {
+                const clientUrl = getLink(partyRoleResponse.data, 'party_role:person')
+                openInNewTab(clientUrl, partyRoleResponse.data._links['self'].title, 'client')
+                history.push('/viewTab')
+            } else if (getLink(partyRoleResponse.data, 'party_role:organization')) {
+                const clientUrl = getLink(partyRoleResponse.data, 'party_role:organization')
+                openInNewTab(clientUrl, partyRoleResponse.data._links['self'].title, 'client')
+                history.push('/viewTab')
             }
         });
     };

@@ -2,11 +2,10 @@ import { DxcHeading, DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { formatValue, getDescriptionValue } from 'util/functions';
 
-import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
 import Label from 'components/Label/Label';
-import axios from 'axios';
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -20,9 +19,9 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
     const [premiumResponse, setPremiumResponse] = React.useState();
     const [investmentFundsResItems, setInvestmentFundsResItems] = React.useState([]);
     const applicationContext = useContext(ApplicationContext);
-    const config = AppConfig;
     let investmentFundsPayload: any[] = [];
     const [chartData, setChartData] = useState<Array<any>>([]);
+    const { fetch } = useAia();
 
     useEffect(() => {
         getData();
@@ -30,7 +29,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
 
     const getData = () => {
         if (props.premiumSummaryHref) {
-            axios.get(props.premiumSummaryHref, { headers: config.headers }).then((res: any) => {
+            fetch(props.premiumSummaryHref).then((res: any) => {
                 setPremiumResponse(res.data);
                 if (res && res.data && res.data['investment_split']) {
                     let investmentFundsRes = res.data['investment_split'];
@@ -58,7 +57,7 @@ export const PremiumSummary = (props: { premiumSummaryHref: string }) => {
         data.forEach((element: any) => {
             if (element['allocation:coverage_fund']) {
                 const fundsUrl = element['allocation:coverage_fund'];
-                investmentFunds.push(axios.get(fundsUrl, { headers: applicationContext.headers }));
+                investmentFunds.push(fetch(fundsUrl));
             }
         });
 

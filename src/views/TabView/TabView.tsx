@@ -1,4 +1,5 @@
-import ContractView from "components/Contracts/ContractView/ContractView";
+import ClientView from "views/Activities/ClientView/ClientView";
+import ContractView from "views/Activities/ContractView/ContractView";
 import React from 'react';
 import TicketView from "components/Tickets/TicketView/TicketView";
 import {useSelector} from "react-redux";
@@ -11,9 +12,10 @@ const TabView = () => {
             content = <TicketView key={selectedTab.id} id={selectedTab.id} />
             break;
         case 'contract':
-            content = <ContractView hRef={selectedTab.id} />
+            content = <ContractView key={selectedTab.id} hRef={selectedTab.id} />
             break;
         case 'client':
+            content = <ClientView key={selectedTab.id} hRef={selectedTab.id} />
             break;
         default:
             break;

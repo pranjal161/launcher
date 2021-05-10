@@ -24,7 +24,7 @@ const AuthLayout= (props: { route: { routes: any[]; }; }) => {
 }
 
 AuthLayout.propTypes = {
-    route: PropTypes.string
+    route: PropTypes.object
 }
 
 export default AuthLayout;

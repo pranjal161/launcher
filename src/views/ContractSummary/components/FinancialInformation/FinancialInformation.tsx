@@ -4,6 +4,7 @@ import { ApplicationContext } from 'context/applicationContext';
 import Label from "components/Label/Label";
 import axios from 'axios';
 import { getLink } from 'util/functions';
+import useAia from 'data/hooks/useAia';
 
 //import { useTranslation } from 'react-i18next';
 
@@ -16,6 +17,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
     const [bankAccountDetails, setScheduledSurrenderBankAccountDetails] = React.useState<undefined | any>();
     const [beneficiaryPerson, setBeneficiaryPerson] = React.useState<undefined | any>();
     const [billingList, setBillingList] = React.useState<undefined | any>();
+    const { fetch } = useAia();
 
     useEffect(() => {
         getData();
@@ -29,13 +31,14 @@ const FinancialInformation = (props: { contractResponse: any }) => {
             const billingListItem = getLink(props.contractResponse, 'contract:billing_list');
 
             // to add 'contract:billing_list'
-            axios.get(scheduledPaymentListUrl, { headers: applicationContext.headers }).then((itemsList) => {
+            // need to check how to split this component
+            fetch(scheduledPaymentListUrl).then((itemsList:any) => {
                 if (itemsList && itemsList.data['_links'] && itemsList.data['_links'].item) {
                     setScheduledPayment(itemsList.data['_links'].item[0]);
                 }
             });
 
-            axios.get(contractExtensionList, { headers: applicationContext.headers }).then((response) => {
+            fetch(contractExtensionList).then((response: any) => {
                 if (
                     response &&
                     response.data['_links'] &&
@@ -43,27 +46,26 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                     response.data['_links'].item[0] &&
                     response.data['_links'].item[0].href
                 ) {
-                    axios
-                        .get(response.data['_links'].item[0].href, { headers: applicationContext.headers })
-                        .then((res) => {
+                    fetch(response.data['_links'].item[0].href)
+                        .then((res:any) => {
                             setBillingItem(res.data);
                         });
                 }
             });
 
-            axios.get(scheduledSurrenderList, { headers: applicationContext.headers }).then((res) => {
+            fetch(scheduledSurrenderList).then((res:any) => {
                 if (res && res.data['_links'] && res.data['_links'].item) {
                     const scheduledSurrender = !Array.isArray(res.data['_links'].item)
                         ? [res.data['_links'].item][0]
                         : res.data['_links'].item[0];
-                    axios.get(scheduledSurrender.href, { headers: applicationContext.headers }).then((response) => {
+                    fetch(scheduledSurrender.href).then((response:any) => {
                         setScheduledSurrender(response.data);
                         const bankAccountLink = getLink(response.data, 'billing:bank_account');
                         const beneficiaryPersonLink = getLink(response.data, 'billing:beneficiary_person');
-                        axios.get(bankAccountLink, { headers: applicationContext.headers }).then((response) => {
+                        fetch(bankAccountLink).then((response:any) => {
                             setScheduledSurrenderBankAccountDetails(response.data);
                         });
-                        axios.get(beneficiaryPersonLink, { headers: applicationContext.headers }).then((res) => {
+                        fetch(beneficiaryPersonLink).then((res:any) => {
                             setBeneficiaryPerson(res.data);
                         });
                     });

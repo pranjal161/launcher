@@ -31,7 +31,7 @@ const MyTickets = () => {
     }, [tickets])
 
     const getAllFilteredTickets = (status: string) => {
-        if (status == "all NewTicket" || status == undefined) {
+        if (status === "all NewTicket" || status === undefined) {
             setFilteredTickets(tickets);
         } else {
             const selectedTicketArray = tickets && tickets.filter((ticket: { status: any; }) => ticket.status === status);
@@ -43,7 +43,7 @@ const MyTickets = () => {
     const setTicketCount = () => {
         let countArray: any = {};
         sideNavItems && sideNavItems.map((sideNavItem: any) => {
-            if (sideNavItem.status == 'all NewTicket') {
+            if (sideNavItem.status === 'all NewTicket') {
                 countArray[sideNavItem.status] = tickets && tickets.length;
             } else {
                 const ticketsInsideItem = tickets && tickets.filter((ticket: { status: any; }) => ticket.status === sideNavItem.status);

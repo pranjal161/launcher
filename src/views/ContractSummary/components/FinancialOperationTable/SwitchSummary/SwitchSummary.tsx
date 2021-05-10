@@ -1,12 +1,11 @@
 import { DxcHeading, DxcTable } from '@dxc-technology/halstack-react';
 import React, { useContext, useEffect, useState } from 'react';
 
-import { AppConfig } from 'config/appConfig';
 import { ApplicationContext } from 'context/applicationContext';
 import Chart from 'components/Chart/Chart';
 import Label from 'components/Label/Label';
-import axios from 'axios';
 import { formatValue } from 'util/functions';
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from "react-i18next";
 
 export const SwitchSummary = (props: { switchSummaryHref: string }) => {
@@ -16,14 +15,14 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
     const [investmentSplitList, setinvestmentSplitList] = useState<Array<any>>([]);
     const [chartData, setChartData] = useState<Array<any>>([]);
     let investmentSplit: any[] = [];
-    const config = AppConfig;
+    const { fetch } = useAia();
 
     useEffect(() => {
         getData();
     }, [applicationContext]);
 
     const getData = () => {
-        axios.get(props.switchSummaryHref, { headers: config.headers }).then((res: any) => {
+        fetch(props.switchSummaryHref).then((res: any) => {
             setSwitchResponse(res.data);
 
             const investmentSplitListItems: any = res.data && res.data['investment_split'] && Array.isArray(res.data['investment_split']) ? res.data['investment_split'] :
@@ -35,7 +34,7 @@ export const SwitchSummary = (props: { switchSummaryHref: string }) => {
                 investmentSplitListItems.forEach((element: any) => {
                     if (element && element['allocation:coverage_fund']) {
                         investmentSplit.push(element);
-                        investmentSplitElement.push(axios.get(element['allocation:coverage_fund'], { headers: applicationContext.headers }));
+                        investmentSplitElement.push(fetch(element['allocation:coverage_fund']));
                     }
                 });
                 Promise.all(investmentSplitElement).then((investmentRes: any) => {

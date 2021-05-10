@@ -159,14 +159,14 @@ const InvestmentTab = (props: { mainRiskUrl: string }) => {
                 <>
                     <DxcTable>
                         <tr>
-                            {unitLinkedFundColumns.map((item) => (
-                                <th key={item.label}>{t(item.label)}</th>
+                            {unitLinkedFundColumns.map((item, index) => (
+                                <th key={item.label+index}>{t(item.label)}</th>
                             ))}
                         </tr>
                         {unitBasedFund.map((row) => (
                             <tr key={row['href']}>
-                                {unitLinkedFundColumns.map((item) => (
-                                    <td key={item.label}>
+                                {unitLinkedFundColumns.map((item, index) => (
+                                    <td key={item.label+index}>
                                         {getDescriptionValue(
                                             row.element['summary'][item.property],
                                             item.property,

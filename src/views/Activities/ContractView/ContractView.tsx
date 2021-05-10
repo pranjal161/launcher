@@ -9,9 +9,9 @@ import withActivity from "hoc/withActivity";
  * pass the url in prop
  */
 
-const ContractView = (props: { givenUrl?:string }) => {
+const ContractView = (props: { hRef?:string }) => {
     const location: any = useLocation();
-    const url = props.givenUrl?props.givenUrl:location.state.contractUrl
+    const url = props.hRef? props.hRef:location.state.contractUrl
     const ContractViewActivity:any = withActivity(ContractSummary, url)
     return (<>{ContractViewActivity}</>)
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const RelatedList = (props: {value:any, component:any, onClick?:any}) => {
     if (!props.value)
         return (<></>)

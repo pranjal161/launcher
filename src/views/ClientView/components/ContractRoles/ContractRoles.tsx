@@ -5,7 +5,7 @@ import { ApplicationContext } from "context/applicationContext";
 import ContractTable from "components/ContractTable/ContractTable";
 import {DxcHeading} from '@dxc-technology/halstack-react';
 import Table from "components/Table/Table";
-import axios from "axios";
+import useAia from "data/hooks/useAia";
 import { useTranslation } from "react-i18next";
 
 const ContractRoles = (props: { clientUrl: string }) => {
@@ -16,6 +16,7 @@ const ContractRoles = (props: { clientUrl: string }) => {
     const [quoteUrl, setQuoteUrl] = useState('');
     const [propositionUrl, setPropositionUrl] = useState('');
     const [contractData, setContractData] = useState({});
+    const { fetch } = useAia();
     const offerListColumns = [
         { label: '_OFFER_IDENTIFIER', property: 'contract:offer_number' },
         { label: '_PRODUCT_IDENTIFIER', property: 'contract:product_identifier' },
@@ -46,23 +47,23 @@ const ContractRoles = (props: { clientUrl: string }) => {
         if (props.clientUrl && props.clientUrl.includes('persons')) {
             let contract =
                 AppConfig.hostUrl.defaultHostUrl +
-                'contracts?_mode=individual_contract&_inquiry=cs_contract_owner_contract_list&party_role:person=' +
+                'contracts?_num=5&_mode=individual_contract&_inquiry=cs_contract_owner_contract_list&party_role:person=' +
                 props.clientUrl;
             setContractUrl(contract);
             fetchContractData(contract);
             let offer =
                 AppConfig.hostUrl.defaultHostUrl +
-                'offers?_inquiry=cs_contract_owner_offer_list&contract:offer_type=new_business&party_role:person=' +
+                'offers?_num=5&_inquiry=cs_contract_owner_offer_list&contract:offer_type=new_business&party_role:person=' +
                 props.clientUrl;
             setOfferUrl(offer);
             let proposition =
                 AppConfig.hostUrl.defaultHostUrl +
-                'offers?_inquiry=cs_contract_owner_proposition_list&party_role:person=' +
+                'offers?_num=5&_inquiry=cs_contract_owner_proposition_list&party_role:person=' +
                 props.clientUrl;
             setPropositionUrl(proposition);
             let quote =
                 AppConfig.hostUrl.defaultHostUrl +
-                'quotes?_inquiry=cs_quote_owner_quote_list&quote_owner:person_link=' +
+                'quotes?_num=5&_inquiry=cs_quote_owner_quote_list&quote_owner:person_link=' +
                 props.clientUrl;
             setQuoteUrl(quote);
         } else if (props.clientUrl && props.clientUrl.includes('organizations')) {
@@ -91,7 +92,7 @@ const ContractRoles = (props: { clientUrl: string }) => {
     }, [applicationContext, props.clientUrl]);
 
     const fetchContractData = (contractHref: string) => {
-        axios.get(contractHref, { headers: applicationContext.headers }).then((response) => {
+        fetch(contractHref).then((response:any) => {
             if (response && response.data['_links']['item']) {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];

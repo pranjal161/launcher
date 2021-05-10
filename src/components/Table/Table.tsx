@@ -4,8 +4,8 @@ import { ApplicationContext } from "context/applicationContext";
 import { DxcTable } from "@dxc-technology/halstack-react";
 import Paginator from "components/Paginator/Paginator";
 import { StyledHoverRow } from 'styles/global-style';
-import axios from "axios";
 import { getDescriptionValue } from "util/functions";
+import useAia from "data/hooks/useAia";
 import { useTranslation } from "react-i18next";
 
 const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) => {
@@ -14,13 +14,13 @@ const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) 
     const { t } = useTranslation();
     const [totalItems, changeTotalItems] = useState(0);
     const [showPaginator, setshowPaginator] = useState(true);
-
+    const {fetch} = useAia();
     useEffect(() => {
         getData();
     }, [applicationContext, props.url]);
 
     const getData = () => {
-        axios.get(props.url, { headers: applicationContext.headers }).then((response) => {
+        fetch(props.url).then((response:any) => {
             if (response && response.data['_links']['item']) {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];
@@ -29,6 +29,8 @@ const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) 
                 setTableData(response.data);
                 changeTotalItems(count === '500+' ? 500 : count);
                 setshowPaginator(props.showPaginator);
+            } else {
+                setTableData({});
             }
         });
     };
@@ -40,13 +42,13 @@ const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) 
                     <DxcTable>
                         <tr>
                             {props.columnId.map((columnItem, index) => (
-                                <th key={index}>{t(columnItem['label'])}</th>
+                                <th key={columnItem.label+index}>{t(columnItem['label'])}</th>
                             ))}
                         </tr>
-                        {tableData._links.item.map((row: any) => (
-                            <StyledHoverRow key={row['href']}>
+                        {tableData._links.item.map((row: any, index: number) => (
+                            <StyledHoverRow key={'tr'+ index}>
                                 {props.columnId.map((columnItem) => (
-                                    <td key={columnItem.type}>
+                                    <td key={columnItem.label+index}>
                                         {typeof columnItem.property === 'object'
                                             ? columnItem.property.map((id: string) => row['summary'][id])
                                             : // property is an array then concatenate

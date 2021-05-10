@@ -6,12 +6,14 @@ import {
 } from "@dxc-technology/halstack-react";
 import React, {useCallback} from "react";
 
+import AddRelatedClient from "./components/AddRelatedClient/AddRelatedClient";
+import AddRelatedContract from "components/Tickets/TicketPreview/components/AddRelatedContract/AddRelatedContract";
 import DataLine from "components/Tickets/TicketPreview/components/DataLine/DataLine";
 import Documents from 'components/Tickets/TicketPreview/components/Documents/Documents';
 import EditableField from "components/EditableField/EditableField";
 import PropTypes from "prop-types";
-import RelatedClient from "./components/RelatedClient/RelatedClient";
-import RelatedContract from "components/Tickets/TicketPreview/components/RelatedContract/RelatedContract";
+import RelatedList from "./components/RelatedList/RelatedList";
+import RelatedSection from "./components/RelatedSection/RelatedSection";
 import Section from "components/Section/Section";
 import Sections from "components/Tickets/TicketPreview/components/Sections/Sections";
 import {TextField} from "@material-ui/core";
@@ -102,7 +104,10 @@ const TicketPreview = (props: any) => {
     };
 
     DxcDate2.propTypes = {
-        date: PropTypes.string,
+        date: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]),
         id: PropTypes.string,
         rest: PropTypes.any
     }
@@ -136,7 +141,12 @@ const TicketPreview = (props: any) => {
     }, [createdBy, ticket.id])
 
     const handleOnContractClick = (contract: any) => {
-        openInNewTab(contract.hRef, contract.title.split(':')[0], 'contract')
+        openInNewTab(contract.hRef, contract.title, 'contract')
+        history.push('/viewTab')
+    }
+
+    const handleOnClientClick = (client: any) => {
+        openInNewTab(client.hRef, client.title, 'client')
         history.push('/viewTab')
     }
 
@@ -215,12 +225,14 @@ const TicketPreview = (props: any) => {
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="relatedClients" title="Related Client">
-                    <RelatedClient ticketId={ticket.id} relatedClient={ticket.relatedClients} onClick={handleOnContractClick} />
+                    <RelatedList value={ticket.relatedClients} component={RelatedSection} onClick={handleOnClientClick} />
+                    <AddRelatedClient ticketId={ticket.id} />
                 </Section>
 
                 {/* <StyledDivider /> */}
                 <Section id="relatedContracts" title="Related Contracts">
-                    <RelatedContract ticketId={ticket.id} relatedContract={ticket.relatedContract} onClick={handleOnContractClick}/>
+                    <RelatedList value={ticket.relatedContract} component={RelatedSection} onClick={handleOnContractClick} />
+                    <AddRelatedContract ticketId={ticket.id} />
                 </Section>
                 {/* <StyledDivider /> */}
                 <Section id="suggestedActivities" title="Suggested activities">
