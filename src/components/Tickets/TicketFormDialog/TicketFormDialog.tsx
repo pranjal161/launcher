@@ -1,15 +1,23 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 
-import { DxcButton, DxcDate, DxcHeading, DxcInput, DxcSelect, DxcSlider, DxcTextarea } from '@dxc-technology/halstack-react';
-import React, { useContext, useEffect, useState } from 'react';
+import {
+    DxcButton,
+    DxcDate,
+    DxcHeading,
+    DxcInput,
+    DxcSelect,
+    DxcSlider,
+    DxcTextarea
+} from '@dxc-technology/halstack-react';
+import React, {useContext, useEffect, useState} from 'react';
 
-import { AlertContext } from 'context/alertContext';
-import { ApplicationContext } from "context/applicationContext";
-import axios from "axios";
-import { searchPerson } from "util/functions";
-import useDeskAuth from "data/hooks/useDeskAuth";
-import useDeskBaskets from "data/hooks/useDeskBaskets";
-import useDeskUsers from "data/hooks/useDeskUsers";
+import {AlertContext} from 'context/alertContext';
+import {ApplicationContext} from 'context/applicationContext';
+import axios from 'axios';
+import {searchPerson} from 'util/functions';
+import useDeskAuth from 'data/hooks/useDeskAuth';
+import useDeskBaskets from 'data/hooks/useDeskBaskets';
+import useDeskUsers from 'data/hooks/useDeskUsers';
 
 //import { useForm } from "react-hook-form";
 //import { yupResolver } from '@hookform/resolvers/yup';
@@ -29,33 +37,33 @@ const schema = yup.object().shape({
 
 const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) => {
     const currentUserId = useDeskAuth()
-    const { getAll } = useDeskUsers()
-    const { getAll: getAllBaskets } = useDeskBaskets()
+    const {getAll} = useDeskUsers()
+    const {getAll: getAllBaskets} = useDeskBaskets()
     const allUsers = getAll()
     const allBaskets = getAllBaskets()
-    const { ticket } = props
+    const {ticket} = props
     const applicationContext = useContext(ApplicationContext);
     const [autocompleteOptions, setOptions] = useState([]);
     const [clientValue, setClientValue] = useState('')
-    
+
     const defaultValues = ticket ? ticket : {
         requestBy: currentUserId,
         assignTo: currentUserId,
     }
     console.log(defaultValues);
-    
+
     const [updatedTicket, updateTicket] = useState(ticket);
     const alertContext = useContext(AlertContext);
     const usersOptions = allUsers && allUsers.map((user: { id: any; displayName: any; }) => (
-        { value: user.id, label: user.displayName }
+        {value: user.id, label: user.displayName}
     ))
 
     const basketsOptions = allBaskets && allBaskets.map((basket: { id: any; title: any; }) => (
-        { value: basket.id, label: basket.title }
+        {value: basket.id, label: basket.title}
     ))
 
     const onSubmit = () => {
-        const completeTicket = ticket ? { ...ticket, ...updatedTicket } : updatedTicket;
+        const completeTicket = ticket ? {...ticket, ...updatedTicket} : updatedTicket;
         schema.validate(completeTicket).then(() => {
             props.submit(completeTicket)
         }).catch((err) => {
@@ -71,11 +79,11 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     }
                 ]
             }
-            
+
             if (err) {
                 console.log(err);
             }
-            
+
             alertContext.setToastList(statusReport);
         });
     }
@@ -85,11 +93,11 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
     }
 
     const statusValues = [
-        { value: "created", label: "Created" },
-        { value: "pending", label: "Pending" },
-        { value: "closed", label: "Closed" }
+        {value: 'created', label: 'Created'},
+        {value: 'pending', label: 'Pending'},
+        {value: 'closed', label: 'Closed'}
     ]
-    
+
     useEffect(() => {
         getPersons(clientValue);
     }, [clientValue]);
@@ -97,8 +105,8 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
     const getPersons = async (newValue: string) => {
         if (newValue !== '' && newValue.length > 3) {
             const searchUrl = searchPerson(newValue);
-            const promise = Promise.resolve(axios.get(searchUrl, { headers: applicationContext.headers }))
-            
+            const promise = Promise.resolve(axios.get(searchUrl, {headers: applicationContext.headers}))
+
             await promise.then((result) => {
                 if (result && result.data && result.data._links && result.data._links.item) {
                     const results = result.data._links.item.map((item: any) => (
@@ -107,8 +115,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     setOptions(results);
                 }
             })
-        }
-        else 
+        } else
             return []
     }
 
@@ -116,25 +123,26 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
         const obj = {
             [id]: newValue
         }
-        const newUpdate = updatedTicket ? { ...updatedTicket, ...obj } : obj;
-        
+        const newUpdate = updatedTicket ? {...updatedTicket, ...obj} : obj;
+
         updateTicket(newUpdate)
     };
 
     return (
         <>
-            <DxcHeading level={3} weight="light" text={ticket ? 'Update a ticket' : 'Create a ticket'} />
-            <div>
+            <DxcHeading level={3} weight="light" text={ticket ? 'Update a ticket' : 'Create a ticket'}/>
+            <div data-testid={'title'}>
                 <DxcInput
                     label="Title"
                     onChange={(newValue: string) => updateValue(newValue, 'title')}
                     margin="xxsmall"
                     size="large"
                     required={true}
+
                     value={updatedTicket ? updatedTicket.title : ''}
                 />
             </div>
-            <div>
+            <div data-testid={'requestBy'}>
                 <DxcSelect
                     options={usersOptions}
                     label="Request by"
@@ -144,7 +152,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     value={updatedTicket ? updatedTicket.requestBy : ''}
                 ></DxcSelect>
             </div>
-            <div>
+            <div data-testid={'assignedTo'}>
                 <DxcSelect
                     options={usersOptions}
                     label="Assigned To"
@@ -154,7 +162,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     onChange={(newValue: string) => updateValue(newValue, 'assignedTo')}
                 ></DxcSelect>
             </div>
-            <div>
+            <div data-testid={'basketId'}>
                 <DxcSelect
                     options={basketsOptions}
                     label="Basket"
@@ -164,7 +172,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     onChange={(newValue: string) => updateValue(newValue, 'basketId')}
                 ></DxcSelect>
             </div>
-            <div>
+            <div data-testid={'deadline'}>
                 <DxcDate
                     label="Deadline"
                     placeholder
@@ -174,7 +182,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     onChange={(newValue: any) => updateValue(newValue.stringValue, 'deadline')}
                 />
             </div>
-            <div>
+            <div data-testid={'description'}>
                 <DxcTextarea
                     label="Description"
                     onChange={(newValue: string) => updateValue(newValue, 'description')}
@@ -183,7 +191,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     value={updatedTicket ? updatedTicket.description : ''}
                 />
             </div>
-            <div>
+            <div data-testid={'stage'}>
                 <label className=" control-label" htmlFor="stage">Stage (%)</label>
                 <DxcSlider
                     minValue={0}
@@ -198,15 +206,17 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     margin="xxsmall"
                 />
             </div>
-            <DxcInput
-                label="Client"
-                onBlur={(newValue: string) => updateValue(newValue, 'client')}
-                onChange={(newValue:string) => setClientValue(newValue)}
-                value={clientValue}
-                autocompleteOptions={autocompleteOptions}
-                margin="xxsmall"
-            />
-            <div>
+            <div data-testid={'client'}>
+                <DxcInput
+                    label="Client"
+                    onBlur={(newValue: string) => updateValue(newValue, 'client')}
+                    onChange={(newValue: string) => setClientValue(newValue)}
+                    value={clientValue}
+                    autocompleteOptions={autocompleteOptions}
+                    margin="xxsmall"
+                />
+            </div>
+            <div data-testid={'status'}>
                 <DxcSelect
                     options={statusValues}
                     onChange={(newValue: string) => updateValue(newValue, 'status')}
@@ -216,7 +226,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
                     margin="xxsmall"
                 ></DxcSelect>
             </div>
-            <div>
+            <div data-testid={'notes'}>
                 <DxcTextarea
                     label="Notes"
                     onChange={(newValue: string) => updateValue(newValue, 'notes')}
