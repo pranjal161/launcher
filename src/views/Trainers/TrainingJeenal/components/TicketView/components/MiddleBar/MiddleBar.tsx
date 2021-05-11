@@ -23,7 +23,7 @@ const MiddleBar = (props: any) => {
     const users = getAllUsers("data");
 
     const [value, changeValue] = useState(1);
-    const onChange = (newValue:any) => {
+    const onChange = (newValue: any) => {
         changeValue(newValue);
     };
 
@@ -43,17 +43,18 @@ const MiddleBar = (props: any) => {
     ];
 
     return (
-        <WithScroll visibleHeight="800">
-            <div className = "MiddleBarHeader">
-                <DxcToggleGroup
-                    options={options}
-                    onChange={onChange}
-                    value={value}
-                    margin="medium"
-                ></DxcToggleGroup>
+        <div className="MiddleBarHeader">
+            <DxcToggleGroup
+                options={options}
+                onChange={onChange}
+                value={value}
+            ></DxcToggleGroup>
+
+
+            <WithScroll visibleHeight={"800px"}>
 
                 {value && value === 1 && (
-                    <Notes/>
+                    <Notes />
                 )}
 
                 {value && value === 2 && (
@@ -66,9 +67,9 @@ const MiddleBar = (props: any) => {
                 {value && value === 3 && (
                     <Timeline ticket={ticketId} users={users} basketName={basketTitle} />
                 )}
-            
-            </div>
-        </WithScroll>
+            </WithScroll>
+
+        </div>
     )
 
 
