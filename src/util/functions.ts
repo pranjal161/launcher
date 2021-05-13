@@ -9,8 +9,13 @@ export const aia = {
     delete: (url: string, params?: { headers?: any; }) => axios.delete(url, { headers: params && params.headers ? params.headers : AppConfig.headers })
 }
 
-
-export const getLink = (response: any, linkName: string) => {
+/**
+ * returns the href associated with the provided linkName under response._links
+ * @param  {any} response pass the response Object received 
+ * @param  {string} linkName linkName you're looking for under _links
+ * @returns {string | null} returns href, if present or null
+ */
+export const getLink = (response: any, linkName: string): string | null => {
     if (response &&
         response._links &&
         response._links[linkName] &&
@@ -130,6 +135,10 @@ export const paginationLink = (paginateUrl: string, page: number, perPageItems: 
     }
 }
 
+/** Checks whether the returned response is conistent or not
+ * @param  {any} response provided response
+ * @returns {boolean} returns true, if the resource is consistent
+ */
 export const isResponseConsistent = (response: any) => {
     if (response && response.data && response.data._embedded &&
         response.data._embedded['cscaia:status_report']) {
@@ -137,7 +146,11 @@ export const isResponseConsistent = (response: any) => {
     }
 }
 
-export const getStatusReport = (response: any) => {
+/** fetch status report from API response
+ * @param  {any} response provided response
+ * @returns {any} returned status report with consisted and messages property
+ */
+export const getStatusReport = (response: any): any => {
     if (response && response.data && response.data._embedded &&
         response.data._embedded['cscaia:status_report']) {
         return response.data._embedded['cscaia:status_report']
@@ -238,7 +251,13 @@ export const getOneOfFromResponse = (response: any, id: string) => {
     }
     return enumItemList;
 }
-export const isFieldEditable = (response: any, field: string) => {
+
+/** Check whether a PATCH operation can be performed on the field provided
+ * @param  {any} response provided response
+ * @param  {string} field field which should be checked for edit capability
+ * @returns {boolean} true, if PATCH operation is available for the provided field
+ */
+export const isFieldEditable = (response: any, field: string): boolean => {
     if (response['_options']) {
         const patchLink = response['_options']['links'].find((item: any) => item.method === 'PATCH');
         if (patchLink.isEmpty()) {
@@ -256,19 +275,33 @@ export const isFieldEditable = (response: any, field: string) => {
 
 }
 
+/**Whether the propertyName provided is a required field. 
+ * @param  {any} response provided response
+ * @param  {string} field the field/propertyName which should be checked whether required
+ * @returns {boolean} true, if present in required array in API
+ */
 export const isFieldRequired = (response: any, field: string) => (
     response['_options'] &&
     response['_options']['required'] &&
     response['_options']['required'].indexOf(field) !== -1
 )
 
-export const isFieldVisible = (response: any, field: string) => (
+/**Whether the propertyName provided is available for GET. If avaiable for GET, it should be visible, else not.
+ * @param  {any} response provided response
+ * @param  {string} field the field/propertyName which should be checked for visibility
+ * @returns {boolean} true, if allowed for GET and therefore should be visible on screen
+ */
+export const isFieldVisible = (response: any, field: string): boolean => (
     response['_options'] &&
     response['_options']['properties'] &&
     !response['_options']['properties'][field].isEmpty()
 )
 
-export const isFieldCreatable = (response: any) => {
+/** If POST method is allowed on the current href
+ * @param  {any} response provided response 
+ * @returns {boolean} whether the POST operation is available for href
+ */
+export const isFieldCreatable = (response: any): boolean => {
     if (response && response['_options'] && response['_options']['links']) {
         const postLink = response['_options']['links'].find((item: any) => item.method === 'POST');
         if (postLink.isEmpty()) {
@@ -279,7 +312,11 @@ export const isFieldCreatable = (response: any) => {
     return false;
 }
 
-export const isFieldDeletable = (response: any) => {
+/** If DELETE method is allowed on the current href or response._links.self.href
+ * @param  {any} response provided response 
+ * @returns {boolean} whether the DELETE operation is available for href
+ */
+export const isFieldDeletable = (response: any): boolean => {
     if (response && response['_options'] && response['_options']['links']) {
         const deleteLink = response['_options']['links'].find((item: any) => item.method === 'DELETE');
         if (deleteLink.isEmpty()) {
@@ -294,10 +331,23 @@ export const hasRelInOptions = (response: any, rel: string): boolean => response
 
 export const hasMethodInOptions = (response: any, method: string): boolean => response && response._options && response._options['links'] && response['_options']['links'].find((item: any) => item.method === method)
 
-export const isSaveOperationAvailable = (resource: any): boolean => getLink(resource, 'cscaia:save')
+/** To check if 'cscaia:save' link is available in _links of the provided response
+ * @param  {any} resource response object
+ * @returns {boolean} whether the link is present or not
+ */
+export const isSaveOperationAvailable = (resource: any): boolean => {
+    if (getLink(resource, 'cscaia:save')) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-
-export const getTitle = (response: any) => {
+/** Fetches the title of the resource from _links.self.title
+ * @param  {any} response provided response
+ * @returns {string|null} title of the resource if pr
+ */
+export const getTitle = (response: any): string | null => {
     if (response &&
         response._links &&
         response._links['self'] &&
@@ -308,24 +358,43 @@ export const getTitle = (response: any) => {
     }
 }
 
-export const getMinLength = (response: any, propertyName: string) => {
+/** Fetches allowed minlength from API for a property
+ * @param  {any} response API response provided
+ * @param  {string} propertyName concerned propertyName 
+ * @returns {number| null} allowed min Length value
+ */
+export const getMinLength = (response: any, propertyName: string): number | null => {
     if (response && response['_options'] &&
         response['_options']['properties'] &&
         response['_options']['properties'][propertyName] &&
         response['_options']['properties'][propertyName].minLength) {
         return response['_options']['properties'][propertyName].minLength;
+    } else {
+        return null
     }
 }
 
-export const getMaxLength = (response: any, propertyName: string) => {
+/** Fetches allowed maxlength from API for a property
+ * @param  {any} response API response provided
+ * @param  {string} propertyName concerned propertyName 
+ * @returns {number| null} allowed maxLength value
+ */
+export const getMaxLength = (response: any, propertyName: string): number | null => {
     if (response && response['_options'] &&
         response['_options']['properties'] &&
         response['_options']['properties'][propertyName] &&
         response['_options']['properties'][propertyName].maxLength) {
         return response['_options']['properties'][propertyName].maxLength;
+    } else {
+        return null;
     }
 }
 
+/** Fetches allowed minimum allowed value from API for a property
+ * @param  {any} response API response provided
+ * @param  {string} propertyName concerned propertyName 
+ * @returns {number| null} allowed minimum value
+ */
 export const getMinValue = (response: any, propertyName: string) => {
     if (response && response['_options'] &&
         response['_options']['properties'] &&
@@ -335,6 +404,11 @@ export const getMinValue = (response: any, propertyName: string) => {
     }
 }
 
+/** Fetches allowed maximum allowed value from API for a property
+ * @param  {any} response API response provided
+ * @param  {string} propertyName concerned propertyName 
+ * @returns {number| null} allowed maximum value
+ */
 export const getMaxValue = (response: any, propertyName: string) => {
     if (response && response['_options'] &&
         response['_options']['properties'] &&
