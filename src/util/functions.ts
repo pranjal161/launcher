@@ -13,7 +13,7 @@ export const aia = {
  * returns the href associated with the provided linkName under response._links
  * @param  {any} response pass the response Object received 
  * @param  {string} linkName linkName you're looking for under _links
- * @returns {string } returns href, if present or null
+ * @returns {string } returns href, if present
  */
 export const getLink = (response: any, linkName: string) => {
     if (response &&
