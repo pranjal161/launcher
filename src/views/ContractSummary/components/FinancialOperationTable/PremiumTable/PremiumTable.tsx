@@ -6,8 +6,8 @@ import { EyeIcon } from 'assets/svg';
 import Paginator from "components/Paginator/Paginator";
 import { PremiumSummary } from "views/ContractSummary/components/FinancialOperationTable/PremiumSummary/PremiumSummary";
 import { StyledButton } from 'styles/global-style';
-import axios from 'axios';
 import { getDescriptionValue } from 'util/functions';
+import useAia from 'data/hooks/useAia';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -27,6 +27,7 @@ const PremiumTable = (props: { url: undefined | string }) => {
     const [premiumData, setPremiumData] = useState<undefined | any>();
 
     const [premiumCount, setPremiumCount] = useState(0);
+    const { fetch } = useAia();
 
     const premiumListColumns = [
         { label: '_OPERATION', property: 'premium:type' },
@@ -58,7 +59,7 @@ const PremiumTable = (props: { url: undefined | string }) => {
     function getOperationItems(url: string) {
         if (url) {
             const tableUrl = url + '?_num=5';
-            axios.get(tableUrl, { headers: applicationContext.headers }).then((getResponse) => {
+            fetch(tableUrl).then((getResponse:any) => {
                 if (getResponse && getResponse.data['_links']['item']) {
                     if (!Array.isArray(getResponse.data['_links']['item'])) {
                         getResponse.data['_links']['item'] = [getResponse.data['_links']['item']];

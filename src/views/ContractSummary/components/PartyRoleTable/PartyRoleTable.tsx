@@ -4,8 +4,8 @@ import { StyledButton, StyledHoverRow } from 'styles/global-style';
 import { ApplicationContext } from "context/applicationContext";
 import { DxcTable } from "@dxc-technology/halstack-react";
 import { EyeIcon } from 'assets/svg';
-import axios from "axios";
 import { getLink } from 'util/functions';
+import useAia from 'data/hooks/useAia';
 import useDeskTickets from 'data/hooks/useDeskTickets';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -15,14 +15,14 @@ const PartyRoleTable = (props: { roles: Array<any> }) => {
     const history = useHistory();
     const { openInNewTab } = useDeskTickets();
     const applicationContext = useContext(ApplicationContext);
-
+    const { fetch } = useAia();
     useEffect(() => {
         // Nothing to do
     },[props.roles, applicationContext]
     );
 
     const goToClientView = (item: any) => {
-        axios.get(item.href, { headers: applicationContext.headers }).then((partyRoleResponse) => {
+        fetch(item.href).then((partyRoleResponse:any) => {
             if (getLink(partyRoleResponse.data, 'party_role:person')) {
                 const clientUrl = getLink(partyRoleResponse.data, 'party_role:person')
                 openInNewTab(clientUrl, partyRoleResponse.data._links['self'].title, 'client')

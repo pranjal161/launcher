@@ -7,7 +7,6 @@ import useDeskAuth from "data/hooks/useDeskAuth";
 import useDeskTickets from "data/hooks/useDeskTickets";
 import {useHistory} from "react-router-dom";
 
-
 // eslint-disable-next-line valid-jsdoc
 /**
  * Display of the ticket preview data
@@ -34,12 +33,12 @@ function PreviewContainer(props: any) {
     }
 
     const assignButton = ticket && ticket.assignedTo === currentUserId ?
-        <a href="#" className="btn btn-warning ml-2" onClick={removeToCurrentUser}>Unassign to me</a> :
-        <a href="#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
+        <a href="/#" className="btn btn-warning ml-2" onClick={removeToCurrentUser}>Unassign to me</a> :
+        <a href="/#" className="btn btn-info ml-2" onClick={assignToCurrentUser}>Assign to me</a>
 
-    const newTabButton = <a href="#" className="btn btn-success ml-2" onClick={openTicketNewTab}>New Tab</a>
+    const newTabButton = <a href="/#" className="btn btn-success ml-2" onClick={openTicketNewTab}>New Tab</a>
 
-    const Actions = (<><a href="#" className="btn btn-danger" onClick={removeHandle}>Delete</a>{assignButton}{newTabButton}</>)
+    const Actions = (<><a href="/#" className="btn btn-danger" onClick={removeHandle}>Delete</a>{assignButton}{newTabButton}</>)
 
     const popupHandle = () => {
         setOpenPopup(true);

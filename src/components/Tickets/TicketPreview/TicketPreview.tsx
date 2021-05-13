@@ -104,7 +104,10 @@ const TicketPreview = (props: any) => {
     };
 
     DxcDate2.propTypes = {
-        date: PropTypes.string,
+        date: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]),
         id: PropTypes.string,
         rest: PropTypes.any
     }

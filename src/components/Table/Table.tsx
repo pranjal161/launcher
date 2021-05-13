@@ -42,13 +42,13 @@ const Table = (props: { url: string; columnId: any[]; showPaginator: boolean }) 
                     <DxcTable>
                         <tr>
                             {props.columnId.map((columnItem, index) => (
-                                <th key={index}>{t(columnItem['label'])}</th>
+                                <th key={columnItem.label+index}>{t(columnItem['label'])}</th>
                             ))}
                         </tr>
-                        {tableData._links.item.map((row: any) => (
-                            <StyledHoverRow key={row['href']}>
+                        {tableData._links.item.map((row: any, index: number) => (
+                            <StyledHoverRow key={'tr'+ index}>
                                 {props.columnId.map((columnItem) => (
-                                    <td key={columnItem.type}>
+                                    <td key={columnItem.label+index}>
                                         {typeof columnItem.property === 'object'
                                             ? columnItem.property.map((id: string) => row['summary'][id])
                                             : // property is an array then concatenate
