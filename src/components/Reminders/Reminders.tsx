@@ -41,7 +41,7 @@ const Reminders = (props: { reminders: any; }) => {
         <>
             <div className="reminder">
                 <PanelBaskets.title> {t('_REMINDERS')}</PanelBaskets.title>
-                <StyledButton className="buttonBorder border" onClick={() => setOpenReminder(true)}>+</StyledButton>
+                <StyledButton className="buttonBorder border w-100" onClick={() => setOpenReminder(true)}>+</StyledButton>
                 {openReminder &&
                     <CreateReminders onClickDialog={onClickDialog} />
                 }

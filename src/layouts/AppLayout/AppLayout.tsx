@@ -1,10 +1,12 @@
-import { DxcApplicationLayout } from '@dxc-technology/halstack-react';
+import { DxcApplicationLayout, DxcFooter, DxcHeader, DxcSpinner } from '@dxc-technology/halstack-react';
 import MainNavBar from "components/MainNavBar/MainNavBar";
 import PropTypes from 'prop-types'
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { applyRoutes } from "../../routes";
 import styled from "styled-components";
-
+import useDeskAuth from "data/hooks/useDeskAuth";
+import { useSelector } from "react-redux";
 
 // the DxcApplicationLayout.Main has a CSS rule top: 64px, 
 // while the MainNavBar has a height of 106px. 
@@ -14,21 +16,60 @@ const FixMainTop = styled.div`
     margin-top: 42px;
 `;
 
+const LoadingSpinnerContainer = styled.div`
+    & div div {
+        border: unset !important;
+    }
+`;
+
 const AppLayout = (props: { route: any }) => {
     const { route } = props;
+    const { auth } = useDeskAuth();
+    const isFirestoreHooked = useSelector((state: any) => state.firestore.listeners.byId['users']);
+    let redirectToLogin = false;
+    let isLoading = false;
+
+    if(isFirestoreHooked === undefined) {
+        isLoading = true;
+    }
+
+    if(isFirestoreHooked && !auth.logged) {
+        redirectToLogin = true;
+    }
 
     return (
         <>
-            <DxcApplicationLayout>
-                <DxcApplicationLayout.Header>
-                    <MainNavBar />
-                </DxcApplicationLayout.Header>
-                <DxcApplicationLayout.Main>
-                    <FixMainTop>
-                        {applyRoutes(route.routes)}
-                    </FixMainTop>
-                </DxcApplicationLayout.Main>
-            </DxcApplicationLayout>
+            {
+                isLoading ? 
+                    <DxcApplicationLayout>
+                        <DxcApplicationLayout.Header>
+                            <DxcHeader></DxcHeader>
+                        </DxcApplicationLayout.Header>
+                        <DxcApplicationLayout.Main>
+                            <LoadingSpinnerContainer>
+                                <DxcSpinner 
+                                    mode="overlay"
+                                    margin="xxsmall"
+                                    label="Logging in..." />
+                            </LoadingSpinnerContainer>                        
+                        </DxcApplicationLayout.Main>
+                        <DxcApplicationLayout.Footer>
+                            <DxcFooter />
+                        </DxcApplicationLayout.Footer>
+                    </DxcApplicationLayout> :
+                    redirectToLogin ? 
+                        <Redirect to={'/auth/signin'}/> :
+                        <DxcApplicationLayout>
+                            <DxcApplicationLayout.Header>
+                                <MainNavBar />
+                            </DxcApplicationLayout.Header>
+                            <DxcApplicationLayout.Main>
+                                <FixMainTop>
+                                    {applyRoutes(route.routes)}
+                                </FixMainTop>
+                            </DxcApplicationLayout.Main>
+                        </DxcApplicationLayout>
+            }
         </>
     )
 
