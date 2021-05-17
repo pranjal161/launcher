@@ -14,7 +14,7 @@ const SearchDialog = (props: { selectedEntity: string, getSelectedData: (data: a
     const searchResults = async (url: string) => {
         const getResp = Promise.resolve(aia.get(url));
         const response = await getResp.then((response) => {
-            let results;
+            let results = [];
             if (response && response.data && response.data['_links'] && response.data['_links']['item']) {
                 results = response.data['_links']['item'];
             }

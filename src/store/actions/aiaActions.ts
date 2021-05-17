@@ -104,14 +104,23 @@ export const patch = (href: string, payload: Object, baId: string, params?: Obje
     let callType = 'patch';
     const actionPrefix = `BA_${callType.toUpperCase()}`
     dispatch({type: `${actionPrefix}_PENDING`, href, baId})
-
     const promise = aia.patch(href, payload, params);
     promise.then((response: any) => {
-        // case1: modified headers
+        // case1: modified headers recieved in response headers
         if (response && response.headers && response.headers[AppConfig.modifiedHeaderResTag]) {
             const modifiedUrls = response.headers[AppConfig.modifiedHeaderResTag]
             const existingHrefs = getState().aia[baId];
             processModifiedHeaders(modifiedUrls.split(','), existingHrefs, baId, dispatch);
+        } 
+        // case2: When patch response is in form of messages, check modified headers & refresh url to get full response
+        else if (response && response.data && response.data.messages && response.data.messages.length > 0) {
+            refresh(href, 'refresh', baId);
+            const messages = response.data.messages;
+            const existingHrefs = getState().aia[baId];
+            const modifiedArray: any = messages.find((message: any) => message.context === AppConfig.modifiedHeaderTag);
+            if (modifiedArray) {
+                processModifiedHeaders(modifiedArray.message, existingHrefs, baId, dispatch);
+            }
         }
         dispatch({
             type: `${actionPrefix}_SUCCESS`,
@@ -167,7 +176,7 @@ export const deleteRequest = (href: string, baId: string, params?: Object) => (d
     return promise;
 }
 
-
+// checks if any modified URI exists in store & refresh it
 const processModifiedHeaders = (modifiedArray: Array<Object | string>, existingMap: Array<any>, baId: string, dispatch:any) => {
     const requestArray :Array<Object> =[];
     if (modifiedArray) {
