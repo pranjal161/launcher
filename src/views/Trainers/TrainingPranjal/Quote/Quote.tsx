@@ -24,7 +24,6 @@ const Quote = () => {
     const quoteResponse = useSelector((state: any) => (quoteUrl !== '' ? state.aia[baId][quoteUrl] : {}));
     const [frequencyOptions, setOptions] = useState([]);
     const [risksUrl, setRiskUrl] = useState<string>();
-    const [modifiedUrls, seturls] = useState<any>();
     useEffect(() => {
         startActivity();
         getData();
@@ -51,9 +50,7 @@ const Quote = () => {
         }
         patch(url, payload).then(() => {
             const tarriff = url + '/tariff_calculation';
-            post(tarriff, {}).then((tarriffRes: any) => {
-                seturls(tarriffRes.data.messages[0].message)
-            })
+            post(tarriff, {}).then();
         });
     }
 
@@ -83,12 +80,12 @@ const Quote = () => {
                             onBlur={(newValue: any) => updateDate(newValue, 'quote:contract_start_date')}
                         />
                     </div>
-                    <div>
+                    {/* <div>
                         <Label label="QuoteCost" propertyName="quote:period_cost" data={quoteResponse.data} />
                     </div>
                     <div>
                         <Label label="Frequency" propertyName="quote:frequency" data={quoteResponse.data} />
-                    </div>
+                    </div> */}
                     <div>
                         <Label label="Start date" propertyName="quote:contract_start_date" data={quoteResponse.data} />
                     </div>
@@ -96,13 +93,6 @@ const Quote = () => {
             }
             {risksUrl &&
                 <Coverages risks={risksUrl} />
-            }
-            {modifiedUrls &&
-                <div>
-                    {modifiedUrls.map((url: string, index: number) => (
-                        <div key={index}>{url}</div>
-                    ))}
-                </div>
             }
         </>
     )
