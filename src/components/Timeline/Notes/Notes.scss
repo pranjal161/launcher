@@ -1,0 +1,30 @@
+.float {
+    float: right;
+}
+
+.notesBoxDisplay{
+    >div {
+        display: block;
+        margin: 13px;
+    }
+    span {
+        padding-right: 7px;
+    }
+}
+
+.notesDate{
+    color: grey;
+    font-size: 12px;
+    display: inline;
+}
+
+.buttonBorder {
+    width: 40% !important;
+    font-size: small;
+}
+
+.notesContent{
+    font-size: small;
+    padding: 6px 4px !important;
+    font-weight: normal;
+}
