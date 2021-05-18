@@ -4,8 +4,7 @@ const Tab = (props: {
                         children: any,
                         tabId: string,
                         tabLabel: string,
-                        onTabCloseClick?: Function,
-                        isActiveTab: boolean
+                        isActiveTab?: boolean
                     }) => {
     const { children } = props;
     
@@ -17,3 +16,5 @@ const Tab = (props: {
 }
 
 export default Tab; 
+
+export const MemoTab = React.memo(Tab)

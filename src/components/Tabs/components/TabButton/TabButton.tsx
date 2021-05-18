@@ -1,11 +1,12 @@
-import {CloseIcon} from "../../../../assets/svg";
+import { CloseIcon } from "../../../../assets/svg";
 import React from 'react';
 import styled from 'styled-components';
 
 interface TabButtonComponentProps{
     isActive: boolean,
     isNavBar?: boolean,
-    minWidth?: string
+    minWidth?: string,
+    maxWidth?: string
 }
 
 const TabButtonComponent = styled.div`
@@ -16,7 +17,7 @@ const TabButtonComponent = styled.div`
     background-color: ${(props) => (props.isNavBar ? '#F4F6F9' : '#FFFFFF')};
     ${(props) => (props.isNavBar ? 'border-right: solid 1px #DBE3EC;' : '')}
     transition: all .5s ease;
-    max-width: 180px;
+    max-width: ${(props) => (props.maxWidth ? props.maxWidth : '270px')};
 
     &::after {
         content: "";
@@ -59,15 +60,17 @@ const TabButtonComponent = styled.div`
 const TabButton = ( props : {
                                 isActive: boolean,
                                 tabId: string,
+                                tabType?: string,
                                 label: string,
-                                onTabClick: any,
-                                onTabCloseClick: Function
+                                onTabClick?: any,
+                                onTabCloseClick?: Function
                                 minWidth?: string,
                                 isNavBar?: boolean}) => {
 
     const { 
         isActive = false,
         tabId,
+        tabType = null,
         label = "Loading",
         onTabClick,
         onTabCloseClick,
@@ -76,22 +79,33 @@ const TabButton = ( props : {
     } = props;
 
 
-    const handleTabClose = (e: React.ChangeEvent<any>, tabId: string) => {
+    const handleTabClose = (e: React.ChangeEvent<any>) => {
         e.stopPropagation();
-        onTabCloseClick(tabId);
+        if(onTabCloseClick) {
+            if(tabType === null)
+                onTabCloseClick(tabId);
+            else
+                onTabCloseClick(tabId, tabType);
+        }
+    }
+
+    const handleTabClick = (e: React.ChangeEvent<any>) => {
+        e.stopPropagation();
+        if(onTabClick)
+            onTabClick(tabId);
     }
 
     return (
         <TabButtonComponent 
             isActive={isActive}
-            onClick={onTabClick}
+            onClick={handleTabClick}
             minWidth={minWidth}
             isNavBar={isNavBar}>
             <div title={label}>
                 <span>{label}</span>
                 <span 
                     data-test="close-icon"
-                    onClick={(e) => handleTabClose(e, tabId)}>
+                    onClick={handleTabClose}>
                     <CloseIcon />
                 </span>
             </div>
@@ -100,3 +114,8 @@ const TabButton = ( props : {
 }
 
 export default TabButton;
+
+/**
+ * Export a memoised version of the component to avoid unnecessary rerenders if no props are changed.
+ */
+export const MemoTabButton = React.memo(TabButton);
