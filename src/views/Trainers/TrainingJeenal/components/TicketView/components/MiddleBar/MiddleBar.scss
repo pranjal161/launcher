@@ -1,0 +1,13 @@
+.MiddleBarHeader {
+  >div {
+    margin: 1px !important;
+   
+    >div > div  {
+      padding: 12px 15px;
+
+      span {
+        font: normal normal normal 12px/13px Open Sans;
+      }
+    }
+  }
+}

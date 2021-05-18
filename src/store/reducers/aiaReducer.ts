@@ -1,6 +1,4 @@
-const initialState = {
-   
-}
+const initialState = {}
 
 const aiaReducer = (state = initialState, action: any) => {
     let newState:any = {...state}
