@@ -1,6 +1,21 @@
 const initialState = {
     isNavigationBarTabsOpened: false,
-    selectedTab: {id: '', type: ''},
+
+    /**
+     * If the user adds a tab by Id, it should be unique.
+     * Since tabs have both an Id and type, maybe the function that calls the reducer should combine the type and Id
+     * into one string, in case of the possibility that two different types of tabbed object can have the same Id.
+     * That way, they will still be unique. 
+     * Maybe create a global constants object
+     * const tabTypes = {
+     *      ticket: 'tckt',
+     *      contract: 'cntr',
+     *      client: 'clnt'
+     * }
+     * and get the abbreviation, and add it to the tab Id like this for a ticket - tckt__323Ohb4h308jnjwe3REc356.
+     * That way, we can easily cut the Id of the object, should we need it separately.
+     */
+    selectedTab: {id: ''},
     tabsContentByIDs: {}
 }
 
@@ -16,12 +31,12 @@ const navigationBarTabsReducer = (state:any = initialState, action: any) => {
             return {
                 ...state, 
                 isNavigationBarTabsOpened: false, 
-                selectedTab: {id: '', type: ''}, 
+                selectedTab: {id: ''}, 
                 tabsContentByIDs: {}
             };
 
         case 'ADD_NAV_TAB_BY_ID': {
-            let selectedTabObject = {id: action.payload.tabId, type: action.payload.type};
+            let selectedTabObject = {id: action.payload.tabId};
 
             if(state.isNavigationBarTabsOpened === true) 
                 return {...state, 

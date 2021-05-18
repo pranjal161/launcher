@@ -17,3 +17,8 @@ const ContractView = (props: { hRef?:string }) => {
 }
 
 export default ContractView;
+
+/**
+ * Export a memoised version of the component to avoid unnecessary rerenders if no props are changed.
+ */
+export const MemoContractView = React.memo(ContractView);

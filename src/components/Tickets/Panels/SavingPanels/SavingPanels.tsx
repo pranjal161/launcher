@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import ContractPreview from "../../../Contracts/ContractPreview/ContractPreview";
@@ -7,7 +7,7 @@ import SavingToolbar from "./components/SavingToolbar/SavingToolbar";
 import SelectEntity from "components/ConsultationPanels/components/SelectEntity/SelectEntity";
 import styled from "styled-components";
 import useDeskTickets from "data/hooks/useDeskTickets";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Root = styled.div`
   display: flex;
@@ -18,14 +18,14 @@ const Root = styled.div`
 
 
 const SavingPanels = (props: {ticketId: any, onClose: any}) => {
-    const { ticketId , onClose} = props;
-    const {getOne, openInNewTab, openInSecondary} = useDeskTickets()
+    const { ticketId, onClose } = props;
+    const { getOneShallow, openInNewTab, openInSecondary } = useDeskTickets();
     const history = useHistory();
-    const [entityType, setEntityType] = useState('contract')
+    const [entityType, setEntityType] = useState('contract');
     const [selection, setSelection] = useState<any>({}) // We store selection per entityType
-    const ticket = getOne(ticketId)
+    const ticket = getOneShallow(ticketId);
     if (!ticket)
-        return (<></>)
+        return (<></>);
 
 
     const ticketContracts:any = {}
