@@ -31,7 +31,7 @@ function App() {
     useDeskSubscribe({collection: 'baskets'})
     useDeskSubscribe({collection: 'users'})
     useDeskSubscribe({collection: 'dailyUpdates', doc: currentDailyUpdatesId})
-    
+
     // Load Global Search Data
     useEffect(() => {
         loadData({collection: 'person'});
@@ -80,11 +80,12 @@ function App() {
                         </AlertContext.Consumer>
                         <>
 
-                            {ready && (
-                                <Router basename="/omnichannel/react">
-                                    {routeNodes}
-                                </Router>
-                            )}
+                            {
+                                ready && 
+                                    <Router basename="/omnichannel/react">
+                                        {routeNodes}
+                                    </Router>
+                            }
 
                         </>
                     </ThemeContext.Provider>

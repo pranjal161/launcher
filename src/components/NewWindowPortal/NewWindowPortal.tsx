@@ -126,7 +126,6 @@ const NewWindowPortal = ( props : {
     return (
         ReactDOM.createPortal(<DxcBox
             margin="xxsmall"
-                                
             size="fillParent"
             shadowDepth={0}>
             <StyleSheetManager 

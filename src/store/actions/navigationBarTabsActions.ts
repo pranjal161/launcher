@@ -16,7 +16,7 @@ export const removeNavBarTabByID = (tabId: string) => ({
     payload: tabId
 })
 
-export const setSelectedNavBarTabByID = (tabId: string, type: string) => ({
+export const setSelectedNavBarTabByID = (tabId: string) => ({
     type: 'SELECT_NAV_TAB_BY_ID',
-    payload: {tabId, type}
+    payload: {tabId}
 })

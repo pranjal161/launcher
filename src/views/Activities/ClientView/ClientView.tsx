@@ -17,3 +17,8 @@ const ClientView = (props: { hRef?: string }) => {
 }
 
 export default ClientView;
+
+/**
+ * Export a memoised version of the component to avoid unnecessary rerenders if no props are changed.
+ */
+export const MemoClientView = React.memo(ClientView);

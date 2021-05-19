@@ -2,9 +2,9 @@ import * as navbarTabsActions from "../../store/actions/navigationBarTabsActions
 import * as popupWindowActions from "../../store/actions/popupWindowTabsActions";
 import * as ticketActions from "../../store/actions/ticketActions";
 
-import {useDispatch, useSelector} from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
-import {useCallback} from "react";
+import { useCallback } from "react";
 
 const useAllTickets = () => useSelector((state:any) => state.firestore.ordered['tickets'])
 
@@ -15,6 +15,16 @@ const useMyAllTickets = () => {
 }
 
 const useGetOne = (id: string | number) => useSelector((state:any) => (state.firestore.data.tickets ? {id, ...state.firestore.data.tickets[id]} : undefined))
+/**
+ * Use shallow equality to avoid unnecessary rerenders. 
+ * Because objects are returned by reference, and every call to a hook in a functional component
+ * just calls it again, thus generating a new reference regardless of data, shallow equality must be used. 
+ * This is also the standard method for calling a store on update with a class component, connect and mapStateToProps Redux store methods.
+ * @function useGetOneShallow
+ * @param {string|undefined} id - the id of the ticket to fetch from store
+ * @returns {Object} - the ticket object
+ */
+const useGetOneShallow = (id: string | number) => useSelector((state:any) => (state.firestore.data.tickets ? {id, ...state.firestore.data.tickets[id]} : undefined), shallowEqual)
 
 const useGetState = () => useSelector((state:any) => (state.tickets))
 
@@ -33,6 +43,7 @@ const useDeskTickets = () => {
     const getAll = useAllTickets
     const getMyAllTickets = useMyAllTickets
     const getOne = useGetOne
+    const getOneShallow = useGetOneShallow
     const getTicketsState = useGetState
     const getDocumentUrl = useGetDocumentUrl
     const getAllDocuments = useGetAllDocuments
@@ -58,6 +69,7 @@ const useDeskTickets = () => {
 
     return {
         getOne,
+        getOneShallow,
         getAll,
         getMyAllTickets,
         getTicketsState,
