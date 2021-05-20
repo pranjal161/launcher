@@ -1,8 +1,9 @@
-import { DxcButton, DxcInput, DxcTable } from "@dxc-technology/halstack-react";
+import { DxcButton, DxcTable } from "@dxc-technology/halstack-react";
 import React, { useContext, useEffect, useState } from "react";
 
-import {AlertContext} from "context/alertContext";
+import { AlertContext } from "context/alertContext";
 import { ApplicationContext } from "context/applicationContext";
+import TextField from "components/TextField/TextField";
 import { getStatusReport } from "util/functions";
 import useAia from "data/hooks/useAia";
 import { useTranslation } from "react-i18next";
@@ -11,10 +12,11 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
     const url = props.url;
     const applicationContext = useContext(ApplicationContext);
     const [fundData, setFundData] = useState<any>([]);
-    const [amount, setOperationAmount] = useState<Number>();
+    // const [amount, setOperationAmount] = useState<Number>();
     const [total, setTotal] = useState(0);
     const [investmentSplitPayload, setInvestmentSplitPayload] = useState<any>([]);
     const { t } = useTranslation();
+    const [unsoliciteRes, setResposne] = useState();
     const alertContext = useContext(AlertContext);
     const { fetch, post, patch } = useAia();
 
@@ -26,8 +28,9 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
         const requestArray: any[] = [];
         post(url, {}).then((res: any) => {
             if (res && res.data) {
+                setResposne(res.data)
                 let data = res.data['investment_split'];
-                setOperationAmount(res.data['operation:amount']);
+                // setOperationAmount(res.data['operation:amount']);
                 data.forEach((element: { [x: string]: any }) => {
                     if (element['allocation:coverage_fund']) {
                         requestArray.push(
@@ -35,14 +38,14 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
                         );
                     }
                 });
-                
+
                 Promise.all(requestArray).then((response: any[]) => {
                     response.forEach((res) => { // Use forEach instead of map (no extra memory used)
                         const resHref = res.data['_links']['self'].href;
                         const currentItem = data.find(
                             (item: { [x: string]: any }) => item['allocation:coverage_fund'] === resHref,
                         );
-        
+
                         if (currentItem) {
                             let result: any = {
                                 allocation_fund: currentItem['allocation:coverage_fund'],
@@ -52,34 +55,33 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
                                     : res.data['unit_linked_fund:net_cash_value'],
                                 distribution: currentItem['allocation:rate'],
                             };
-        
+
                             let payload = {
                                 'allocation:coverage_fund': currentItem['allocation:coverage_fund'],
                                 'allocation:rate': currentItem['allocation:rate'],
                             };
-        
+
                             investmentSplitPayload.push(payload);
                             fundData.push(result);
                         }
                     });
-                    
+
                     setFundData(fundData);
                     setInvestmentSplitPayload(investmentSplitPayload);
                     calculateTotal(investmentSplitPayload);
-                });   
+                });
             }
         });
 
-        
     };
 
     const calculateTotal = (investmentSplitPayload: { [x: string]: number }[]) => {
         let total = 0;
-        
+
         investmentSplitPayload.forEach((element: { [x: string]: number }) => {
             total = total + element['allocation:rate'];
         });
-        
+
         setTotal(total);
     };
 
@@ -90,14 +92,14 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
                     element['allocation:rate'] = parseInt(change.target.value);
                 }
             });
-            
+
             fundData.forEach((element: { [x: string]: any }) => { // Use forEach instead of map (no extra memory used)
                 if (element.allocation_fund === data['allocation_fund']) {
                     element.distribution = parseInt(change.target.value);
                 }
             });
         }
-        
+
         setFundData(fundData);
         setInvestmentSplitPayload(investmentSplitPayload);
         calculateTotal(investmentSplitPayload);
@@ -107,7 +109,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
         const payload = {
             investment_split: investmentSplitPayload,
         };
-        
+
         patch(url, payload).then((res: any) => {
             const status_report = getStatusReport(res);
             alertContext.setToastList(status_report);
@@ -119,7 +121,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
             ) {
                 if (res.data._embedded['cscaia:execute']) {
                     const transferUrl = url + '/execute';
-                    
+
                     post(transferUrl, {}).then(() => {
                         props.onClickDialog();
                     });
@@ -133,7 +135,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
             'operation:amount': parseInt(value),
         };
         patch(url, payload).then(() => {
-            setOperationAmount(parseInt(value));
+            // setOperationAmount(parseInt(value));
         });
     };
 
@@ -141,8 +143,13 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
         <>
             {fundData.length > 0 && (
                 <>
-                    <div className="col-12 pb-4">
-                        <DxcInput label={t('_GROSS_AMOUNT')} value={amount} onBlur={updateAmount} margin="xxsmall" />
+                    <div className="col-4 pb-4">
+                        <TextField
+                            data={unsoliciteRes}
+                            onBlurMethod={updateAmount}
+                            type="number"
+                            label={t('_GROSS_AMOUNT')}
+                            propertyName={'operation:amount'} />
                     </div>
                     <div className="col-12 table">
                         <DxcTable>

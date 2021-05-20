@@ -4,6 +4,7 @@ import { getLink, getOneOfFromResponse } from 'util/functions';
 
 import Coverages from './Coverages';
 import Label from 'components/Label/Label';
+import TextField from 'components/TextField/TextField';
 import baContext from 'context/baContext';
 import useActivity from 'hooks/useActivity';
 import useAia from "data/hooks/useAia";
@@ -16,7 +17,6 @@ import { useSelector } from 'react-redux';
 const Quote = () => {
     const { startActivity } = useActivity()
     const url = 'http://20.33.40.95:13211/csc/insurance/quotes/ID-mrMxYScs';
-
     const { fetch, post, patch } = useAia();
     const context = useContext(baContext);
     const baId: string = context.baId ? context.baId : '';
@@ -24,6 +24,9 @@ const Quote = () => {
     const quoteResponse = useSelector((state: any) => (quoteUrl !== '' ? state.aia[baId][quoteUrl] : {}));
     const [frequencyOptions, setOptions] = useState([]);
     const [risksUrl, setRiskUrl] = useState<string>();
+    // hardcoding ARG url to define diff. use cases
+    const ownerUrl = 'http://20.33.40.95:13211/csc/insurance/quotes/ID-mrMxYT5Q/owners/ID-iy5KKS9M';
+    const [owner, setOwner] = useState<string>();
     useEffect(() => {
         startActivity();
         getData();
@@ -34,6 +37,9 @@ const Quote = () => {
             setQuote(url);
             const option: any = getOneOfFromResponse(quoteRes.data, 'quote:frequency');
             setOptions(option);
+            fetch(ownerUrl).then((response: any) => {
+                setOwner(response.data);
+            })
             if (getLink(quoteRes.data, 'quote:quote_risk_list')) {
                 fetch(getLink(quoteRes.data, 'quote:quote_risk_list')).then((risksRes: any) => {
                     if (risksRes && risksRes.data && risksRes.data._links.item) {
@@ -61,19 +67,38 @@ const Quote = () => {
         patch(url, obj).then()
     };
 
+    const ownerUpdate = (newValue: any) => {
+        console.log(newValue)
+    }
+
     return (
         <>
             {quoteResponse && quoteResponse.data &&
                 <>
-                    <div>
+                    <div className="col-4">
                         <DxcSelect
                             options={frequencyOptions}
                             onChange={patchFrequency}
                             label="Frequency"
-                            margin="medium"
                         ></DxcSelect>
                     </div>
-                    <div>
+                    <div className="col-4">
+                        <TextField
+                            label="Description"
+                            propertyName="quote:description"
+                            data={quoteResponse.data}
+                        />
+                    </div>
+                    <div className="col-4">
+                        <TextField
+                            label="Owner email"
+                            onChangeMethod={ownerUpdate}
+                            propertyName="quote_owner:email"
+                            type="email"
+                            data={owner}
+                        />
+                    </div>
+                    <div className="col-4">
                         <DxcDate
                             label="start date"
                             format="yyyy-MM-dd"
@@ -86,7 +111,7 @@ const Quote = () => {
                     <div>
                         <Label label="Frequency" propertyName="quote:frequency" data={quoteResponse.data} />
                     </div> */}
-                    <div>
+                    <div className="col-4">
                         <Label label="Start date" propertyName="quote:contract_start_date" data={quoteResponse.data} />
                     </div>
                 </>

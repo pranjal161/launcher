@@ -2,7 +2,7 @@ import "./App.scss";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import {AlertContext, AlertContextProvider} from "./context/alertContext";
-import {DxcSpinner, ThemeContext} from "@dxc-technology/halstack-react";
+import {DxcSpinner, ThemeProvider} from "@dxc-technology/halstack-react";
 import React, {useEffect, useState} from "react";
 import routes, { applyRoutes } from './routes';
 
@@ -67,7 +67,7 @@ function App() {
         <>
             <AppContextProvider>
                 <AlertContextProvider>
-                    <ThemeContext.Provider value={Colors}>
+                    <ThemeProvider theme={Colors}>
                         <>
                             {isLoading && (
                                 <div className="spinner">
@@ -88,7 +88,7 @@ function App() {
                             }
 
                         </>
-                    </ThemeContext.Provider>
+                    </ThemeProvider>
                 </AlertContextProvider>
             </AppContextProvider>
         </>

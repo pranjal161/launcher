@@ -232,7 +232,7 @@ export const getValues = (array: Array<any>, filterBy: string, matchingValue: st
 
 export const getOneOfFromResponse = (response: any, id: string) => {
     const enumItemList = [];
-    if (response._options &&
+    if (response && response._options &&
         response._options.properties &&
         response._options.properties[id] &&
         response._options.properties[id]['oneOf']) {
@@ -256,9 +256,9 @@ export const getOneOfFromResponse = (response: any, id: string) => {
  * @returns {boolean} true, if PATCH operation is available for the provided field
  */
 export const isFieldEditable = (response: any, field: string): boolean => {
-    if (response['_options']) {
+    if (response && response['_options']) {
         const patchLink = response['_options']['links'].find((item: any) => item.method === 'PATCH');
-        if (patchLink.isEmpty()) {
+        if (!patchLink) {
             return false;
         }
         return patchLink &&
@@ -279,7 +279,7 @@ export const isFieldEditable = (response: any, field: string): boolean => {
  * @returns {boolean} true, if present in required array in API
  */
 export const isFieldRequired = (response: any, field: string) => (
-    response['_options'] &&
+    response && response['_options'] &&
     response['_options']['required'] &&
     response['_options']['required'].indexOf(field) !== -1
 )
@@ -289,11 +289,15 @@ export const isFieldRequired = (response: any, field: string) => (
  * @param  {string} field the field/propertyName which should be checked for visibility
  * @returns {boolean} true, if allowed for GET and therefore should be visible on screen
  */
-export const isFieldVisible = (response: any, field: string): boolean => (
-    response['_options'] &&
+export const isFieldVisible = (response: any, field: string): boolean => {
+    if(response && response['_options'] &&
     response['_options']['properties'] &&
-    !response['_options']['properties'][field].isEmpty()
-)
+    response['_options']['properties'][field]) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 /** If POST method is allowed on the current href
  * @param  {any} response provided response 
@@ -361,14 +365,12 @@ export const getTitle = (response: any): string | null => {
  * @param  {string} propertyName concerned propertyName 
  * @returns {number| null} allowed min Length value
  */
-export const getMinLength = (response: any, propertyName: string): number | null => {
+export const getMinLength = (response: any, propertyName: string) => {
     if (response && response['_options'] &&
         response['_options']['properties'] &&
         response['_options']['properties'][propertyName] &&
         response['_options']['properties'][propertyName].minLength) {
         return response['_options']['properties'][propertyName].minLength;
-    } else {
-        return null
     }
 }
 
@@ -377,14 +379,12 @@ export const getMinLength = (response: any, propertyName: string): number | null
  * @param  {string} propertyName concerned propertyName 
  * @returns {number| null} allowed maxLength value
  */
-export const getMaxLength = (response: any, propertyName: string): number | null => {
+export const getMaxLength = (response: any, propertyName: string) => {
     if (response && response['_options'] &&
         response['_options']['properties'] &&
         response['_options']['properties'][propertyName] &&
         response['_options']['properties'][propertyName].maxLength) {
         return response['_options']['properties'][propertyName].maxLength;
-    } else {
-        return null;
     }
 }
 
@@ -413,5 +413,19 @@ export const getMaxValue = (response: any, propertyName: string) => {
         response['_options']['properties'][propertyName] &&
         response['_options']['properties'][propertyName].maximum) {
         return response['_options']['properties'][propertyName].maximum;
+    }
+}
+
+/** Returns the type of property 
+ * @param  {any} response API response provided
+ * @param  {string} propertyName concerned propertyName 
+ * @returns {string} type like number, array, string etc
+ */
+export const getPropertyType = (response: any, propertyName: string) => {
+    if (response && response['_options'] &&
+    response['_options']['properties'] &&
+    response['_options']['properties'][propertyName] &&
+    response['_options']['properties'][propertyName].type) {
+        return response['_options']['properties'][propertyName].type;
     }
 }

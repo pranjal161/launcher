@@ -6,10 +6,5 @@ const TrainingPranjal = () => {
     let url = 'http://20.33.40.95:13211/csc/insurance/quotes/ID-mrMxYScs';
     const QuoteViewActivity:any = withActivity(Quote, url)
     return (<>{QuoteViewActivity}</>)
-    return (
-        <>
-            <Quote />
-        </>
-    )
 };
 export default TrainingPranjal;
