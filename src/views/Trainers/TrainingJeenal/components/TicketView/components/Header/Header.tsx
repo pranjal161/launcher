@@ -51,7 +51,7 @@ const Header = (props: { ticket: any }) => {
                         <AddReminder/>
                     </StyledButtonWhiteSVG>
                     <DxcButton
-                        mode="primary"
+                        mode="secondary"
                         label="Launch Activity"
                         onClick={onLaunchActivity}
                         margin="xxsmall"
