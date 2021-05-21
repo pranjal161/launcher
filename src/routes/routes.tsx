@@ -13,8 +13,21 @@ import MyBaskets from 'views/MyBaskets/MyBaskets';
 import MyTickets from "views/MyTickets/MyTickets";
 import NewTicket from 'views/NewTicket/NewTicket';
 import {Redirect} from "react-router-dom";
-import TabView from "views/TabView/TabView";
 import Trainers from "views/Trainers";
+
+/**
+ * An empty component that returns null.
+ * It is used in routes array to render an empty component for route /viewTab.
+ * If there is no component on this route, the route will simply redirect to the /errors/error-404 route.
+ * This is done to override this behavior in this case without affecting other cases. 
+ * The AppLayout component has a component that uses react-router-dom's useRouteMatch hook to 
+ * show/hide content with div display: block or hidden, if the route is /viewTab.
+ * This is done to avoid component rerender in the case of route change.
+ * @returns {void}
+ */
+const NullCmp = () => (
+    null
+)
 
 const routes = [
     {
@@ -110,7 +123,7 @@ const routes = [
                 path: '/viewTab',
                 name: 'viewTab',
                 exact: true,
-                component: TabView
+                component: NullCmp
             },
             {
                 path: '/NewTicket/create',
