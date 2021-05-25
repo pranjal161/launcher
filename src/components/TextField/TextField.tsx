@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useResponse, { Field } from 'hooks/useResponse';
+import useValidator, { Field } from 'hooks/useValidator';
 
 import { DxcInput } from '@dxc-technology/halstack-react';
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 const TextField = (props: { label: string; propertyName: string; data: any; type?: string, onChangeMethod?: any, onBlurMethod?:any }) => {
     const { t } = useTranslation();
     const { label, propertyName, data, type, onChangeMethod, onBlurMethod } = props;
-    const { FieldWrapper, Validation } = useResponse();
+    const { FieldWrapper, Validation } = useValidator();
     const field: Field = FieldWrapper(data, propertyName, type );
     const [showError, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState<String | null >(null);

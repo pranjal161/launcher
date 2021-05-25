@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { getLink, getOneOfFromResponse } from 'util/functions';
 
 import Coverages from './Coverages';
+import DateField from 'components/DateField/DateField';
 import Label from 'components/Label/Label';
 import TextField from 'components/TextField/TextField';
 import baContext from 'context/baContext';
@@ -103,6 +104,12 @@ const Quote = () => {
                             label="start date"
                             format="yyyy-MM-dd"
                             onBlur={(newValue: any) => updateDate(newValue, 'quote:contract_start_date')}
+                        />
+                        <DateField
+                            label="start date"
+                            propertyName="quote:contract_start_date"
+                            data={quoteResponse.data}
+                            onBlurMethod={(newValue: any) => updateDate(newValue, 'quote:contract_start_date')}
                         />
                     </div>
                     {/* <div>
