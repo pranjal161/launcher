@@ -3,6 +3,7 @@ import MainNavBar from "components/MainNavBar/MainNavBar";
 import PropTypes from 'prop-types'
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import TabViewContainer from 'views/TabView/TabViewContainer';
 import { applyRoutes } from "../../routes";
 import styled from "styled-components";
 import useDeskAuth from "data/hooks/useDeskAuth";
@@ -37,6 +38,12 @@ const AppLayout = (props: { route: any }) => {
         redirectToLogin = true;
     }
 
+    /**
+     * The component TabViewContainer is displayed only on route /viewTab, 
+     * and it's content is only hidden, not unrendered. 
+     * This is done to avoid rerendering the data fetch heavy secondary tabs components.
+     */
+
     return (
         <>
             {
@@ -65,6 +72,7 @@ const AppLayout = (props: { route: any }) => {
                             </DxcApplicationLayout.Header>
                             <DxcApplicationLayout.Main>
                                 <FixMainTop>
+                                    <TabViewContainer />
                                     {applyRoutes(route.routes)}
                                 </FixMainTop>
                             </DxcApplicationLayout.Main>
