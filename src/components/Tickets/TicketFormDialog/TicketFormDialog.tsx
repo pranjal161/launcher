@@ -13,7 +13,7 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import {AlertContext} from 'context/alertContext';
 import {ApplicationContext} from 'context/applicationContext';
-import axios from 'axios';
+import { Axios } from 'data/hooks/useLoader';
 import {searchPerson} from 'util/functions';
 import useDeskAuth from 'data/hooks/useDeskAuth';
 import useDeskBaskets from 'data/hooks/useDeskBaskets';
@@ -105,7 +105,7 @@ const TicketFormDialog = (props: { submit?: any; close?: any; ticket?: any; }) =
     const getPersons = async (newValue: string) => {
         if (newValue !== '' && newValue.length > 3) {
             const searchUrl = searchPerson(newValue);
-            const promise = Promise.resolve(axios.get(searchUrl, {headers: applicationContext.headers}))
+            const promise = Promise.resolve(Axios.get(searchUrl, {headers: applicationContext.headers}))
 
             await promise.then((result) => {
                 if (result && result.data && result.data._links && result.data._links.item) {

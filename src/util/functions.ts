@@ -1,12 +1,12 @@
 import { AppConfig } from '../config/appConfig';
-import axios from 'axios';
+import { Axios } from 'data/hooks/useLoader';
 
 export const aia = {
     // Params can be used to pass additional parameter to the request, in case we need change in headers, responseType etc
-    get: (url: string, params?: { headers?: any; }) => axios.get(url, { headers: params && params.headers ? params.headers : AppConfig.headers }),
-    post: (url: string, body: Object, params?: { headers?: any; }) => axios.post(url, body, { headers: params && params.headers ? params.headers : AppConfig.headers }),
-    patch: (url: string, payload: Object, params?: { headers?: any; }) => axios.patch(url, payload, { headers: params && params.headers ? params.headers : AppConfig.headers }),
-    delete: (url: string, params?: { headers?: any; }) => axios.delete(url, { headers: params && params.headers ? params.headers : AppConfig.headers })
+    get: (url: string, params?: { headers?: any; }) => Axios.get(url, { headers: params && params.headers ? params.headers : AppConfig.headers }),
+    post: (url: string, body: Object, params?: { headers?: any; }) => Axios.post(url, body, { headers: params && params.headers ? params.headers : AppConfig.headers }),
+    patch: (url: string, payload: Object, params?: { headers?: any; }) => Axios.patch(url, payload, { headers: params && params.headers ? params.headers : AppConfig.headers }),
+    delete: (url: string, params?: { headers?: any; }) => Axios.delete(url, { headers: params && params.headers ? params.headers : AppConfig.headers })
 }
 
 /**
