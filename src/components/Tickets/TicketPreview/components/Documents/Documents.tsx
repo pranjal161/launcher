@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
+import { Axios } from 'data/hooks/useLoader';
 import {DxcDialog} from '@dxc-technology/halstack-react';
-import axios from "axios";
 import { formatValue } from "util/functions";
 
 const Documents = (props: { documents: any; }) => {
@@ -13,7 +13,7 @@ const Documents = (props: { documents: any; }) => {
         'Accept': 'application/pdf'
     }
     const handleClick = (document: any) => {
-        axios.get(document.url, { headers: header, responseType: 'blob' }).then((response) => {
+        Axios.get(document.url, { headers: header, responseType: 'blob' }).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data], {type: document.type}));
             setContent(url);
             setOpenDoc(true)

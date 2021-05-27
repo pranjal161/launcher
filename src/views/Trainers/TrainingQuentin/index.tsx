@@ -3,10 +3,10 @@ import './styles.scss';
 import { DxcInput, DxcTabs } from '@dxc-technology/halstack-react';
 import { componentsTabs, mainTabs } from './models/tabs';
 
+import { Axios } from 'data/hooks/useLoader';
 import Dialog from '../../../components/Dialog/Dialog';
 import GlobalSearchMaterial from './components/GlobalSearchMaterial/GlobalSearchMaterial';
 import React from "react";
-import axios from 'axios';
 import {entities} from './models/data.js';
 
 interface Test {
@@ -45,7 +45,7 @@ const TrainingQuentin = () => {
         if (entity === "Person") {
             property = property.replace('$', '%3A');
         }
-        const res = await axios.get(`insurance/${entityGroup}?${property}=${searchValue}*`, {});
+        const res = await Axios.get(`insurance/${entityGroup}?${property}=${searchValue}*`, {});
 
         if (res.data._links.item) {
             return res.data._link.item;

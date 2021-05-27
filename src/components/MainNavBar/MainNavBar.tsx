@@ -1,5 +1,6 @@
 import * as popupWindowActions from "../../store/actions/popupWindowTabsActions";
 
+import { DxcHeader, DxcSpinner } from '@dxc-technology/halstack-react';
 import { ExtensionsIcon, HelpIcon } from 'assets/svg';
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { ApplicationContext } from 'context/applicationContext';
 import CreateButton from '../Tickets/CreateButton/CreateButton';
 import DXCLogo from 'assets/dxc_logo.jpg';
-import { DxcHeader } from '@dxc-technology/halstack-react';
 import IconButton from "../IconButton/IconButton";
 import NewWindowPortal from "../../components/NewWindowPortal/NewWindowPortal";
 import PrimaryTabs from "../PrimaryTabs/PrimaryTabs";
@@ -20,6 +20,7 @@ import en from 'assets/gb.jpg';
 import fr from 'assets/fr.jpg';
 import nl from 'assets/nl.jpg';
 import styled from 'styled-components';
+import useLoader from "data/hooks/useLoader";
 
 interface NavRowProps {
     justify?: string,
@@ -105,8 +106,9 @@ const MainNavBar = () => {
     const applicationContext = useContext(ApplicationContext);
     const [lang, setLang] = useState<string>(applicationContext.language);
     const [primaryTabSelected, setPrimaryTabSelected] = useState<number | null>(null);
-    let isWindowOpen = useSelector((state:any) => state.popupWindow.isPopupWindowWithTabsOpened);
+    let isWindowOpen = useSelector((state: any) => state.popupWindow.isPopupWindowWithTabsOpened);
     let dispatch = useDispatch();
+    const [loading] = useLoader();
 
     const onCloseTicketNewWindow = () => {
         dispatch(popupWindowActions.closeWindowTabs());
@@ -143,7 +145,7 @@ const MainNavBar = () => {
         }
     };
 
-    const handlePrimaryTabClick = (index:number) => {
+    const handlePrimaryTabClick = (index: number) => {
         history.push(TabbedLinksArray[index].path);
         setPrimaryTabSelected(index);
     };
@@ -161,9 +163,9 @@ const MainNavBar = () => {
     }
 
     useEffect(() => {
-        if(location.pathname) {
+        if (location.pathname) {
             let indexFound: number = TabbedLinksArray.findIndex((elem) => elem.path === location.pathname);
-            indexFound === -1 ? setPrimaryTabSelected(null): setPrimaryTabSelected(indexFound);
+            indexFound === -1 ? setPrimaryTabSelected(null) : setPrimaryTabSelected(indexFound);
         }
     }, [location.pathname]);
 
@@ -174,11 +176,16 @@ const MainNavBar = () => {
                 <NavRow
                     align="center"
                     height="3.5rem">
-                    <LogoImg 
-                        src={DXCLogo} 
+                    <LogoImg
+                        src={DXCLogo}
                         alt="DXC Logo"
                         title="Home"
                         onClick={goToHome} />
+                    {loading && (
+                        <div className="spinner">
+                            <DxcSpinner margin="xxsmall" mode="small" />
+                        </div>
+                    )}
                     <ActionButtonsContainer>
                         <CreateButton />
 
