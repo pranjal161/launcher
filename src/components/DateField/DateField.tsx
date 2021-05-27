@@ -45,7 +45,7 @@ const DateField = (props: { label: string; propertyName: string; data: any; type
     }
 
     return (
-        <>
+        <span data-testid="date_field">
             <DxcDate
                 label={t(label)}
                 assistiveText={showError ? errorMessage : null}
@@ -56,7 +56,7 @@ const DateField = (props: { label: string; propertyName: string; data: any; type
                 onBlur={onBlur}
                 onChange={onChange}
             />
-        </>
+        </span>
     );
 };
 

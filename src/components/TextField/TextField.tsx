@@ -41,7 +41,7 @@ const TextField = (props: { label: string; propertyName: string; data: any; type
     }
 
     return (
-        <>
+        <span data-testid="text_field">
             <DxcInput
                 label={t(label)}
                 size="fillParent"
@@ -53,7 +53,7 @@ const TextField = (props: { label: string; propertyName: string; data: any; type
                 assistiveText={showError? errorMessage: null}
                 invalid={showError}
             />
-        </>
+        </span>
     );
 };
 
