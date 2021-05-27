@@ -85,14 +85,12 @@ const Quote = () => {
                     </div>
                     <div className="col-4">
                         <TextField
-                            label="Description"
                             propertyName="quote:description"
                             data={quoteResponse.data}
                         />
                     </div>
                     <div className="col-4">
                         <TextField
-                            label="Owner email"
                             onChangeMethod={ownerUpdate}
                             propertyName="quote_owner:email"
                             type="email"
@@ -106,7 +104,6 @@ const Quote = () => {
                             onBlur={(newValue: any) => updateDate(newValue, 'quote:contract_start_date')}
                         />
                         <DateField
-                            label="start date"
                             propertyName="quote:contract_start_date"
                             data={quoteResponse.data}
                             onBlurMethod={(newValue: any) => updateDate(newValue, 'quote:contract_start_date')}

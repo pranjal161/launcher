@@ -121,6 +121,7 @@ const useValidator = () => {
 
     const ValidateDate = (value: any, errorField: ErrorField) => {
         if(value && value !== '') {
+            // to check date-fns validation
             const dateReg = new RegExp("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$");
             const dateValidation = dateReg.test(value);
             if (dateValidation === false) {

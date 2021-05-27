@@ -10,9 +10,9 @@ import { useTranslation } from "react-i18next";
  * @param {props} props Contains information related to the input
  * @returns {*} Return the Input
  */
-const DateField = (props: { label: string; propertyName: string; data: any; type?: string, onChangeMethod?: any, onBlurMethod?: any }) => {
+const DateField = (props: { propertyName: string; data: any; type?: string, onChangeMethod?: any, onBlurMethod?: any }) => {
     const { t } = useTranslation();
-    const { label, propertyName, data, type = 'date', onChangeMethod, onBlurMethod } = props;
+    const { propertyName, data, type = 'date', onChangeMethod, onBlurMethod } = props;
     const { FieldWrapper, DateSeparator, Validation, APIDateFormatter } = useValidator();
     const field: Field = FieldWrapper(data, propertyName, type);
     const [showError, setError] = useState(false);
@@ -45,9 +45,9 @@ const DateField = (props: { label: string; propertyName: string; data: any; type
     }
 
     return (
-        <span data-testid="date_field">
+        <span data-testid={propertyName}>
             <DxcDate
-                label={t(label)}
+                label={t(propertyName)}
                 assistiveText={showError ? errorMessage : null}
                 value={value}
                 invalid={showError}
