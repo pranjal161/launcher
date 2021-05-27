@@ -148,7 +148,6 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
                             data={unsoliciteRes}
                             onBlurMethod={updateAmount}
                             type="number"
-                            label={t('_GROSS_AMOUNT')}
                             propertyName={'operation:amount'} />
                     </div>
                     <div className="col-12 table">

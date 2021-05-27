@@ -368,6 +368,7 @@
         "_GENERAL_INFORMATION": "Algemene informatie",
         "_GLASS_BREAKAGE": "Venster pauze",
         "_GROSS_AMOUNT": "Brutobedrag",
+        "operation:amount":"Brutobedrag",
         "_HALF_OPEN": "Halfopen",
         "_HEALTH": " > Health",
         "_HIDDEN": " ",
