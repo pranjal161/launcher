@@ -3,10 +3,10 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import {AppConfig} from 'config/appConfig';
 import {ApplicationContext} from 'context/applicationContext';
+import { Axios } from 'data/hooks/useLoader';
 import ConsultationPanels from "components/ConsultationPanels/ConsultationPanels";
 import ContractPreview from "components/Contracts/ContractPreview/ContractPreview";
 import ContractTable from "components/ContractTable/ContractTable";
-import axios from 'axios';
 import {useTranslation} from 'react-i18next';
 
 const ContractSearch = () => {
@@ -28,7 +28,7 @@ const ContractSearch = () => {
     }, [url, applicationContext]);
 
     const getData = (url: string) => {
-        axios.get(url, {headers: applicationContext.headers}).then((response) => {
+        Axios.get(url, {headers: applicationContext.headers}).then((response) => {
             if (response && response.data['_links']['item']) {
                 if (!Array.isArray(response.data['_links']['item'])) {
                     response.data['_links']['item'] = [response.data['_links']['item']];

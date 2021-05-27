@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
+import { Axios } from 'data/hooks/useLoader';
 import Label from "components/Label/Label";
-import axios from 'axios';
 import { getLink } from 'util/functions';
 import useAia from 'data/hooks/useAia';
 
@@ -72,7 +72,7 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                 }
             });
 
-            axios.get(billingListItem, { headers: applicationContext.headers }).then((response) => {
+            Axios.get(billingListItem, { headers: applicationContext.headers }).then((response) => {
                 if (
                     response &&
                     response.data &&
@@ -81,13 +81,13 @@ const FinancialInformation = (props: { contractResponse: any }) => {
                     response.data['_links'].item[0] &&
                     response.data['_links'].item[0].href
                 ) {
-                    axios
+                    Axios
                         .get(response.data['_links'].item[0].href, { headers: applicationContext.headers })
                         .then((res) => {
                             setBillingList(res.data);
                         });
                 } else if (response && response.data && response.data['_links'] && response.data['_links'].item) {
-                    axios
+                    Axios
                         .get(response.data['_links'].item.href, { headers: applicationContext.headers })
                         .then((res) => {
                             setBillingList(res.data);
