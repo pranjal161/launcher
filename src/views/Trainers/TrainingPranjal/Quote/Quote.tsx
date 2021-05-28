@@ -5,6 +5,7 @@ import { getLink, getOneOfFromResponse } from 'util/functions';
 import Coverages from './Coverages';
 import DateField from 'components/DateField/DateField';
 import Label from 'components/Label/Label';
+import TextArea from 'components/TextArea/TextArea';
 import TextField from 'components/TextField/TextField';
 import baContext from 'context/baContext';
 import useActivity from 'hooks/useActivity';
@@ -84,7 +85,7 @@ const Quote = () => {
                         ></DxcSelect>
                     </div>
                     <div className="col-4">
-                        <TextField
+                        <TextArea
                             propertyName="quote:description"
                             data={quoteResponse.data}
                         />
