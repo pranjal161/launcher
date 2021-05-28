@@ -23,6 +23,14 @@ export interface Field {
         type: any
 }
 
+export interface InputProps {
+    propertyName: string; 
+    data: any; 
+    type?: string, 
+    onChangeMethod?: any, 
+    onBlurMethod?: any
+}
+
 export interface ErrorField {
     error: string | null,
     valid: boolean

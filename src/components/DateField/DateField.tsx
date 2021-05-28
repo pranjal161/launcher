@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useValidator, { Field } from 'hooks/useValidator';
+import useValidator, { Field, InputProps } from 'hooks/useValidator';
 
 import { DxcDate } from '@dxc-technology/halstack-react';
 import { formatValue } from 'util/functions';
@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
  * @param {props} props Contains information related to the input
  * @returns {*} Return the Input
  */
-const DateField = (props: { propertyName: string; data: any; type?: string, onChangeMethod?: any, onBlurMethod?: any }) => {
+const DateField = (props: InputProps) => {
     const { t } = useTranslation();
     const { propertyName, data, type = 'date', onChangeMethod, onBlurMethod } = props;
     const { FieldWrapper, DateSeparator, Validation, APIDateFormatter } = useValidator();
