@@ -368,6 +368,7 @@
         "_GENERAL_INFORMATION": "Informations Générales",
         "_GLASS_BREAKAGE": "Bris de vitre",
         "_GROSS_AMOUNT": "Montant brut",
+        "operation:amount":"Montant brut",
         "_HALF_OPEN": "Semi-ouvert",
         "_HEALTH": "> Santé",
         "_HIDDEN": " ",

@@ -110,7 +110,7 @@ export const formatValue = (value: any, style?: string | undefined) => {
                     if (value === '9999-99-99') {
                         // hardcoding> api fix
                         formattedValue = '99/99/9999'
-                    } else {
+                    } else if (value !== "") {
                         const date = new Date(value);
                         formattedValue = new Intl.DateTimeFormat(intl.DateFormat).format(date);
                     }

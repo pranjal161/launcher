@@ -21,8 +21,9 @@ const applyRoutes = (routes: Array<any>) => {
 }
 
 const applyRoute: React.FC<CustomProps> = ({ component: Component, ...rest}, index: number) => (
-    <Route {...rest} key={index}>
-        <Component route={rest} key={index} />
+    <Route {...rest} key={index} render={
+        (props: any) => <Component {...props} route={rest} key={index} />
+    }>
     </Route>
 );
 

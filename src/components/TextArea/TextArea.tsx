@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useValidator, { Field, InputProps } from 'hooks/useValidator';
 
-import { DxcInput } from '@dxc-technology/halstack-react';
+import { DxcTextarea } from '@dxc-technology/halstack-react';
 import { useTranslation } from "react-i18next";
 
 /**
@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
  * @param {props} props Contains information related to the input
  * @returns {*} Return the Input
  */
-const TextField = (props: InputProps) => {
+const TextArea = (props: InputProps) => {
     const { t } = useTranslation();
     const { propertyName, data, type, onChangeMethod, onBlurMethod } = props;
     const { FieldWrapper, Validation } = useValidator();
@@ -42,7 +42,7 @@ const TextField = (props: InputProps) => {
 
     return (
         <span data-testid={propertyName}>
-            <DxcInput
+            <DxcTextarea
                 label={t(propertyName)}
                 size="fillParent"
                 required={field?.required}
@@ -57,4 +57,4 @@ const TextField = (props: InputProps) => {
     );
 };
 
-export default TextField
+export default TextArea

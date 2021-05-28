@@ -381,6 +381,7 @@
         "_GLASS_BREAKAGE": "Glass breakage",
         "_GLOBAL_RATE": "Global rate",
         "_GROSS_AMOUNT": "Gross amount",
+        "operation:amount":"Gross amount",
         "_HALF_OPEN": "Half-open",
         "_HEALTH": "> Health",
         "_HIDDEN": " ",

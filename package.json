@@ -111,7 +111,10 @@
       "^.+\\.ts?$": "ts-jest",
       "^.+\\.tsx?$": "ts-jest",
       "^.+\\.jsx?$": "babel-jest"
-    }
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!react-use-scrollspy|prop-types|/@dxc-technology).+\\.js$"
+    ]
   },
   "husky": {
     "hooks": {

@@ -9,6 +9,8 @@ import {
     isFieldVisible
 } from "util/functions";
 
+import moment from "moment";
+
 export interface Field {
         min: number,
         max: number,
@@ -21,12 +23,20 @@ export interface Field {
         type: any
 }
 
+export interface InputProps {
+    propertyName: string; 
+    data: any; 
+    type?: string, 
+    onChangeMethod?: any, 
+    onBlurMethod?: any
+}
+
 export interface ErrorField {
     error: string | null,
     valid: boolean
 }
 
-const useResponse = () => {
+const useValidator = () => {
 
     const FieldWrapper = ( data: any, propertyName?: any, type?: string) => {
         let field: Field = {
@@ -57,6 +67,9 @@ const useResponse = () => {
                 break;
             case 'number':
                 validate = ValidateNumber(newValue, validate);
+                break;
+            case 'date':
+                validate = ValidateDate(newValue, validate);
         }
         return validate;
     }
@@ -114,7 +127,36 @@ const useResponse = () => {
         return errorField;
     }
 
-    return { FieldWrapper, Validation }
+    const ValidateDate = (value: any, errorField: ErrorField) => {
+        if(value && value !== '') {
+            // to check date-fns validation
+            const dateReg = new RegExp("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$");
+            const dateValidation = dateReg.test(value);
+            if (dateValidation === false) {
+                errorField.error = 'INVALID_DATE';
+                errorField.valid = false;
+            }
+        }
+        return errorField
+    }
+
+    const DateSeparator = (value: string) => {
+        if (value && value.length === 2) {
+            value = value.slice(0,2) + "-";
+        } else if (value && value.length > 5) {
+            value = value.split('-').join("");
+            value = value.slice(0,2) + "-" + value.slice(2,4) + "-" + value.slice(4,8);
+        }
+        return value;
+    }
+
+    const APIDateFormatter = (value: string) => {
+        // to use date-fns format 
+        value = moment(value).format("YYYY-MM-DD")
+        return value
+    }
+
+    return { FieldWrapper, Validation, DateSeparator, APIDateFormatter }
 }
 
-export default useResponse
+export default useValidator

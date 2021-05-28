@@ -3,7 +3,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { getLink, getOneOfFromResponse } from 'util/functions';
 
 import Coverages from './Coverages';
+import DateField from 'components/DateField/DateField';
 import Label from 'components/Label/Label';
+import TextArea from 'components/TextArea/TextArea';
 import TextField from 'components/TextField/TextField';
 import baContext from 'context/baContext';
 import useActivity from 'hooks/useActivity';
@@ -83,15 +85,13 @@ const Quote = () => {
                         ></DxcSelect>
                     </div>
                     <div className="col-4">
-                        <TextField
-                            label="Description"
+                        <TextArea
                             propertyName="quote:description"
                             data={quoteResponse.data}
                         />
                     </div>
                     <div className="col-4">
                         <TextField
-                            label="Owner email"
                             onChangeMethod={ownerUpdate}
                             propertyName="quote_owner:email"
                             type="email"
@@ -103,6 +103,11 @@ const Quote = () => {
                             label="start date"
                             format="yyyy-MM-dd"
                             onBlur={(newValue: any) => updateDate(newValue, 'quote:contract_start_date')}
+                        />
+                        <DateField
+                            propertyName="quote:contract_start_date"
+                            data={quoteResponse.data}
+                            onBlurMethod={(newValue: any) => updateDate(newValue, 'quote:contract_start_date')}
                         />
                     </div>
                     {/* <div>
