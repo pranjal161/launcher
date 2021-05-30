@@ -1,12 +1,11 @@
-const initialState = {}
+export const initialState = {}
 
 const aiaReducer = (state = initialState, action: any) => {
     let newState:any = {...state}
-    let newBa: any
 
     const updateResponse = (newState:any, action:any) => {
         // eslint-disable-next-line array-callback-return
-        Object.keys(action.store.aia).map((baId: any) => {
+        Object.keys(action.store).map((baId: any) => {
             if (baId && baId[action.href]) {
                 newState[baId][action.href] = {data:{...action.data}}
             } else {
@@ -28,8 +27,7 @@ const aiaReducer = (state = initialState, action: any) => {
             return newState
 
         case 'BA_END':
-            newBa = delete newState[action.baId]
-            newState = newBa
+            delete newState[action.baId]
             return newState
 
         case 'BA_GET_PENDING':

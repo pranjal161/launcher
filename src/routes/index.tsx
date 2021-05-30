@@ -7,7 +7,7 @@ export interface CustomProps {
     path: string,
     name: string,
     exact: boolean,
-    component: React.ComponentType,
+    component: React.ComponentType<{ route:any }>,
     routes: Array<any>
 }
 
@@ -22,9 +22,10 @@ const applyRoutes = (routes: Array<any>) => {
 
 const applyRoute: React.FC<CustomProps> = ({ component: Component, ...rest}, index: number) => (
     <Route {...rest} key={index} render={
-        (props: any) => <Component {...props} route={rest} />
-    }
-    />)
+        (props: any) => <Component {...props} route={rest} key={index} />
+    }>
+    </Route>
+);
 
 export {applyRoutes};
 export default routes;

@@ -10,7 +10,7 @@ export const fetch = (href: string, callType = 'get', baId:string, params?: Obje
         dispatch({
             type: `${actionPrefix}_SUCCESS`,
             data: getState().aia[baId][href].data,
-            store:getState(),
+            store:getState().aia,
             params: params,
             href,
             baId
@@ -23,7 +23,7 @@ export const fetch = (href: string, callType = 'get', baId:string, params?: Obje
                 dispatch({
                     type: `${actionPrefix}_SUCCESS`,
                     data: response.data,
-                    store:getState(),
+                    store:getState().aia,
                     href,
                     baId
                 })
@@ -52,7 +52,7 @@ export const refresh = (href: string, callType = 'refresh', baId:string, params?
             dispatch({
                 type: `${actionPrefix}_SUCCESS`,
                 data: response.data,
-                store:getState(),
+                store:getState().aia,
                 params: params,
                 href,
                 baId
@@ -84,6 +84,16 @@ export const post = (href: string, body: Object, baId: string, params?: Object) 
             if (modifiedArray) {
                 processModifiedHeaders(modifiedArray.message, existingHrefs, baId, dispatch);
             }
+        }
+        if (response && response.data && !response.data.messages) {
+            dispatch({
+                type: `BA_REFRESH_SUCCESS`,
+                data: response.data,
+                store:getState().aia,
+                params: params,
+                href,
+                baId
+            })
         }
         dispatch({
             type: `${actionPrefix}_SUCCESS`,
@@ -125,7 +135,7 @@ export const patch = (href: string, payload: Object, baId: string, params?: Obje
         dispatch({
             type: `${actionPrefix}_SUCCESS`,
             data: response.data,
-            store:getState(),
+            store:getState().aia,
             params: params,
             href,
             baId

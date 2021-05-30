@@ -3,10 +3,10 @@ import "./Notes.scss";
 import React, { useContext, useEffect, useState } from "react";
 
 import { ApplicationContext } from "context/applicationContext";
+import { Axios } from 'data/hooks/useLoader';
 import { DxcBox } from "@dxc-technology/halstack-react";
 import { StyledButton } from "styles/global-style";
 import TitleBig from "components/Titles/TitleBig/TitleBig";
-import axios from "axios";
 import styled from "styled-components";
 
 const Notes = ( ) => {
@@ -22,7 +22,7 @@ const Notes = ( ) => {
     }, []);
 
     const getData = () => {        
-        axios.get(url, { headers: applicationContext.headers }).then((response:any) => {
+        Axios.get(url, { headers: applicationContext.headers }).then((response:any) => {
             setNotesItem(response.data._links.item);
             const count = response && response.data && response.data._count;
             setNotesCount(count === '500+' ? 500 : count);

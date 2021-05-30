@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 
 const ClientSummary = (props: any) => {
     const { t } = useTranslation();
-    const { startActivity } = useActivity()
+    const { startActivity, stopActivity } = useActivity()
 
     const visibleSections = [
         { label: t('_CONTRACT_ROLES'), id: 'roles' },
@@ -37,6 +37,9 @@ const ClientSummary = (props: any) => {
     useEffect(() => {
         startActivity();
         callLoadData();
+        return () => {
+            stopActivity()
+        };
     }, [applicationContext, clientUrl, props.hRef])
 
     const callLoadData = () => {

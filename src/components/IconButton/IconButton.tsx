@@ -8,7 +8,7 @@ import React from 'react';
  * @returns {*} Render the icon Button
  */
 const IconButton = (props: { onClick: Function, children: any }) => (
-    <DxcButton label={props.children} onClick={props.onClick} mode="flat"/>);
+    <DxcButton label={props.children} onClick={props.onClick} mode="text"/>);
 
 IconButton.propTypes = {
     onClick: PropTypes.func,

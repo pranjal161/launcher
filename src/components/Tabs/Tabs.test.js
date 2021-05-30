@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import TabButton, { MemoTabButton } from './components/TabButton/TabButton';
+
+import PropTypes from 'prop-types';
 import Tab from './components/Tab/Tab';
-import TabButton from './components/TabButton/TabButton';
 import Tabs from './Tabs';
 
 import { findByTestAttr } from "../../test/testUtils";
@@ -19,13 +21,37 @@ const defaultCloseTabsClick = (tabId) => {
 };
 
 const defaultProps = {
-    activeTabId: defaultActiveTab
+    activeTabId: defaultActiveTab,
+    onTabClose: defaultCloseTabsClick
 };
+
 const tabIDObject = {
     "tabId-1": "Tab Label 1",
     "tabId-2": "Tab Label 2",
     "tabId-3": "Tab Label 3",
     "tabId-4": "Tab Label 4"
+};
+
+const SimpleComponent = ({text}) => {
+    // used to count the number of times the component renders
+    const renderCount = useRef(0);
+    renderCount.current = renderCount.current + 1;
+
+    return (
+        <div>
+            <p>
+                Render text: {text}
+            </p>
+            <p
+                className="render-count">
+                {renderCount.current}
+            </p>
+        </div>
+    )
+};
+
+SimpleComponent.propTypes = {
+    text: PropTypes.string
 };
 
 const setup = (props = {}) => {
@@ -38,11 +64,8 @@ const setup = (props = {}) => {
                         key={tabId}
                         tabId={tabId}
                         tabLabel={tabIDObject[tabId]}
-                        isActiveTab = {defaultActiveTab === tabId}
-                        onTabCloseClick = {defaultCloseTabsClick}>
-                        <div id={tabId}>
-                            {tabIDObject[tabId]}
-                        </div>
+                        isActiveTab = {defaultActiveTab === tabId}>
+                        <SimpleComponent text={tabId} />
                     </Tab>
                 ))
             }
@@ -66,32 +89,54 @@ describe('test 4 tabs component', () => {
     });
     
     test('render 4 tabs', () => {
-        const tabsChildren = wrapper.find(TabButton);
-        expect(tabsChildren.length).toBe(4);
+        const tabButtons = wrapper.find(MemoTabButton);
+        expect(tabButtons.length).toBe(4);
     });
     
     test('render 4 tabs with the second active', () => {
-        const componentExists = findByTestAttr(wrapper, "tabs-content").exists(`div#${defaultActiveTab}`);
-        expect(componentExists).toBe(true);
+        const tabsContentArray = findByTestAttr(wrapper, "tab-content");
+        tabsContentArray.forEach((tabDiv, index) => {
+            if(index !== 1)
+                expect(tabDiv.props().style).toHaveProperty('display', 'none');
+            else
+                expect(tabDiv.props().style).toHaveProperty('display', 'block');
+        });
     });
-    
+
     test('render 4 tabs, change active tab from default', () => {
-        const tabsChildren = wrapper.find(TabButton);
+        const tabsButtons = wrapper.find(TabButton);
         const lastTabIndex = defaultTabs.length - 1;
-        tabsChildren.at(lastTabIndex).simulate("click");
-        const componentExists = findByTestAttr(wrapper, "tabs-content").exists(`div#${defaultTabs[lastTabIndex]}`);
-        expect(componentExists).toBe(true);
+        tabsButtons.at(lastTabIndex).find('div').first().simulate('click');
+        const tabsContentArray = findByTestAttr(wrapper, "tab-content");
+        tabsContentArray.forEach((tabDiv, index) => {
+            if(index !== lastTabIndex)
+                expect(tabDiv.props().style).toHaveProperty('display', 'none');
+            else
+                expect(tabDiv.props().style).toHaveProperty('display', 'block');
+        });
     });
-    
+
+    test('render 4 tabs, change active tabs, check component rerender', () => {
+        const tabsButtons = wrapper.find(TabButton);
+        const newTabIndex = 2;
+        tabsButtons.at(newTabIndex).find('div').first().simulate('click');
+        tabsButtons.at(newTabIndex - 1).find('div').first().simulate('click');
+        const tabsContentCmpArray = wrapper.find(SimpleComponent);
+        tabsContentCmpArray.forEach((cmp) => {
+            expect(cmp.find('p.render-count').text()).toBe('1');
+        });
+    });
+
     test('render 4 tabs, close last tab', () => {
-        const tabsChildren = wrapper.find(TabButton);
+        const tabsButtons = wrapper.find(TabButton);
         const lastTabIndex = defaultTabs.length - 1;
-        // Get the close icon and click it
-        findByTestAttr(tabsChildren.at(lastTabIndex), "close-icon").simulate("click");
-        // Component has to be mounted 2 times, because it doesn't rerender normally in this test
-        // enzyme has some issues with conditional rendering of children in method mount
-        const newWrapper = setup();
-        const tabsChildrenNew = newWrapper.find(TabButton);
-        expect(tabsChildrenNew.length).toBe(3);
+        const lastTabCloseIcon = findByTestAttr(tabsButtons.at(lastTabIndex), 'close-icon');
+        lastTabCloseIcon.find('span').simulate('click');
+        // component has to be unmounted and remounted, because it doesn't receive props, 
+        // but its children are rendered with map. Standard wrapper.update() doesn't work here.
+        wrapper.unmount();
+        wrapper = setup();
+        const tabsContentCmpArray = wrapper.find(SimpleComponent);
+        expect(tabsContentCmpArray.length).toBe(3);
     });
 });

@@ -117,7 +117,8 @@ const Tabs = (props: {children: any, activeTabId?: string, onTabClick?: Function
                 children.map((child: any) => (
                     <div 
                         key={child.props.tabId} 
-                        style={(child.props.tabId === activeTab) ? {} : {display: "none"}}>
+                        data-test="tab-content"
+                        style={(child.props.tabId === activeTab) ? {display: "block"} : {display: "none"}}>
                         {child.props.children}
                     </div>
                 ))

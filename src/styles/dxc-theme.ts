@@ -14,11 +14,11 @@ export const Colors = {
         color: "white"
     },
     slider: {
-        color: "#000000"
+        baseColor: "#000000"
     },
     table: {
-        headerBackgroundColor: "#FFFFFF",
-        headerFontColor: "#000000"
+        baseColor: "#FFFFFF",
+        fontColor: "#000000"
     },
     spinner: {
         trackCircleColor: "#6F2C91",

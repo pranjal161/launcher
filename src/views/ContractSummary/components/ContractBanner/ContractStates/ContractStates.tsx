@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { ApplicationContext } from 'context/applicationContext';
+import { Axios } from 'data/hooks/useLoader';
 import { DxcSelect } from '@dxc-technology/halstack-react';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
 const ContractStates = (props: { stateUrl: string, onHistoryChange?: any }) => {
@@ -18,7 +18,7 @@ const ContractStates = (props: { stateUrl: string, onHistoryChange?: any }) => {
 
     const populateHistorySelect = (stateUrl: string) => {
         if (stateUrl) {
-            axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
+            Axios.get(stateUrl, { headers: applicationContext.headers }).then((res: any) => {
                 const response: any = res && res['data'];
                 if (response && response['_links'] && response['_links']['item']) {
                     const items = Array.isArray(response['_links']['item'])
