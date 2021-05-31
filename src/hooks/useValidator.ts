@@ -1,4 +1,5 @@
 import {
+    getLink,
     getMaxLength,
     getMaxValue,
     getMinLength,
@@ -12,6 +13,7 @@ import {
 import moment from "moment";
 
 export interface Field {
+        id: string,
         min: number,
         max: number,
         visible: boolean,
@@ -38,8 +40,9 @@ export interface ErrorField {
 
 const useValidator = () => {
 
-    const FieldWrapper = ( data: any, propertyName?: any, type?: string) => {
+    const FieldWrapper = ( data: any, propertyName: string, type?: string) => {
         let field: Field = {
+            id: createId(data, propertyName),
             min: getMinValue(data, propertyName),
             max: getMaxValue(data, propertyName),
             visible: isFieldVisible(data, propertyName),
@@ -51,6 +54,17 @@ const useValidator = () => {
             type: type? type: getPropertyType(data, propertyName)
         }
         return field;
+    }
+
+    const createId = (data: any, propertyName: string) => {
+        let elementId = '';
+        if (data) {
+            const link = getLink(data, 'self');
+            const baArray = link.split('/');
+            const id = link.split('/').slice(baArray.length - 1, baArray.length)[0].split('-')[1];
+            elementId = id + '_' + propertyName;
+        }
+        return elementId;
     }
 
     const Validation = (InputWrapper: Field, newValue: any, type?:string) => {

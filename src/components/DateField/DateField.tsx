@@ -45,7 +45,7 @@ const DateField = (props: InputProps) => {
     }
 
     return (
-        <span data-testid={propertyName}>
+        <span data-testid={field.id}>
             <DxcDate
                 label={t(propertyName)}
                 assistiveText={showError ? errorMessage : null}
