@@ -7,12 +7,12 @@ import React from 'react'
 
 test('renders the Date component', () => {
     render(<DateField data={resource.resource} propertyName="contract:renewal_date" />)
-    const linkElement = screen.getByTestId('W4Fb6FAqu_contract:renewal_date');
+    const linkElement = screen.getByTestId('contract:renewal_date');
     expect(linkElement).toBeInTheDocument()
 })
 
 test ('Test value', () => {
     render(<DateField data={resource.resource} propertyName="contract:renewal_date" />)
-    const linkElement = screen.getByTestId('W4Fb6FAqu_contract:renewal_date');
-    expect(linkElement).toContainHTML('5/1/2022');
+    const linkElement = screen.getByTestId('contract:renewal_date');
+    expect(linkElement).toContainHTML('01/05/2022');
 })
