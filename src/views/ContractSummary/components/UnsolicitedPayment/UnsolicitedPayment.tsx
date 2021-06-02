@@ -1,15 +1,15 @@
 import { DxcButton, DxcTable } from "@dxc-technology/halstack-react";
 import React, { useContext, useEffect, useState } from "react";
+import { getLink, getStatusReport } from "util/functions";
 
 import { AlertContext } from "context/alertContext";
 import { ApplicationContext } from "context/applicationContext";
 import TextField from "components/TextField/TextField";
-import { getStatusReport } from "util/functions";
 import useAia from "data/hooks/useAia";
 import { useTranslation } from "react-i18next";
 
 const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) => {
-    const url = props.url;
+    const postUrl = props.url;
     const applicationContext = useContext(ApplicationContext);
     const [fundData, setFundData] = useState<any>([]);
     // const [amount, setOperationAmount] = useState<Number>();
@@ -19,6 +19,7 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
     const [unsoliciteRes, setResposne] = useState();
     const alertContext = useContext(AlertContext);
     const { fetch, post, patch } = useAia();
+    const [url, setUrl] = useState('')
 
     useEffect(() => {
         investmentSplitData();
@@ -26,9 +27,10 @@ const UnsolicitedPayment = (props: { url: string; onClickDialog: () => void }) =
 
     const investmentSplitData = () => {
         const requestArray: any[] = [];
-        post(url, {}).then((res: any) => {
+        post(postUrl, {}).then((res: any) => {
             if (res && res.data) {
                 setResposne(res.data)
+                setUrl(getLink(res.data, 'self'));
                 let data = res.data['investment_split'];
                 // setOperationAmount(res.data['operation:amount']);
                 data.forEach((element: { [x: string]: any }) => {
