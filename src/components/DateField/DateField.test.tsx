@@ -14,5 +14,5 @@ test('renders the Date component', () => {
 test ('Test value', () => {
     render(<DateField data={resource.resource} propertyName="contract:renewal_date" />)
     const linkElement = screen.getByTestId('contract:renewal_date');
-    expect(linkElement).toContainHTML('5/1/2022');
+    expect(linkElement).toContainHTML('01/05/2022');
 })

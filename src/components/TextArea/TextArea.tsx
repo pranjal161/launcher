@@ -41,7 +41,7 @@ const TextArea = (props: InputProps) => {
     }
 
     return (
-        <span data-testid={propertyName}>
+        <span data-testid={field.id}>
             <DxcTextarea
                 label={t(propertyName)}
                 size="fillParent"

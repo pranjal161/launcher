@@ -41,7 +41,7 @@ const TextField = (props: InputProps) => {
     }
 
     return (
-        <span data-testid={propertyName}>
+        <span data-testid={field.id}>
             <DxcInput
                 label={t(propertyName)}
                 size="fillParent"
